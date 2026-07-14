@@ -31,9 +31,10 @@ Qualität: `pnpm typecheck`, `pnpm test`, `pnpm --filter @ascent/web build` (lä
 
 ## Cloudflare-Deployment
 
-D1-Datenbank (`ascent-db`, Region EEUR) und R2-Bucket (`ascent-media`) existieren; die `database_id` ist in `apps/api/wrangler.jsonc` eingetragen. Lokale Entwicklung braucht keinen Cloudflare-Login (wrangler simuliert D1/R2 lokal).
+Die API läuft live unter **https://ascent-api.sweber.workers.dev**. D1-Datenbank (`ascent-db`, Region EEUR) und R2-Bucket (`ascent-media`) existieren; die `database_id` ist in `apps/api/wrangler.jsonc` eingetragen. Lokale Entwicklung braucht keinen Cloudflare-Login (wrangler simuliert D1/R2 lokal).
 
 ```sh
 pnpm --filter @ascent/api db:migrate:remote   # Migrationen auf Remote-D1 anwenden
-pnpm --filter @ascent/api deploy              # Worker deployen
+pnpm --filter @ascent/api db:seed:remote      # Feature-Flags auf Remote-D1 seeden
+pnpm --filter @ascent/api run deploy          # Worker deployen ("run" nötig: pnpm hat einen eigenen deploy-Befehl)
 ```
