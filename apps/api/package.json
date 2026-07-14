@@ -10,7 +10,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate:local": "wrangler d1 migrations apply ascent-db --local",
     "db:migrate:remote": "wrangler d1 migrations apply ascent-db --remote",
-    "db:seed:local": "wrangler d1 execute ascent-db --local --file=./seed/feature_flags.sql"
+    "db:seed:local": "wrangler d1 execute ascent-db --local --file=./seed/feature_flags.sql",
+    "db:seed:remote": "wrangler d1 execute ascent-db --remote --file=./seed/feature_flags.sql"
   },
   "dependencies": {
     "hono": "^4.12.30",
