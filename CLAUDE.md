@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Status
 
-Ascent is an Android-based gym/fitness app with a browser dashboard, built as a private project for 2-3 users (the owner plus 1-2 training partners). **Milestone M0 (scaffolding) is done**; next up is M1 (backend: auth, CRUD, sync) per the milestone plan.
+Ascent is an Android-based gym/fitness app with a browser dashboard, built as a private project for 2-3 users (the owner plus 1-2 training partners). **Milestone M0 (scaffolding + Cloudflare setup) is done**; next up is M1 (backend: auth, CRUD, sync). **Read `PROJEKTSTATUS.md` first** — it holds the current state, known pitfalls, and open points for continuing work.
 
 Authoritative documents:
 
