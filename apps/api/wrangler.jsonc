@@ -6,20 +6,14 @@
   "observability": {
     "enabled": true,
   },
-  // D1: Nach `wrangler d1 create ascent-db` die zurückgegebene database_id
-  // hier eintragen (ersetzt den TODO-Platzhalter unten). Lokale Entwicklung
-  // (`pnpm dev` -> `wrangler dev`) funktioniert auch ohne echte database_id,
-  // da wrangler D1 lokal simuliert.
   "d1_databases": [
     {
       "binding": "DB",
       "database_name": "ascent-db",
-      "database_id": "TODO-nach-wrangler-d1-create-eintragen",
+      "database_id": "26c1e5a3-723e-47e6-8d21-be11e096a9c3",
       "migrations_dir": "drizzle",
     },
   ],
-  // R2: Bucket muss einmalig via `wrangler r2 bucket create ascent-media`
-  // angelegt werden (kein Erstellungsschritt in diesem Scaffold enthalten).
   "r2_buckets": [
     {
       "binding": "MEDIA",
