@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build-Artefakte
+dist/
+build/
+*.tsbuildinfo
+
+# Cloudflare
+.wrangler/
+.dev.vars
+
+# Expo / React Native
+.expo/
+apps/mobile/android/
+apps/mobile/ios/
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# Env & Secrets
+.env
+.env.*
+
+# Test & Coverage
+coverage/
+
+# OS / Editor
+Thumbs.db
+.DS_Store

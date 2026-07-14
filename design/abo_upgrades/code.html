@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCENT - Premium Abonnement</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#303030",
+                        "on-secondary-fixed": "#1b1b1c",
+                        "outline-variant": "#424a35",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "tertiary-container": "#e4e2e1",
+                        "error-container": "#93000a",
+                        "on-surface-variant": "#c1caaf",
+                        "on-surface": "#e5e2e1",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-fixed": "#121f00",
+                        "secondary-container": "#474746",
+                        "surface-tint": "#93db00",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#aef831",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container-highest": "#353534",
+                        "on-secondary-container": "#b7b5b4",
+                        "on-primary": "#213600",
+                        "surface": "#131313",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-bright": "#393939",
+                        "inverse-primary": "#446900",
+                        "error": "#ffb4ab",
+                        "outline": "#8c947b",
+                        "on-tertiary-container": "#656464",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "primary-fixed-dim": "#93db00",
+                        "primary": "#ffffff",
+                        "surface-variant": "#353534",
+                        "surface-dim": "#131313",
+                        "on-primary-container": "#496f00",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "inverse-on-surface": "#313030",
+                        "tertiary": "#ffffff",
+                        "on-secondary": "#303030",
+                        "surface-container": "#201f1f",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#324f00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "background": "#131313",
+                        "primary-container": "#aef831",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-fixed": "#e5e2e1",
+                        "tertiary-fixed": "#e4e2e1",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "secondary": "#c8c6c5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "lg": "24px",
+                        "sm": "12px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "xl": "32px",
+                        "touch-target-min": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "data-display": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "data-display": ["24px", { "lineHeight": "30px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .premium-glow {
+            box-shadow: 0 0 20px rgba(174, 248, 49, 0.15);
+        }
+        .premium-border {
+            border: 1px solid rgba(174, 248, 49, 0.3);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:hidden">
+<!-- TopAppBar Mobile (Abridged for Transactional/Paywall intent - Focus on "Close" to return to main flow) -->
+<header class="fixed top-0 w-full z-50 bg-surface h-touch-target-min flex justify-between items-center px-md flat no shadows">
+<button aria-label="Zurück" class="w-touch-target-min h-touch-target-min flex items-center justify-center text-on-surface-variant hover:opacity-80 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-black text-primary-fixed italic tracking-tighter">ASCENT</span>
+<div class="w-touch-target-min h-touch-target-min"></div> <!-- Spacer for centering -->
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[80px] pb-xl px-md flex flex-col justify-center">
+<!-- Header Section -->
+<div class="text-center mb-xl">
+<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#1E1E1E] mb-md premium-border premium-glow">
+<span class="material-symbols-outlined text-primary-fixed text-[32px]" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl mb-xs">Premium Active</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Entfalte dein volles Potenzial mit datengesteuertem Training.</p>
+</div>
+<!-- Benefits List -->
+<div class="bg-[#1E1E1E] rounded-xl p-md mb-xl border border-[#2C2C2C]">
+<ul class="space-y-sm">
+<li class="flex items-start">
+<span class="material-symbols-outlined text-primary-fixed mr-sm shrink-0" data-icon="check_circle">check_circle</span>
+<div>
+<span class="font-label-sm text-label-sm block mb-base">KI-BASIERTE TRAININGSPLÄNE</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Personalisierte Anpassungen nach jedem Workout.</span>
+</div>
+</li>
+<li class="w-full h-px bg-[#2C2C2C]"></li>
+<li class="flex items-start">
+<span class="material-symbols-outlined text-primary-fixed mr-sm shrink-0" data-icon="check_circle">check_circle</span>
+<div>
+<span class="font-label-sm text-label-sm block mb-base">ERWEITERTE STATISTIKEN</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Tiefgehende Analyse deiner Muskelgruppenbelastung.</span>
+</div>
+</li>
+<li class="w-full h-px bg-[#2C2C2C]"></li>
+<li class="flex items-start">
+<span class="material-symbols-outlined text-primary-fixed mr-sm shrink-0" data-icon="check_circle">check_circle</span>
+<div>
+<span class="font-label-sm text-label-sm block mb-base">UNBEGRENZTER VERLAUF</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Greife auf alle deine vergangenen Trainingsdaten zu.</span>
+</div>
+</li>
+</ul>
+</div>
+<!-- Pricing Toggle -->
+<div class="mb-xl flex justify-center">
+<div class="bg-[#121212] rounded-full p-1 inline-flex border border-[#2C2C2C]">
+<button class="px-lg py-xs rounded-full font-label-sm text-label-sm transition-colors text-on-surface-variant hover:text-primary-fixed" id="btn-monthly">
+                    MONATLICH
+                </button>
+<button class="px-lg py-xs rounded-full font-label-sm text-label-sm transition-colors bg-primary-container text-on-primary-container" id="btn-yearly">
+                    JÄHRLICH (-15%)
+                </button>
+</div>
+</div>
+<!-- Price Display -->
+<div class="text-center mb-xl" id="price-display">
+<div class="flex items-baseline justify-center">
+<span class="font-headline-xl text-headline-xl">50</span>
+<span class="font-body-lg text-body-lg ml-xs text-on-surface-variant">CHF / Jahr</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant mt-base block">Entspricht 4.16 CHF / Monat</span>
+</div>
+<!-- CTA -->
+<div class="mt-auto">
+<button class="w-full h-[56px] rounded-lg font-label-sm text-label-sm bg-[#B4FF39] text-[#121f00] flex items-center justify-center transition-transform active:scale-95 hover:opacity-90" style="background: linear-gradient(to bottom, #B4FF39, #8EDD20);">
+                14 TAGE KOSTENLOS TESTEN
+            </button>
+<p class="font-label-sm text-label-sm text-center text-on-surface-variant mt-sm opacity-70">
+                Jederzeit kündbar. Nach 14 Tagen kostenpflichtig.
+            </p>
+</div>
+</main>
+<script>
+        // Simple toggle logic
+        const btnMonthly = document.getElementById('btn-monthly');
+        const btnYearly = document.getElementById('btn-yearly');
+        const priceDisplay = document.getElementById('price-display');
+
+        btnMonthly.addEventListener('click', () => {
+            btnMonthly.classList.add('bg-primary-container', 'text-on-primary-container');
+            btnMonthly.classList.remove('text-on-surface-variant');
+            btnYearly.classList.remove('bg-primary-container', 'text-on-primary-container');
+            btnYearly.classList.add('text-on-surface-variant');
+            
+            priceDisplay.innerHTML = `
+                <div class="flex items-baseline justify-center">
+                    <span class="font-headline-xl text-headline-xl">5</span>
+                    <span class="font-body-lg text-body-lg ml-xs text-on-surface-variant">CHF / Monat</span>
+                </div>
+            `;
+        });
+
+        btnYearly.addEventListener('click', () => {
+            btnYearly.classList.add('bg-primary-container', 'text-on-primary-container');
+            btnYearly.classList.remove('text-on-surface-variant');
+            btnMonthly.classList.remove('bg-primary-container', 'text-on-primary-container');
+            btnMonthly.classList.add('text-on-surface-variant');
+            
+            priceDisplay.innerHTML = `
+                <div class="flex items-baseline justify-center">
+                    <span class="font-headline-xl text-headline-xl">50</span>
+                    <span class="font-body-lg text-body-lg ml-xs text-on-surface-variant">CHF / Jahr</span>
+                </div>
+                <span class="font-label-sm text-label-sm text-on-surface-variant mt-base block">Entspricht 4.16 CHF / Monat</span>
+            `;
+        });
+    </script>
+</body></html>

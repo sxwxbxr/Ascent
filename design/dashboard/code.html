@@ -1,0 +1,253 @@
+<!DOCTYPE html><html lang="de" class="dark"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script id="tailwind-config">try{
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary": "#303030",
+                      "on-secondary-fixed": "#1b1b1c",
+                      "outline-variant": "#424a35",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "tertiary-container": "#e4e2e1",
+                      "error-container": "#93000a",
+                      "on-surface-variant": "#c1caaf",
+                      "on-surface": "#e5e2e1",
+                      "inverse-surface": "#e5e2e1",
+                      "on-primary-fixed": "#121f00",
+                      "secondary-container": "#474746",
+                      "surface-tint": "#93db00",
+                      "on-background": "#e5e2e1",
+                      "primary-fixed": "#aef831",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-low": "#1c1b1b",
+                      "surface-container-highest": "#353534",
+                      "on-secondary-container": "#b7b5b4",
+                      "on-primary": "#213600",
+                      "surface": "#131313",
+                      "on-secondary-fixed-variant": "#474746",
+                      "surface-bright": "#393939",
+                      "inverse-primary": "#446900",
+                      "error": "#ffb4ab",
+                      "outline": "#8c947b",
+                      "on-tertiary-container": "#656464",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "primary-fixed-dim": "#93db00",
+                      "primary": "#ffffff",
+                      "surface-variant": "#353534",
+                      "surface-dim": "#131313",
+                      "on-primary-container": "#496f00",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "inverse-on-surface": "#313030",
+                      "tertiary": "#ffffff",
+                      "on-secondary": "#303030",
+                      "surface-container": "#201f1f",
+                      "on-error": "#690005",
+                      "on-primary-fixed-variant": "#324f00",
+                      "surface-container-lowest": "#0e0e0e",
+                      "background": "#131313",
+                      "primary-container": "#aef831",
+                      "surface-container-high": "#2a2a2a",
+                      "secondary-fixed": "#e5e2e1",
+                      "tertiary-fixed": "#e4e2e1",
+                      "on-tertiary-fixed": "#1b1c1c",
+                      "secondary": "#c8c6c5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "16px",
+                      "lg": "24px",
+                      "sm": "12px",
+                      "base": "4px",
+                      "xs": "8px",
+                      "xl": "32px",
+                      "touch-target-min": "48px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter", "sans-serif"],
+                      "body-lg": ["Inter", "sans-serif"],
+                      "label-sm": ["Inter", "sans-serif"],
+                      "headline-xl": ["Inter", "sans-serif"],
+                      "body-md": ["Inter", "sans-serif"],
+                      "data-display": ["Inter", "sans-serif"],
+                      "headline-lg": ["Inter", "sans-serif"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "data-display": ["24px", {"lineHeight": "30px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="level-0 min-h-screen flex flex-col relative pb-[80px] md:pb-0 md:pt-24">
+<!-- Top Navigation Container -->
+<!-- Mobile TopAppBar -->
+<header class="md:hidden bg-surface dark:bg-surface fixed top-0 w-full z-50">
+<div class="flex justify-between items-center px-md h-touch-target-min">
+<button class="text-on-surface-variant hover:opacity-80 active:scale-95 transition-transform" aria-label="Menu">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-black text-primary-fixed italic tracking-tighter">ASCENT</h1>
+<button class="text-on-surface-variant hover:opacity-80 active:scale-95 transition-transform" aria-label="Notifications">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<!-- Desktop TopAppBar -->
+<header class="hidden md:flex bg-surface dark:bg-surface sticky top-0 w-full z-50 border-b border-outline-variant">
+<div class="max-w-[1200px] mx-auto w-full flex justify-between items-center h-xl px-lg">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary-fixed" data-icon="speed">speed</span>
+<h1 class="font-headline-lg text-headline-lg font-black text-primary-fixed italic tracking-tighter">ASCENT</h1>
+</div>
+<nav class="flex gap-8">
+<a href="#" class="font-label-sm text-label-sm text-primary-fixed border-b-2 border-primary-fixed pb-xs">Home</a>
+<a href="#" class="font-label-sm text-label-sm text-secondary hover:text-primary-fixed transition-colors active:opacity-70">Pläne</a>
+<a href="#" class="font-label-sm text-label-sm text-secondary hover:text-primary-fixed transition-colors active:opacity-70">Verlauf</a>
+<a href="#" class="font-label-sm text-label-sm text-secondary hover:text-primary-fixed transition-colors active:opacity-70">Profil</a>
+</nav>
+<button class="font-label-sm text-label-sm text-primary-fixed border border-primary-fixed px-4 py-2 rounded uppercase tracking-wider hover:bg-primary-fixed/10 transition-colors">
+                Premium Active
+            </button>
+</div>
+</header>
+<main class="flex-grow pt-16 md:pt-0 max-w-[1200px] mx-auto w-full px-md md:px-lg space-y-lg pb-xl">
+<!-- Update Banner -->
+<div class="level-2 rounded-lg p-sm flex items-center justify-between card-inner-stroke mt-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary-fixed text-sm" data-icon="update">update</span>
+<span class="font-label-sm text-label-sm text-on-surface">V2.4 Verfügbar. Neue Features entdecken.</span>
+</div>
+<button class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider hover:opacity-80 transition-opacity">Details</button>
+</div>
+<!-- Dashboard Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg mt-md">
+<!-- Main Content Area (Left Col on Desktop) -->
+<div class="md:col-span-8 flex flex-col gap-lg">
+<!-- Hero Section: Today's Plan -->
+<section class="level-1 rounded-xl p-md card-inner-stroke relative overflow-hidden group cursor-pointer">
+<!-- Background Image Context -->
+<div class="absolute inset-0 z-0 opacity-40 mix-blend-overlay transition-transform duration-700 group-hover:scale-105" data-alt="A cinematic, high-contrast black and white photograph of heavy steel dumbbells in a dimly lit, gritty industrial gym setting. A dramatic streak of harsh neon lime-green light cuts across the raw iron textures, emphasizing the raw, focused energy of strength training. The mood is intense, disciplined, and utilitarian, perfectly aligning with a dark performance aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAmVwQ56tmXuIAu9xDJehCHx3JXca_Y3WbcUV13dEwIet_NClMYY-6GH--jeUGXfJwgJdrR0BATxC4_cS8TbKpYnNvj4X8G8yRsp4d9OLwRC5g3siK69xRXCukGabBttVTlHQwlFi7rq-b-dokpNKA4QcDOhgrm5jz8EAFuxIHF4n_5IqicYjDd9C9djMqlsWmwN8cHA4Dxkyzc7bu20VjYWBHMqbL3SGqyKrcd5CIDnC-suF76f-8OBR8YI6lM5J_q_4FVtUeA4Tw')">
+</div>
+<!-- Overlay gradient for text readability -->
+<div class="absolute inset-0 z-0 bg-gradient-to-t from-[#1E1E1E] via-[#1E1E1E]/80 to-transparent"></div>
+<div class="relative z-10 flex flex-col h-full justify-between min-h-[200px]">
+<div class="flex justify-between items-start">
+<span class="font-label-sm text-label-sm text-primary-fixed tracking-widest uppercase">Heute Geplant</span>
+<span class="material-symbols-outlined text-primary-fixed" data-icon="more_horiz">more_horiz</span>
+</div>
+<div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface mb-xs">Oberkörper Fokus</h2>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="timer">timer</span> 60 Min
+                                <span class="text-surface-variant">|</span>
+<span class="material-symbols-outlined text-sm" data-icon="fitness_center">fitness_center</span> 8 Übungen
+                            </p>
+</div>
+</div>
+</section>
+<!-- Next Actions / Exercises Bento -->
+<section class="grid grid-cols-2 gap-sm">
+<div class="level-1 rounded-lg p-sm card-inner-stroke flex flex-col justify-between h-[120px]">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Nächste Übung</span>
+<div>
+<p class="font-data-display text-data-display text-on-surface">Bankdrücken</p>
+<p class="font-label-sm text-label-sm text-primary-fixed mt-1">4 Sätze × 8-10 Wdh</p>
+</div>
+</div>
+<div class="level-1 rounded-lg p-sm card-inner-stroke flex flex-col justify-between h-[120px]">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Letztes Gewicht</span>
+<div>
+<p class="font-data-display text-data-display text-on-surface">85<span class="text-sm text-on-surface-variant ml-1">kg</span></p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-primary-fixed" data-icon="trending_up">trending_up</span> +2.5kg
+                            </p>
+</div>
+</div>
+</section>
+<!-- CTA Button (Desktop only here, mobile uses FAB) -->
+<button class="hidden md:flex btn-primary-gradient w-full rounded-lg h-14 items-center justify-center font-headline-lg-mobile text-headline-lg-mobile text-on-primary-fixed uppercase tracking-wider hover:opacity-90 active:scale-[0.98] transition-all">
+                    Training Starten
+                </button>
+</div>
+<!-- Sidebar Stats (Right Col on Desktop) -->
+<div class="md:col-span-4 flex flex-col gap-lg">
+<!-- Streak Display -->
+<section class="level-1 rounded-xl p-md card-inner-stroke flex items-center gap-md">
+<div class="w-16 h-16 rounded-full level-2 flex items-center justify-center border border-primary-fixed/30 relative">
+<!-- Pulsing effect behind flame -->
+<div class="absolute inset-0 rounded-full border border-primary-fixed animate-ping opacity-20"></div>
+<span class="material-symbols-outlined text-primary-fixed text-3xl" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Aktueller Streak</p>
+<p class="font-headline-xl text-headline-xl text-on-surface flex items-baseline gap-1">
+                            14 <span class="font-body-md text-body-md text-primary-fixed">Tage</span>
+</p>
+</div>
+</section>
+<!-- Weekly Progress -->
+<section class="level-1 rounded-xl p-md card-inner-stroke">
+<div class="flex justify-between items-center mb-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Wochenziel</span>
+<span class="font-label-sm text-label-sm text-on-surface">3/4 Einheiten</span>
+</div>
+<div class="flex gap-2 h-12 w-full">
+<!-- Days markers -->
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full h-2 rounded-full bg-primary-fixed"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">MO</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full h-2 rounded-full bg-primary-fixed"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">MI</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full h-2 rounded-full bg-primary-fixed"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">FR</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full h-2 rounded-full level-2"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">SO</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Mobile Floating Action Button -->
+<div class="md:hidden fixed bottom-[90px] right-md z-50">
+<button class="btn-primary-gradient w-14 h-14 rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-on-primary-fixed" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</div>
+<!-- Mobile BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface-container dark:bg-surface-container border-t-0 shadow-[0_-4px_24px_rgba(0,0,0,0.4)] flex justify-around items-center h-[72px] px-sm pb-safe">
+  <a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-lg py-xs hover:bg-surface-bright active:scale-90 transition-all min-w-[64px]" href="#">
+    <span class="material-symbols-outlined mb-base" style="font-variation-settings: 'FILL' 1;">home</span>
+    <span class="font-label-sm text-label-sm">Home</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-bright active:scale-90 transition-all p-xs rounded-lg min-w-[64px]" href="#">
+    <span class="material-symbols-outlined mb-base">fitness_center</span>
+    <span class="font-label-sm text-label-sm">Pläne</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-bright active:scale-90 transition-all p-xs rounded-lg min-w-[64px]" href="#">
+    <span class="material-symbols-outlined mb-base">history</span>
+    <span class="font-label-sm text-label-sm">Verlauf</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-bright active:scale-90 transition-all p-xs rounded-lg min-w-[64px]" href="#">
+    <span class="material-symbols-outlined mb-base">person</span>
+    <span class="font-label-sm text-label-sm">Profil</span>
+  </a>
+</nav>
+
+</body></html>

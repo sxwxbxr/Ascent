@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCENT - Trainingspläne</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary": "#303030",
+                      "on-secondary-fixed": "#1b1b1c",
+                      "outline-variant": "#424a35",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "tertiary-container": "#e4e2e1",
+                      "error-container": "#93000a",
+                      "on-surface-variant": "#c1caaf",
+                      "on-surface": "#e5e2e1",
+                      "inverse-surface": "#e5e2e1",
+                      "on-primary-fixed": "#121f00",
+                      "secondary-container": "#474746",
+                      "surface-tint": "#93db00",
+                      "on-background": "#e5e2e1",
+                      "primary-fixed": "#aef831",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-low": "#1c1b1b",
+                      "surface-container-highest": "#353534",
+                      "on-secondary-container": "#b7b5b4",
+                      "on-primary": "#213600",
+                      "surface": "#131313",
+                      "on-secondary-fixed-variant": "#474746",
+                      "surface-bright": "#393939",
+                      "inverse-primary": "#446900",
+                      "error": "#ffb4ab",
+                      "outline": "#8c947b",
+                      "on-tertiary-container": "#656464",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "primary-fixed-dim": "#93db00",
+                      "primary": "#ffffff",
+                      "surface-variant": "#353534",
+                      "surface-dim": "#131313",
+                      "on-primary-container": "#496f00",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "inverse-on-surface": "#313030",
+                      "tertiary": "#ffffff",
+                      "on-secondary": "#303030",
+                      "surface-container": "#201f1f",
+                      "on-error": "#690005",
+                      "on-primary-fixed-variant": "#324f00",
+                      "surface-container-lowest": "#0e0e0e",
+                      "background": "#131313",
+                      "primary-container": "#aef831",
+                      "surface-container-high": "#2a2a2a",
+                      "secondary-fixed": "#e5e2e1",
+                      "tertiary-fixed": "#e4e2e1",
+                      "on-tertiary-fixed": "#1b1c1c",
+                      "secondary": "#c8c6c5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "16px",
+                      "lg": "24px",
+                      "sm": "12px",
+                      "base": "4px",
+                      "xs": "8px",
+                      "xl": "32px",
+                      "touch-target-min": "48px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-xl": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "data-display": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "34px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-xl": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-display": [
+                              "24px",
+                              {
+                                      "lineHeight": "30px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen pb-[90px] pt-[64px]">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface flex justify-between items-center px-md h-touch-target-min border-b border-surface-container-highest shadow-sm">
+<button class="text-on-surface-variant hover:text-primary-fixed transition-colors active:scale-95 flex items-center justify-center w-touch-target-min h-touch-target-min">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">fitness_center</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-black text-primary-fixed italic tracking-tighter">ASCENT</h1>
+<button class="text-on-surface-variant hover:text-primary-fixed transition-colors active:scale-95 flex items-center justify-center w-touch-target-min h-touch-target-min">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="px-md md:max-w-[1200px] md:mx-auto pt-lg space-y-lg">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-md">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-base">Meine Pläne</h2>
+<p class="font-body-md text-on-surface-variant">Aktives Trainingsprogramm</p>
+</div>
+<!-- FAB - Mobile Only / Top Action Web -->
+<button class="hidden md:flex bg-primary-container text-on-primary-container font-label-sm h-touch-target-min px-lg rounded-full items-center gap-xs hover:opacity-90 active:scale-95 transition-transform shadow-lg">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Neuen Plan erstellen
+            </button>
+</div>
+<!-- Plans Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+<!-- Plan Card 1 -->
+<div class="bg-[#1E1E1E] border border-[#2C2C2C] rounded-lg p-md flex flex-col justify-between h-[180px] active:scale-[0.98] transition-transform cursor-pointer hover:border-outline-variant relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-surface-container-high/50 to-transparent pointer-events-none"></div>
+<div class="relative z-10 flex justify-between items-start">
+<div>
+<span class="font-label-sm text-primary-fixed bg-primary-fixed/10 px-xs py-base rounded-full uppercase tracking-wider mb-sm inline-block">Aktiv</span>
+<h3 class="font-data-display text-data-display text-on-surface">Push A</h3>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="relative z-10 flex justify-between items-end mt-auto">
+<div class="flex flex-col">
+<span class="font-label-sm text-on-surface-variant mb-base">Frequenz</span>
+<span class="font-body-md text-on-surface">2x / Woche</span>
+</div>
+<div class="w-touch-target-min h-touch-target-min rounded-full bg-surface-container flex items-center justify-center group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</div>
+</div>
+</div>
+<!-- Plan Card 2 -->
+<div class="bg-[#1E1E1E] border border-[#2C2C2C] rounded-lg p-md flex flex-col justify-between h-[180px] active:scale-[0.98] transition-transform cursor-pointer hover:border-outline-variant relative overflow-hidden group opacity-80">
+<div class="relative z-10 flex justify-between items-start">
+<div>
+<h3 class="font-data-display text-data-display text-on-surface">Pull B</h3>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="relative z-10 flex justify-between items-end mt-auto">
+<div class="flex flex-col">
+<span class="font-label-sm text-on-surface-variant mb-base">Frequenz</span>
+<span class="font-body-md text-on-surface">2x / Woche</span>
+</div>
+<div class="w-touch-target-min h-touch-target-min rounded-full bg-surface-container flex items-center justify-center group-hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</div>
+</div>
+</div>
+<!-- Plan Card 3 -->
+<div class="bg-[#1E1E1E] border border-[#2C2C2C] rounded-lg p-md flex flex-col justify-between h-[180px] active:scale-[0.98] transition-transform cursor-pointer hover:border-outline-variant relative overflow-hidden group opacity-80">
+<div class="relative z-10 flex justify-between items-start">
+<div>
+<h3 class="font-data-display text-data-display text-on-surface">Beine</h3>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<div class="relative z-10 flex justify-between items-end mt-auto">
+<div class="flex flex-col">
+<span class="font-label-sm text-on-surface-variant mb-base">Frequenz</span>
+<span class="font-body-md text-on-surface">1x / Woche</span>
+</div>
+<div class="w-touch-target-min h-touch-target-min rounded-full bg-surface-container flex items-center justify-center group-hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</div>
+</div>
+</div>
+<!-- Plan Card 4 (Archived/Inactive) -->
+<div class="bg-surface-container-low border border-surface-container-highest rounded-lg p-md flex flex-col justify-between h-[180px] opacity-60">
+<div class="relative z-10 flex justify-between items-start">
+<div>
+<h3 class="font-data-display text-data-display text-on-surface-variant">Full Body</h3>
+</div>
+</div>
+<div class="relative z-10 flex justify-between items-end mt-auto">
+<div class="flex flex-col">
+<span class="font-label-sm text-on-surface-variant mb-base">Status</span>
+<span class="font-body-md text-on-surface-variant">Archiviert</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for Mobile -->
+<div class="fixed bottom-[100px] right-md md:hidden z-40">
+<button class="bg-primary-container text-on-primary-container w-[56px] h-[56px] rounded-full flex items-center justify-center shadow-[0_4px_14px_rgba(174,248,49,0.2)] active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+</div>
+<!-- BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-xl bg-surface-container dark:bg-surface-container border-t-0 shadow-[0_-4px_24px_rgba(0,0,0,0.4)] flex justify-around items-center h-[72px] px-sm pb-safe">
+<!-- Inactive: Home -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-bright active:scale-90 transition-all p-xs rounded-lg min-w-[64px]" href="#">
+<span class="material-symbols-outlined mb-base">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<!-- Active: Pläne -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-lg py-xs hover:bg-surface-bright active:scale-90 transition-all min-w-[64px]" href="#">
+<span class="material-symbols-outlined mb-base" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<span class="font-label-sm text-label-sm">Pläne</span>
+</a>
+<!-- Inactive: Verlauf -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-bright active:scale-90 transition-all p-xs rounded-lg min-w-[64px]" href="#">
+<span class="material-symbols-outlined mb-base">history</span>
+<span class="font-label-sm text-label-sm">Verlauf</span>
+</a>
+<!-- Inactive: Profil -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-bright active:scale-90 transition-all p-xs rounded-lg min-w-[64px]" href="#">
+<span class="material-symbols-outlined mb-base">person</span>
+<span class="font-label-sm text-label-sm">Profil</span>
+</a>
+</nav>
+</body></html>

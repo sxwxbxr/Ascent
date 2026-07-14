@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCENT - Übungsauswahl</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#303030",
+                        "on-secondary-fixed": "#1b1b1c",
+                        "outline-variant": "#424a35",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "tertiary-container": "#e4e2e1",
+                        "error-container": "#93000a",
+                        "on-surface-variant": "#c1caaf",
+                        "on-surface": "#e5e2e1",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-fixed": "#121f00",
+                        "secondary-container": "#474746",
+                        "surface-tint": "#93db00",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#aef831",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container-highest": "#353534",
+                        "on-secondary-container": "#b7b5b4",
+                        "on-primary": "#213600",
+                        "surface": "#131313",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-bright": "#393939",
+                        "inverse-primary": "#446900",
+                        "error": "#ffb4ab",
+                        "outline": "#8c947b",
+                        "on-tertiary-container": "#656464",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "primary-fixed-dim": "#93db00",
+                        "primary": "#ffffff",
+                        "surface-variant": "#353534",
+                        "surface-dim": "#131313",
+                        "on-primary-container": "#496f00",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "inverse-on-surface": "#313030",
+                        "tertiary": "#ffffff",
+                        "on-secondary": "#303030",
+                        "surface-container": "#201f1f",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#324f00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "background": "#131313",
+                        "primary-container": "#aef831",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-fixed": "#e5e2e1",
+                        "tertiary-fixed": "#e4e2e1",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "secondary": "#c8c6c5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "lg": "24px",
+                        "sm": "12px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "xl": "32px",
+                        "touch-target-min": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "data-display": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "data-display": ["24px", {"lineHeight": "30px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for chips */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body-md min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed flex flex-col">
+<!-- Top Navigation for Sub-page (Task-focused, so no BottomNavBar) -->
+<header class="bg-surface dark:bg-surface sticky top-0 w-full z-50 flat no shadows border-b border-surface-container-highest">
+<div class="flex justify-between items-center px-md h-touch-target-min">
+<button aria-label="Zurück" class="text-on-surface-variant active:scale-95 transition-transform h-touch-target-min w-touch-target-min flex items-center justify-center -ml-3">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Übungen</h1>
+<div class="w-touch-target-min"></div> <!-- Spacer for centering -->
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 max-w-[1200px] w-full mx-auto pb-xl">
+<!-- Search & Filter Section -->
+<section class="sticky top-[48px] bg-surface z-40 pb-md pt-md px-md md:px-lg border-b border-surface-container-highest">
+<!-- Search Bar -->
+<div class="relative w-full mb-sm">
+<div class="absolute inset-y-0 left-0 pl-sm flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="search">search</span>
+</div>
+<input class="block w-full pl-xl pr-sm py-sm bg-[#121212] border-none rounded-DEFAULT text-on-surface font-body-md placeholder-on-surface-variant focus:ring-1 focus:ring-primary-fixed focus:outline-none transition-all h-[48px]" placeholder="Übung suchen..." type="text"/>
+</div>
+<!-- Filter Chips (Scrollable Row) -->
+<div class="flex overflow-x-auto hide-scrollbar gap-xs pb-1 -mx-md px-md md:mx-0 md:px-0">
+<button class="whitespace-nowrap px-md py-xs rounded-full bg-primary-fixed text-[#121212] font-label-sm text-label-sm active:scale-95 transition-transform flex-shrink-0">
+                    Alle
+                </button>
+<button class="whitespace-nowrap px-md py-xs rounded-full bg-[#2C2C2C] text-on-surface font-label-sm text-label-sm hover:bg-surface-bright active:scale-95 transition-transform flex-shrink-0">
+                    Brust
+                </button>
+<button class="whitespace-nowrap px-md py-xs rounded-full bg-[#2C2C2C] text-on-surface font-label-sm text-label-sm hover:bg-surface-bright active:scale-95 transition-transform flex-shrink-0">
+                    Rücken
+                </button>
+<button class="whitespace-nowrap px-md py-xs rounded-full bg-[#2C2C2C] text-on-surface font-label-sm text-label-sm hover:bg-surface-bright active:scale-95 transition-transform flex-shrink-0">
+                    Beine
+                </button>
+<button class="whitespace-nowrap px-md py-xs rounded-full bg-[#2C2C2C] text-on-surface font-label-sm text-label-sm hover:bg-surface-bright active:scale-95 transition-transform flex-shrink-0">
+                    Schultern
+                </button>
+<button class="whitespace-nowrap px-md py-xs rounded-full bg-[#2C2C2C] text-on-surface font-label-sm text-label-sm hover:bg-surface-bright active:scale-95 transition-transform flex-shrink-0">
+                    Arme
+                </button>
+<button class="whitespace-nowrap px-md py-xs rounded-full bg-[#2C2C2C] text-on-surface font-label-sm text-label-sm hover:bg-surface-bright active:scale-95 transition-transform flex-shrink-0 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="tune">tune</span>
+                    Geräte
+                </button>
+</div>
+</section>
+<!-- Exercise List -->
+<section class="px-md md:px-lg mt-md flex flex-col gap-[1px] bg-[#2C2C2C]">
+<!-- List Item 1 -->
+<button class="flex items-center gap-md bg-[#1E1E1E] p-sm min-h-[64px] active:bg-surface-bright transition-colors text-left w-full group relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent group-hover:bg-primary-fixed transition-colors"></div>
+<img alt="Bankdrücken" class="w-[56px] h-[56px] rounded-DEFAULT object-cover flex-shrink-0 bg-surface-container" data-alt="A close-up, high-contrast black and white photograph of a muscular athlete performing a barbell bench press in a gritty, dimly lit gym. The lighting emphasizes the tension in the chest and arm muscles. A subtle neon lime green light leaks in from the background, highlighting the heavy iron plates." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG_uZoEbfIzlDxTQfwXeG4fP4KS7EAEf63kIjC9bNuv1b6OZ_wuSfIOMnOxqtcqOH92EaKI7SDPGgw88WKDFztG3gpkST2wpL_SXN-S3HBrsdZCMZGXQxzP_iCs7Ig6b6AO4htGjz49NSh_7q7KFTNq0oc3C3JlfM7dbzhNJSPGhvrUO77p425rCPT6zaxx88B8XvusAeKFp2XsFpHhyq2zBqpeZrdeiFII3ioAIEfjFreFWeEqMme4cpOJHlBeV4yHkh3jrVwgfc"/>
+<div class="flex-1 min-w-0">
+<h3 class="font-body-md text-on-surface truncate">Bankdrücken (Langhantel)</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 truncate">Brust • Langhantel</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant flex-shrink-0" data-icon="add_circle">add_circle</span>
+</button>
+<!-- List Item 2 -->
+<button class="flex items-center gap-md bg-[#1E1E1E] p-sm min-h-[64px] active:bg-surface-bright transition-colors text-left w-full group relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent group-hover:bg-primary-fixed transition-colors"></div>
+<img alt="Kreuzheben" class="w-[56px] h-[56px] rounded-DEFAULT object-cover flex-shrink-0 bg-surface-container" data-alt="A dynamic, low-angle shot of a male athlete executing a heavy deadlift. The scene is lit with harsh, dramatic spotlights against a pitch-black background, typical of a high-performance training facility. Dust particles float in the air, catching the stark white light, with a faint lime-green rim light defining his silhouette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD41vGkb1dcUg7jWxyBynwLD2h0_DZegUh53jK2VAUQekNAtGvKWBitsmoI-Z7_xO4zfEypvEtSo4c10cNHXGkQQbgwbnYfWwWvYUVk31-GDLWVdZ1AiPSNikXVy4F6ZCpJfbPLhpY2yZl2SQCwOLQEFasg7ZrVfHhmde1jEXSfol_kUlBLlbmtk42J_S5jykUa2nSe4B-UpxPgB2LvsDtBhfBbmWUOm0kGEkN_pyL5vDG25Lp1rSSDTrUrt7zwpyVx6psUve3oXtQ"/>
+<div class="flex-1 min-w-0">
+<h3 class="font-body-md text-on-surface truncate">Kreuzheben</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 truncate">Rücken, Beine • Langhantel</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant flex-shrink-0" data-icon="add_circle">add_circle</span>
+</button>
+<!-- List Item 3 -->
+<button class="flex items-center gap-md bg-[#1E1E1E] p-sm min-h-[64px] active:bg-surface-bright transition-colors text-left w-full group relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent group-hover:bg-primary-fixed transition-colors"></div>
+<img alt="Latzug" class="w-[56px] h-[56px] rounded-DEFAULT object-cover flex-shrink-0 bg-surface-container" data-alt="A tight, intense image focusing on a person's back muscles during a lat pulldown exercise on a cable machine. The environment is dark and industrial, with sharp shadows and specular highlights on sweat. A distinct lime-green hue illuminates the cable mechanism and weight stack." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDgAyTt8SivFlkCAlAWFBFXDeVNUJVI2tahWkbwVha7mTUQYS4_PYAOgamHmFO8EOuPHoBQu_RBenlBuU6mNvOu7VzNuisX-BgoP1rLVuLJP_CfPAKTPThzcWD1JtidHOMTbVSNhVxQXZrfK8KkSu3ryaStE7bRlXoxbTNDFa96ropYTE4G-JgsOPi0snUgJqFYMqL045MArD757IRmqLq4XkhY_B_5vx7IWv7TUvZCRRp13pIxm6C5xiAMcQeyjRpLDMI4o5ziUk"/>
+<div class="flex-1 min-w-0">
+<h3 class="font-body-md text-on-surface truncate">Latzug zur Brust</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 truncate">Rücken • Kabelzug</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant flex-shrink-0" data-icon="add_circle">add_circle</span>
+</button>
+<!-- List Item 4 -->
+<button class="flex items-center gap-md bg-[#1E1E1E] p-sm min-h-[64px] active:bg-surface-bright transition-colors text-left w-full group relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent group-hover:bg-primary-fixed transition-colors"></div>
+<img alt="Kniebeugen" class="w-[56px] h-[56px] rounded-DEFAULT object-cover flex-shrink-0 bg-surface-container" data-alt="A focused side-profile shot of a woman performing a deep barbell squat. The lighting is moody and cinematic, with a stark contrast between deep blacks and bright highlights on her athletic form. A subtle digital green glowing element is integrated into the gym flooring, giving a futuristic performance aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAho9tcA8GOI41Ncq0fw4L7PwP1mWV8nHcPv01aLA8zTK4JnzwoUNmsTVpcaMi7IBz45cRxsbila5iRFacXP_usec_SHDgjKFArwb22QQw9B6VTaOYcMdCV6ksV9E2tzTYR5M_4tfORBfu68R8JaRBTLjRqoRndJxMU50od-WgqwYuvU6pXKDZ35zMFWK0lKo8ngKeV5mHpli3oGCf3JKtSyHhpX37QLoU5tDcfsfeqCL4u-k7KYq8cgUowpcrhdzbarykXVvlJMxs"/>
+<div class="flex-1 min-w-0">
+<h3 class="font-body-md text-on-surface truncate">Kniebeugen (Langhantel)</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 truncate">Beine • Langhantel</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant flex-shrink-0" data-icon="add_circle">add_circle</span>
+</button>
+<!-- List Item 5 -->
+<button class="flex items-center gap-md bg-[#1E1E1E] p-sm min-h-[64px] active:bg-surface-bright transition-colors text-left w-full group relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent group-hover:bg-primary-fixed transition-colors"></div>
+<div class="w-[56px] h-[56px] rounded-DEFAULT flex-shrink-0 bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="fitness_center">fitness_center</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-body-md text-on-surface truncate">Schulterdrücken (Kurzhantel)</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 truncate">Schultern • Kurzhanteln</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant flex-shrink-0" data-icon="add_circle">add_circle</span>
+</button>
+</section>
+<!-- Floating Action Button for Done (Contextual) -->
+<div class="fixed bottom-lg right-md md:right-lg z-50">
+<button class="w-[56px] h-[56px] rounded-full bg-primary-fixed text-[#121212] flex items-center justify-center shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="check">check</span>
+</button>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profil-Setup - ASCENT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
+        
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24;
+        }
+        
+        /* Custom styling to reflect the Brand Identity */
+        body {
+            background-color: #131313; /* surface */
+            color: #e5e2e1; /* on-surface */
+        }
+        
+        /* Step Indicator pulse animation */
+        @keyframes pulse-accent {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        .step-active {
+            animation: pulse-accent 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        /* Focus styles for inputs */
+        input:focus, select:focus {
+            border-bottom-color: #aef831 !important; /* primary-fixed */
+            box-shadow: none !important;
+            outline: none !important;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary": "#303030",
+                      "on-secondary-fixed": "#1b1b1c",
+                      "outline-variant": "#424a35",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "tertiary-container": "#e4e2e1",
+                      "error-container": "#93000a",
+                      "on-surface-variant": "#c1caaf",
+                      "on-surface": "#e5e2e1",
+                      "inverse-surface": "#e5e2e1",
+                      "on-primary-fixed": "#121f00",
+                      "secondary-container": "#474746",
+                      "surface-tint": "#93db00",
+                      "on-background": "#e5e2e1",
+                      "primary-fixed": "#aef831",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-low": "#1c1b1b",
+                      "surface-container-highest": "#353534",
+                      "on-secondary-container": "#b7b5b4",
+                      "on-primary": "#213600",
+                      "surface": "#131313",
+                      "on-secondary-fixed-variant": "#474746",
+                      "surface-bright": "#393939",
+                      "inverse-primary": "#446900",
+                      "error": "#ffb4ab",
+                      "outline": "#8c947b",
+                      "on-tertiary-container": "#656464",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "primary-fixed-dim": "#93db00",
+                      "primary": "#ffffff",
+                      "surface-variant": "#353534",
+                      "surface-dim": "#131313",
+                      "on-primary-container": "#496f00",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "inverse-on-surface": "#313030",
+                      "tertiary": "#ffffff",
+                      "on-secondary": "#303030",
+                      "surface-container": "#201f1f",
+                      "on-error": "#690005",
+                      "on-primary-fixed-variant": "#324f00",
+                      "surface-container-lowest": "#0e0e0e",
+                      "background": "#131313",
+                      "primary-container": "#aef831",
+                      "surface-container-high": "#2a2a2a",
+                      "secondary-fixed": "#e5e2e1",
+                      "tertiary-fixed": "#e4e2e1",
+                      "on-tertiary-fixed": "#1b1c1c",
+                      "secondary": "#c8c6c5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "16px",
+                      "lg": "24px",
+                      "sm": "12px",
+                      "base": "4px",
+                      "xs": "8px",
+                      "xl": "32px",
+                      "touch-target-min": "48px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "headline-xl": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "data-display": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "34px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-xl": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-display": [
+                              "24px",
+                              {
+                                      "lineHeight": "30px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-sans text-on-surface antialiased flex flex-col min-h-screen">
+<!-- Top Navigation for Onboarding (Linear Flow - Bottom/Side Navs Suppressed) -->
+<!-- Re-using TopAppBar style logic, but adapting for mobile onboarding context (no trailing icon, clear back action) -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface flex justify-between items-center px-md h-touch-target-min">
+<button class="text-primary-fixed dark:text-primary-fixed-dim hover:opacity-80 active:scale-95 transition-transform flex items-center justify-center w-touch-target-min h-touch-target-min">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-black text-primary-fixed italic tracking-tighter">ASCENT</h1>
+<div class="w-touch-target-min h-touch-target-min"></div> <!-- Spacer for center alignment -->
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[72px] pb-[96px] px-md md:px-lg max-w-[800px] mx-auto w-full flex flex-col">
+<!-- Step Indicator -->
+<div class="w-full flex items-center justify-between mb-xl mt-md">
+<div class="h-1 flex-grow bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed w-1/3 rounded-full step-active"></div>
+</div>
+<span class="ml-md font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Schritt 1/3</span>
+</div>
+<!-- Header -->
+<div class="mb-xl">
+<h2 class="font-headline-xl text-headline-xl text-on-surface mb-xs">Dein Profil.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Präzision beginnt hier. Definiere deine Baseline für optimale Trainingsergebnisse.</p>
+</div>
+<!-- Form Cards Module -->
+<form class="space-y-lg flex-grow">
+<!-- Card: Basics (Name, Alter) -->
+<div class="bg-[#1E1E1E] rounded-xl p-md md:p-lg border border-[#2C2C2C] shadow-sm">
+<h3 class="font-label-sm text-label-sm text-primary-fixed mb-md uppercase tracking-widest flex items-center">
+<span class="material-symbols-outlined text-[16px] mr-xs" data-icon="person">person</span>
+                    Basisdaten
+                </h3>
+<div class="space-y-md">
+<!-- Input: Name -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs ml-base" for="name">Name</label>
+<input class="w-full bg-[#121212] text-on-surface font-body-md text-body-md border-0 border-b-2 border-[#2C2C2C] rounded-t-DEFAULT px-md py-sm focus:ring-0 transition-colors h-touch-target-min" id="name" name="name" placeholder="Dein Name" type="text"/>
+</div>
+<!-- Input: Alter -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs ml-base" for="age">Alter</label>
+<input class="w-full bg-[#121212] text-on-surface font-body-md text-body-md border-0 border-b-2 border-[#2C2C2C] rounded-t-DEFAULT px-md py-sm focus:ring-0 transition-colors h-touch-target-min" id="age" name="age" placeholder="JJ" type="number"/>
+</div>
+</div>
+</div>
+<!-- Card: Biometrics (Geschlecht, Gewicht, Grösse) -->
+<div class="bg-[#1E1E1E] rounded-xl p-md md:p-lg border border-[#2C2C2C] shadow-sm">
+<h3 class="font-label-sm text-label-sm text-primary-fixed mb-md uppercase tracking-widest flex items-center">
+<span class="material-symbols-outlined text-[16px] mr-xs" data-icon="monitor_weight">monitor_weight</span>
+                    Metriken
+                </h3>
+<div class="space-y-md">
+<!-- Select: Geschlecht -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs ml-base" for="gender">Geschlecht</label>
+<div class="relative">
+<select class="w-full bg-[#121212] text-on-surface font-body-md text-body-md border-0 border-b-2 border-[#2C2C2C] rounded-t-DEFAULT pl-md pr-xl py-sm appearance-none focus:ring-0 transition-colors h-touch-target-min" id="gender" name="gender">
+<option class="text-on-surface-variant" disabled="" selected="" value="">Auswählen...</option>
+<option value="m">Männlich</option>
+<option value="f">Weiblich</option>
+<option value="d">Divers</option>
+</select>
+<span class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<!-- Input: Gewicht -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs ml-base" for="weight">Gewicht (kg)</label>
+<input class="w-full bg-[#121212] text-on-surface font-body-md text-body-md border-0 border-b-2 border-[#2C2C2C] rounded-t-DEFAULT px-md py-sm focus:ring-0 transition-colors h-touch-target-min text-center" id="weight" name="weight" placeholder="00.0" step="0.1" type="number"/>
+</div>
+<!-- Input: Grösse -->
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs ml-base" for="height">Grösse (cm)</label>
+<input class="w-full bg-[#121212] text-on-surface font-body-md text-body-md border-0 border-b-2 border-[#2C2C2C] rounded-t-DEFAULT px-md py-sm focus:ring-0 transition-colors h-touch-target-min text-center" id="height" name="height" placeholder="000" type="number"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Card: Goal (Trainingsziel) -->
+<div class="bg-[#1E1E1E] rounded-xl p-md md:p-lg border border-[#2C2C2C] shadow-sm">
+<h3 class="font-label-sm text-label-sm text-primary-fixed mb-md uppercase tracking-widest flex items-center">
+<span class="material-symbols-outlined text-[16px] mr-xs" data-icon="flag">flag</span>
+                    Fokus
+                </h3>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-sm ml-base">Primäres Trainingsziel</label>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-sm">
+<!-- Goal Option 1 -->
+<label class="relative flex cursor-pointer">
+<input class="peer sr-only" name="goal" type="radio" value="muscle"/>
+<div class="w-full bg-[#121212] border border-[#2C2C2C] text-on-surface-variant p-md rounded-lg peer-checked:border-primary-fixed peer-checked:text-primary-fixed transition-colors flex items-center">
+<span class="material-symbols-outlined mr-sm" data-icon="fitness_center">fitness_center</span>
+<span class="font-body-md text-body-md font-semibold">Muskelaufbau</span>
+</div>
+</label>
+<!-- Goal Option 2 -->
+<label class="relative flex cursor-pointer">
+<input class="peer sr-only" name="goal" type="radio" value="fatloss"/>
+<div class="w-full bg-[#121212] border border-[#2C2C2C] text-on-surface-variant p-md rounded-lg peer-checked:border-primary-fixed peer-checked:text-primary-fixed transition-colors flex items-center">
+<span class="material-symbols-outlined mr-sm" data-icon="local_fire_department">local_fire_department</span>
+<span class="font-body-md text-body-md font-semibold">Fettabbau</span>
+</div>
+</label>
+<!-- Goal Option 3 -->
+<label class="relative flex cursor-pointer">
+<input class="peer sr-only" name="goal" type="radio" value="endurance"/>
+<div class="w-full bg-[#121212] border border-[#2C2C2C] text-on-surface-variant p-md rounded-lg peer-checked:border-primary-fixed peer-checked:text-primary-fixed transition-colors flex items-center">
+<span class="material-symbols-outlined mr-sm" data-icon="directions_run">directions_run</span>
+<span class="font-body-md text-body-md font-semibold">Ausdauer</span>
+</div>
+</label>
+<!-- Goal Option 4 -->
+<label class="relative flex cursor-pointer">
+<input class="peer sr-only" name="goal" type="radio" value="health"/>
+<div class="w-full bg-[#121212] border border-[#2C2C2C] text-on-surface-variant p-md rounded-lg peer-checked:border-primary-fixed peer-checked:text-primary-fixed transition-colors flex items-center">
+<span class="material-symbols-outlined mr-sm" data-icon="health_and_safety">health_and_safety</span>
+<span class="font-body-md text-body-md font-semibold">Allg. Fitness</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+</form>
+</main>
+<!-- Fixed Bottom Action Area for Onboarding -->
+<div class="fixed bottom-0 w-full bg-surface/90 backdrop-blur-md border-t border-[#2C2C2C] p-md z-50">
+<div class="max-w-[800px] mx-auto flex justify-end">
+<!-- Primary Button styled per brand guidelines: Lime fill, black text, bold -->
+<button class="bg-primary-fixed text-on-primary-fixed font-headline-lg-mobile text-body-md font-bold h-[56px] px-xl rounded-full flex items-center justify-center hover:opacity-90 active:scale-95 transition-all shadow-[0_4px_14px_0_rgba(174,248,49,0.2)]" type="button">
+                Weiter
+                <span class="material-symbols-outlined ml-xs" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</body></html>

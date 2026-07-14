@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Aktives Workout - ASCENT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Hide number input spinners */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary": "#303030",
+                      "on-secondary-fixed": "#1b1b1c",
+                      "outline-variant": "#424a35",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "tertiary-container": "#e4e2e1",
+                      "error-container": "#93000a",
+                      "on-surface-variant": "#c1caaf",
+                      "on-surface": "#e5e2e1",
+                      "inverse-surface": "#e5e2e1",
+                      "on-primary-fixed": "#121f00",
+                      "secondary-container": "#474746",
+                      "surface-tint": "#93db00",
+                      "on-background": "#e5e2e1",
+                      "primary-fixed": "#aef831",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-low": "#1c1b1b",
+                      "surface-container-highest": "#353534",
+                      "on-secondary-container": "#b7b5b4",
+                      "on-primary": "#213600",
+                      "surface": "#131313",
+                      "on-secondary-fixed-variant": "#474746",
+                      "surface-bright": "#393939",
+                      "inverse-primary": "#446900",
+                      "error": "#ffb4ab",
+                      "outline": "#8c947b",
+                      "on-tertiary-container": "#656464",
+                      "tertiary-fixed-dim": "#c8c6c5",
+                      "primary-fixed-dim": "#93db00",
+                      "primary": "#ffffff",
+                      "surface-variant": "#353534",
+                      "surface-dim": "#131313",
+                      "on-primary-container": "#496f00",
+                      "on-tertiary-fixed-variant": "#474747",
+                      "inverse-on-surface": "#313030",
+                      "tertiary": "#ffffff",
+                      "on-secondary": "#303030",
+                      "surface-container": "#201f1f",
+                      "on-error": "#690005",
+                      "on-primary-fixed-variant": "#324f00",
+                      "surface-container-lowest": "#0e0e0e",
+                      "background": "#131313",
+                      "primary-container": "#aef831",
+                      "surface-container-high": "#2a2a2a",
+                      "secondary-fixed": "#e5e2e1",
+                      "tertiary-fixed": "#e4e2e1",
+                      "on-tertiary-fixed": "#1b1c1c",
+                      "secondary": "#c8c6c5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "16px",
+                      "lg": "24px",
+                      "sm": "12px",
+                      "base": "4px",
+                      "xs": "8px",
+                      "xl": "32px",
+                      "touch-target-min": "48px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "body-md": ["Inter"],
+                      "data-display": ["Inter"],
+                      "headline-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "data-display": ["24px", {"lineHeight": "30px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background h-screen flex flex-col overflow-hidden selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar (Small) - Exact JSON execution -->
+<header class="bg-surface dark:bg-surface fixed top-0 w-full z-50 flex justify-between items-center px-md h-touch-target-min">
+<button class="text-on-surface-variant hover:opacity-80 active:scale-95 transition-transform flex items-center justify-center w-touch-target-min h-touch-target-min">
+<span class="material-symbols-outlined">fitness_center</span>
+</button>
+<div class="font-headline-lg-mobile text-headline-lg-mobile font-black text-primary-fixed italic tracking-tighter">
+            ASCENT
+        </div>
+<button class="text-on-surface-variant hover:opacity-80 active:scale-95 transition-transform flex items-center justify-center w-touch-target-min h-touch-target-min">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto mt-[48px] pb-[100px] flex flex-col">
+<!-- Header Section -->
+<div class="px-md py-lg flex flex-col items-center justify-center text-center space-y-xs">
+<span class="font-label-sm text-label-sm text-primary-fixed uppercase tracking-widest">Satz 3 von 5</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Langhantel Bankdrücken</h1>
+</div>
+<!-- Timer Section -->
+<div class="flex-1 flex flex-col items-center justify-center px-md py-md relative">
+<!-- Background glow -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20 blur-3xl">
+<div class="w-64 h-64 bg-primary-fixed rounded-full"></div>
+</div>
+<!-- SVG Timer Ring -->
+<div class="relative w-64 h-64">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 100 100">
+<!-- Track -->
+<circle class="text-surface-container-highest" cx="50" cy="50" fill="transparent" r="46" stroke="currentColor" stroke-width="2"></circle>
+<!-- Progress -->
+<circle class="text-primary-fixed drop-shadow-[0_0_8px_rgba(174,248,49,0.5)]" cx="50" cy="50" fill="transparent" id="timer-progress" r="46" stroke="currentColor" stroke-dasharray="289" stroke-dashoffset="60" stroke-linecap="round" stroke-width="4"></circle>
+</svg>
+<!-- Timer Text inside Ring -->
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant mb-1 uppercase tracking-wider">Pause</span>
+<span class="font-headline-xl text-headline-xl text-primary-fixed tabular-nums tracking-tighter" id="timer-display">01:14</span>
+<button class="mt-xs text-on-surface-variant hover:text-on-surface transition-colors flex items-center justify-center w-8 h-8 rounded-full bg-surface-container-highest">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Inputs Section (Bento/Card style) -->
+<div class="px-md pb-lg mt-auto">
+<div class="bg-surface rounded-xl p-md border border-surface-container shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] flex flex-col gap-sm">
+<div class="flex items-center justify-between px-xs">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-fixed">history</span>
+                        Letzter Satz: 80 kg × 8
+                    </span>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<!-- Weight Input -->
+<div class="bg-surface-dim rounded-lg p-sm relative group overflow-hidden">
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-surface-container-highest group-focus-within:bg-primary-fixed transition-colors"></div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs text-center" for="weight">Gewicht (kg)</label>
+<input class="w-full bg-transparent text-center font-data-display text-data-display text-on-surface focus:outline-none focus:text-primary-fixed transition-colors" id="weight" step="2.5" type="number" value="82.5"/>
+</div>
+<!-- Reps Input -->
+<div class="bg-surface-dim rounded-lg p-sm relative group overflow-hidden">
+<div class="absolute bottom-0 left-0 w-full h-[2px] bg-surface-container-highest group-focus-within:bg-primary-fixed transition-colors"></div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs text-center" for="reps">Wiederholungen</label>
+<input class="w-full bg-transparent text-center font-data-display text-data-display text-on-surface focus:outline-none focus:text-primary-fixed transition-colors" id="reps" type="number" value="8"/>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating / Sticky Action Button (FAB replacement for transactional focus) -->
+<div class="fixed bottom-0 left-0 w-full p-md bg-gradient-to-t from-background via-background to-transparent z-40 pb-safe pt-xl">
+<button class="w-full h-[56px] bg-primary-fixed text-on-primary-fixed font-headline-lg-mobile text-[18px] uppercase tracking-wide rounded-full flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(174,248,49,0.3)] active:scale-95 active:shadow-none transition-all">
+            Nächster Satz
+            <span class="material-symbols-outlined font-bold">arrow_forward</span>
+</button>
+</div>
+<!-- Note: BottomNavBar is intentionally suppressed as per strict rules for focused/task journeys (Active Workout). -->
+<script>
+        // Simple visual timer logic for prototype realism
+        let timeLeft = 74; // 1m 14s
+        const display = document.getElementById('timer-display');
+        const progress = document.getElementById('timer-progress');
+        const totalDuration = 90; // 1m 30s
+        const circumference = 2 * Math.PI * 46; // r=46
+
+        setInterval(() => {
+            if (timeLeft > 0) {
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Update dashoffset
+                const offset = circumference - (timeLeft / totalDuration) * circumference;
+                progress.style.strokeDashoffset = offset;
+            }
+        }, 1000);
+    </script>
+</body></html>

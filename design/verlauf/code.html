@@ -1,0 +1,327 @@
+<!DOCTYPE html><html class="dark" lang="de"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>ASCENT - Trainingskalender</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#303030",
+                        "on-secondary-fixed": "#1b1b1c",
+                        "outline-variant": "#424a35",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "tertiary-container": "#e4e2e1",
+                        "error-container": "#93000a",
+                        "on-surface-variant": "#c1caaf",
+                        "on-surface": "#e5e2e1",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-fixed": "#121f00",
+                        "secondary-container": "#474746",
+                        "surface-tint": "#93db00",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#aef831",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container-highest": "#353534",
+                        "on-secondary-container": "#b7b5b4",
+                        "on-primary": "#213600",
+                        "surface": "#131313",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-bright": "#393939",
+                        "inverse-primary": "#446900",
+                        "error": "#ffb4ab",
+                        "outline": "#8c947b",
+                        "on-tertiary-container": "#656464",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "primary-fixed-dim": "#93db00",
+                        "primary": "#ffffff",
+                        "surface-variant": "#353534",
+                        "surface-dim": "#131313",
+                        "on-primary-container": "#496f00",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "inverse-on-surface": "#313030",
+                        "tertiary": "#ffffff",
+                        "on-secondary": "#303030",
+                        "surface-container": "#201f1f",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#324f00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "background": "#131313",
+                        "primary-container": "#aef831",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-fixed": "#e5e2e1",
+                        "tertiary-fixed": "#e4e2e1",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "secondary": "#c8c6c5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "lg": "24px",
+                        "sm": "12px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "xl": "32px",
+                        "touch-target-min": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "data-display": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "data-display": ["24px", { "lineHeight": "30px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #121212; color: #e5e2e1; }
+        .card-inner-stroke { box-shadow: inset 0 0 0 1px #2C2C2C; }
+        .primary-gradient-button { background: linear-gradient(180deg, #B4FF39 0%, #8EDD20 100%); color: #121f00; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="font-body-md text-body-md bg-background antialiased selection:bg-primary-container selection:text-on-primary-container pb-[90px] md:pb-0 pt-[60px] md:pt-0">
+<!-- Mobile TopAppBar -->
+<header class="md:hidden bg-surface dark:bg-surface fixed top-0 w-full z-50 flex justify-between items-center px-md h-touch-target-min">
+<span class="material-symbols-outlined text-primary-fixed dark:text-primary-fixed-dim font-variation-settings: 'FILL' 1; active:scale-95 transition-transform">fitness_center</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-black text-primary-fixed italic tracking-tighter">ASCENT</h1>
+<span class="material-symbols-outlined text-primary-fixed dark:text-primary-fixed-dim hover:opacity-80 active:scale-95 transition-transform">notifications</span>
+</header>
+<!-- Desktop TopAppBar -->
+<header class="hidden md:flex bg-surface dark:bg-surface sticky top-0 w-full z-50 border-b border-outline-variant max-w-[1200px] mx-auto justify-between items-center h-xl px-lg">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary-fixed dark:text-primary-fixed-dim active:opacity-70 transition-opacity">speed</span>
+<h1 class="font-headline-lg text-headline-lg font-black text-primary-fixed italic tracking-tighter">ASCENT</h1>
+</div>
+<nav class="flex gap-lg font-label-sm text-label-sm">
+<a class="text-secondary hover:text-primary-fixed transition-colors active:opacity-70 transition-opacity" href="#">Home</a>
+<a class="text-secondary hover:text-primary-fixed transition-colors active:opacity-70 transition-opacity" href="#">Pläne</a>
+<a class="text-primary-fixed border-b-2 border-primary-fixed pb-xs hover:text-primary-fixed active:opacity-70 transition-opacity" href="#">Verlauf</a>
+<a class="text-secondary hover:text-primary-fixed transition-colors active:opacity-70 transition-opacity" href="#">Profil</a>
+</nav>
+<button class="font-label-sm text-label-sm text-primary-fixed dark:text-primary-fixed-dim hover:text-primary-fixed active:opacity-70 transition-opacity flex items-center gap-base">
+            Premium Active
+        </button>
+</header>
+<main class="max-w-[1200px] mx-auto px-md md:px-lg py-lg md:py-xl grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- Calendar Section -->
+<section class="md:col-span-7 lg:col-span-8 flex flex-col gap-md">
+<div class="flex justify-between items-end mb-sm">
+<div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary-fixed">November 2023</h2>
+<p class="text-on-surface-variant font-body-md text-body-md mt-base">Dein Trainingsverlauf &amp; Konstanz</p>
+</div>
+<div class="flex gap-sm">
+<button class="w-[40px] h-[40px] rounded-full bg-[#1E1E1E] card-inner-stroke flex items-center justify-center hover:bg-[#2C2C2C] transition-colors">
+<span class="material-symbols-outlined text-on-surface">chevron_left</span>
+</button>
+<button class="w-[40px] h-[40px] rounded-full bg-[#1E1E1E] card-inner-stroke flex items-center justify-center hover:bg-[#2C2C2C] transition-colors">
+<span class="material-symbols-outlined text-on-surface">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Stats Overview Bento -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-sm mb-md">
+<div class="bg-[#1E1E1E] card-inner-stroke rounded-lg p-md flex flex-col justify-between h-[100px]">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Workouts</span>
+<span class="font-data-display text-data-display text-primary-fixed">14</span>
+</div>
+<div class="bg-[#1E1E1E] card-inner-stroke rounded-lg p-md flex flex-col justify-between h-[100px]">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Volumen</span>
+<span class="font-data-display text-data-display text-on-surface">12.4t</span>
+</div>
+<div class="bg-[#1E1E1E] card-inner-stroke rounded-lg p-md flex flex-col justify-between h-[100px]">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Zeit</span>
+<span class="font-data-display text-data-display text-on-surface">18h</span>
+</div>
+<div class="bg-primary-container rounded-lg p-md flex flex-col justify-between h-[100px]">
+<span class="font-label-sm text-label-sm text-on-primary-container uppercase">Streak</span>
+<span class="font-data-display text-data-display text-on-primary-fixed flex items-center gap-base">
+<span class="material-symbols-outlined font-variation-settings: 'FILL' 1;">local_fire_department</span>
+                        5 Tage
+                    </span>
+</div>
+</div>
+<!-- Calendar Grid -->
+<div class="bg-[#1E1E1E] card-inner-stroke rounded-xl p-md md:p-lg">
+<div class="grid grid-cols-7 gap-sm mb-sm text-center font-label-sm text-label-sm text-on-surface-variant">
+<div class="">Mo</div><div class="">Di</div><div class="">Mi</div><div class="">Do</div><div class="">Fr</div><div class="">Sa</div><div class="">So</div>
+</div>
+<div class="grid grid-cols-7 gap-xs md:gap-sm">
+<!-- Empty days for previous month -->
+<div class="aspect-square rounded-md bg-transparent"></div>
+<div class="aspect-square rounded-md bg-transparent"></div>
+<!-- Days -->
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">1</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">
+                        2
+                        <div class="absolute bottom-1 w-1 h-1 rounded-full bg-primary-fixed"></div>
+</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">3</button>
+<button class="aspect-square rounded-md bg-[#2C2C2C] border border-primary-fixed flex items-center justify-center font-body-md text-primary-fixed font-bold relative">
+                        4
+                        <div class="absolute bottom-1 w-1 h-1 rounded-full bg-primary-fixed"></div>
+</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">
+                        5
+                        <div class="absolute bottom-1 w-1 h-1 rounded-full bg-primary-fixed"></div>
+</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">6</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">7</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">
+                        8
+                        <div class="absolute bottom-1 w-1 h-1 rounded-full bg-primary-fixed"></div>
+</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">9</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">
+                        10
+                        <div class="absolute bottom-1 w-1 h-1 rounded-full bg-primary-fixed"></div>
+</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">11</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">
+                        12
+                        <div class="absolute bottom-1 w-1 h-1 rounded-full bg-primary-fixed"></div>
+</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">13</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">14</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">
+                        15
+                        <div class="absolute bottom-1 w-1 h-1 rounded-full bg-primary-fixed"></div>
+</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">16</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">
+                        17
+                        <div class="absolute bottom-1 w-1 h-1 rounded-full bg-primary-fixed"></div>
+</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">18</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">
+                        19
+                        <div class="absolute bottom-1 w-1 h-1 rounded-full bg-primary-fixed"></div>
+</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">20</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">21</button>
+<!-- Continue for rest of month, abbreviated for example -->
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">22</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">23</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">24</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">25</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">26</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">27</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">28</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">29</button>
+<button class="aspect-square rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center font-body-md text-on-surface-variant hover:bg-[#2C2C2C] transition-colors relative">30</button>
+</div>
+</div>
+</section>
+<!-- Workout Details Sidebar -->
+<aside class="md:col-span-5 lg:col-span-4 flex flex-col gap-md">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-xs">Details: 4. Nov</h3>
+<!-- Highlight Workout Card -->
+<div class="bg-[#1E1E1E] card-inner-stroke rounded-xl overflow-hidden flex flex-col">
+<div class="h-[120px] bg-[#2C2C2C] relative w-full" data-alt="A close-up view of heavy gym weights loaded on a barbell in a dark, atmospheric performance training facility. High contrast lighting with subtle lime green neon accents reflecting off the knurling. The mood is intense, disciplined, and utilitarian." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAvcDulE8v0DCRpFsMDkm28pxFZ6k7VjvM9AmzaUb3bnuLIkHJXaSeTqsvBNdTaU38xIDH2q3wOirMgv9x94n0BFG9GCT32fC34_lyFFjythkAoSfaecNgBC-aX1CJRtSG9ReHf72bH7T-n1Oe1ecAlBxTdY8-ZnBzW-8Ok3oYhQyszR1_7WAZ-pL4bxS0AbcWgm6aqFOSJGdXE6Y5bhj_sr1QSU2gFxOCanI12ZdoZdWM48OWu22L-klzDtOndS2nrx7kDJsq3oM8')">
+<div class="absolute inset-0 bg-gradient-to-t from-[#1E1E1E] to-transparent"></div>
+<div class="absolute bottom-md left-md">
+<span class="inline-block px-sm py-[2px] rounded-full bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm mb-xs">Hypertrophie</span>
+<h4 class="font-data-display text-data-display text-on-surface">Oberkörper Fokus</h4>
+</div>
+</div>
+<div class="p-md flex flex-col gap-md">
+<div class="flex justify-between items-center pb-sm border-b border-[#2C2C2C]">
+<div class="flex items-center gap-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                            65 Min
+                        </div>
+<div class="flex items-center gap-xs text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px]">fitness_center</span>
+                            8.200 kg
+                        </div>
+</div>
+<!-- Exercise List -->
+<div class="flex flex-col gap-sm">
+<!-- Exercise Item -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined font-variation-settings: 'FILL' 1;">view_agenda</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface">Bankdrücken (Langhantel)</p>
+<p class="font-body-md text-[12px] text-on-surface-variant">4 Sätze • Max 85kg</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-fixed text-[18px]">check_circle</span>
+</div>
+<!-- Exercise Item -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined font-variation-settings: 'FILL' 1;">line_weight</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface">Klimmzüge (Gewicht)</p>
+<p class="font-body-md text-[12px] text-on-surface-variant">4 Sätze • Max +15kg</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-fixed text-[18px]">check_circle</span>
+</div>
+<!-- Exercise Item -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-md bg-[#121212] card-inner-stroke flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined font-variation-settings: 'FILL' 1;">fitness_center</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface">Schulterdrücken (Kurzhantel)</p>
+<p class="font-body-md text-[12px] text-on-surface-variant">3 Sätze • Max 26kg</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary-fixed text-[18px]">check_circle</span>
+</div>
+</div>
+<button class="w-full mt-sm py-sm rounded-md border border-outline-variant text-on-surface font-label-sm text-label-sm hover:bg-[#2C2C2C] transition-colors">
+                        Details ansehen
+                    </button>
+</div>
+</div>
+<!-- Mini Note Card -->
+<div class="bg-[#121212] border-l-2 border-primary-fixed p-md mt-sm">
+<div class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-primary-fixed text-[20px] mt-1">edit_note</span>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface mb-1">Notiz zum Workout</p>
+<p class="font-body-md text-[14px] text-on-surface-variant leading-tight">Bankdrücken lief sehr gut. Nächstes Mal auf 87.5kg erhöhen für den Top-Satz.</p>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<!-- Mobile BottomNavBar -->
+<nav class="md:hidden bg-surface-container fixed bottom-0 w-full z-50 border-t border-outline-variant flex justify-around items-center h-[72px] px-md pb-safe"><a class="flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-primary-fixed transition-colors" href="#"><span class="material-symbols-outlined">home</span><span class="text-[12px] font-medium">Home</span></a><a class="flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-primary-fixed transition-colors" href="#"><span class="material-symbols-outlined">fitness_center</span><span class="text-[12px] font-medium">Pläne</span></a><a class="flex flex-col items-center justify-center gap-1 text-primary-fixed relative" href="#"><span class="material-symbols-outlined font-variation-settings: 'FILL' 1;">history</span><span class="text-[12px] font-bold">Verlauf</span><div class="absolute -bottom-2 w-12 h-1 bg-primary-fixed rounded-full"></div></a><a class="flex flex-col items-center justify-center gap-1 text-on-surface-variant hover:text-primary-fixed transition-colors" href="#"><span class="material-symbols-outlined">person</span><span class="text-[12px] font-medium">Profil</span></a></nav>
+
+
+
+</body></html>

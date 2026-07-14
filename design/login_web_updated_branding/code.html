@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCENT - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#303030",
+                        "on-secondary-fixed": "#1b1b1c",
+                        "outline-variant": "#424a35",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "tertiary-container": "#e4e2e1",
+                        "error-container": "#93000a",
+                        "on-surface-variant": "#c1caaf",
+                        "on-surface": "#e5e2e1",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-fixed": "#121f00",
+                        "secondary-container": "#474746",
+                        "surface-tint": "#93db00",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#aef831",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container-highest": "#353534",
+                        "on-secondary-container": "#b7b5b4",
+                        "on-primary": "#213600",
+                        "surface": "#131313",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-bright": "#393939",
+                        "inverse-primary": "#446900",
+                        "error": "#ffb4ab",
+                        "outline": "#8c947b",
+                        "on-tertiary-container": "#656464",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "primary-fixed-dim": "#93db00",
+                        "primary": "#ffffff",
+                        "surface-variant": "#353534",
+                        "surface-dim": "#131313",
+                        "on-primary-container": "#496f00",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "inverse-on-surface": "#313030",
+                        "tertiary": "#ffffff",
+                        "on-secondary": "#303030",
+                        "surface-container": "#201f1f",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#324f00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "background": "#131313",
+                        "primary-container": "#aef831",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-fixed": "#e5e2e1",
+                        "tertiary-fixed": "#e4e2e1",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "secondary": "#c8c6c5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "lg": "24px",
+                        "sm": "12px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "xl": "32px",
+                        "touch-target-min": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "data-display": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "data-display": ["24px", { "lineHeight": "30px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #121212;
+            color: #e5e2e1;
+        }
+        .bg-card {
+            background-color: #1E1E1E;
+        }
+        .border-inner {
+            box-shadow: inset 0 0 0 1px #2C2C2C;
+        }
+        .btn-primary {
+            background: linear-gradient(180deg, #B4FF39 0%, #8EDD20 100%);
+            color: #121f00;
+        }
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+        .input-bg {
+            background-color: #121212;
+        }
+        .input-focus:focus {
+            border-bottom-color: #B4FF39;
+            box-shadow: 0 1px 0 0 #B4FF39;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-md md:p-lg antialiased font-body-md">
+<!-- Decorative Background Graphic -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden opacity-20">
+<div class="absolute -top-[20%] -right-[10%] w-[60%] h-[60%] rounded-full bg-primary-container blur-[120px] mix-blend-overlay"></div>
+<div class="absolute -bottom-[20%] -left-[10%] w-[60%] h-[60%] rounded-full bg-surface-container-highest blur-[120px]"></div>
+</div>
+<!-- Main Content Container -->
+<div class="relative z-10 w-full max-w-md flex flex-col gap-xl">
+<!-- Logo Header -->
+<div class="flex flex-col items-center gap-sm">
+<img alt="ASCENT Logo" class="w-32 h-32 object-contain rounded-xl" src="https://lh3.googleusercontent.com/aida/AP1WRLtBW0ehdx6T0j30ti-6U4JHFJbJxapb6G29JJFH7se-np0XZoTygm1WfhUR4DMxCQoQWYNIc3oYEbRdeyBwSRKaHsZDdrB-6LpN_U6ejHCNtRdeKmMypCzLyYpZMH9__FBVCBa7FXpkVCv_BlEZC6HerapBb3VsPJPOS23ELZYkP2ed_DfragmRZ00Ui2ggDH7H35f4jG0yQ4k4E_JOKGxtCDYN-WcB9Cz6Gkz8AGyWX6xyjEREy38p3A"/>
+<p class="font-body-md text-body-md text-on-surface-variant text-center mt-sm">Entfessle dein Potenzial.</p>
+</div>
+<!-- Login Card -->
+<div class="bg-card border-inner rounded-xl p-lg md:p-xl shadow-2xl flex flex-col gap-lg w-full">
+<div class="flex flex-col gap-base text-center mb-sm">
+<h2 class="font-data-display text-data-display text-on-surface">Willkommen zurück</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Logge dich ein, um dein Training fortzusetzen.</p>
+</div>
+<form class="flex flex-col gap-md" onsubmit="event.preventDefault();">
+<!-- Email Field -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest" for="email">E-Mail Adresse</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-opacity-50">
+                            mail
+                        </span>
+<input class="w-full input-bg border-none border-b-2 border-outline-variant rounded-t-DEFAULT pl-[44px] pr-md py-sm font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 input-focus transition-colors h-[48px]" id="email" placeholder="athlet@ascent.com" required="" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between items-center">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest" for="password">Passwort</label>
+<a class="font-label-sm text-label-sm text-primary-fixed hover:underline opacity-80 hover:opacity-100 transition-opacity" href="#">Vergessen?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-opacity-50">
+                            lock
+                        </span>
+<input class="w-full input-bg border-none border-b-2 border-outline-variant rounded-t-DEFAULT pl-[44px] pr-md py-sm font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/50 focus:ring-0 input-focus transition-colors h-[48px]" id="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-sm top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">
+                                visibility_off
+                            </span>
+</button>
+</div>
+</div>
+<!-- Submit Button -->
+<button class="btn-primary rounded-DEFAULT font-label-sm text-label-sm uppercase tracking-widest h-[56px] w-full flex items-center justify-center gap-xs mt-sm transition-transform active:scale-[0.98]" type="submit">
+<span>Login</span>
+<span class="material-symbols-outlined text-[20px]">
+                        arrow_forward
+                    </span>
+</button>
+</form>
+<div class="mt-md text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    Noch kein Account? <a class="text-primary-fixed hover:underline font-bold" href="#">Jetzt registrieren</a>
+</p>
+</div>
+</div>
+<!-- Minimal Footer -->
+<div class="flex justify-center gap-md text-on-surface-variant/50 font-label-sm text-label-sm uppercase">
+<a class="hover:text-on-surface-variant transition-colors" href="#">Impressum</a>
+<span>•</span>
+<a class="hover:text-on-surface-variant transition-colors" href="#">Datenschutz</a>
+</div>
+</div>
+</body></html>

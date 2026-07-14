@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCENT - App Download</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#303030",
+                        "on-secondary-fixed": "#1b1b1c",
+                        "outline-variant": "#424a35",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "tertiary-container": "#e4e2e1",
+                        "error-container": "#93000a",
+                        "on-surface-variant": "#c1caaf",
+                        "on-surface": "#e5e2e1",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-fixed": "#121f00",
+                        "secondary-container": "#474746",
+                        "surface-tint": "#93db00",
+                        "on-background": "#e5e2e1",
+                        "primary-fixed": "#aef831",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#1c1b1b",
+                        "surface-container-highest": "#353534",
+                        "on-secondary-container": "#b7b5b4",
+                        "on-primary": "#213600",
+                        "surface": "#131313",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-bright": "#393939",
+                        "inverse-primary": "#446900",
+                        "error": "#ffb4ab",
+                        "outline": "#8c947b",
+                        "on-tertiary-container": "#656464",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "primary-fixed-dim": "#93db00",
+                        "primary": "#ffffff",
+                        "surface-variant": "#353534",
+                        "surface-dim": "#131313",
+                        "on-primary-container": "#496f00",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "inverse-on-surface": "#313030",
+                        "tertiary": "#ffffff",
+                        "on-secondary": "#303030",
+                        "surface-container": "#201f1f",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#324f00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "background": "#131313",
+                        "primary-container": "#aef831",
+                        "surface-container-high": "#2a2a2a",
+                        "secondary-fixed": "#e5e2e1",
+                        "tertiary-fixed": "#e4e2e1",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "secondary": "#c8c6c5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "lg": "24px",
+                        "sm": "12px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "xl": "32px",
+                        "touch-target-min": "48px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-xl": ["Inter"],
+                        "body-md": ["Inter"],
+                        "data-display": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "data-display": ["24px", { "lineHeight": "30px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #121212; color: #e5e2e1; }
+        .glass-card {
+            background-color: #1E1E1E;
+            border: 1px solid #2C2C2C;
+            border-radius: 0.75rem;
+        }
+        .step-number {
+            color: #1E1E1E;
+            -webkit-text-stroke: 1px #aef831;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased">
+<!-- TopAppBar (Web) -->
+<header class="hidden md:flex max-w-[1200px] mx-auto justify-between items-center h-xl px-lg sticky top-0 w-full z-50 bg-surface dark:bg-surface border-b border-outline-variant flat no shadows">
+<div class="flex items-center gap-xs">
+<img alt="ASCENT" class="h-8 w-auto" src="https://lh3.googleusercontent.com/aida/AP1WRLtBW0ehdx6T0j30ti-6U4JHFJbJxapb6G29JJFH7se-np0XZoTygm1WfhUR4DMxCQoQWYNIc3oYEbRdeyBwSRKaHsZDdrB-6LpN_U6ejHCNtRdeKmMypCzLyYpZMH9__FBVCBa7FXpkVCv_BlEZC6HerapBb3VsPJPOS23ELZYkP2ed_DfragmRZ00Ui2ggDH7H35f4jG0yQ4k4E_JOKGxtCDYN-WcB9Cz6Gkz8AGyWX6xyjEREy38p3A"/>
+</div>
+<div class="flex items-center">
+<button class="font-label-sm text-label-sm text-primary-fixed border border-primary-fixed px-sm py-base rounded hover:opacity-80 active:opacity-70 transition-opacity">Premium Active</button>
+</div>
+</header>
+<main class="flex-grow max-w-[1200px] mx-auto w-full px-md md:px-lg py-xl flex flex-col gap-xl">
+<!-- Hero Section -->
+<section class="flex flex-col items-center text-center gap-lg py-xl relative">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary-fixed/10 via-background to-background -z-10 rounded-3xl"></div>
+<div class="glass-card p-sm inline-flex items-center gap-xs text-primary-fixed font-label-sm text-label-sm mb-sm">
+<span class="material-symbols-outlined text-[16px]">android</span>
+<span>Android Exklusiv</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-primary max-w-2xl">Hol dir die volle Leistung.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                Lade die ASCENT APK herunter und starte dein Training ohne Kompromisse. Volle Kontrolle, maximale Performance.
+            </p>
+<button class="mt-md bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm uppercase h-[56px] px-xl rounded-full flex items-center gap-xs hover:bg-surface-tint active:scale-95 transition-all shadow-[0_0_20px_rgba(174,248,49,0.3)]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">download</span>
+                APK Herunterladen (v2.4.1)
+            </button>
+<span class="text-on-surface-variant font-label-sm text-[10px] mt-xs">Größe: 48 MB | Erfordert Android 8.0+</span>
+</section>
+<!-- Sideloading Guide -->
+<section class="flex flex-col gap-lg">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary text-center mb-md">So installierst du die App</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Step 1 -->
+<div class="glass-card p-lg flex flex-col gap-md relative overflow-hidden group">
+<div class="absolute -right-4 -top-8 font-black text-[120px] step-number opacity-20 group-hover:opacity-40 transition-opacity">1</div>
+<div class="h-12 w-12 rounded-full bg-surface-container-high flex items-center justify-center border border-outline-variant z-10">
+<span class="material-symbols-outlined text-primary-fixed">download</span>
+</div>
+<div class="z-10">
+<h3 class="font-data-display text-data-display text-primary mb-xs">Download starten</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Klicke auf den Button oben, um die APK-Datei auf dein Gerät herunterzuladen.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="glass-card p-lg flex flex-col gap-md relative overflow-hidden group">
+<div class="absolute -right-4 -top-8 font-black text-[120px] step-number opacity-20 group-hover:opacity-40 transition-opacity">2</div>
+<div class="h-12 w-12 rounded-full bg-surface-container-high flex items-center justify-center border border-outline-variant z-10">
+<span class="material-symbols-outlined text-primary-fixed">settings</span>
+</div>
+<div class="z-10">
+<h3 class="font-data-display text-data-display text-primary mb-xs">Berechtigung erteilen</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Öffne die heruntergeladene Datei. Wenn du dazu aufgefordert wirst, erlaube die Installation aus "Unbekannten Quellen" in deinen Einstellungen.</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="glass-card p-lg flex flex-col gap-md relative overflow-hidden group">
+<div class="absolute -right-4 -top-8 font-black text-[120px] step-number opacity-20 group-hover:opacity-40 transition-opacity">3</div>
+<div class="h-12 w-12 rounded-full bg-surface-container-high flex items-center justify-center border border-outline-variant z-10">
+<span class="material-symbols-outlined text-primary-fixed">rocket_launch</span>
+</div>
+<div class="z-10">
+<h3 class="font-data-display text-data-display text-primary mb-xs">Installieren &amp; Starten</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Tippe auf "Installieren" und warte einen Moment. Danach kannst du ASCENT direkt starten.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ / Warning Note -->
+<section class="glass-card p-md flex gap-md items-start mt-xl bg-surface-container-lowest border-l-4 border-l-primary-fixed">
+<span class="material-symbols-outlined text-primary-fixed mt-1">info</span>
+<div>
+<h4 class="font-label-sm text-label-sm text-primary mb-base uppercase tracking-widest">Sicherheitshinweis</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Diese APK ist sicher und wurde von unserem Entwicklerteam signiert. Lade die ASCENT App ausschließlich von dieser offiziellen Seite herunter, um deine Sicherheit zu gewährleisten.</p>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile) - Suppressed as this is a transactional/download page outside the main app flow -->
+</body></html>

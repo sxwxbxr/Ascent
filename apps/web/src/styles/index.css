@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+/* Ascent-Farbtokens (siehe design/ascent_design_system/DESIGN.md) als Tailwind-Farben. */
+@theme {
+  --color-surface: #131313;
+  --color-surface-container: #1e1e1e;
+  --color-surface-container-high: #2c2c2c;
+  --color-primary: #b4ff39;
+  --color-primary-dim: #93db00;
+  --color-on-primary: #213600;
+  --color-on-surface: #e5e2e1;
+  --color-on-surface-muted: #a0a0a0;
+  --color-outline: #424a35;
+  --color-error: #ffb4ab;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+body {
+  @apply bg-surface font-sans text-on-surface antialiased;
+}

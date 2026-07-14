@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="de"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ASCENT - Erweiterte Statistik</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-tertiary-fixed": "#1b1c1c",
+                "primary-fixed-dim": "#93db00",
+                "on-tertiary-container": "#656464",
+                "error-container": "#93000a",
+                "on-primary-container": "#496f00",
+                "on-tertiary-fixed-variant": "#474747",
+                "inverse-on-surface": "#313030",
+                "tertiary-fixed-dim": "#c8c6c5",
+                "on-secondary-container": "#b7b5b4",
+                "on-secondary-fixed-variant": "#474746",
+                "on-error-container": "#ffdad6",
+                "on-background": "#e5e2e1",
+                "surface-dim": "#131313",
+                "secondary": "#c8c6c5",
+                "on-tertiary": "#303030",
+                "tertiary": "#ffffff",
+                "surface-container-low": "#1c1b1b",
+                "outline": "#8c947b",
+                "tertiary-container": "#e4e2e1",
+                "inverse-primary": "#446900",
+                "surface-variant": "#353534",
+                "primary": "#ffffff",
+                "on-secondary-fixed": "#1b1b1c",
+                "primary-fixed": "#aef831",
+                "on-primary-fixed-variant": "#324f00",
+                "surface-tint": "#93db00",
+                "on-primary-fixed": "#121f00",
+                "surface-container": "#201f1f",
+                "secondary-container": "#474746",
+                "on-surface-variant": "#c1caaf",
+                "on-secondary": "#303030",
+                "inverse-surface": "#e5e2e1",
+                "secondary-fixed-dim": "#c8c6c5",
+                "on-surface": "#e5e2e1",
+                "surface-container-high": "#2a2a2a",
+                "surface-bright": "#393939",
+                "on-error": "#690005",
+                "outline-variant": "#424a35",
+                "surface-container-highest": "#353534",
+                "secondary-fixed": "#e5e2e1",
+                "on-primary": "#213600",
+                "tertiary-fixed": "#e4e2e1",
+                "background": "#131313",
+                "primary-container": "#aef831",
+                "surface": "#131313",
+                "surface-container-lowest": "#0e0e0e",
+                "error": "#ffb4ab"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "xl": "32px",
+                "lg": "24px",
+                "base": "4px",
+                "touch-target-min": "48px",
+                "sm": "12px",
+                "md": "16px",
+                "xs": "8px"
+        },
+        "fontFamily": {
+                "headline-lg": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "data-display": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ],
+                "label-sm": [
+                        "Inter"
+                ],
+                "headline-xl": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "data-display": [
+                        "24px",
+                        {
+                                "lineHeight": "30px",
+                                "letterSpacing": "0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "34px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "headline-xl": [
+                        "40px",
+                        {
+                                "lineHeight": "48px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "800"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Custom scrollbar for web */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #131313; }
+        ::-webkit-scrollbar-thumb { background: #353534; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #474746; }
+        
+        .glass-locked {
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-locked::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(19, 19, 19, 0.6);
+            backdrop-filter: blur(8px);
+            z-index: 10;
+        }
+        .glass-content {
+            position: absolute;
+            inset: 0;
+            z-index: 20;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar (Medium Desktop Variant) -->
+<header class="sticky top-0 w-full z-50 bg-surface border-b border-outline-variant">
+<div class="max-w-[1200px] mx-auto flex justify-between items-center h-xl px-lg">
+<!-- Brand -->
+<div class="flex items-center gap-sm cursor-pointer hover:opacity-80 transition-opacity">
+<img alt="ASCENT Logo" class="h-8 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtBW0ehdx6T0j30ti-6U4JHFJbJxapb6G29JJFH7se-np0XZoTygm1WfhUR4DMxCQoQWYNIc3oYEbRdeyBwSRKaHsZDdrB-6LpN_U6ejHCNtRdeKmMypCzLyYpZMH9__FBVCBa7FXpkVCv_BlEZC6HerapBb3VsPJPOS23ELZYkP2ed_DfragmRZ00Ui2ggDH7H35f4jG0yQ4k4E_JOKGxtCDYN-WcB9Cz6Gkz8AGyWX6xyjEREy38p3A"/>
+</div>
+<!-- Desktop Navigation Links -->
+<nav class="hidden md:flex items-center gap-xl h-full">
+<a class="h-full flex items-center font-label-sm text-label-sm text-secondary hover:text-primary-fixed transition-colors" href="#">Home</a>
+<a class="h-full flex items-center font-label-sm text-label-sm text-secondary hover:text-primary-fixed transition-colors" href="#">Pläne</a>
+<a class="h-full flex items-center font-label-sm text-label-sm text-primary-fixed border-b-2 border-primary-fixed" href="#">Verlauf</a>
+<a class="h-full flex items-center font-label-sm text-label-sm text-secondary hover:text-primary-fixed transition-colors" href="#">Profil</a>
+</nav>
+<!-- Trailing Action -->
+<div class="flex items-center gap-md">
+<button class="font-label-sm text-label-sm text-on-primary bg-primary-fixed px-md h-touch-target-min rounded-full hover:bg-primary-fixed-dim transition-colors active:scale-95 flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">workspace_premium</span>
+                    Premium Active
+                </button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-[1200px] mx-auto px-lg py-xl flex flex-col gap-xl">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md border-b border-surface-container-highest pb-lg">
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-xs">Erweiterte Statistik</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Tiefgreifende Analyse deiner Performance und Progression.</p>
+</div>
+<div class="flex items-center bg-surface-container rounded-lg p-base border border-surface-container-high">
+<button class="font-label-sm text-label-sm px-md py-xs rounded text-secondary hover:text-primary-fixed transition-colors">30 Tage</button>
+<button class="font-label-sm text-label-sm px-md py-xs rounded bg-surface-bright text-primary-fixed">12 Wochen</button>
+<button class="font-label-sm text-label-sm px-md py-xs rounded text-secondary hover:text-primary-fixed transition-colors">Jahr</button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<!-- Card: Training Volume (Spans 8 cols on desktop) -->
+<section class="md:col-span-8 bg-surface-container border border-surface-container-high rounded-xl p-lg flex flex-col gap-lg">
+<div class="flex justify-between items-center">
+<h2 class="font-body-lg text-body-lg font-bold text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-fixed">bar_chart</span>
+                        Volumen nach Muskelgruppe
+                    </h2>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-bright px-sm py-base rounded uppercase">Sätze gesamt</span>
+</div>
+<!-- Horizontal Bar Chart CSS -->
+<div class="flex flex-col gap-md mt-sm">
+<!-- Row 1 -->
+<div class="flex items-center gap-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-[100px] text-right">Brust</span>
+<div class="flex-grow h-xs bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed w-[85%] rounded-full"></div>
+</div>
+<span class="font-body-md text-body-md font-bold text-on-surface w-[40px]">142</span>
+</div>
+<!-- Row 2 -->
+<div class="flex items-center gap-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-[100px] text-right">Rücken</span>
+<div class="flex-grow h-xs bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed-dim w-[70%] rounded-full"></div>
+</div>
+<span class="font-body-md text-body-md font-bold text-on-surface w-[40px]">118</span>
+</div>
+<!-- Row 3 -->
+<div class="flex items-center gap-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-[100px] text-right">Beine</span>
+<div class="flex-grow h-xs bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-surface-tint w-[92%] rounded-full"></div>
+</div>
+<span class="font-body-md text-body-md font-bold text-on-surface w-[40px]">156</span>
+</div>
+<!-- Row 4 -->
+<div class="flex items-center gap-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-[100px] text-right">Schultern</span>
+<div class="flex-grow h-xs bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-outline-variant w-[45%] rounded-full"></div>
+</div>
+<span class="font-body-md text-body-md font-bold text-on-surface w-[40px]">76</span>
+</div>
+<!-- Row 5 -->
+<div class="flex items-center gap-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant w-[100px] text-right">Arme</span>
+<div class="flex-grow h-xs bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-outline-variant w-[55%] rounded-full"></div>
+</div>
+<span class="font-body-md text-body-md font-bold text-on-surface w-[40px]">92</span>
+</div>
+</div>
+</section>
+<!-- Card: Personal Records (Spans 4 cols on desktop) -->
+<section class="md:col-span-4 bg-surface-container border border-surface-container-high rounded-xl p-lg flex flex-col gap-md">
+<div class="flex justify-between items-center mb-sm">
+<h2 class="font-body-lg text-body-lg font-bold text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary-fixed">emoji_events</span>
+                        Persönliche Rekorde
+                    </h2>
+</div>
+<div class="flex flex-col gap-sm">
+<!-- PR Item 1 -->
+<div class="flex justify-between items-center bg-surface p-md rounded-lg border border-surface-container-highest">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-bold text-on-surface">Bankdrücken</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">1RM • vor 2 Tagen</span>
+</div>
+<div class="font-data-display text-data-display text-primary-fixed">
+                            110<span class="text-[16px]">kg</span>
+</div>
+</div>
+<!-- PR Item 2 -->
+<div class="flex justify-between items-center bg-surface p-md rounded-lg border border-surface-container-highest">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-bold text-on-surface">Kniebeuge</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">3RM • vor 1 Woche</span>
+</div>
+<div class="font-data-display text-data-display text-on-surface">
+                            140<span class="text-[16px]">kg</span>
+</div>
+</div>
+<!-- PR Item 3 -->
+<div class="flex justify-between items-center bg-surface p-md rounded-lg border border-surface-container-highest">
+<div class="flex flex-col">
+<span class="font-body-md text-body-md font-bold text-on-surface">Kreuzheben</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">1RM • vor 2 Wochen</span>
+</div>
+<div class="font-data-display text-data-display text-on-surface">
+                            180<span class="text-[16px]">kg</span>
+</div>
+</div>
+</div>
+<button class="mt-auto w-full font-label-sm text-label-sm text-primary-fixed border border-primary-fixed rounded-full h-touch-target-min flex items-center justify-center uppercase hover:bg-primary-fixed/10 transition-colors">
+                    Alle Rekorde ansehen
+                </button>
+</section>
+<!-- Card: Recovery Analysis (LOCKED) -->
+<section class="md:col-span-6 bg-surface-container border border-surface-container-high rounded-xl p-lg min-h-[300px] glass-locked">
+<!-- Blurred Background Content (Teaser) -->
+<div class="opacity-30 blur-[2px] pointer-events-none flex flex-col gap-md h-full">
+<h2 class="font-body-lg text-body-lg font-bold text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined">battery_charging_full</span>
+                        Erholungsanalyse
+                    </h2>
+<div class="flex-grow bg-surface-container-highest rounded-lg flex items-end p-md gap-sm">
+<div class="w-1/4 h-[40%] bg-outline-variant rounded-t"></div>
+<div class="w-1/4 h-[70%] bg-outline-variant rounded-t"></div>
+<div class="w-1/4 h-[30%] bg-outline-variant rounded-t"></div>
+<div class="w-1/4 h-[90%] bg-outline-variant rounded-t"></div>
+</div>
+</div>
+<!-- Locked Overlay Content -->
+<div class="glass-content p-lg text-center gap-md">
+<div class="w-16 h-16 rounded-full bg-surface border border-outline-variant flex items-center justify-center mb-sm shadow-[0_0_20px_rgba(180,255,57,0.1)]">
+<span class="material-symbols-outlined text-[32px] text-primary-fixed">lock</span>
+</div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Erholungsanalyse</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[300px]">Optimiere deine Rest-Days basierend auf Trainingsintensität und Volumen.</p>
+<button class="mt-sm font-label-sm text-label-sm text-on-primary bg-primary-fixed px-lg h-touch-target-min rounded-full uppercase hover:bg-primary-fixed-dim transition-colors active:scale-95 flex items-center justify-center gap-xs shadow-[0_0_15px_rgba(180,255,57,0.2)]">
+                        ASCENT PRO FREISCHALTEN
+                    </button>
+</div>
+</section>
+<!-- Card: Form Prediction (LOCKED) -->
+<section class="md:col-span-6 bg-surface-container border border-surface-container-high rounded-xl p-lg min-h-[300px] glass-locked">
+<!-- Blurred Background Content (Teaser) -->
+<div class="opacity-30 blur-[2px] pointer-events-none flex flex-col gap-md h-full">
+<h2 class="font-body-lg text-body-lg font-bold text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined">trending_up</span>
+                        Form-Vorhersage
+                    </h2>
+<div class="flex-grow flex items-center justify-center">
+<!-- Abstract chart placeholder -->
+<div class="w-full h-full bg-gradient-to-tr from-surface-container-highest to-surface-container rounded-lg border border-outline-variant/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-[64px] text-on-surface-variant">monitoring</span>
+</div>
+</div>
+</div>
+<!-- Locked Overlay Content -->
+<div class="glass-content p-lg text-center gap-md">
+<div class="w-16 h-16 rounded-full bg-surface border border-outline-variant flex items-center justify-center mb-sm">
+<span class="material-symbols-outlined text-[32px] text-primary-fixed">lock</span>
+</div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Form-Vorhersage</h3>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[300px]">Erkenne Plateaus frühzeitig und simuliere zukünftige Kraftwerte.</p>
+<button class="mt-sm font-label-sm text-label-sm text-on-primary bg-primary-fixed px-lg h-touch-target-min rounded-full uppercase hover:bg-primary-fixed-dim transition-colors active:scale-95 flex items-center justify-center gap-xs">
+                        ASCENT PRO FREISCHALTEN
+                    </button>
+</div>
+</section>
+</div>
+</main>
+</body></html>
