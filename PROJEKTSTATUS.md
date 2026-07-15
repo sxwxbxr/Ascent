@@ -1,5 +1,5 @@
 # Projektstatus – Ascent
-### Stand: 15.07.2026 — M1 (Backend-Kern) fertig implementiert, Prod-Deploy ausstehend
+### Stand: 15.07.2026 — M1 (Backend-Kern) fertig und live deployed
 
 Einstiegsdokument für die Weiterarbeit. Grundlagen: `Lastenheft_Fitnessapp_Brainstorming.md` (Anforderungen), `Technisches_Konzept_MVP.md` (Architektur & Etappenplan M0–M6), `CLAUDE.md` (Arbeitskonventionen, Kommandos).
 
@@ -36,12 +36,8 @@ Einstiegsdokument für die Weiterarbeit. Grundlagen: `Lastenheft_Fitnessapp_Brai
 
 ## Offene Punkte
 
-1. **Prod-Nachzug M1 (nächster konkreter Schritt, braucht explizite Freigabe des Nutzers für Prod-Aktionen):**
-   - `pnpm --filter @ascent/api db:migrate:remote` (Migration 0001: Auth-Tabellen)
-   - `wrangler secret put BETTER_AUTH_SECRET` (einmalig, VOR dem Deploy — sonst wirft der Worker bei Auth-Aufrufen)
-   - `pnpm --filter @ascent/api run deploy`
-   - danach Live-Smoke-Test (Bootstrap-Registrierung des Owners!)
-2. **`git push`** der M1-Commits + CI-Kontrolle
+1. **⚠️ Bootstrap-Registrierung des Owners steht aus**: Die allererste Registrierung auf https://ascent-api.sweber.workers.dev braucht KEINEN Invite-Code — der Owner sollte seinen Account zeitnah anlegen, damit dieses Fenster geschlossen ist. (Prod-Migration 0001, BETTER_AUTH_SECRET und Deploy sind erledigt, Live-Smoke-Test grün: Auth-Stack antwortet, Datenrouten 401, Entitlements korrekt.)
+2. **`git push`** der M1-Commits + CI-Kontrolle (README-Überarbeitung des Nutzers ist noch uncommittet)
 3. **Mobile-Runtime ungetestet** (Expo nie auf Gerät gestartet; Metro-Monorepo-Setup beim ersten `pnpm --filter @ascent/mobile dev` prüfen)
 4. **Mail-Versand** ist Log-Stub — Passwort-Reset-Links werden im Worker-Log ausgegeben und manuell weitergegeben (bewusste M1-Entscheidung); Resend + eigene Domain später
 5. **Altes Design-Zip** (3.5 MB) weiterhin in Git-Historie; Inhalt liegt in `design/`
