@@ -1,0 +1,6 @@
+# Vorlage für apps/api/.dev.vars (lokal, wird NICHT committet — siehe .gitignore).
+# Kopieren nach .dev.vars und BETTER_AUTH_SECRET durch einen eigenen Zufallswert ersetzen,
+# z. B. via: node -e "console.log(crypto.randomUUID() + crypto.randomUUID())"
+
+BETTER_AUTH_URL=http://127.0.0.1:8787
+BETTER_AUTH_SECRET=change-me-to-a-random-string

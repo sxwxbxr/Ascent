@@ -1,48 +1,56 @@
 # Projektstatus – Ascent
-### Stand: 14.07.2026 — M0 abgeschlossen, nächster Schritt M1
+### Stand: 15.07.2026 — M1 (Backend-Kern) fertig implementiert, Prod-Deploy ausstehend
 
 Einstiegsdokument für die Weiterarbeit. Grundlagen: `Lastenheft_Fitnessapp_Brainstorming.md` (Anforderungen), `Technisches_Konzept_MVP.md` (Architektur & Etappenplan M0–M6), `CLAUDE.md` (Arbeitskonventionen, Kommandos).
 
 ---
 
-## Was fertig ist (M0: Scaffolding + Cloud-Setup)
+## Was fertig ist
 
-- **Monorepo** (pnpm, TypeScript strict): `packages/shared`, `apps/api`, `apps/web`, `apps/mobile` + GitHub-Actions-CI (Typecheck → Tests → Web-Build)
-- **`packages/shared`**: Drizzle-Schema (8 Tabellen mit Sync-Konventionen: UUID-Text-PKs, Epoch-ms-Timestamps, `deleted`-Flag), Epley-1RM + Trendlinien-Regression (7 Tests grün), Zod-v4-Validierung
-- **`apps/api`**: Hono-Worker mit `/health`, `/version` (Update-Check-Stub), `/entitlements` (liest `feature_flags` aus D1); Migrations- und Seed-Scripts
-- **`apps/web`**: Vite-React-SPA, Tailwind v4 mit Ascent-Design-Tokens, Seiten Login/Dashboard/Download (reine UI-Platzhalter), Proxy `/api` → Worker
-- **`apps/mobile`**: Expo SDK 57 + NativeWind, Monorepo-Metro-Konfiguration, dunkler Login-Platzhalter (kein Router — kommt in M3)
-- **Cloudflare live**: Worker deployed unter **https://ascent-api.sweber.workers.dev**, D1 `ascent-db` (EEUR) migriert + geseedet, R2-Bucket `ascent-media` angelegt, `database_id` in `wrangler.jsonc` eingetragen
-- **Verifiziert**: Typecheck alle Pakete, 9/9 Tests, Web-Build, alle 3 Endpoints lokal UND live inkl. korrekter Entitlement-Auflösung
+### M0 (Scaffolding + Cloud-Setup)
+- Monorepo (pnpm, TS strict): `packages/shared`, `apps/api`, `apps/web`, `apps/mobile` + GitHub-Actions-CI
+- Cloudflare live: Worker unter **https://ascent-api.sweber.workers.dev**, D1 `ascent-db` (EEUR), R2 `ascent-media`
+- Web-SPA und Expo-App als gestylte Platzhalter (Design-Tokens aus `design/`)
+
+### M1 (Backend: Auth, CRUD, Sync) — lokal komplett verifiziert
+- **Auth (Better Auth)**: Email/Passwort-Login, Sessions (Cookie + Bearer-Plugin für Mobile), Passwort-Reset-Flow (Mail = Log-Stub in `apps/api/src/mail.ts`, Resend später einsteckbar). **Zugriffsschutz wie vom Nutzer entschieden**: Registrierung NUR mit Invite-Code (`POST /invites`, 14 Tage gültig, einmal verwendbar); Ausnahme: allererster Nutzer (Bootstrap). Rate-Limits (DB-Storage) auf sign-in/sign-up/reset. `tier`-Feld ist gegen Client-Manipulation geschützt (input:false, am Bibliotheks-Code verifiziert).
+- **CRUD**: `/plans` (inkl. Plan-Übungen), `/workouts` (inkl. Sätze), `/exercises` (global + eigene), `/body-metrics`, `/profile` — überall Ownership-Checks (fremd → 404, kein Existenz-Leak), Soft-Delete, client-generierte UUIDs, partielle Updates.
+- **Sync**: `POST /sync/push` + `POST /sync/pull` mit Last-Write-Wins auf `updatedAt`; Ownership auch für Kind-Tabellen über Eltern-Auflösung (plan_exercises/workout_sets); globale Übungen nie durch Clients überschreibbar; Löschungen propagieren als `deleted`-Upserts.
+- **Entitlements**: `/entitlements` löst jetzt echt auf (anonym = free; Session → `users.tier`; Rang free < trial < pro). Feature-Gating bleibt zentral, nie hartcodiert.
+- **Tests: 84 grün** (7 shared + 77 api auf echter lokaler D1 via vitest-pool-workers), Typecheck monorepo-weit sauber. E2E-Smoke-Test via REST komplett durchgespielt (Bootstrap → Invite → Registrierung → CRUD → Sync → Entitlements inkl. Pro-Tier).
 
 ## Bekannte Stolperfallen (Kosten bereits bezahlt — nicht erneut hineinlaufen)
 
 | Thema | Detail |
 |---|---|
-| pnpm `deploy` | `pnpm --filter @ascent/api run deploy` — ohne `run` greift pnpms eingebauter deploy-Befehl |
-| `localhost` vs `127.0.0.1` | wrangler dev bindet nur IPv4; auf dieser Maschine löst localhost zu ::1 → Timeouts. Vite-Proxy zeigt deshalb auf 127.0.0.1:8787 |
-| Tailwind-Versionen | Web = Tailwind v4 (CSS-first via `@theme`, KEIN tailwind.config.js); Mobile = Tailwind 3.4.x (NativeWind-v4-Zwang). Absichtlich unterschiedlich |
-| TypeScript | shared/api/web auf TS 7 (nativer Compiler, npm `latest`); mobile auf Expo-Template-Version ~6.0.3 |
-| `.npmrc` node-linker=hoisted | Zwingend für Metro/RN im pnpm-Monorepo — nicht entfernen |
-| Reanimated 4 | braucht `react-native-worklets` (ist als Dependency drin); bei erster Reanimated-Nutzung (M3, Pausentimer) ggf. Babel-Plugin ergänzen |
-| workers.dev-Propagation | Direkt nach Erst-Deploy kurz Edge-Fehler 1042/1104 — nach ~20 s stabil, kein Bug |
+| pnpm `deploy` | `pnpm --filter @ascent/api run deploy` — ohne `run` greift pnpms eingebauter Befehl |
+| `localhost` vs `127.0.0.1` | wrangler bindet nur IPv4; Vite-Proxy + alle Smoke-Tests auf 127.0.0.1:8787 |
+| `nodejs_compat` | Better Auth braucht node:crypto/async_hooks → Flag in wrangler.jsonc, sonst startet der Worker nicht (Tests laufen trotzdem — der Vitest-Pool handhabt das selbst!) |
+| vitest-pool-workers 0.18+ | Neue API: `cloudflareTest()`-Vite-Plugin statt `defineWorkersConfig`/`/config`-Subpath; Typen via `@cloudflare/vitest-pool-workers/types`; env-Typisierung global über `Cloudflare.Env`. **Keine Per-Test-Storage-Isolation mehr** (nur pro Datei) — Tests räumen selbst auf (DELETE in umgekehrter FK-Reihenfolge) oder nutzen eindeutige Daten |
+| Lokaler D1-State | ist nach `database_id` verschlüsselt — ändert sich die ID in wrangler.jsonc, startet eine leere lokale DB (Migration + Seed erneut ausführen) |
+| Better Auth basePath | `/auth` ist in `apps/api/src/auth/auth.ts` UND im Mount in index.ts verankert — bei Änderung beides nachziehen |
+| users-Tabelle | createdAt/updatedAt sind Date-typisiert (mode 'timestamp_ms', Storage bleibt Epoch-ms) weil Better Auth Dates schreibt — alle anderen Tabellen plain Epoch-ms-Integer |
+| Tailwind-Versionen | Web = v4 (CSS-first, kein Config-File); Mobile = 3.4.x (NativeWind) — absichtlich |
+| `.npmrc` node-linker=hoisted | zwingend für Metro/RN — nicht entfernen |
+| workers.dev-Propagation | Nach Erst-Deploy kurz Edge-Fehler 1042/1104 — nach ~20 s stabil |
 
 ## Offene Punkte
 
-1. **`git push` ausstehend** — die M0-Commits (ab `8a932cc`) liegen nur lokal; nach Push zeigt sich, ob die CI auf GitHub Actions grün ist
-2. **Mobile-Runtime ungetestet** — Typecheck grün, aber Expo-App nie auf Gerät/Emulator gestartet; beim ersten `pnpm --filter @ascent/mobile dev` Metro-Monorepo-Setup prüfen
-3. **Altes Design-Zip** (`stitch_ascent_fitness_ui_system.zip`, 3.5 MB) ist seit dem Ur-Commit getrackt; Inhalt liegt entpackt in `design/` — bei Gelegenheit `git rm`
-4. **Lizenz-Gate Übungsdatenbank**: exercises-dataset ist nur nicht-kommerziell — Blocker vor Aktivierung des Abo-Modells (Details: Technisches Konzept, Abschnitt 6)
+1. **Prod-Nachzug M1 (nächster konkreter Schritt, braucht explizite Freigabe des Nutzers für Prod-Aktionen):**
+   - `pnpm --filter @ascent/api db:migrate:remote` (Migration 0001: Auth-Tabellen)
+   - `wrangler secret put BETTER_AUTH_SECRET` (einmalig, VOR dem Deploy — sonst wirft der Worker bei Auth-Aufrufen)
+   - `pnpm --filter @ascent/api run deploy`
+   - danach Live-Smoke-Test (Bootstrap-Registrierung des Owners!)
+2. **`git push`** der M1-Commits + CI-Kontrolle
+3. **Mobile-Runtime ungetestet** (Expo nie auf Gerät gestartet; Metro-Monorepo-Setup beim ersten `pnpm --filter @ascent/mobile dev` prüfen)
+4. **Mail-Versand** ist Log-Stub — Passwort-Reset-Links werden im Worker-Log ausgegeben und manuell weitergegeben (bewusste M1-Entscheidung); Resend + eigene Domain später
+5. **Altes Design-Zip** (3.5 MB) weiterhin in Git-Historie; Inhalt liegt in `design/`
+6. **Lizenz-Gate Übungsdatenbank** vor Abo-Aktivierung (Technisches Konzept, Abschnitt 6)
 
-## Nächster Schritt: M1 (Backend-Kern)
+## Nächster Schritt: M2 (Übungsdatenbank-Import)
 
-Scope laut Etappenplan: Better-Auth-Integration (Registrierung, Login, Passwort-Reset), CRUD-Routen für Pläne/Workouts, Sync-Endpoints (Pull/Push), Entitlements an echte Nutzer-Tiers koppeln.
-
-**⚠️ Zuerst zu klären (vom Nutzer explizit gewünscht): Zugriffsschutz.** Die API ist öffentlich erreichbar und trägt ab M1 echte Trainingsdaten. Vor der Implementierung entscheiden:
-- Registrierung nur auf Einladung (Invite-Codes oder Email-Allowlist) — öffentliche Registrierung ist laut Lastenheft explizit NICHT im Scope (privates Produkt, 2-3 bekannte Nutzer)
-- Auth-Pflicht auf allen Datenrouten, Rate-Limiting auf Auth-Endpoints
-- Optional Cloudflare-seitiger Schutz der workers.dev-URL
+Scope laut Etappenplan: Import-Script (`scripts/import-exercises.ts`) für das exercises-dataset (~1'300 Übungen als JSON), GIFs/Thumbnails nach R2, Übungs-API existiert bereits (M1) — es fehlt nur die Befüllung plus ggf. ein Medien-Serving-Endpoint (R2 → Response). Danach M3 (Android-Kern).
 
 ## Arbeitsweise (vom Nutzer vorgegeben)
 
-Grössere, klar abgrenzbare Teilaufgaben an parallele Subagenten mit Modell "sonnet" delegieren (scharfe, verzeichnis-bezogene Spezifikationen; keine Installs in Agenten — zentral installieren/verifizieren). Hat sich in M0 bewährt.
+Grössere, klar abgrenzbare Teilaufgaben an parallele Subagenten mit Modell "sonnet" delegieren (scharfe, verzeichnis-bezogene Spezifikationen mit striktem Datei-Eigentum; Agenten dürfen eigene Tests ausführen und iterieren; zentrale Integration/Verifikation im Hauptkontext). Hat sich in M0 und M1 bewährt.

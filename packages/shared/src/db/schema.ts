@@ -7,26 +7,32 @@ import { integer, real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 export type Tier = 'free' | 'trial' | 'pro';
 
 /**
- * Nutzer-Profil. Bewusst OHNE Passwort-Feld — Auth-Tabellen (Sessions, Credentials)
- * kommen erst in M1 via Better Auth dazu und leben in eigenen Tabellen.
+ * Nutzer-Profil + Better-Auth-Identität. Better Auth verwaltet email,
+ * emailVerified, image, createdAt/updatedAt sowie (auf displayName gemappt)
+ * sein `name`-Feld; die übrigen Profilfelder gehören der App (/profile-Route).
+ * Passwörter liegen NICHT hier, sondern in der accounts-Tabelle.
  *
- * Kein `deleted`-Flag: Account-Löschung ist (noch) keine Sync-Operation, sondern
- * eine Auth-Angelegenheit, die erst mit M1 spezifiziert wird.
+ * createdAt/updatedAt: gespeichert weiterhin als INTEGER Epoch-ms
+ * (Sync-Konvention bleibt auf DB-Ebene erhalten), aber via Drizzle-mode
+ * 'timestamp_ms' als Date typisiert, weil Better Auth Date-Objekte schreibt.
+ *
+ * Kein `deleted`-Flag: Account-Löschung ist keine Sync-Operation, sondern
+ * eine Auth-Angelegenheit (DSGVO-Löschung kommt als eigene Etappe).
  */
 export const users = sqliteTable('users', {
   id: text('id').primaryKey(),
   email: text('email').notNull().unique(),
   displayName: text('display_name').notNull(),
+  emailVerified: integer('email_verified', { mode: 'boolean' }).notNull().default(false),
+  image: text('image'),
   gender: text('gender'),
   /** ISO-Datum (YYYY-MM-DD) */
   birthDate: text('birth_date'),
   heightCm: integer('height_cm'),
   goal: text('goal'),
   tier: text('tier', { enum: ['free', 'trial', 'pro'] }).notNull().default('free'),
-  /** Epoch ms */
-  createdAt: integer('created_at').notNull(),
-  /** Epoch ms */
-  updatedAt: integer('updated_at').notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull(),
+  updatedAt: integer('updated_at', { mode: 'timestamp_ms' }).notNull(),
 });
 
 export type User = typeof users.$inferSelect;
@@ -173,3 +179,108 @@ export const featureFlags = sqliteTable('feature_flags', {
 
 export type FeatureFlag = typeof featureFlags.$inferSelect;
 export type NewFeatureFlag = typeof featureFlags.$inferInsert;
+
+/**
+ * Ab hier: Better-Auth-interne Tabellen (Drizzle-Adapter, sqlite; siehe
+ * apps/api/src/auth/auth.ts). Diese Tabellen gehören der Auth-Bibliothek,
+ * nicht der App-Sync-Konvention: IDs erzeugt Better Auth selbst
+ * (advanced.database.generateId), es gibt kein `deleted`-Flag. createdAt/
+ * updatedAt/expiresAt bleiben als INTEGER Epoch-ms gespeichert, aber via
+ * Drizzle-Mode 'timestamp_ms' als Date typisiert, weil Better Auth an diesen
+ * Feldern Date-Objekte liest/schreibt (siehe Kommentar an `users` oben).
+ */
+
+/** Better-Auth-Session: ein aktiver Login (Cookie- oder Bearer-Token). */
+export const sessions = sqliteTable('sessions', {
+  id: text('id').primaryKey(),
+  userId: text('user_id')
+    .notNull()
+    .references(() => users.id),
+  token: text('token').notNull().unique(),
+  expiresAt: integer('expires_at', { mode: 'timestamp_ms' }).notNull(),
+  ipAddress: text('ip_address'),
+  userAgent: text('user_agent'),
+  createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull(),
+  updatedAt: integer('updated_at', { mode: 'timestamp_ms' }).notNull(),
+});
+
+export type Session = typeof sessions.$inferSelect;
+export type NewSession = typeof sessions.$inferInsert;
+
+/**
+ * Better-Auth-Account: eine verknüpfte Anmeldemethode. Für unser
+ * Email/Passwort-Setup ein Datensatz pro Nutzer mit providerId 'credential'
+ * und dem Passwort-Hash in `password`; das Schema ist bewusst generisch
+ * gehalten (Better-Auth-Konvention), falls später Social-Login dazukommt.
+ */
+export const accounts = sqliteTable('accounts', {
+  id: text('id').primaryKey(),
+  userId: text('user_id')
+    .notNull()
+    .references(() => users.id),
+  accountId: text('account_id').notNull(),
+  providerId: text('provider_id').notNull(),
+  accessToken: text('access_token'),
+  refreshToken: text('refresh_token'),
+  idToken: text('id_token'),
+  accessTokenExpiresAt: integer('access_token_expires_at', { mode: 'timestamp_ms' }),
+  refreshTokenExpiresAt: integer('refresh_token_expires_at', { mode: 'timestamp_ms' }),
+  scope: text('scope'),
+  password: text('password'),
+  createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull(),
+  updatedAt: integer('updated_at', { mode: 'timestamp_ms' }).notNull(),
+});
+
+export type Account = typeof accounts.$inferSelect;
+export type NewAccount = typeof accounts.$inferInsert;
+
+/** Better-Auth-Verification: Einmal-Tokens (Passwort-Reset, E-Mail-Verifizierung). */
+export const verifications = sqliteTable('verifications', {
+  id: text('id').primaryKey(),
+  identifier: text('identifier').notNull(),
+  value: text('value').notNull(),
+  expiresAt: integer('expires_at', { mode: 'timestamp_ms' }).notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull(),
+  updatedAt: integer('updated_at', { mode: 'timestamp_ms' }).notNull(),
+});
+
+export type Verification = typeof verifications.$inferSelect;
+export type NewVerification = typeof verifications.$inferInsert;
+
+/**
+ * Better-Auth-Rate-Limit-Zähler (database storage). `count`/`lastRequest`
+ * bleiben bewusst plain integer (kein timestamp_ms): Better Auth behandelt
+ * `lastRequest` intern als Zahl (Epoch-ms), nicht als Date-Objekt.
+ */
+export const rateLimits = sqliteTable('rate_limits', {
+  id: text('id').primaryKey(),
+  key: text('key').notNull().unique(),
+  count: integer('count').notNull(),
+  lastRequest: integer('last_request').notNull(),
+});
+
+export type RateLimit = typeof rateLimits.$inferSelect;
+export type NewRateLimit = typeof rateLimits.$inferInsert;
+
+/**
+ * Einladungscodes für die geschlossene Registrierung (Lastenheft: privates
+ * Produkt für 2-3 bekannte Nutzer, keine offene Registrierung — Ausnahme ist
+ * der allererste Nutzer/Bootstrap, siehe apps/api/src/auth/auth.ts). Reine
+ * Server-Tabelle ohne Sync-Konvention, daher plain-integer Epoch-ms statt
+ * timestamp_ms (analog zu `feature_flags` oben).
+ */
+export const inviteCodes = sqliteTable('invite_codes', {
+  id: text('id').primaryKey(),
+  code: text('code').notNull().unique(),
+  createdByUserId: text('created_by_user_id').references(() => users.id),
+  usedByUserId: text('used_by_user_id').references(() => users.id),
+  /** Epoch ms, null solange unbenutzt */
+  usedAt: integer('used_at'),
+  /** Epoch ms */
+  expiresAt: integer('expires_at').notNull(),
+  /** Epoch ms */
+  createdAt: integer('created_at').notNull(),
+});
+
+export type InviteCode = typeof inviteCodes.$inferSelect;
+export type NewInviteCode = typeof inviteCodes.$inferInsert;

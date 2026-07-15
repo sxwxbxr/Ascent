@@ -3,8 +3,17 @@
   "name": "ascent-api",
   "main": "src/index.ts",
   "compatibility_date": "2026-06-01",
+  // Better Auth nutzt node:crypto/node:async_hooks — ohne dieses Flag
+  // startet der Worker nicht.
+  "compatibility_flags": ["nodejs_compat"],
   "observability": {
     "enabled": true,
+  },
+  "vars": {
+    // BETTER_AUTH_SECRET bewusst NICHT hier: Secrets gehören nicht in vars
+    // (landen sonst im Klartext in wrangler.jsonc). Für Prod per
+    // `wrangler secret put BETTER_AUTH_SECRET` setzen; lokal via .dev.vars.
+    "BETTER_AUTH_URL": "https://ascent-api.sweber.workers.dev",
   },
   "d1_databases": [
     {
