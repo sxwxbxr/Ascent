@@ -1,5 +1,7 @@
 # Projektstatus – Ascent
-### Stand: 15.07.2026 — M1 (Backend-Kern) fertig und live deployed
+### Stand: 17.07.2026 — M1+M2 live, M3 (Android-Kern) implementiert, erste Beta-APK via GitHub Actions
+
+**Nutzer-Ziel:** MVP mit testbarer Beta auf dem Handy — M3→APK ist der kritische Pfad, M4 (Sync) und M5 (Web-Dashboard) folgen.
 
 Einstiegsdokument für die Weiterarbeit. Grundlagen: `Lastenheft_Fitnessapp_Brainstorming.md` (Anforderungen), `Technisches_Konzept_MVP.md` (Architektur & Etappenplan M0–M6), `CLAUDE.md` (Arbeitskonventionen, Kommandos).
 
@@ -17,7 +19,16 @@ Einstiegsdokument für die Weiterarbeit. Grundlagen: `Lastenheft_Fitnessapp_Brai
 - **CRUD**: `/plans` (inkl. Plan-Übungen), `/workouts` (inkl. Sätze), `/exercises` (global + eigene), `/body-metrics`, `/profile` — überall Ownership-Checks (fremd → 404, kein Existenz-Leak), Soft-Delete, client-generierte UUIDs, partielle Updates.
 - **Sync**: `POST /sync/push` + `POST /sync/pull` mit Last-Write-Wins auf `updatedAt`; Ownership auch für Kind-Tabellen über Eltern-Auflösung (plan_exercises/workout_sets); globale Übungen nie durch Clients überschreibbar; Löschungen propagieren als `deleted`-Upserts.
 - **Entitlements**: `/entitlements` löst jetzt echt auf (anonym = free; Session → `users.tier`; Rang free < trial < pro). Feature-Gating bleibt zentral, nie hartcodiert.
-- **Tests: 84 grün** (7 shared + 77 api auf echter lokaler D1 via vitest-pool-workers), Typecheck monorepo-weit sauber. E2E-Smoke-Test via REST komplett durchgespielt (Bootstrap → Invite → Registrierung → CRUD → Sync → Entitlements inkl. Pro-Tier).
+- **Tests: 89 grün** (7 shared + 82 api auf echter lokaler D1 via vitest-pool-workers), Typecheck monorepo-weit sauber. E2E-Smoke-Test via REST komplett durchgespielt (Bootstrap → Invite → Registrierung → CRUD → Sync → Entitlements inkl. Pro-Tier).
+
+### M2 (Übungsdatenbank) — live in Produktion
+- 1'324 Übungen in Prod-D1 (deterministische UUIDv5-IDs → idempotente Re-Importe via `scripts/import-exercises.ts`), 2'648 Medien (GIFs+Thumbnails) in R2, ausgeliefert über `GET /media/*` (öffentlich, Immutable-Cache, ETag/304 — live verifiziert). Kein Deutsch im Datensatz: `nameDe`/`instructionsDe` NULL, UI fällt auf Englisch zurück. **Lizenz:** Metadaten MIT, Medien © Gymvisual (nur für Quell-Repo lizenziert) — vor Freemium-Start zwingend ersetzen.
+
+### M3 (Android-Kern) — implementiert, Bundle-verifiziert, NICHT gerätegetestet
+- **Fundament:** expo-router (Session-Guard via Stack.Protected), lokale SQLite mit Drizzle und dem shared Schema (Migrationen via drizzle-kit driver 'expo' + babel inline-import; PRAGMA foreign_keys/WAL), Better-Auth-Expo-Client (SecureStore; Offline-Start mit gecachter Session am Bibliotheks-Quellcode verifiziert), Übungs-Hydration über POST /sync/pull mit Cursor in SecureStore.
+- **Screens:** Login/Registrierung (mit Invite-Code), Profil (Invite-Codes erstellen/teilen, Logout), Pläne (Liste/Editor mit Zielsätzen/Wdh/Pause, Reorder), Übungs-Browser (Suche, Kategorie-/Equipment-Filter, GIF-Detail, eigene Übungen), aktives Training (Satz-Logging mit Tap-to-Repeat-Prefill, persistenter Pausentimer mit lokaler Notification, Abschluss-Summary), Verlauf (Monatsgruppen, Detail mit Epley-1RM), Home (Start-CTA/Fortsetzen-Banner).
+- **Verifikation:** `tsc --noEmit` + `expo export --platform android` (Metro-Bundle) grün. Auf einem echten Gerät lief die App noch NIE — erster Beta-Test steht aus.
+- **APK-Pipeline:** `.github/workflows/android-apk.yml` baut bei Push (apps/mobile, packages/shared) eine Release-APK (Debug-signiert bis M6-Keystore) als Actions-Artefakt "ascent-beta-apk".
 
 ## Bekannte Stolperfallen (Kosten bereits bezahlt — nicht erneut hineinlaufen)
 
@@ -32,20 +43,24 @@ Einstiegsdokument für die Weiterarbeit. Grundlagen: `Lastenheft_Fitnessapp_Brai
 | users-Tabelle | createdAt/updatedAt sind Date-typisiert (mode 'timestamp_ms', Storage bleibt Epoch-ms) weil Better Auth Dates schreibt — alle anderen Tabellen plain Epoch-ms-Integer |
 | Tailwind-Versionen | Web = v4 (CSS-first, kein Config-File); Mobile = 3.4.x (NativeWind) — absichtlich |
 | `.npmrc` node-linker=hoisted | zwingend für Metro/RN — nicht entfernen |
+| `useLiveQuery` (drizzle expo) | (1) re-subscribed nur bei explizitem deps-Array — parametrisierte Queries mit anfangs undefined-IDs brauchen deps, sonst bleiben sie leer; (2) Reaktivität NUR auf der FROM-Basistabelle, Joins lösen nichts aus — Basistabelle = die Tabelle, auf die geschrieben wird |
+| Hermes | kein crypto.randomUUID — UUIDs via expo-crypto (src/lib/ids.ts) |
+| drizzle `ilike` | rendert ILIKE (kennt SQLite nicht) — stattdessen like(lower(col), pattern) |
 | workers.dev-Propagation | Nach Erst-Deploy kurz Edge-Fehler 1042/1104 — nach ~20 s stabil |
 
 ## Offene Punkte
 
-1. **⚠️ Bootstrap-Registrierung des Owners steht aus**: Die allererste Registrierung auf https://ascent-api.sweber.workers.dev braucht KEINEN Invite-Code — der Owner sollte seinen Account zeitnah anlegen, damit dieses Fenster geschlossen ist. (Prod-Migration 0001, BETTER_AUTH_SECRET und Deploy sind erledigt, Live-Smoke-Test grün: Auth-Stack antwortet, Datenrouten 401, Entitlements korrekt.)
-2. **`git push`** der M1-Commits + CI-Kontrolle (README-Überarbeitung des Nutzers ist noch uncommittet)
-3. **Mobile-Runtime ungetestet** (Expo nie auf Gerät gestartet; Metro-Monorepo-Setup beim ersten `pnpm --filter @ascent/mobile dev` prüfen)
-4. **Mail-Versand** ist Log-Stub — Passwort-Reset-Links werden im Worker-Log ausgegeben und manuell weitergegeben (bewusste M1-Entscheidung); Resend + eigene Domain später
-5. **Altes Design-Zip** (3.5 MB) weiterhin in Git-Historie; Inhalt liegt in `design/`
-6. **Lizenz-Gate Übungsdatenbank** vor Abo-Aktivierung (Technisches Konzept, Abschnitt 6)
+1. **⚠️ Bootstrap-Registrierung des Owners steht aus**: Die allererste Registrierung (App-Registrierungsscreen oder REST) braucht KEINEN Invite-Code — der Owner sollte seinen Account zeitnah anlegen, damit dieses Fenster geschlossen ist.
+2. **Erster Gerätetest der Beta-APK** (Actions-Artefakt "ascent-beta-apk" herunterladen, sideloaden): Login → Hydration (1'324 Übungen) → Plan anlegen → Workout im Flugmodus erfassen → Pausentimer/Notification. M3 ist nur Bundle-verifiziert!
+3. **Passwort-Reset-UI fehlt** (Login-Link + Web-Reset-Seite; Server-Flow existiert, Mail = Log-Stub — Link via `wrangler tail` ablesbar)
+4. **Eigener Signing-Keystore** (M6): bis dahin Debug-signiert — beim Umstieg einmalig Deinstallation nötig
+5. **Altes Design-Zip** (3.5 MB) in Git-Historie; **Lizenz-Gate** Übungsmedien vor Abo-Aktivierung
+6. Kleinere M3-Nachträge: Android-Notification-Channel (Heads-up im Hintergrund), AKTIV/ARCHIVIERT-Badge für Pläne (braucht Schema-Spalte), Mehrfachauswahl im Übungs-Picker
 
-## Nächster Schritt: M2 (Übungsdatenbank-Import)
+## Nächste Schritte: M4 (Sync-Client) + M5 (Web-Dashboard)
 
-Scope laut Etappenplan: Import-Script (`scripts/import-exercises.ts`) für das exercises-dataset (~1'300 Übungen als JSON), GIFs/Thumbnails nach R2, Übungs-API existiert bereits (M1) — es fehlt nur die Befüllung plus ggf. ein Medien-Serving-Endpoint (R2 → Response). Danach M3 (Android-Kern).
+- **M4:** Push-Seite des Sync in der App (lokale Änderungen → POST /sync/push, Pull für alle Tabellen, Sync-Trigger: App-Start/Workout-Ende/Reconnect). Server-Endpoints existieren und sind getestet; die App hydriert bereits Übungen via Pull.
+- **M5:** Web-Dashboard mit echten Daten (Login via Better-Auth-Web-Client, Kraftverlauf-Charts mit Trendlinie aus shared/progression, Körpergewicht, Verlauf, Planverwaltung, APK-Download-Seite).
 
 ## Arbeitsweise (vom Nutzer vorgegeben)
 

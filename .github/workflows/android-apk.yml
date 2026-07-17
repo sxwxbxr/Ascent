@@ -1,0 +1,51 @@
+name: Android APK
+
+# Baut die installierbare Android-Beta (Sideloading, Lastenheft 4.11).
+# Signierung: solange kein eigener Keystore hinterlegt ist (M6), nutzt der
+# RN-Gradle-Standard fuer Release-Builds den Debug-Key — installierbar,
+# aber bei Wechsel auf den echten Keystore ist einmalig Deinstallation noetig.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "apps/mobile/**"
+      - "packages/shared/**"
+      - ".github/workflows/android-apk.yml"
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Prebuild (android/ generieren)
+        working-directory: apps/mobile
+        run: pnpm exec expo prebuild --platform android --no-install
+
+      - name: Gradle Release-Build
+        working-directory: apps/mobile/android
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: APK-Artefakt hochladen
+        uses: actions/upload-artifact@v4
+        with:
+          name: ascent-beta-apk
+          path: apps/mobile/android/app/build/outputs/apk/release/app-release.apk
+          retention-days: 30
