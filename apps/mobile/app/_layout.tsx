@@ -1,7 +1,7 @@
 import '../global.css';
 
 import { useEffect } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
+import { ActivityIndicator, AppState, Text, View } from 'react-native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
@@ -9,7 +9,8 @@ import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
 import migrations from '../drizzle/migrations';
 import { db } from '../src/db/client';
 import { authClient, toSessionUser } from '../src/auth/client';
-import { upsertLocalUser, hydrateExercises } from '../src/db/hydrate';
+import { upsertLocalUser } from '../src/db/hydrate';
+import { runSync, runSyncThrottled } from '../src/db/sync';
 import { resumeActiveWorkout } from '../src/lib/active-workout';
 
 /**
@@ -51,16 +52,31 @@ export default function RootLayout() {
     if (!migrationsDone || !session?.user) return;
     const user = toSessionUser(session.user);
     // Fire-and-forget: beide tolerieren Offline/Fehler selbst (console.log,
-    // siehe src/db/hydrate.ts) und dürfen den Render nie blockieren.
-    upsertLocalUser(user).catch((err) => console.log('[RootLayout] upsertLocalUser fehlgeschlagen:', err));
-    hydrateExercises().catch((err) => console.log('[RootLayout] hydrateExercises fehlgeschlagen:', err));
+    // siehe src/db/hydrate.ts bzw. src/db/sync.ts) und dürfen den Render nie
+    // blockieren. upsertLocalUser MUSS vor runSync abgeschlossen sein (runSync
+    // braucht die lokal gespiegelte users-Zeile für getOwnerUserId), daher
+    // verkettet statt beide parallel gestartet.
+    upsertLocalUser(user)
+      .then(() => runSync())
+      .catch((err) => console.log('[RootLayout] upsertLocalUser/runSync fehlgeschlagen:', err));
     // Laufendes (nicht beendetes) Training aus der DB in den Modul-Cache
     // laden, damit Home sofort "fortsetzen" anbieten kann.
     resumeActiveWorkout().catch((err) => console.log('[RootLayout] resumeActiveWorkout fehlgeschlagen:', err));
     // session.user ist ein neues Objekt pro Fetch — wir wollen aber nur bei
-    // Identitätswechsel (Login/Logout/Nutzerwechsel) erneut hydratisieren.
+    // Identitätswechsel (Login/Logout/Nutzerwechsel) erneut synchronisieren.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [migrationsDone, session?.user?.id]);
+
+  // AppState-Trigger (Reconnect/Wiedereintritt): 'active' → runSync, gedrosselt
+  // auf max. 1×/2 Minuten (siehe runSyncThrottled in src/db/sync.ts). Bewusst
+  // unabhängig vom Session-Effect oben montiert — runSync() selbst prüft die
+  // (gecachte) Session und ist ohne sie ein No-Op.
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', (state) => {
+      if (state === 'active') runSyncThrottled();
+    });
+    return () => subscription.remove();
+  }, []);
 
   if (migrationsError) {
     return (

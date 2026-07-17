@@ -24,8 +24,10 @@ jobs:
       - name: Typecheck
         run: pnpm -r typecheck
 
-      - name: Test
-        run: pnpm -r test
-
+      # Vor den API-Tests: wrangler.jsonc referenziert apps/web/dist
+      # (Worker-Assets) — der Vitest-Workers-Pool laedt diese Config.
       - name: Build Web
         run: pnpm --filter @ascent/web build
+
+      - name: Test
+        run: pnpm -r test

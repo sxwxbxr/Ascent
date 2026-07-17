@@ -1,7 +1,7 @@
 # Projektstatus – Ascent
-### Stand: 17.07.2026 — M1+M2 live, M3 (Android-Kern) implementiert, erste Beta-APK via GitHub Actions
+### Stand: 17.07.2026 — MVP KOMPLETT: M0–M5 implementiert, App+Web live, Beta-APK gebaut
 
-**Nutzer-Ziel:** MVP mit testbarer Beta auf dem Handy — M3→APK ist der kritische Pfad, M4 (Sync) und M5 (Web-Dashboard) folgen.
+**Nutzer-Ziel erreicht (vorbehaltlich Gerätetest):** Beta-APK liegt unter `beta/app-release.apk` (bzw. Actions-Artefakt "ascent-beta-apk"); Web-Dashboard live auf **https://ascent-api.sweber.workers.dev** (derselbe Worker serviert SPA + API same-origin). Es fehlt M6 (Release-Polish: eigener Keystore, APK-Download über die Web-App, version.json-Check).
 
 Einstiegsdokument für die Weiterarbeit. Grundlagen: `Lastenheft_Fitnessapp_Brainstorming.md` (Anforderungen), `Technisches_Konzept_MVP.md` (Architektur & Etappenplan M0–M6), `CLAUDE.md` (Arbeitskonventionen, Kommandos).
 
@@ -57,10 +57,15 @@ Einstiegsdokument für die Weiterarbeit. Grundlagen: `Lastenheft_Fitnessapp_Brai
 5. **Altes Design-Zip** (3.5 MB) in Git-Historie; **Lizenz-Gate** Übungsmedien vor Abo-Aktivierung
 6. Kleinere M3-Nachträge: Android-Notification-Channel (Heads-up im Hintergrund), AKTIV/ARCHIVIERT-Badge für Pläne (braucht Schema-Spalte), Mehrfachauswahl im Übungs-Picker
 
-## Nächste Schritte: M4 (Sync-Client) + M5 (Web-Dashboard)
+### M4 (Sync-Client) — implementiert
+Push mit persistenten Per-Tabellen-Cursorn (SecureStore, chargenfest), Pull mit lokalem LWW (ungesyncte lokale Änderungen gewinnen lokal, gehen beim nächsten Push hoch), globale Übungen werden nie gepusht. Trigger: App-Start (nach upsertLocalUser verkettet), Workout-Ende, AppState-active (gedrosselt 1×/2 Min), manueller Button im Profil (mit Sync-Status/Fehleranzeige).
 
-- **M4:** Push-Seite des Sync in der App (lokale Änderungen → POST /sync/push, Pull für alle Tabellen, Sync-Trigger: App-Start/Workout-Ende/Reconnect). Server-Endpoints existieren und sind getestet; die App hydriert bereits Übungen via Pull.
-- **M5:** Web-Dashboard mit echten Daten (Login via Better-Auth-Web-Client, Kraftverlauf-Charts mit Trendlinie aus shared/progression, Körpergewicht, Verlauf, Planverwaltung, APK-Download-Seite).
+### M5 (Web-Dashboard) — implementiert und live
+Login/Registrierung (Invite-Code) via Better-Auth-Web-Client (**Achtung: relative baseURL wird nicht unterstützt** — window.location.origin + basePath '/auth'). Datenquelle: EIN /sync/pull-Snapshot (Context mit reload()). Seiten: Dashboard (1RM-Chart mit Epley + strengthTrend-Trendlinie ab 3 Sessions, Körpergewicht-Chart+Erfassung, Stat-Kacheln, Pro-Teaser via useEntitlement), Verlauf (aufklappbar), Pläne (/plaene — bewusst deutsch, kollisionsfrei zu API /plans!), Einstellungen (Profil, Invites), Download (Interims-Anleitung). **Deployment: derselbe Worker serviert die SPA** (wrangler.jsonc "assets": ../web/dist, SPA-Fallback, API-Pfade via run_worker_first) — same-origin, kein CORS. CI baut Web VOR den API-Tests (der Vitest-Pool lädt wrangler.jsonc und braucht dist/).
+
+## Nächster Schritt: Gerätetest der Beta, dann M6 (Release)
+
+M6-Scope: eigener Signing-Keystore (einmalige Neuinstallation!), APK-Upload nach R2 + echter Download-Button + version.json-Update-Check, Passwort-Reset-UI, Mail-Versand (Resend), Notification-Channel-Tuning, i18n-Feinschliff (Inter-Font, deutsche Übungsnamen).
 
 ## Arbeitsweise (vom Nutzer vorgegeben)
 

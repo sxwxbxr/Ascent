@@ -1,13 +1,29 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
+import { Link, useNavigate } from "react-router";
+import { signIn } from "../lib/auth";
 
 export function LoginPage() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // Auth kommt in M1 – hier passiert bewusst noch nichts.
+    setError(null);
+    setSubmitting(true);
+
+    const { error: signInError } = await signIn.email({ email, password });
+
+    setSubmitting(false);
+    if (signInError) {
+      setError(signInError.message ?? "Anmeldung fehlgeschlagen.");
+      return;
+    }
+
+    void navigate("/", { replace: true });
   }
 
   return (
@@ -30,7 +46,7 @@ export function LoginPage() {
             Logge dich ein, um dein Training fortzusetzen.
           </p>
 
-          <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
+          <form className="flex flex-col gap-5" onSubmit={(event) => void handleSubmit(event)}>
             <div className="flex flex-col gap-2">
               <label
                 htmlFor="email"
@@ -59,12 +75,6 @@ export function LoginPage() {
                 >
                   Passwort
                 </label>
-                <a
-                  href="#"
-                  className="text-xs font-semibold text-primary hover:underline"
-                >
-                  Passwort vergessen?
-                </a>
               </div>
               <input
                 id="password"
@@ -79,13 +89,27 @@ export function LoginPage() {
               />
             </div>
 
+            {error && (
+              <p role="alert" className="text-sm text-error">
+                {error}
+              </p>
+            )}
+
             <button
               type="submit"
-              className="mt-2 h-12 rounded-md bg-primary font-bold uppercase tracking-wide text-on-primary transition-opacity hover:opacity-90 active:scale-[0.98]"
+              disabled={submitting}
+              className="mt-2 h-12 rounded-md bg-primary font-bold uppercase tracking-wide text-on-primary transition-opacity hover:opacity-90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Anmelden
+              {submitting ? "Wird angemeldet…" : "Anmelden"}
             </button>
           </form>
+
+          <p className="mt-6 text-center text-sm text-on-surface-muted">
+            Noch kein Konto?{" "}
+            <Link to="/register" className="font-semibold text-primary hover:underline">
+              Jetzt registrieren
+            </Link>
+          </p>
         </div>
       </div>
     </div>

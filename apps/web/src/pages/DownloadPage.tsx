@@ -57,6 +57,39 @@ export function DownloadPage() {
         </p>
       </div>
 
+      <div className="rounded-lg border border-primary/40 bg-surface-container p-6">
+        <div className="flex items-center gap-3">
+          <span className="rounded-full bg-primary px-3 py-1 text-xs font-bold uppercase tracking-widest text-on-primary">
+            Beta
+          </span>
+          <h2 className="font-bold text-on-surface">
+            Aktuelle Beta-APK über GitHub Actions
+          </h2>
+        </div>
+        <p className="mt-3 text-sm text-on-surface-muted">
+          Bis der Download-Button hier in M6 live geht, findest du den
+          neuesten Build als Actions-Artefakt:{" "}
+          <span className="text-on-surface">
+            GitHub → Actions → neuester &bdquo;Android APK&ldquo;-Lauf →
+            Artefakt &bdquo;ascent-beta-apk&ldquo;
+          </span>
+          .
+        </p>
+        <a
+          href="https://github.com/sxwxbxr/Ascent/actions/workflows/android-apk.yml"
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 inline-flex h-10 items-center rounded-md border border-primary px-4 text-xs font-bold uppercase tracking-widest text-primary transition-colors hover:bg-primary hover:text-on-primary"
+        >
+          Zu den GitHub Actions
+        </a>
+        <p className="mt-4 text-xs text-on-surface-muted">
+          Hinweis: Die APK ist bis zum eigenen Signing-Keystore (M6)
+          Debug-signiert. Beim späteren Umstieg auf die final signierte
+          Version ist einmalig eine Deinstallation der Beta nötig.
+        </p>
+      </div>
+
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {steps.map((step) => (
           <div

@@ -9,6 +9,30 @@
   "observability": {
     "enabled": true,
   },
+  // SPA-Auslieferung: derselbe Worker serviert Web-Dashboard UND API
+  // (same-origin -> Cookies ohne CORS). API-Pfade laufen via
+  // run_worker_first am Asset-Handling vorbei; alles andere faellt auf
+  // die SPA zurueck (client-seitiges Routing). Voraussetzung fuer
+  // Deploy UND lokale Tests: apps/web/dist existiert (pnpm --filter
+  // @ascent/web build) — CI baut Web deshalb VOR den API-Tests.
+  "assets": {
+    "directory": "../web/dist",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": [
+      "/auth/*",
+      "/plans", "/plans/*",
+      "/workouts", "/workouts/*",
+      "/exercises", "/exercises/*",
+      "/body-metrics", "/body-metrics/*",
+      "/profile", "/profile/*",
+      "/invites", "/invites/*",
+      "/sync/*",
+      "/entitlements",
+      "/media/*",
+      "/health",
+      "/version"
+    ]
+  },
   "vars": {
     // BETTER_AUTH_SECRET bewusst NICHT hier: Secrets gehören nicht in vars
     // (landen sonst im Klartext in wrangler.jsonc). Für Prod per

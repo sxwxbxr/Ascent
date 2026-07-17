@@ -5,6 +5,7 @@ import type { Tier } from '@ascent/shared';
 
 import { API_URL } from '../../src/config';
 import { authClient, toSessionUser } from '../../src/auth/client';
+import { runSync, useSyncStatus } from '../../src/db/sync';
 
 type InviteStatus = 'offen' | 'verwendet' | 'abgelaufen';
 
@@ -33,6 +34,20 @@ function formatDate(ms: number): string {
   return new Date(ms).toLocaleDateString('de-CH');
 }
 
+/** "Zuletzt synchronisiert"-Text: relativ für kurze Zeiträume, sonst Datum/Uhrzeit (de-CH). */
+function formatSyncTime(ms: number | null): string {
+  if (ms === null) return 'noch nie';
+
+  const diffMin = Math.floor((Date.now() - ms) / 60_000);
+  if (diffMin < 1) return 'gerade eben';
+  if (diffMin < 60) return `vor ${diffMin} Minute${diffMin === 1 ? '' : 'n'}`;
+
+  const diffHours = Math.floor(diffMin / 60);
+  if (diffHours < 24) return `vor ${diffHours} Stunde${diffHours === 1 ? '' : 'n'}`;
+
+  return new Date(ms).toLocaleString('de-CH');
+}
+
 function initialsOf(name: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);
   const letters = parts.slice(0, 2).map((p) => p[0]?.toUpperCase() ?? '');
@@ -44,6 +59,7 @@ function initialsOf(name: string): string {
 export default function ProfilScreen() {
   const { data: session } = authClient.useSession();
   const user = session?.user ? toSessionUser(session.user) : null;
+  const syncStatus = useSyncStatus();
 
   const [invites, setInvites] = useState<Invite[]>([]);
   const [invitesLoading, setInvitesLoading] = useState(false);
@@ -174,6 +190,29 @@ export default function ProfilScreen() {
             </View>
           ))}
         </View>
+      </View>
+
+      {/* Synchronisation */}
+      <View className="bg-surface-container rounded-xl p-4 border border-surface-container-high gap-3">
+        <Text className="text-on-surface text-lg font-bold">Synchronisation</Text>
+        <View className="flex-row justify-between">
+          <Text className="text-on-surface-muted">Zuletzt synchronisiert</Text>
+          <Text className="text-on-surface">{formatSyncTime(syncStatus.lastSyncAt)}</Text>
+        </View>
+
+        {syncStatus.lastError && <Text className="text-error text-sm">{syncStatus.lastError}</Text>}
+
+        <Pressable
+          className="h-12 rounded-lg border border-primary items-center justify-center flex-row gap-2"
+          onPress={() => runSync().catch((err) => console.log('[ProfilScreen] runSync fehlgeschlagen:', err))}
+          disabled={syncStatus.isSyncing}
+        >
+          {syncStatus.isSyncing ? (
+            <ActivityIndicator color="#b4ff39" />
+          ) : (
+            <Text className="text-primary font-bold">Jetzt synchronisieren</Text>
+          )}
+        </Pressable>
       </View>
 
       {/* App */}

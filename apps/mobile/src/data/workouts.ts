@@ -2,6 +2,7 @@ import { and, asc, desc, eq, isNotNull, isNull, ne, sql } from 'drizzle-orm';
 import { exercises, planExercises, plans, workoutSets, workouts } from '@ascent/shared';
 
 import { db } from '../db/client';
+import { runSync } from '../db/sync';
 import { newId } from '../lib/ids';
 import { getOwnerUserId } from '../lib/owner';
 import { setCachedActiveWorkoutId } from '../lib/active-workout';
@@ -84,11 +85,14 @@ export function getWorkoutWithPlan(workoutId: string) {
     .limit(1);
 }
 
-/** Markiert ein Workout als abgeschlossen (finishedAt=now). */
+/** Markiert ein Workout als abgeschlossen (finishedAt=now). Stösst danach fire-and-forget einen Sync an. */
 export async function finishWorkout(id: string): Promise<void> {
   const now = Date.now();
   await db.update(workouts).set({ finishedAt: now, updatedAt: now }).where(eq(workouts.id, id));
   setCachedActiveWorkoutId(null);
+  // Fire-and-forget: runSync toleriert Offline/Fehler selbst (siehe src/db/sync.ts)
+  // und darf den Trainingsabschluss nie blockieren.
+  runSync().catch((err) => console.log('[finishWorkout] runSync fehlgeschlagen:', err));
 }
 
 /** Soft-Delete eines Workouts — für "Training verwerfen" (aktiv, 0 Sätze) und "Training löschen" (Verlauf). */
