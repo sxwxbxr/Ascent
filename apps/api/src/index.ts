@@ -12,6 +12,7 @@ import { plansRouter } from "./routes/plans";
 import { workoutsRouter } from "./routes/workouts";
 import { exercisesRouter } from "./routes/exercises";
 import { bodyMetricsRouter } from "./routes/body-metrics";
+import { mediaRouter } from "./routes/media";
 import { profileRouter } from "./routes/profile";
 import { syncRouter } from "./routes/sync";
 
@@ -39,6 +40,10 @@ app.get("/version", (c) => {
 // Better Auth: Registrierung (nur mit Invite-Code, Bootstrap-Ausnahme),
 // Login, Session, Passwort-Reset. basePath '/auth' ist in auth.ts gespiegelt.
 app.on(["GET", "POST"], "/auth/*", (c) => createAuth(c.env).handler(c.req.raw));
+
+// R2-Medien (Übungs-GIFs/-Thumbnails, später APK) — bewusst ohne Auth,
+// damit <img>/RN-Image ohne Header laden können. Immutable-Cache + ETag.
+app.route("/media", mediaRouter);
 
 // Liefert die aufgelöste Feature-Map (Technisches Konzept Abschnitt 5).
 // Anonym = Tier "free"; mit Session zählt users.tier. Trial-Nutzer haben
