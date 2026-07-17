@@ -3,5 +3,5 @@
   "compilerOptions": {
     "strict": true
   },
-  "include": ["App.tsx", "src", "nativewind-env.d.ts"]
+  "include": ["app", "src", "nativewind-env.d.ts", "drizzle.config.ts", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

@@ -2,6 +2,7 @@
   "expo": {
     "name": "Ascent",
     "slug": "ascent",
+    "scheme": "ascent",
     "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,6 +22,11 @@
         "backgroundColor": "#131313"
       },
       "predictiveBackGestureEnabled": false
-    }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-sqlite",
+      "expo-secure-store"
+    ]
   }
 }

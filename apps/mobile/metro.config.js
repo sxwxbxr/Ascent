@@ -15,4 +15,7 @@ config.resolver.nodeModulesPaths = [
   path.resolve(workspaceRoot, 'node_modules'),
 ];
 
+// Drizzle-Migrationen (.sql) müssen von Metro aufgelöst werden können
+config.resolver.sourceExts.push('sql');
+
 module.exports = withNativeWind(config, { input: './global.css' });
