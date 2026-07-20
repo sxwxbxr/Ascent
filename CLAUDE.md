@@ -32,7 +32,10 @@ pnpm --filter @ascent/api db:generate         # regenerate migration after schem
 pnpm --filter @ascent/api db:migrate:local    # apply migrations to local D1
 pnpm --filter @ascent/api db:seed:local       # seed feature flags
 pnpm --filter @ascent/web build               # production build (CI runs typecheck, test, build)
+pnpm e2e                                       # autonomous backend E2E smoke (see scripts/E2E.md)
 ```
+
+`pnpm e2e` (`scripts/e2e-smoke.ts`) drives the full client flow — register/login, plan+workout CRUD, sync push/pull, ownership isolation, invite consumption, exercise translations + media — against a running API, no device needed. Default target `127.0.0.1:8787`; needs a local wrangler dev with a migrated+seeded local D1 (reset recipe in `scripts/E2E.md`). Refuses `workers.dev` targets unless `--allow-remote`. The fixed primary account bootstraps on first run and logs in thereafter, so it is re-runnable without a DB reset.
 
 Cloudflare deploy is not yet set up: `wrangler d1 create ascent-db` / `wrangler r2 bucket create ascent-media` must be run once and the `database_id` entered in `apps/api/wrangler.jsonc`. Local dev works without (wrangler simulates D1/R2).
 
