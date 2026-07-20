@@ -92,10 +92,29 @@ type RawExercise = {
   category: string;
   equipment: string;
   target: string;
+  muscle_group?: string;
+  secondary_muscles?: string[];
   instructions: { en: string };
+  instruction_steps?: { en?: string[] };
   image: string;
   gif_url: string;
 };
+
+/**
+ * Kuratierte Namens-Uebersetzungen (DE) + orthographisch korrigierte
+ * EN-Namen. Generiert via Uebersetzungs-Subagenten, gemergt nach
+ * scripts/data/exercise-names.i18n.json (im Repo versioniert).
+ */
+type NameI18n = Record<string, { en: string; de: string }>;
+
+function loadNameI18n(): NameI18n {
+  const path = join(REPO_ROOT, 'scripts', 'data', 'exercise-names.i18n.json');
+  if (!existsSync(path)) {
+    console.warn('Hinweis: scripts/data/exercise-names.i18n.json fehlt — Namen bleiben unuebersetzt.');
+    return {};
+  }
+  return JSON.parse(readFileSync(path, 'utf8')) as NameI18n;
+}
 
 type Target = 'local' | 'remote';
 
@@ -241,6 +260,9 @@ async function cmdSql(flags: Flags): Promise<void> {
   const exercises = await loadExercises(limit);
   const now = Date.now();
 
+  const nameI18n = loadNameI18n();
+  let translated = 0;
+
   const columns = [
     'id',
     'user_id',
@@ -251,6 +273,9 @@ async function cmdSql(flags: Flags): Promise<void> {
     'equipment',
     'instructions_en',
     'instructions_de',
+    'muscle_group',
+    'secondary_muscles',
+    'instruction_steps_en',
     'thumbnail_url',
     'gif_url',
     'created_at',
@@ -260,16 +285,24 @@ async function cmdSql(flags: Flags): Promise<void> {
 
   const rowTuples = exercises.map((ex) => {
     const id = uuidv5(ex.id, NAMESPACE_UUID);
+    const i18n = nameI18n[ex.id];
+    if (i18n) translated += 1;
+    const steps = ex.instruction_steps?.en;
     const values = [
       sqlString(id),
       'NULL', // user_id: global (kein Owner)
-      sqlString(ex.name),
-      'NULL', // name_de: Uebersetzung folgt spaeter
+      sqlString(i18n?.en ?? ex.name),
+      i18n?.de ? sqlString(i18n.de) : 'NULL',
       sqlString(ex.category ?? ''),
       sqlString(ex.target ?? ''),
       sqlString(ex.equipment ?? ''),
       sqlString(ex.instructions?.en ?? ''),
       'NULL', // instructions_de: Uebersetzung folgt spaeter
+      ex.muscle_group ? sqlString(ex.muscle_group) : 'NULL',
+      Array.isArray(ex.secondary_muscles) && ex.secondary_muscles.length > 0
+        ? sqlString(JSON.stringify(ex.secondary_muscles))
+        : 'NULL',
+      Array.isArray(steps) && steps.length > 0 ? sqlString(JSON.stringify(steps)) : 'NULL',
       sqlString(`${MEDIA_BASE_URL}/${ex.id}.jpg`),
       sqlString(`${MEDIA_BASE_URL}/${ex.id}.gif`),
       String(now),
@@ -278,6 +311,8 @@ async function cmdSql(flags: Flags): Promise<void> {
     ];
     return `(${values.join(', ')})`;
   });
+
+  console.log(`Namens-Uebersetzungen angewendet: ${translated}/${exercises.length}`);
 
   const batches: string[] = [];
   for (let i = 0; i < rowTuples.length; i += SQL_BATCH_SIZE) {

@@ -3,6 +3,7 @@ import type { FocusEvent } from "react";
 import { Link, useParams } from "react-router";
 import { ExercisePickerModal } from "../components/ExercisePickerModal";
 import { ApiError, api } from "../lib/api";
+import { exerciseName } from "../lib/i18n";
 import { useSnapshot } from "../lib/snapshot";
 import type { ExerciseRow, PlanExerciseRow, PlanRow } from "../lib/snapshot";
 
@@ -40,7 +41,7 @@ function PlanExerciseItem({
   onSaveRepsMax,
   onSaveRest,
 }: PlanExerciseItemProps) {
-  const displayName = exercise ? (exercise.nameDe ?? exercise.name) : "Unbekannte Übung";
+  const displayName = exercise ? exerciseName(exercise) : "Unbekannte Übung";
 
   function handleBlur(
     event: FocusEvent<HTMLInputElement>,

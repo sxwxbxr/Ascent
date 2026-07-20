@@ -52,6 +52,12 @@ export const exercises = sqliteTable('exercises', {
   equipment: text('equipment'),
   instructionsEn: text('instructions_en'),
   instructionsDe: text('instructions_de'),
+  /** Synergist laut Datensatz (z. B. "hip flexors") */
+  muscleGroup: text('muscle_group'),
+  /** JSON-Array beteiligter Muskeln, z. B. '["hip flexors","lower back"]' */
+  secondaryMuscles: text('secondary_muscles'),
+  /** JSON-Array nummerierter Ausführungs-Schritte (EN) */
+  instructionStepsEn: text('instruction_steps_en'),
   thumbnailUrl: text('thumbnail_url'),
   gifUrl: text('gif_url'),
   /** Epoch ms */

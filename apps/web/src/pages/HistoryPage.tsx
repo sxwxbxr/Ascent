@@ -2,6 +2,7 @@ import { Fragment, useMemo, useState } from "react";
 import type { ExerciseRow, WorkoutSetRow } from "../lib/snapshot";
 import { useSnapshot } from "../lib/snapshot";
 import { epley1Rm } from "@ascent/shared";
+import { exerciseName } from "../lib/i18n";
 
 interface HistoryRow {
   workoutId: string;
@@ -32,7 +33,7 @@ function displayName(exercise: ExerciseRow | undefined): string {
   if (!exercise) {
     return "Unbekannte Übung";
   }
-  return exercise.nameDe ?? exercise.name;
+  return exerciseName(exercise);
 }
 
 function groupSetsByExercise(

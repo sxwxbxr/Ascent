@@ -55,6 +55,9 @@ export function Layout() {
                 <NavLink to="/plaene" className={getNavLinkClassName}>
                   Pläne
                 </NavLink>
+                <NavLink to="/uebungen" className={getNavLinkClassName}>
+                  Übungen
+                </NavLink>
                 <NavLink to="/download" className={getNavLinkClassName}>
                   Download
                 </NavLink>
@@ -79,6 +82,9 @@ export function Layout() {
               </NavLink>
               <NavLink to="/plaene" className={getNavLinkClassName}>
                 Pläne
+              </NavLink>
+              <NavLink to="/uebungen" className={getNavLinkClassName}>
+                Übungen
               </NavLink>
               <NavLink to="/download" className={getNavLinkClassName}>
                 Download

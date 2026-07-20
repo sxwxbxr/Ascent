@@ -1,0 +1,5298 @@
+{
+  "0001": {
+    "en": "3/4 Sit-up",
+    "de": "3/4 Sit-up"
+  },
+  "0002": {
+    "en": "45° Side Bend",
+    "de": "45°-Seitbeuge"
+  },
+  "0003": {
+    "en": "Air Bike",
+    "de": "Air Bike"
+  },
+  "1512": {
+    "en": "All Fours Quad Stretch",
+    "de": "Quadrizeps-Dehnung im Vierfüsslerstand"
+  },
+  "0006": {
+    "en": "Alternate Heel Touchers",
+    "de": "Abwechselndes Fersentippen"
+  },
+  "0007": {
+    "en": "Alternate Lateral Pulldown",
+    "de": "Abwechselnder seitlicher Latzug"
+  },
+  "1368": {
+    "en": "Ankle Circles",
+    "de": "Fussgelenkkreisen"
+  },
+  "3293": {
+    "en": "Archer Pull-up",
+    "de": "Archer-Klimmzug"
+  },
+  "3294": {
+    "en": "Archer Push-up",
+    "de": "Archer-Liegestütz"
+  },
+  "2355": {
+    "en": "Arm Slingers Hanging Bent Knee Legs",
+    "de": "Hängende Armschwünge mit angewinkelten Beinen"
+  },
+  "2333": {
+    "en": "Arm Slingers Hanging Straight Legs",
+    "de": "Hängende Armschwünge mit gestreckten Beinen"
+  },
+  "3214": {
+    "en": "Arms Apart Circular Toe Touch (Male)",
+    "de": "Kreisendes Zehentippen mit ausgestreckten Armen (männlich)"
+  },
+  "3204": {
+    "en": "Arms Overhead Full Sit-up (Male)",
+    "de": "Vollständiger Sit-up mit Armen über dem Kopf (männlich)"
+  },
+  "0009": {
+    "en": "Assisted Chest Dip (Kneeling)",
+    "de": "Brust-Dip an der Maschine (kniend, unterstützt)"
+  },
+  "0011": {
+    "en": "Assisted Hanging Knee Raise",
+    "de": "Hängendes Knieheben (unterstützt)"
+  },
+  "0010": {
+    "en": "Assisted Hanging Knee Raise with Throw Down",
+    "de": "Hängendes Knieheben mit Ablassen (unterstützt)"
+  },
+  "1708": {
+    "en": "Assisted Lying Calves Stretch",
+    "de": "Wadendehnung im Liegen (unterstützt)"
+  },
+  "1709": {
+    "en": "Assisted Lying Glutes Stretch",
+    "de": "Gesässdehnung im Liegen (unterstützt)"
+  },
+  "1710": {
+    "en": "Assisted Lying Gluteus and Piriformis Stretch",
+    "de": "Gesäss- und Piriformis-Dehnung im Liegen (unterstützt)"
+  },
+  "0012": {
+    "en": "Assisted Lying Leg Raise with Lateral Throw Down",
+    "de": "Beinheben im Liegen mit seitlichem Ablassen (unterstützt)"
+  },
+  "0013": {
+    "en": "Assisted Lying Leg Raise with Throw Down",
+    "de": "Beinheben im Liegen mit Ablassen (unterstützt)"
+  },
+  "0014": {
+    "en": "Assisted Motion Russian Twist",
+    "de": "Russian Twist mit Medizinball (unterstützt)"
+  },
+  "0015": {
+    "en": "Assisted Parallel Close Grip Pull-up",
+    "de": "Klimmzug eng im Parallelgriff an der Maschine (unterstützt)"
+  },
+  "0016": {
+    "en": "Assisted Prone Hamstring",
+    "de": "Hamstring-Dehnung in Bauchlage (unterstützt)"
+  },
+  "1713": {
+    "en": "Assisted Prone Lying Quads Stretch",
+    "de": "Quadrizeps-Dehnung in Bauchlage (unterstützt)"
+  },
+  "1714": {
+    "en": "Assisted Prone Rectus Femoris Stretch",
+    "de": "Rectus-femoris-Dehnung in Bauchlage (unterstützt)"
+  },
+  "0017": {
+    "en": "Assisted Pull-up",
+    "de": "Klimmzug an der Maschine (unterstützt)"
+  },
+  "1716": {
+    "en": "Assisted Seated Pectoralis Major Stretch with Stability Ball",
+    "de": "Dehnung des grossen Brustmuskels im Sitzen mit Gymnastikball (unterstützt)"
+  },
+  "1712": {
+    "en": "Assisted Side Lying Adductor Stretch",
+    "de": "Adduktorendehnung in Seitenlage (unterstützt)"
+  },
+  "1758": {
+    "en": "Assisted Sit-up",
+    "de": "Sit-up (unterstützt)"
+  },
+  "1431": {
+    "en": "Assisted Standing Chin-up",
+    "de": "Klimmzug im Untergriff stehend an der Maschine (unterstützt)"
+  },
+  "1432": {
+    "en": "Assisted Standing Pull-up",
+    "de": "Klimmzug stehend an der Maschine (unterstützt)"
+  },
+  "0018": {
+    "en": "Assisted Standing Triceps Extension (with Towel)",
+    "de": "Trizepsstrecken im Stehen mit Handtuch (unterstützt)"
+  },
+  "0019": {
+    "en": "Assisted Triceps Dip (Kneeling)",
+    "de": "Trizeps-Dip an der Maschine (kniend, unterstützt)"
+  },
+  "2364": {
+    "en": "Assisted Wide-Grip Chest Dip (Kneeling)",
+    "de": "Brust-Dip im weiten Griff an der Maschine (kniend, unterstützt)"
+  },
+  "3220": {
+    "en": "Astride Jumps (Male)",
+    "de": "Grätschsprünge (männlich)"
+  },
+  "3672": {
+    "en": "Back and Forth Step",
+    "de": "Schritte vor und zurück"
+  },
+  "1314": {
+    "en": "Back Extension on Exercise Ball",
+    "de": "Rückenstrecker auf dem Gymnastikball"
+  },
+  "3297": {
+    "en": "Back Lever",
+    "de": "Back Lever"
+  },
+  "1405": {
+    "en": "Back Pec Stretch",
+    "de": "Rückendehnung"
+  },
+  "1473": {
+    "en": "Backward Jump",
+    "de": "Rückwärtssprung"
+  },
+  "0020": {
+    "en": "Balance Board",
+    "de": "Balance Board"
+  },
+  "0968": {
+    "en": "Band Alternating Biceps Curl",
+    "de": "Bizepscurl abwechselnd mit Band"
+  },
+  "0969": {
+    "en": "Band Alternating V-up",
+    "de": "V-up abwechselnd mit Band"
+  },
+  "0970": {
+    "en": "Band Assisted Pull-up",
+    "de": "Klimmzug mit Band (unterstützt)"
+  },
+  "0971": {
+    "en": "Band Assisted Wheel Rollout",
+    "de": "Ab-Rollout mit Band (unterstützt)"
+  },
+  "1254": {
+    "en": "Band Bench Press",
+    "de": "Bankdrücken mit Band"
+  },
+  "0980": {
+    "en": "Band Bent-Over Hip Extension",
+    "de": "Hüftstrecken vorgebeugt mit Band"
+  },
+  "0972": {
+    "en": "Band Bicycle Crunch",
+    "de": "Fahrrad-Crunch mit Band"
+  },
+  "0974": {
+    "en": "Band Close-Grip Pulldown",
+    "de": "Latzug eng mit Band"
+  },
+  "0975": {
+    "en": "Band Close-Grip Push-up",
+    "de": "Liegestütz eng mit Band"
+  },
+  "0976": {
+    "en": "Band Concentration Curl",
+    "de": "Konzentrationscurl mit Band"
+  },
+  "3117": {
+    "en": "Band Fixed Back Close Grip Pulldown",
+    "de": "Latzug eng mit fixiertem Rücken mit Band"
+  },
+  "3116": {
+    "en": "Band Fixed Back Underhand Pulldown",
+    "de": "Latzug im Untergriff mit fixiertem Rücken mit Band"
+  },
+  "0977": {
+    "en": "Band Front Lateral Raise",
+    "de": "Frontales Seitheben mit Band"
+  },
+  "0978": {
+    "en": "Band Front Raise",
+    "de": "Frontheben mit Band"
+  },
+  "1408": {
+    "en": "Band Hip Lift",
+    "de": "Hüftheben mit Band"
+  },
+  "0979": {
+    "en": "Band Horizontal Pallof Press",
+    "de": "Horizontaler Pallof-Press mit Band"
+  },
+  "0981": {
+    "en": "Band Jack Knife Sit-up",
+    "de": "Jackknife-Sit-up mit Band"
+  },
+  "0983": {
+    "en": "Band Kneeling One Arm Pulldown",
+    "de": "Einarmiger Latzug kniend mit Band"
+  },
+  "0985": {
+    "en": "Band Kneeling Twisting Crunch",
+    "de": "Twist-Crunch kniend mit Band"
+  },
+  "0984": {
+    "en": "Band Lying Hip Internal Rotation",
+    "de": "Hüftinnenrotation im Liegen mit Band"
+  },
+  "1002": {
+    "en": "Band Lying Straight Leg Raise",
+    "de": "Gestrecktes Beinheben im Liegen mit Band"
+  },
+  "0986": {
+    "en": "Band One Arm Overhead Biceps Curl",
+    "de": "Einarmiger Bizepscurl über Kopf mit Band"
+  },
+  "0987": {
+    "en": "Band One Arm Single Leg Split Squat",
+    "de": "Split Squat einarmig und einbeinig mit Band"
+  },
+  "0988": {
+    "en": "Band One Arm Standing Low Row",
+    "de": "Einarmiges Rudern tief im Stehen mit Band"
+  },
+  "0989": {
+    "en": "Band One Arm Twisting Chest Press",
+    "de": "Einarmiges Brustdrücken mit Drehung mit Band"
+  },
+  "0990": {
+    "en": "Band One Arm Twisting Seated Row",
+    "de": "Einarmiges Rudern im Sitzen mit Drehung mit Band"
+  },
+  "0991": {
+    "en": "Band Pull Through",
+    "de": "Pull-Through mit Band"
+  },
+  "0992": {
+    "en": "Band Push Sit-up",
+    "de": "Druck-Sit-up mit Band"
+  },
+  "0993": {
+    "en": "Band Reverse Fly",
+    "de": "Reverse Fliegende mit Band"
+  },
+  "0994": {
+    "en": "Band Reverse Wrist Curl",
+    "de": "Handgelenk-Curl rückwärts mit Band"
+  },
+  "0996": {
+    "en": "Band Seated Hip Internal Rotation",
+    "de": "Hüftinnenrotation im Sitzen mit Band"
+  },
+  "1011": {
+    "en": "Band Seated Twist",
+    "de": "Rumpfdrehung im Sitzen mit Band"
+  },
+  "0997": {
+    "en": "Band Shoulder Press",
+    "de": "Schulterdrücken mit Band"
+  },
+  "1018": {
+    "en": "Band Shrug",
+    "de": "Schulterheben mit Band"
+  },
+  "0998": {
+    "en": "Band Side Triceps Extension",
+    "de": "Seitliches Trizepsstrecken mit Band"
+  },
+  "0999": {
+    "en": "Band Single Leg Calf Raise",
+    "de": "Einbeiniges Wadenheben mit Band"
+  },
+  "1000": {
+    "en": "Band Single Leg Reverse Calf Raise",
+    "de": "Einbeiniges umgekehrtes Wadenheben mit Band"
+  },
+  "1001": {
+    "en": "Band Single Leg Split Squat",
+    "de": "Einbeiniger Split Squat mit Band"
+  },
+  "1004": {
+    "en": "Band Squat",
+    "de": "Kniebeuge mit Band"
+  },
+  "1003": {
+    "en": "Band Squat Row",
+    "de": "Kniebeuge mit Rudern mit Band"
+  },
+  "1005": {
+    "en": "Band Standing Crunch",
+    "de": "Crunch im Stehen mit Band"
+  },
+  "1022": {
+    "en": "Band Standing Rear Delt Row",
+    "de": "Rudern für die hintere Schulter im Stehen mit Band"
+  },
+  "1007": {
+    "en": "Band Standing Twisting Crunch",
+    "de": "Twist-Crunch im Stehen mit Band"
+  },
+  "1008": {
+    "en": "Band Step-up",
+    "de": "Step-up mit Band"
+  },
+  "1009": {
+    "en": "Band Stiff Leg Deadlift",
+    "de": "Kreuzheben mit steifen Beinen mit Band"
+  },
+  "1023": {
+    "en": "Band Straight Back Stiff Leg Deadlift",
+    "de": "Kreuzheben mit geradem Rücken und steifen Beinen mit Band"
+  },
+  "1010": {
+    "en": "Band Straight Leg Deadlift",
+    "de": "Kreuzheben mit gestreckten Beinen mit Band"
+  },
+  "1012": {
+    "en": "Band Twisting Overhead Press",
+    "de": "Überkopfdrücken mit Drehung mit Band"
+  },
+  "1369": {
+    "en": "Band Two Legs Calf Raise (Band Under Both Legs) V. 2",
+    "de": "Wadenheben beidbeinig mit Band (Band unter beiden Beinen) V. 2"
+  },
+  "1013": {
+    "en": "Band Underhand Pulldown",
+    "de": "Latzug im Untergriff mit Band"
+  },
+  "1014": {
+    "en": "Band V-up",
+    "de": "V-up mit Band"
+  },
+  "1015": {
+    "en": "Band Vertical Pallof Press",
+    "de": "Vertikaler Pallof-Press mit Band"
+  },
+  "1016": {
+    "en": "Band Wrist Curl",
+    "de": "Handgelenk-Curl mit Band"
+  },
+  "1017": {
+    "en": "Band Y-Raise",
+    "de": "Y-Raise mit Band"
+  },
+  "0023": {
+    "en": "Barbell Alternate Biceps Curl",
+    "de": "Abwechselnder Langhantel-Bizepscurl"
+  },
+  "0024": {
+    "en": "Barbell Bench Front Squat",
+    "de": "Langhantel-Frontkniebeuge zur Bank"
+  },
+  "0025": {
+    "en": "Barbell Bench Press",
+    "de": "Langhantel-Bankdrücken"
+  },
+  "0026": {
+    "en": "Barbell Bench Squat",
+    "de": "Langhantel-Kniebeuge zur Bank"
+  },
+  "1316": {
+    "en": "Barbell Bent Arm Pullover",
+    "de": "Langhantel-Überzug mit gebeugten Armen"
+  },
+  "0027": {
+    "en": "Barbell Bent Over Row",
+    "de": "Langhantel-Rudern vorgebeugt"
+  },
+  "2407": {
+    "en": "Barbell Biceps Curl (with Arm Blaster)",
+    "de": "Langhantel-Bizepscurl (mit Arm Blaster)"
+  },
+  "0028": {
+    "en": "Barbell Clean and Press",
+    "de": "Clean and Press mit der Langhantel"
+  },
+  "0029": {
+    "en": "Barbell Clean-Grip Front Squat",
+    "de": "Langhantel-Frontkniebeuge im Umsetzgriff"
+  },
+  "0030": {
+    "en": "Barbell Close-Grip Bench Press",
+    "de": "Langhantel-Bankdrücken eng"
+  },
+  "0031": {
+    "en": "Barbell Curl",
+    "de": "Langhantel-Curl"
+  },
+  "0032": {
+    "en": "Barbell Deadlift",
+    "de": "Langhantel-Kreuzheben"
+  },
+  "0033": {
+    "en": "Barbell Decline Bench Press",
+    "de": "Langhantel-Negativbankdrücken"
+  },
+  "0034": {
+    "en": "Barbell Decline Bent Arm Pullover",
+    "de": "Langhantel-Überzug mit gebeugten Armen auf der Negativbank"
+  },
+  "0035": {
+    "en": "Barbell Decline Close Grip to Skull Press",
+    "de": "Langhantel-Skullcrusher eng auf der Negativbank"
+  },
+  "1255": {
+    "en": "Barbell Decline Pullover",
+    "de": "Langhantel-Überzug auf der Negativbank"
+  },
+  "0036": {
+    "en": "Barbell Decline Wide-Grip Press",
+    "de": "Langhantel-Negativbankdrücken weit"
+  },
+  "0037": {
+    "en": "Barbell Decline Wide-Grip Pullover",
+    "de": "Langhantel-Überzug weit auf der Negativbank"
+  },
+  "0038": {
+    "en": "Barbell Drag Curl",
+    "de": "Langhantel-Drag-Curl"
+  },
+  "1370": {
+    "en": "Barbell Floor Calf Raise",
+    "de": "Langhantel-Wadenheben am Boden"
+  },
+  "0039": {
+    "en": "Barbell Front Chest Squat",
+    "de": "Langhantel-Frontkniebeuge an der Brust"
+  },
+  "0041": {
+    "en": "Barbell Front Raise",
+    "de": "Langhantel-Frontheben"
+  },
+  "0040": {
+    "en": "Barbell Front Raise and Pullover",
+    "de": "Langhantel-Frontheben und Überzug"
+  },
+  "0042": {
+    "en": "Barbell Front Squat",
+    "de": "Langhantel-Frontkniebeuge"
+  },
+  "0043": {
+    "en": "Barbell Full Squat",
+    "de": "Langhantel-Tiefkniebeuge"
+  },
+  "1461": {
+    "en": "Barbell Full Squat (Back POV)",
+    "de": "Langhantel-Tiefkniebeuge (Rückenansicht)"
+  },
+  "1462": {
+    "en": "Barbell Full Squat (Side POV)",
+    "de": "Langhantel-Tiefkniebeuge (Seitenansicht)"
+  },
+  "1545": {
+    "en": "Barbell Full Zercher Squat",
+    "de": "Langhantel-Zercher-Tiefkniebeuge"
+  },
+  "1409": {
+    "en": "Barbell Glute Bridge",
+    "de": "Langhantel-Gesässbrücke"
+  },
+  "3562": {
+    "en": "Barbell Glute Bridge Two Legs on Bench (Male)",
+    "de": "Langhantel-Gesässbrücke mit beiden Beinen auf der Bank (männlich)"
+  },
+  "0044": {
+    "en": "Barbell Good Morning",
+    "de": "Good Morning mit der Langhantel"
+  },
+  "0045": {
+    "en": "Barbell Guillotine Bench Press",
+    "de": "Langhantel-Guillotine-Bankdrücken"
+  },
+  "0046": {
+    "en": "Barbell Hack Squat",
+    "de": "Langhantel-Hack-Squat"
+  },
+  "1436": {
+    "en": "Barbell High Bar Squat",
+    "de": "Langhantel-High-Bar-Kniebeuge"
+  },
+  "0047": {
+    "en": "Barbell Incline Bench Press",
+    "de": "Langhantel-Schrägbankdrücken"
+  },
+  "1719": {
+    "en": "Barbell Incline Close Grip Bench Press",
+    "de": "Langhantel-Schrägbankdrücken eng"
+  },
+  "0048": {
+    "en": "Barbell Incline Reverse-Grip Press",
+    "de": "Langhantel-Schrägbankdrücken im Untergriff"
+  },
+  "0049": {
+    "en": "Barbell Incline Row",
+    "de": "Langhantel-Rudern auf der Schrägbank"
+  },
+  "0050": {
+    "en": "Barbell Incline Shoulder Raise",
+    "de": "Langhantel-Schulterheben auf der Schrägbank"
+  },
+  "0051": {
+    "en": "Barbell Jefferson Squat",
+    "de": "Langhantel-Jefferson-Kniebeuge"
+  },
+  "0052": {
+    "en": "Barbell JM Bench Press",
+    "de": "Langhantel-JM-Press"
+  },
+  "0053": {
+    "en": "Barbell Jump Squat",
+    "de": "Langhantel-Sprungkniebeuge"
+  },
+  "1410": {
+    "en": "Barbell Lateral Lunge",
+    "de": "Langhantel-Seitausfallschritt"
+  },
+  "1435": {
+    "en": "Barbell Low Bar Squat",
+    "de": "Langhantel-Low-Bar-Kniebeuge"
+  },
+  "0054": {
+    "en": "Barbell Lunge",
+    "de": "Langhantel-Ausfallschritt"
+  },
+  "1720": {
+    "en": "Barbell Lying Back of the Head Triceps Extension",
+    "de": "Langhantel-Trizepsstrecken hinter dem Kopf im Liegen"
+  },
+  "0055": {
+    "en": "Barbell Lying Close-Grip Press",
+    "de": "Langhantel-Drücken eng im Liegen"
+  },
+  "0056": {
+    "en": "Barbell Lying Close-Grip Triceps Extension",
+    "de": "Langhantel-Trizepsstrecken eng im Liegen"
+  },
+  "0057": {
+    "en": "Barbell Lying Extension",
+    "de": "Langhantel-Streckung im Liegen (Trizeps)"
+  },
+  "0058": {
+    "en": "Barbell Lying Lifting (on Hip)",
+    "de": "Langhantel-Hüftheben im Liegen"
+  },
+  "0059": {
+    "en": "Barbell Lying Preacher Curl",
+    "de": "Langhantel-Preacher-Curl im Liegen"
+  },
+  "0061": {
+    "en": "Barbell Lying Triceps Extension",
+    "de": "Langhantel-Trizepsstrecken im Liegen"
+  },
+  "0060": {
+    "en": "Barbell Lying Triceps Extension Skull Crusher",
+    "de": "Langhantel-Skullcrusher im Liegen"
+  },
+  "0063": {
+    "en": "Barbell Narrow Stance Squat",
+    "de": "Langhantel-Kniebeuge im engen Stand"
+  },
+  "0064": {
+    "en": "Barbell One Arm Bent Over Row",
+    "de": "Einarmiges Langhantel-Rudern vorgebeugt"
+  },
+  "0065": {
+    "en": "Barbell One Arm Floor Press",
+    "de": "Einarmiges Langhantel-Bankdrücken am Boden"
+  },
+  "0066": {
+    "en": "Barbell One Arm Side Deadlift",
+    "de": "Einarmiges Langhantel-Kreuzheben seitlich"
+  },
+  "0067": {
+    "en": "Barbell One Arm Snatch",
+    "de": "Einarmiges Langhantel-Reissen"
+  },
+  "0068": {
+    "en": "Barbell One Leg Squat",
+    "de": "Einbeinige Langhantel-Kniebeuge"
+  },
+  "0069": {
+    "en": "Barbell Overhead Squat",
+    "de": "Langhantel-Überkopfkniebeuge"
+  },
+  "1411": {
+    "en": "Barbell Palms Down Wrist Curl over a Bench",
+    "de": "Langhantel-Handgelenkcurl im Obergriff über der Bank"
+  },
+  "1412": {
+    "en": "Barbell Palms Up Wrist Curl over a Bench",
+    "de": "Langhantel-Handgelenkcurl im Untergriff über der Bank"
+  },
+  "3017": {
+    "en": "Barbell Pendlay Row",
+    "de": "Langhantel-Pendlay-Rudern"
+  },
+  "1751": {
+    "en": "Barbell Pin Presses",
+    "de": "Langhantel-Pin-Press"
+  },
+  "0070": {
+    "en": "Barbell Preacher Curl",
+    "de": "Langhantel-Preacher-Curl"
+  },
+  "0071": {
+    "en": "Barbell Press Sit-up",
+    "de": "Sit-up mit Langhantel-Überkopfdrücken"
+  },
+  "0072": {
+    "en": "Barbell Prone Incline Curl",
+    "de": "Langhantel-Curl in Bauchlage auf der Schrägbank"
+  },
+  "0073": {
+    "en": "Barbell Pullover",
+    "de": "Langhantel-Überzug"
+  },
+  "0022": {
+    "en": "Barbell Pullover to Press",
+    "de": "Langhantel-Überzug zum Drücken"
+  },
+  "0074": {
+    "en": "Barbell Rack Pull",
+    "de": "Langhantel-Rack-Pull"
+  },
+  "0075": {
+    "en": "Barbell Rear Delt Raise",
+    "de": "Langhantel-Vorgebeugtes Seitheben (hintere Schulter)"
+  },
+  "0076": {
+    "en": "Barbell Rear Delt Row",
+    "de": "Langhantel-Vorgebeugtes Rudern (hintere Schulter)"
+  },
+  "0078": {
+    "en": "Barbell Rear Lunge",
+    "de": "Langhantel-Ausfallschritt rückwärts"
+  },
+  "0077": {
+    "en": "Barbell Rear Lunge V. 2",
+    "de": "Langhantel-Ausfallschritt rückwärts (Variante 2)"
+  },
+  "0079": {
+    "en": "Barbell Reverse Wrist Curl V. 2",
+    "de": "Langhantel-Reverse-Handgelenkscurl (Variante 2)"
+  },
+  "2187": {
+    "en": "Barbell Reverse Close-Grip Bench Press",
+    "de": "Langhantel-Bankdrücken eng im Untergriff"
+  },
+  "0080": {
+    "en": "Barbell Reverse Curl",
+    "de": "Langhantel-Reverse-Curl"
+  },
+  "0118": {
+    "en": "Barbell Reverse Grip Bent Over Row",
+    "de": "Langhantel-Vorgebeugtes Rudern im Untergriff"
+  },
+  "1256": {
+    "en": "Barbell Reverse Grip Decline Bench Press",
+    "de": "Langhantel-Negativbankdrücken im Untergriff"
+  },
+  "1257": {
+    "en": "Barbell Reverse Grip Incline Bench Press",
+    "de": "Langhantel-Schrägbankdrücken im Untergriff"
+  },
+  "1317": {
+    "en": "Barbell Reverse Grip Incline Bench Row",
+    "de": "Langhantel-Rudern auf der Schrägbank im Untergriff"
+  },
+  "1721": {
+    "en": "Barbell Reverse Grip Skullcrusher",
+    "de": "Langhantel-Skullcrusher im Untergriff"
+  },
+  "0081": {
+    "en": "Barbell Reverse Preacher Curl",
+    "de": "Langhantel-Preacher Curl im Untergriff"
+  },
+  "0082": {
+    "en": "Barbell Reverse Wrist Curl",
+    "de": "Langhantel-Reverse-Handgelenkscurl"
+  },
+  "0084": {
+    "en": "Barbell Rollout",
+    "de": "Langhantel-Rollout"
+  },
+  "0083": {
+    "en": "Barbell Rollout from Bench",
+    "de": "Langhantel-Rollout von der Bank aus"
+  },
+  "0085": {
+    "en": "Barbell Romanian Deadlift",
+    "de": "Langhantel-Rumänisches Kreuzheben"
+  },
+  "0086": {
+    "en": "Barbell Seated Behind Head Military Press",
+    "de": "Langhantel-Nackendrücken im Sitzen"
+  },
+  "0087": {
+    "en": "Barbell Seated Bradford Rocky Press",
+    "de": "Langhantel-Bradford-Press wippend im Sitzen"
+  },
+  "0088": {
+    "en": "Barbell Seated Calf Raise",
+    "de": "Langhantel-Wadenheben im Sitzen"
+  },
+  "1371": {
+    "en": "Barbell Seated Calf Raise",
+    "de": "Langhantel-Wadenheben im Sitzen"
+  },
+  "1718": {
+    "en": "Barbell Seated Close Grip Behind Neck Triceps Extension",
+    "de": "Langhantel-Trizepsstrecken hinter dem Nacken eng im Sitzen"
+  },
+  "0089": {
+    "en": "Barbell Seated Close-Grip Concentration Curl",
+    "de": "Langhantel-Konzentrationscurl eng im Sitzen"
+  },
+  "0090": {
+    "en": "Barbell Seated Good Morning",
+    "de": "Langhantel-Good Morning im Sitzen"
+  },
+  "0091": {
+    "en": "Barbell Seated Overhead Press",
+    "de": "Langhantel-Überkopfdrücken im Sitzen"
+  },
+  "0092": {
+    "en": "Barbell Seated Overhead Triceps Extension",
+    "de": "Langhantel-Trizepsstrecken über Kopf im Sitzen"
+  },
+  "0094": {
+    "en": "Barbell Seated Twist",
+    "de": "Langhantel-Rumpfdrehen im Sitzen"
+  },
+  "0095": {
+    "en": "Barbell Shrug",
+    "de": "Langhantel-Schulterheben"
+  },
+  "0096": {
+    "en": "Barbell Side Bend V. 2",
+    "de": "Langhantel-Seitbeuge (Variante 2)"
+  },
+  "0098": {
+    "en": "Barbell Side Split Squat",
+    "de": "Langhantel-Split Squat seitlich"
+  },
+  "0097": {
+    "en": "Barbell Side Split Squat V. 2",
+    "de": "Langhantel-Split Squat seitlich (Variante 2)"
+  },
+  "1756": {
+    "en": "Barbell Single Leg Deadlift",
+    "de": "Langhantel-Kreuzheben einbeinig"
+  },
+  "0099": {
+    "en": "Barbell Single Leg Split Squat",
+    "de": "Langhantel-Split Squat einbeinig"
+  },
+  "2799": {
+    "en": "Barbell Seated Alternate Leg Raise",
+    "de": "Langhantel-Wechselseitiges Beinheben im Sitzen"
+  },
+  "2800": {
+    "en": "Barbell Seated Alternate Leg Raise (Female)",
+    "de": "Langhantel-Wechselseitiges Beinheben im Sitzen (weiblich)"
+  },
+  "0100": {
+    "en": "Barbell Skier",
+    "de": "Langhantel-Skibewegung"
+  },
+  "0101": {
+    "en": "Barbell Speed Squat",
+    "de": "Langhantel-Speed-Kniebeuge"
+  },
+  "2810": {
+    "en": "Barbell Split Squat V. 2",
+    "de": "Langhantel-Split Squat (Variante 2)"
+  },
+  "0102": {
+    "en": "Barbell Squat (on Knees)",
+    "de": "Langhantel-Kniebeuge (kniend)"
+  },
+  "2798": {
+    "en": "Barbell Squat Jump Step Rear Lunge",
+    "de": "Langhantel-Kniebeuge-Sprung mit Ausfallschritt rückwärts"
+  },
+  "0103": {
+    "en": "Barbell Standing Ab Rollout",
+    "de": "Langhantel-Rollout im Stehen"
+  },
+  "0104": {
+    "en": "Barbell Standing Back Wrist Curl",
+    "de": "Langhantel-Reverse-Handgelenkscurl im Stehen"
+  },
+  "0105": {
+    "en": "Barbell Standing Bradford Press",
+    "de": "Langhantel-Bradford-Press im Stehen"
+  },
+  "1372": {
+    "en": "Barbell Standing Calf Raise",
+    "de": "Langhantel-Wadenheben im Stehen"
+  },
+  "0106": {
+    "en": "Barbell Standing Close Grip Curl",
+    "de": "Langhantel-Curl eng im Stehen"
+  },
+  "1456": {
+    "en": "Barbell Standing Close Grip Military Press",
+    "de": "Langhantel-Schulterdrücken eng im Stehen"
+  },
+  "2414": {
+    "en": "Barbell Standing Concentration Curl",
+    "de": "Langhantel-Konzentrationscurl im Stehen"
+  },
+  "0107": {
+    "en": "Barbell Standing Front Raise Over Head",
+    "de": "Langhantel-Frontheben über Kopf im Stehen"
+  },
+  "0108": {
+    "en": "Barbell Standing Leg Calf Raise",
+    "de": "Langhantel-Wadenheben im Stehen"
+  },
+  "0109": {
+    "en": "Barbell Standing Overhead Triceps Extension",
+    "de": "Langhantel-Trizepsstrecken über Kopf im Stehen"
+  },
+  "0110": {
+    "en": "Barbell Standing Reverse Grip Curl",
+    "de": "Langhantel-Curl im Untergriff im Stehen"
+  },
+  "0111": {
+    "en": "Barbell Standing Rocking Leg Calf Raise",
+    "de": "Langhantel-Wadenheben im Stehen (wippend)"
+  },
+  "0112": {
+    "en": "Barbell Standing Twist",
+    "de": "Langhantel-Rumpfdrehen im Stehen"
+  },
+  "1629": {
+    "en": "Barbell Standing Wide Grip Biceps Curl",
+    "de": "Langhantel-Bizepscurl weit im Stehen"
+  },
+  "1457": {
+    "en": "Barbell Standing Wide Military Press",
+    "de": "Langhantel-Schulterdrücken weit im Stehen"
+  },
+  "0113": {
+    "en": "Barbell Standing Wide-Grip Curl",
+    "de": "Langhantel-Curl weit im Stehen"
+  },
+  "0114": {
+    "en": "Barbell Step-up",
+    "de": "Langhantel-Step-up"
+  },
+  "0115": {
+    "en": "Barbell Stiff Leg Good Morning",
+    "de": "Langhantel-Good Morning mit gestreckten Beinen"
+  },
+  "0116": {
+    "en": "Barbell Straight Leg Deadlift",
+    "de": "Langhantel-Kreuzheben mit gestreckten Beinen"
+  },
+  "0117": {
+    "en": "Barbell Sumo Deadlift",
+    "de": "Langhantel-Sumo-Kreuzheben"
+  },
+  "3305": {
+    "en": "Barbell Thruster",
+    "de": "Langhantel-Thruster"
+  },
+  "0120": {
+    "en": "Barbell Upright Row",
+    "de": "Langhantel-Aufrechtes Rudern"
+  },
+  "0119": {
+    "en": "Barbell Upright Row V. 2",
+    "de": "Langhantel-Aufrechtes Rudern (Variante 2)"
+  },
+  "0121": {
+    "en": "Barbell Upright Row V. 3",
+    "de": "Langhantel-Aufrechtes Rudern (Variante 3)"
+  },
+  "0122": {
+    "en": "Barbell Wide Bench Press",
+    "de": "Langhantel-Bankdrücken weit"
+  },
+  "1258": {
+    "en": "Barbell Wide Reverse Grip Bench Press",
+    "de": "Langhantel-Bankdrücken weit im Untergriff"
+  },
+  "0124": {
+    "en": "Barbell Wide Squat",
+    "de": "Langhantel-Kniebeuge weit"
+  },
+  "0123": {
+    "en": "Barbell Wide-Grip Upright Row",
+    "de": "Langhantel-Aufrechtes Rudern weit"
+  },
+  "0126": {
+    "en": "Barbell Wrist Curl",
+    "de": "Langhantel-Handgelenkscurl"
+  },
+  "0125": {
+    "en": "Barbell Wrist Curl V. 2",
+    "de": "Langhantel-Handgelenkscurl (Variante 2)"
+  },
+  "0127": {
+    "en": "Barbell Zercher Squat",
+    "de": "Langhantel-Zercher-Kniebeuge"
+  },
+  "3212": {
+    "en": "Basic Toe Touch (Male)",
+    "de": "Einfaches Zehenberühren im Stehen (männlich)"
+  },
+  "0128": {
+    "en": "Battling Ropes",
+    "de": "Battle Ropes"
+  },
+  "3360": {
+    "en": "Bear Crawl",
+    "de": "Bärengang"
+  },
+  "1259": {
+    "en": "Behind Head Chest Stretch",
+    "de": "Brustdehnung hinter dem Kopf"
+  },
+  "0129": {
+    "en": "Bench Dip (Knees Bent)",
+    "de": "Bankdip mit gebeugten Knien"
+  },
+  "1399": {
+    "en": "Bench Dip on Floor",
+    "de": "Bankdip auf dem Boden"
+  },
+  "0130": {
+    "en": "Bench Hip Extension",
+    "de": "Hüftstreckung auf der Bank"
+  },
+  "3019": {
+    "en": "Bench Pull-ups",
+    "de": "Invertiertes Rudern an der Bank"
+  },
+  "3639": {
+    "en": "Bent Knee Lying Twist (Male)",
+    "de": "Rumpfdrehen im Liegen mit gebeugten Knien (männlich)"
+  },
+  "1770": {
+    "en": "Biceps Leg Concentration Curl",
+    "de": "Bizeps-Konzentrationscurl"
+  },
+  "0139": {
+    "en": "Biceps Narrow Pull-ups",
+    "de": "Klimmzüge eng (Bizeps)"
+  },
+  "0140": {
+    "en": "Biceps Pull-up",
+    "de": "Klimmzug (Bizeps)"
+  },
+  "0137": {
+    "en": "Body-up",
+    "de": "Body-up (Trizeps-Bodendip)"
+  },
+  "3543": {
+    "en": "Bodyweight Drop Jump Squat",
+    "de": "Drop-Jump-Kniebeuge"
+  },
+  "3544": {
+    "en": "Bodyweight Incline Side Plank",
+    "de": "Seitplank erhöht"
+  },
+  "1771": {
+    "en": "Bodyweight Kneeling Triceps Extension",
+    "de": "Trizepsstrecken kniend"
+  },
+  "1769": {
+    "en": "Bodyweight Side Lying Biceps Curl",
+    "de": "Bizepscurl in Seitlage"
+  },
+  "3168": {
+    "en": "Bodyweight Squatting Row",
+    "de": "Rudern in der Hocke"
+  },
+  "3167": {
+    "en": "Bodyweight Squatting Row (with Towel)",
+    "de": "Rudern in der Hocke mit Handtuch"
+  },
+  "1373": {
+    "en": "Bodyweight Standing Calf Raise",
+    "de": "Wadenheben im Stehen"
+  },
+  "3156": {
+    "en": "Bodyweight Standing Close-Grip One Arm Row",
+    "de": "Einarmiges Rudern eng im Stehen"
+  },
+  "3158": {
+    "en": "Bodyweight Standing Close-Grip Row",
+    "de": "Rudern eng im Stehen"
+  },
+  "3162": {
+    "en": "Bodyweight Standing One Arm Row",
+    "de": "Einarmiges Rudern im Stehen"
+  },
+  "3161": {
+    "en": "Bodyweight Standing One Arm Row (with Towel)",
+    "de": "Einarmiges Rudern im Stehen mit Handtuch"
+  },
+  "3166": {
+    "en": "Bodyweight Standing Row",
+    "de": "Rudern im Stehen"
+  },
+  "3165": {
+    "en": "Bodyweight Standing Row (with Towel)",
+    "de": "Rudern im Stehen mit Handtuch"
+  },
+  "0138": {
+    "en": "Bottoms-up",
+    "de": "Beckenheben (Bottoms-up)"
+  },
+  "1374": {
+    "en": "Box Jump Down with One Leg Stabilization",
+    "de": "Box Jump Down mit einbeiniger Stabilisation"
+  },
+  "2466": {
+    "en": "Bridge - Mountain Climber (Cross Body)",
+    "de": "Bridge mit Mountain Climber (überkreuz)"
+  },
+  "1160": {
+    "en": "Burpee",
+    "de": "Burpee"
+  },
+  "0870": {
+    "en": "Butt-ups",
+    "de": "Gesässheben (Butt-ups)"
+  },
+  "1494": {
+    "en": "Butterfly Yoga Pose",
+    "de": "Schmetterlingssitz (Yoga)"
+  },
+  "0148": {
+    "en": "Cable Alternate Shoulder Press",
+    "de": "Kabelzug-Schulterdrücken wechselseitig"
+  },
+  "0149": {
+    "en": "Cable Alternate Triceps Extension",
+    "de": "Kabelzug-Trizepsstrecken wechselseitig"
+  },
+  "3235": {
+    "en": "Cable Assisted Inverse Leg Curl",
+    "de": "Kabelzug-unterstützter Nordic-Hamstring-Curl"
+  },
+  "0150": {
+    "en": "Cable Bar Lateral Pulldown",
+    "de": "Kabelzug-Latzug mit Stange"
+  },
+  "0151": {
+    "en": "Cable Bench Press",
+    "de": "Kabelzug-Bankdrücken"
+  },
+  "1630": {
+    "en": "Cable Close Grip Curl",
+    "de": "Kabelzug-Curl eng"
+  },
+  "1631": {
+    "en": "Cable Concentration Curl",
+    "de": "Kabelzug-Konzentrationscurl"
+  },
+  "0152": {
+    "en": "Cable Concentration Extension (on Knee)",
+    "de": "Kabelzug-Trizepsstrecken abgestützt (auf dem Knie)"
+  },
+  "0153": {
+    "en": "Cable Cross-Over Lateral Pulldown",
+    "de": "Kabelzug-Latzug über Kreuz"
+  },
+  "0154": {
+    "en": "Cable Cross-Over Reverse Fly",
+    "de": "Kabelzug-Reverse Fliegende über Kreuz"
+  },
+  "0155": {
+    "en": "Cable Cross-Over Variation",
+    "de": "Kabelzug-Cross-Over (Variante)"
+  },
+  "0868": {
+    "en": "Cable Curl",
+    "de": "Kabelzug-Curl"
+  },
+  "0157": {
+    "en": "Cable Deadlift",
+    "de": "Kabelzug-Kreuzheben"
+  },
+  "0158": {
+    "en": "Cable Decline Fly",
+    "de": "Kabelzug-Fliegende auf der Negativbank"
+  },
+  "1260": {
+    "en": "Cable Decline One Arm Press",
+    "de": "Kabelzug-Drücken einarmig auf der Negativbank"
+  },
+  "1261": {
+    "en": "Cable Decline Press",
+    "de": "Kabelzug-Drücken auf der Negativbank"
+  },
+  "0159": {
+    "en": "Cable Decline Seated Wide-Grip Row",
+    "de": "Kabelzug-Rudern weit im Sitzen auf der Negativbank"
+  },
+  "1632": {
+    "en": "Cable Drag Curl",
+    "de": "Kabelzug-Drag Curl"
+  },
+  "0160": {
+    "en": "Cable Floor Seated Wide-Grip Row",
+    "de": "Kabelzug-Rudern weit im Sitzen am Boden"
+  },
+  "0161": {
+    "en": "Cable Forward Raise",
+    "de": "Kabelzug-Frontheben"
+  },
+  "0162": {
+    "en": "Cable Front Raise",
+    "de": "Kabelzug-Frontheben"
+  },
+  "0164": {
+    "en": "Cable Front Shoulder Raise",
+    "de": "Kabelzug-Frontheben (Schulter)"
+  },
+  "0165": {
+    "en": "Cable Hammer Curl (with Rope)",
+    "de": "Kabelzug-Hammercurl mit Seil"
+  },
+  "1722": {
+    "en": "Cable High Pulley Overhead Triceps Extension",
+    "de": "Kabelzug-Trizepsstrecken über Kopf am oberen Zug"
+  },
+  "0167": {
+    "en": "Cable High Row (Kneeling)",
+    "de": "Kabelzug-Rudern hoch kniend"
+  },
+  "0168": {
+    "en": "Cable Hip Adduction",
+    "de": "Kabelzug-Hüftadduktion"
+  },
+  "0169": {
+    "en": "Cable Incline Bench Press",
+    "de": "Kabelzug-Schrägbankdrücken"
+  },
+  "1318": {
+    "en": "Cable Incline Bench Row",
+    "de": "Kabelzug-Rudern auf der Schrägbank"
+  },
+  "0171": {
+    "en": "Cable Incline Fly",
+    "de": "Kabelzug-Fliegende auf der Schrägbank"
+  },
+  "0170": {
+    "en": "Cable Incline Fly (on Stability Ball)",
+    "de": "Kabelzug-Fliegende schräg auf dem Gymnastikball"
+  },
+  "0172": {
+    "en": "Cable Incline Pushdown",
+    "de": "Kabelzug-Pushdown schräg"
+  },
+  "0173": {
+    "en": "Cable Incline Triceps Extension",
+    "de": "Kabelzug-Trizepsstrecken auf der Schrägbank"
+  },
+  "0174": {
+    "en": "Cable Judo Flip",
+    "de": "Kabelzug-Judo-Flip (Rumpfrotation)"
+  },
+  "0860": {
+    "en": "Cable Kickback",
+    "de": "Kabelzug-Trizeps-Kickback"
+  },
+  "0175": {
+    "en": "Cable Kneeling Crunch",
+    "de": "Kabelzug-Crunch kniend"
+  },
+  "3697": {
+    "en": "Cable Kneeling Rear Delt Row (with Rope) (Male)",
+    "de": "Kabelzug-Rudern kniend für die hintere Schulter mit Seil (männlich)"
+  },
+  "0176": {
+    "en": "Cable Kneeling Triceps Extension",
+    "de": "Kabelzug-Trizepsstrecken kniend"
+  },
+  "2330": {
+    "en": "Cable Lat Pulldown Full Range of Motion",
+    "de": "Kabelzug-Latzug voller Bewegungsumfang"
+  },
+  "0177": {
+    "en": "Cable Lateral Pulldown (with Rope Attachment)",
+    "de": "Kabelzug-Latzug mit Seil"
+  },
+  "2616": {
+    "en": "Cable Lateral Pulldown with V-Bar",
+    "de": "Kabelzug-Latzug mit V-Griff"
+  },
+  "0178": {
+    "en": "Cable Lateral Raise",
+    "de": "Kabelzug-Seitheben"
+  },
+  "0179": {
+    "en": "Cable Low Fly",
+    "de": "Kabelzug-Fliegende von unten"
+  },
+  "0180": {
+    "en": "Cable Low Seated Row",
+    "de": "Kabelzug-Rudern im Sitzen tief"
+  },
+  "1634": {
+    "en": "Cable Lying Biceps Curl",
+    "de": "Kabelzug-Bizepscurl im Liegen"
+  },
+  "0182": {
+    "en": "Cable Lying Close-Grip Curl",
+    "de": "Kabelzug-Curl eng im Liegen"
+  },
+  "0184": {
+    "en": "Cable Lying Extension Pullover (with Rope Attachment)",
+    "de": "Kabelzug-Überzug mit Streckung im Liegen (mit Seil)"
+  },
+  "0185": {
+    "en": "Cable Lying Fly",
+    "de": "Kabelzug-Fliegende im Liegen"
+  },
+  "0186": {
+    "en": "Cable Lying Triceps Extension V. 2",
+    "de": "Kabelzug-Trizepsstrecken im Liegen (Variante 2)"
+  },
+  "0188": {
+    "en": "Cable Middle Fly",
+    "de": "Kabelzug-Fliegende mittig"
+  },
+  "0189": {
+    "en": "Cable One Arm Bent Over Row",
+    "de": "Kabelzug-Vorgebeugtes Rudern einarmig"
+  },
+  "0190": {
+    "en": "Cable One Arm Curl",
+    "de": "Kabelzug-Curl einarmig"
+  },
+  "1262": {
+    "en": "Cable One Arm Decline Chest Fly",
+    "de": "Kabelzug-Fliegende einarmig auf der Negativbank"
+  },
+  "1263": {
+    "en": "Cable One Arm Fly on Exercise Ball",
+    "de": "Kabelzug-Fliegende einarmig auf dem Gymnastikball"
+  },
+  "1264": {
+    "en": "Cable One Arm Incline Fly on Exercise Ball",
+    "de": "Kabelzug-Fliegende einarmig schräg auf dem Gymnastikball"
+  },
+  "1265": {
+    "en": "Cable One Arm Incline Press",
+    "de": "Kabelzug-Drücken einarmig auf der Schrägbank"
+  },
+  "1266": {
+    "en": "Cable One Arm Incline Press on Exercise Ball",
+    "de": "Kabelzug-Drücken einarmig schräg auf dem Gymnastikball"
+  },
+  "0191": {
+    "en": "Cable One Arm Lateral Bent-Over",
+    "de": "Kabelzug-Seitheben einarmig vorgebeugt"
+  },
+  "0192": {
+    "en": "Cable One Arm Lateral Raise",
+    "de": "Kabelzug-Seitheben einarmig"
+  },
+  "1633": {
+    "en": "Cable One Arm Preacher Curl",
+    "de": "Kabelzug-Preacher Curl einarmig"
+  },
+  "1267": {
+    "en": "Cable One Arm Press on Exercise Ball",
+    "de": "Kabelzug-Drücken einarmig auf dem Gymnastikball"
+  },
+  "3563": {
+    "en": "Cable One Arm Pulldown",
+    "de": "Kabelzug-Latzug einarmig"
+  },
+  "1635": {
+    "en": "Cable One Arm Reverse Preacher Curl",
+    "de": "Kabelzug-Preacher Curl einarmig im Untergriff"
+  },
+  "0193": {
+    "en": "Cable One Arm Straight Back High Row (Kneeling)",
+    "de": "Kabelzug-Rudern hoch einarmig mit geradem Rücken kniend"
+  },
+  "1723": {
+    "en": "Cable One Arm Tricep Pushdown",
+    "de": "Kabelzug-Trizeps-Pushdown einarmig"
+  },
+  "1636": {
+    "en": "Cable Overhead Curl",
+    "de": "Kabelzug-Curl über Kopf"
+  },
+  "1637": {
+    "en": "Cable Overhead Curl on Exercise Ball",
+    "de": "Kabelzug-Curl über Kopf auf dem Gymnastikball"
+  },
+  "0194": {
+    "en": "Cable Overhead Triceps Extension (Rope Attachment)",
+    "de": "Kabelzug-Trizepsstrecken über Kopf (Seilgriff)"
+  },
+  "1319": {
+    "en": "Cable Palm Rotational Row",
+    "de": "Kabelzug-Rudern mit Handrotation"
+  },
+  "0195": {
+    "en": "Cable Preacher Curl",
+    "de": "Kabelzug-Preacher Curl"
+  },
+  "1268": {
+    "en": "Cable Press on Exercise Ball",
+    "de": "Kabelzug-Drücken auf dem Gymnastikball"
+  },
+  "0196": {
+    "en": "Cable Pull-Through (with Rope)",
+    "de": "Kabelzug-Pull-Through (mit Seil)"
+  },
+  "0198": {
+    "en": "Cable Pulldown",
+    "de": "Kabelzug-Latzug"
+  },
+  "0197": {
+    "en": "Cable Pulldown (Pro Lat Bar)",
+    "de": "Kabelzug-Latzug (Lat-Stange)"
+  },
+  "1638": {
+    "en": "Cable Pulldown Bicep Curl",
+    "de": "Kabelzug-Latzug-Bizepscurl"
+  },
+  "0201": {
+    "en": "Cable Pushdown",
+    "de": "Kabelzug-Pushdown"
+  },
+  "0199": {
+    "en": "Cable Pushdown (Straight Arm) V. 2",
+    "de": "Kabelzug-Pushdown gestreckter Arm V. 2"
+  },
+  "0200": {
+    "en": "Cable Pushdown (with Rope Attachment)",
+    "de": "Kabelzug-Pushdown (Seilgriff)"
+  },
+  "0202": {
+    "en": "Cable Rear Delt Row (Stirrups)",
+    "de": "Kabelzug-Rudern hintere Schulter (Griffe)"
+  },
+  "0203": {
+    "en": "Cable Rear Delt Row (with Rope)",
+    "de": "Kabelzug-Rudern hintere Schulter (Seil)"
+  },
+  "0204": {
+    "en": "Cable Rear Drive",
+    "de": "Kabelzug-Rückwärtsdrücken"
+  },
+  "0205": {
+    "en": "Cable Rear Pulldown",
+    "de": "Kabelzug-Nackenzug"
+  },
+  "0873": {
+    "en": "Cable Reverse Crunch",
+    "de": "Kabelzug-Reverse Crunch"
+  },
+  "0206": {
+    "en": "Cable Reverse Curl",
+    "de": "Kabelzug-Reverse Curl"
+  },
+  "2406": {
+    "en": "Cable Reverse Grip Triceps Pushdown (SZ-Bar) (with Arm Blaster)",
+    "de": "Kabelzug-Trizeps-Pushdown Untergriff (SZ-Stange, mit Arm Blaster)"
+  },
+  "1413": {
+    "en": "Cable Reverse One Arm Curl",
+    "de": "Kabelzug-Reverse Curl einarmig"
+  },
+  "0209": {
+    "en": "Cable Reverse Preacher Curl",
+    "de": "Kabelzug-Reverse Preacher Curl"
+  },
+  "0210": {
+    "en": "Cable Reverse Wrist Curl",
+    "de": "Kabelzug-Handgelenkcurl Obergriff"
+  },
+  "0207": {
+    "en": "Cable Reverse-Grip Pushdown",
+    "de": "Kabelzug-Pushdown Untergriff"
+  },
+  "0208": {
+    "en": "Cable Reverse-Grip Straight Back Seated High Row",
+    "de": "Kabelzug-Rudern sitzend hoch, gerader Rücken, Untergriff"
+  },
+  "1320": {
+    "en": "Cable Rope Crossover Seated Row",
+    "de": "Kabelzug-Rudern sitzend im Überkreuz mit Seil"
+  },
+  "1321": {
+    "en": "Cable Rope Elevated Seated Row",
+    "de": "Kabelzug-Rudern sitzend erhöht mit Seil"
+  },
+  "1322": {
+    "en": "Cable Rope Extension Incline Bench Row",
+    "de": "Kabelzug-Schrägbank-Rudern mit Seil (Streckung)"
+  },
+  "1639": {
+    "en": "Cable Rope Hammer Preacher Curl",
+    "de": "Kabelzug-Hammer Preacher Curl mit Seil"
+  },
+  "1724": {
+    "en": "Cable Rope High Pulley Overhead Tricep Extension",
+    "de": "Kabelzug-Trizepsstrecken über Kopf am hohen Zug mit Seil"
+  },
+  "1725": {
+    "en": "Cable Rope Incline Tricep Extension",
+    "de": "Kabelzug-Trizepsstrecken auf der Schrägbank mit Seil"
+  },
+  "1726": {
+    "en": "Cable Rope Lying on Floor Tricep Extension",
+    "de": "Kabelzug-Trizepsstrecken liegend am Boden mit Seil"
+  },
+  "1640": {
+    "en": "Cable Rope One Arm Hammer Preacher Curl",
+    "de": "Kabelzug-Hammer Preacher Curl einarmig mit Seil"
+  },
+  "1323": {
+    "en": "Cable Rope Seated Row",
+    "de": "Kabelzug-Rudern sitzend mit Seil"
+  },
+  "0211": {
+    "en": "Cable Russian Twists (on Stability Ball)",
+    "de": "Kabelzug-Russian Twist auf dem Gymnastikball"
+  },
+  "2144": {
+    "en": "Cable Seated Chest Press",
+    "de": "Kabelzug-Brustdrücken sitzend"
+  },
+  "0212": {
+    "en": "Cable Seated Crunch",
+    "de": "Kabelzug-Crunch sitzend"
+  },
+  "1641": {
+    "en": "Cable Seated Curl",
+    "de": "Kabelzug-Curl sitzend"
+  },
+  "0213": {
+    "en": "Cable Seated High Row (V-Bar)",
+    "de": "Kabelzug-Rudern sitzend hoch (V-Griff)"
+  },
+  "0214": {
+    "en": "Cable Seated One Arm Alternate Row",
+    "de": "Kabelzug-Rudern sitzend einarmig wechselseitig"
+  },
+  "1642": {
+    "en": "Cable Seated One Arm Concentration Curl",
+    "de": "Kabelzug-Konzentrationscurl sitzend einarmig"
+  },
+  "1643": {
+    "en": "Cable Seated Overhead Curl",
+    "de": "Kabelzug-Curl über Kopf sitzend"
+  },
+  "0215": {
+    "en": "Cable Seated Rear Lateral Raise",
+    "de": "Kabelzug-Seitheben hintere Schulter sitzend"
+  },
+  "0861": {
+    "en": "Cable Seated Row",
+    "de": "Kabelzug-Rudern sitzend"
+  },
+  "0216": {
+    "en": "Cable Seated Shoulder Internal Rotation",
+    "de": "Kabelzug-Innenrotation Schulter sitzend"
+  },
+  "2399": {
+    "en": "Cable Seated Twist",
+    "de": "Kabelzug-Rumpfdrehung sitzend"
+  },
+  "0218": {
+    "en": "Cable Seated Wide-Grip Row",
+    "de": "Kabelzug-Rudern sitzend weiter Griff"
+  },
+  "0219": {
+    "en": "Cable Shoulder Press",
+    "de": "Kabelzug-Schulterdrücken"
+  },
+  "0220": {
+    "en": "Cable Shrug",
+    "de": "Kabelzug-Schulterheben"
+  },
+  "0222": {
+    "en": "Cable Side Bend",
+    "de": "Kabelzug-Seitbeuge"
+  },
+  "0221": {
+    "en": "Cable Side Bend Crunch (Bosu Ball)",
+    "de": "Kabelzug-Seitbeuge-Crunch auf dem Bosu-Ball"
+  },
+  "0223": {
+    "en": "Cable Side Crunch",
+    "de": "Kabelzug-Seitlicher Crunch"
+  },
+  "1717": {
+    "en": "Cable Squat Row (with Rope Attachment)",
+    "de": "Kabelzug-Kniebeuge-Rudern (Seilgriff)"
+  },
+  "1644": {
+    "en": "Cable Squatting Curl",
+    "de": "Kabelzug-Curl in der Kniebeuge"
+  },
+  "0224": {
+    "en": "Cable Standing Back Wrist Curl",
+    "de": "Kabelzug-Handgelenkcurl Obergriff stehend"
+  },
+  "1375": {
+    "en": "Cable Standing Calf Raise",
+    "de": "Kabelzug-Wadenheben stehend"
+  },
+  "0225": {
+    "en": "Cable Standing Cross-Over High Reverse Fly",
+    "de": "Kabelzug-Reverse Fliegende stehend über Kreuz (hoch)"
+  },
+  "0226": {
+    "en": "Cable Standing Crunch",
+    "de": "Kabelzug-Crunch stehend"
+  },
+  "0874": {
+    "en": "Cable Standing Crunch (with Rope Attachment)",
+    "de": "Kabelzug-Crunch stehend (Seilgriff)"
+  },
+  "0227": {
+    "en": "Cable Standing Fly",
+    "de": "Kabelzug-Fliegende stehend"
+  },
+  "0228": {
+    "en": "Cable Standing Hip Extension",
+    "de": "Kabelzug-Hüftstrecken stehend"
+  },
+  "0229": {
+    "en": "Cable Standing Inner Curl",
+    "de": "Kabelzug-Curl stehend innen"
+  },
+  "0230": {
+    "en": "Cable Standing Lift",
+    "de": "Kabelzug-Heben stehend"
+  },
+  "0231": {
+    "en": "Cable Standing One Arm Triceps Extension",
+    "de": "Kabelzug-Trizepsstrecken stehend einarmig"
+  },
+  "1376": {
+    "en": "Cable Standing One Leg Calf Raise",
+    "de": "Kabelzug-Wadenheben stehend einbeinig"
+  },
+  "0232": {
+    "en": "Cable Standing Pulldown (with Rope)",
+    "de": "Kabelzug-Latzug stehend (mit Seil)"
+  },
+  "0233": {
+    "en": "Cable Standing Rear Delt Row (with Rope)",
+    "de": "Kabelzug-Rudern hintere Schulter stehend (mit Seil)"
+  },
+  "1727": {
+    "en": "Cable Standing Reverse Grip One Arm Overhead Tricep Extension",
+    "de": "Kabelzug-Trizepsstrecken über Kopf stehend einarmig Untergriff"
+  },
+  "0234": {
+    "en": "Cable Standing Row (V-Bar)",
+    "de": "Kabelzug-Rudern stehend (V-Griff)"
+  },
+  "0235": {
+    "en": "Cable Standing Shoulder External Rotation",
+    "de": "Kabelzug-Aussenrotation Schulter stehend"
+  },
+  "0236": {
+    "en": "Cable Standing Twist Row (V-Bar)",
+    "de": "Kabelzug-Rudern mit Drehung stehend (V-Griff)"
+  },
+  "1269": {
+    "en": "Cable Standing Up Straight Crossovers",
+    "de": "Kabelzug-Crossover stehend aufrecht"
+  },
+  "0238": {
+    "en": "Cable Straight Arm Pulldown",
+    "de": "Kabelzug-Latzug mit gestrecktem Arm"
+  },
+  "0237": {
+    "en": "Cable Straight Arm Pulldown (with Rope)",
+    "de": "Kabelzug-Latzug mit gestrecktem Arm (Seil)"
+  },
+  "0239": {
+    "en": "Cable Straight Back Seated Row",
+    "de": "Kabelzug-Rudern sitzend mit geradem Rücken"
+  },
+  "0240": {
+    "en": "Cable Supine Reverse Fly",
+    "de": "Kabelzug-Reverse Fliegende liegend"
+  },
+  "2464": {
+    "en": "Cable Thibaudeau Kayak Row",
+    "de": "Kabelzug-Kayak-Rudern nach Thibaudeau"
+  },
+  "0241": {
+    "en": "Cable Triceps Pushdown (V-Bar)",
+    "de": "Kabelzug-Trizeps-Pushdown (V-Griff)"
+  },
+  "2405": {
+    "en": "Cable Triceps Pushdown (V-Bar) (with Arm Blaster)",
+    "de": "Kabelzug-Trizeps-Pushdown (V-Griff, mit Arm Blaster)"
+  },
+  "0242": {
+    "en": "Cable Tuck Reverse Crunch",
+    "de": "Kabelzug-Reverse Crunch angehockt"
+  },
+  "0243": {
+    "en": "Cable Twist",
+    "de": "Kabelzug-Rumpfdrehung"
+  },
+  "0862": {
+    "en": "Cable Twist (Up-Down)",
+    "de": "Kabelzug-Rumpfdrehung (auf-ab)"
+  },
+  "0244": {
+    "en": "Cable Twisting Pull",
+    "de": "Kabelzug-Ziehen mit Drehung"
+  },
+  "1645": {
+    "en": "Cable Two Arm Curl on Incline Bench",
+    "de": "Kabelzug-Curl beidarmig auf der Schrägbank"
+  },
+  "1728": {
+    "en": "Cable Two Arm Tricep Kickback",
+    "de": "Kabelzug-Trizeps-Kickback beidarmig"
+  },
+  "0245": {
+    "en": "Cable Underhand Pulldown",
+    "de": "Kabelzug-Latzug Untergriff"
+  },
+  "1270": {
+    "en": "Cable Upper Chest Crossovers",
+    "de": "Kabelzug-Crossover obere Brust"
+  },
+  "1324": {
+    "en": "Cable Upper Row",
+    "de": "Kabelzug-Oberes Rudern"
+  },
+  "0246": {
+    "en": "Cable Upright Row",
+    "de": "Kabelzug-Aufrechtes Rudern"
+  },
+  "1325": {
+    "en": "Cable Wide Grip Rear Pulldown Behind Neck",
+    "de": "Kabelzug-Nackenzug weiter Griff"
+  },
+  "0247": {
+    "en": "Cable Wrist Curl",
+    "de": "Kabelzug-Handgelenkcurl"
+  },
+  "1407": {
+    "en": "Calf Push Stretch with Hands Against Wall",
+    "de": "Wadendehnung mit Druck gegen die Wand"
+  },
+  "1377": {
+    "en": "Calf Stretch with Hands Against Wall",
+    "de": "Wadendehnung mit Händen an der Wand"
+  },
+  "1378": {
+    "en": "Calf Stretch with Rope",
+    "de": "Wadendehnung mit Seil"
+  },
+  "0248": {
+    "en": "Cambered Bar Lying Row",
+    "de": "Bogenhantel-Rudern liegend"
+  },
+  "2963": {
+    "en": "Captain's Chair Straight Leg Raise",
+    "de": "Beinheben gestreckt am Captain's Chair"
+  },
+  "1548": {
+    "en": "Chair Leg Extended Stretch",
+    "de": "Quadrizeps-Dehnung am Stuhl (gestrecktes Bein)"
+  },
+  "1271": {
+    "en": "Chest and Front of Shoulder Stretch",
+    "de": "Dehnung für Brust und vordere Schulter"
+  },
+  "0251": {
+    "en": "Chest Dip",
+    "de": "Brust-Dip"
+  },
+  "1430": {
+    "en": "Chest Dip (on Dip-Pull-up Cage)",
+    "de": "Brust-Dip am Dip-Klimmzug-Gerät"
+  },
+  "2462": {
+    "en": "Chest Dip on Straight Bar",
+    "de": "Brust-Dip an der geraden Stange"
+  },
+  "1272": {
+    "en": "Chest Stretch with Exercise Ball",
+    "de": "Brustdehnung mit Gymnastikball"
+  },
+  "3216": {
+    "en": "Chest Tap Push-up (Male)",
+    "de": "Liegestütz mit Brust-Antippen (männlich)"
+  },
+  "1326": {
+    "en": "Chin-up",
+    "de": "Klimmzug (Untergriff)"
+  },
+  "0253": {
+    "en": "Chin-ups (Narrow Parallel Grip)",
+    "de": "Klimmzug (Untergriff), enger Parallelgriff"
+  },
+  "0257": {
+    "en": "Circles Knee Stretch",
+    "de": "Kreisende Knie-Dehnung"
+  },
+  "1273": {
+    "en": "Clap Push-up",
+    "de": "Liegestütz mit Klatschen"
+  },
+  "0258": {
+    "en": "Clock Push-up",
+    "de": "Liegestütz im Kreis"
+  },
+  "1327": {
+    "en": "Close Grip Chin-up",
+    "de": "Klimmzug (Untergriff) enger Griff"
+  },
+  "0259": {
+    "en": "Close-Grip Push-up",
+    "de": "Liegestütz enger Griff"
+  },
+  "2398": {
+    "en": "Close-Grip Push-up (on Knees)",
+    "de": "Liegestütz enger Griff (auf den Knien)"
+  },
+  "0260": {
+    "en": "Cocoons",
+    "de": "Einrollen (Cocoon)"
+  },
+  "1468": {
+    "en": "Crab Twist Toe Touch",
+    "de": "Seitliche Rumpfdrehung mit Zehenberührung (Crab-Position)"
+  },
+  "0262": {
+    "en": "Cross Body Crunch",
+    "de": "Crunch über Kreuz"
+  },
+  "0267": {
+    "en": "Crunch (Hands Overhead)",
+    "de": "Crunch (Hände über dem Kopf)"
+  },
+  "0271": {
+    "en": "Crunch (on Stability Ball)",
+    "de": "Crunch auf dem Gymnastikball"
+  },
+  "0272": {
+    "en": "Crunch (on Stability Ball, Arms Straight)",
+    "de": "Crunch auf dem Gymnastikball (gestreckte Arme)"
+  },
+  "0274": {
+    "en": "Crunch Floor",
+    "de": "Crunch am Boden"
+  },
+  "3016": {
+    "en": "Curl-Up",
+    "de": "Curl-Up (Bauch-Aufrollen)"
+  },
+  "3769": {
+    "en": "Curtsey Squat",
+    "de": "Curtsy-Kniebeuge"
+  },
+  "2331": {
+    "en": "Cycle Cross Trainer",
+    "de": "Crosstrainer"
+  },
+  "0276": {
+    "en": "Dead Bug",
+    "de": "Dead Bug"
+  },
+  "0277": {
+    "en": "Decline Crunch",
+    "de": "Negativbank-Crunch"
+  },
+  "0279": {
+    "en": "Decline Push-up",
+    "de": "Negativ-Liegestütz"
+  },
+  "0282": {
+    "en": "Decline Sit-up",
+    "de": "Negativbank-Sit-up"
+  },
+  "1274": {
+    "en": "Deep Push-up",
+    "de": "Tiefer Liegestütz"
+  },
+  "0283": {
+    "en": "Diamond Push-up",
+    "de": "Diamant-Liegestütz"
+  },
+  "0284": {
+    "en": "Donkey Calf Raise",
+    "de": "Donkey-Wadenheben"
+  },
+  "1275": {
+    "en": "Drop Push-up",
+    "de": "Drop-Liegestütz"
+  },
+  "0285": {
+    "en": "Dumbbell Alternate Biceps Curl",
+    "de": "Kurzhantel-Bizepscurl wechselseitig"
+  },
+  "2403": {
+    "en": "Dumbbell Alternate Biceps Curl (with Arm Blaster)",
+    "de": "Kurzhantel-Bizepscurl wechselseitig mit Arm Blaster"
+  },
+  "1646": {
+    "en": "Dumbbell Alternate Hammer Preacher Curl",
+    "de": "Kurzhantel-Hammer Preacher Curl wechselseitig"
+  },
+  "1647": {
+    "en": "Dumbbell Alternate Preacher Curl",
+    "de": "Kurzhantel-Preacher Curl wechselseitig"
+  },
+  "1648": {
+    "en": "Dumbbell Alternate Seated Hammer Curl",
+    "de": "Kurzhantel-Hammercurl sitzend wechselseitig"
+  },
+  "0286": {
+    "en": "Dumbbell Alternate Side Press",
+    "de": "Kurzhantel-Seitliches Drücken wechselseitig"
+  },
+  "1649": {
+    "en": "Dumbbell Alternating Bicep Curl with Leg Raised on Exercise Ball",
+    "de": "Kurzhantel-Bizepscurl wechselseitig mit angehobenem Bein auf dem Gymnastikball"
+  },
+  "1650": {
+    "en": "Dumbbell Alternating Seated Bicep Curl on Exercise Ball",
+    "de": "Kurzhantel-Bizepscurl sitzend wechselseitig auf dem Gymnastikball"
+  },
+  "2137": {
+    "en": "Dumbbell Arnold Press",
+    "de": "Kurzhantel-Arnold Press"
+  },
+  "0287": {
+    "en": "Dumbbell Arnold Press V. 2",
+    "de": "Kurzhantel-Arnold Press V. 2"
+  },
+  "0288": {
+    "en": "Dumbbell Around Pullover",
+    "de": "Kurzhantel-Rundum-Pullover"
+  },
+  "0289": {
+    "en": "Dumbbell Bench Press",
+    "de": "Kurzhantel-Bankdrücken"
+  },
+  "0290": {
+    "en": "Dumbbell Bench Seated Press",
+    "de": "Kurzhantel-Drücken sitzend auf der Bank"
+  },
+  "0291": {
+    "en": "Dumbbell Bench Squat",
+    "de": "Kurzhantel-Kniebeuge mit Bank"
+  },
+  "0293": {
+    "en": "Dumbbell Bent Over Row",
+    "de": "Kurzhantel-Rudern vorgebeugt"
+  },
+  "1651": {
+    "en": "Dumbbell Bicep Curl Lunge with Bowling Motion",
+    "de": "Kurzhantel-Bizepscurl im Ausfallschritt mit Bowling-Bewegung"
+  },
+  "1652": {
+    "en": "Dumbbell Bicep Curl on Exercise Ball with Leg Raised",
+    "de": "Kurzhantel-Bizepscurl auf dem Gymnastikball mit angehobenem Bein"
+  },
+  "1653": {
+    "en": "Dumbbell Bicep Curl with Stork Stance",
+    "de": "Kurzhantel-Bizepscurl im Storchenstand"
+  },
+  "0294": {
+    "en": "Dumbbell Biceps Curl",
+    "de": "Kurzhantel-Bizepscurl"
+  },
+  "2401": {
+    "en": "Dumbbell Biceps Curl (with Arm Blaster)",
+    "de": "Kurzhantel-Bizepscurl mit Arm Blaster"
+  },
+  "1654": {
+    "en": "Dumbbell Biceps Curl Reverse",
+    "de": "Kurzhantel-Reverse Curl"
+  },
+  "1655": {
+    "en": "Dumbbell Biceps Curl Squat",
+    "de": "Kurzhantel-Bizepscurl in der Kniebeuge"
+  },
+  "1656": {
+    "en": "Dumbbell Biceps Curl V-Sit on Bosu Ball",
+    "de": "Kurzhantel-Bizepscurl im V-Sitz auf dem Bosu-Ball"
+  },
+  "1201": {
+    "en": "Dumbbell Burpee",
+    "de": "Kurzhantel-Burpee"
+  },
+  "0295": {
+    "en": "Dumbbell Clean",
+    "de": "Kurzhantel-Umsetzen"
+  },
+  "1731": {
+    "en": "Dumbbell Close Grip Press",
+    "de": "Kurzhantel-Drücken enger Griff"
+  },
+  "0296": {
+    "en": "Dumbbell Close-Grip Press",
+    "de": "Kurzhantel-Drücken enger Griff"
+  },
+  "0297": {
+    "en": "Dumbbell Concentration Curl",
+    "de": "Kurzhantel-Konzentrationscurl"
+  },
+  "3635": {
+    "en": "Dumbbell Contralateral Forward Lunge",
+    "de": "Kurzhantel-Ausfallschritt vorwärts kontralateral"
+  },
+  "0298": {
+    "en": "Dumbbell Cross Body Hammer Curl",
+    "de": "Kurzhantel-Hammercurl über Kreuz"
+  },
+  "1657": {
+    "en": "Dumbbell Cross Body Hammer Curl V. 2",
+    "de": "Kurzhantel-Hammercurl über Kreuz V. 2"
+  },
+  "0299": {
+    "en": "Dumbbell Cuban Press",
+    "de": "Kurzhantel-Cuban Press"
+  },
+  "2136": {
+    "en": "Dumbbell Cuban Press V. 2",
+    "de": "Kurzhantel-Cuban Press V. 2"
+  },
+  "0300": {
+    "en": "Dumbbell Deadlift",
+    "de": "Kurzhantel-Kreuzheben"
+  },
+  "0301": {
+    "en": "Dumbbell Decline Bench Press",
+    "de": "Kurzhantel-Bankdrücken auf der Negativbank"
+  },
+  "0302": {
+    "en": "Dumbbell Decline Fly",
+    "de": "Kurzhantel-Fliegende auf der Negativbank"
+  },
+  "0303": {
+    "en": "Dumbbell Decline Hammer Press",
+    "de": "Kurzhantel-Negativbank-Hammerdrücken"
+  },
+  "1276": {
+    "en": "Dumbbell Decline One Arm Fly",
+    "de": "Negativbank-Fliegende mit Kurzhanteln, einarmig"
+  },
+  "1617": {
+    "en": "Dumbbell Decline One Arm Hammer Press",
+    "de": "Kurzhantel-Negativbank-Hammerdrücken, einarmig"
+  },
+  "0305": {
+    "en": "Dumbbell Decline Shrug",
+    "de": "Kurzhantel-Negativbank-Schulterheben"
+  },
+  "0304": {
+    "en": "Dumbbell Decline Shrug V. 2",
+    "de": "Kurzhantel-Negativbank-Schulterheben (Variante 2)"
+  },
+  "0306": {
+    "en": "Dumbbell Decline Triceps Extension",
+    "de": "Kurzhantel-Negativbank-Trizeps-Extension"
+  },
+  "0307": {
+    "en": "Dumbbell Decline Twist Fly",
+    "de": "Negativbank-Drehfliegende mit Kurzhanteln"
+  },
+  "1437": {
+    "en": "Dumbbell Finger Curls",
+    "de": "Kurzhantel-Fingercurl"
+  },
+  "0308": {
+    "en": "Dumbbell Fly",
+    "de": "Fliegende mit Kurzhanteln"
+  },
+  "1277": {
+    "en": "Dumbbell Fly on Exercise Ball",
+    "de": "Fliegende mit Kurzhanteln auf dem Gymnastikball"
+  },
+  "1732": {
+    "en": "Dumbbell Forward Lunge Triceps Extension",
+    "de": "Kurzhantel-Ausfallschritt mit Trizeps-Extension"
+  },
+  "0310": {
+    "en": "Dumbbell Front Raise",
+    "de": "Kurzhantel-Frontheben"
+  },
+  "0309": {
+    "en": "Dumbbell Front Raise V. 2",
+    "de": "Kurzhantel-Frontheben (Variante 2)"
+  },
+  "0311": {
+    "en": "Dumbbell Full Can Lateral Raise",
+    "de": "Kurzhantel-Full-Can-Seitheben"
+  },
+  "1760": {
+    "en": "Dumbbell Goblet Squat",
+    "de": "Kurzhantel-Goblet-Squat"
+  },
+  "0313": {
+    "en": "Dumbbell Hammer Curl",
+    "de": "Kurzhantel-Hammercurl"
+  },
+  "1659": {
+    "en": "Dumbbell Hammer Curl on Exercise Ball",
+    "de": "Kurzhantel-Hammercurl auf dem Gymnastikball"
+  },
+  "0312": {
+    "en": "Dumbbell Hammer Curl V. 2",
+    "de": "Kurzhantel-Hammercurl (Variante 2)"
+  },
+  "2402": {
+    "en": "Dumbbell Hammer Curls (With Arm Blaster)",
+    "de": "Kurzhantel-Hammercurls mit Armblaster"
+  },
+  "1664": {
+    "en": "Dumbbell High Curl",
+    "de": "Kurzhantel-Curl mit erhobenen Armen"
+  },
+  "3545": {
+    "en": "Dumbbell Incline Alternate Press",
+    "de": "Kurzhantel-Schrägbank-Drücken, wechselseitig"
+  },
+  "0314": {
+    "en": "Dumbbell Incline Bench Press",
+    "de": "Kurzhantel-Schrägbank-Bankdrücken"
+  },
+  "0315": {
+    "en": "Dumbbell Incline Biceps Curl",
+    "de": "Kurzhantel-Schrägbank-Bizepscurl"
+  },
+  "0316": {
+    "en": "Dumbbell Incline Press",
+    "de": "Kurzhantel-Schrägbank-Drücken"
+  },
+  "0318": {
+    "en": "Dumbbell Incline Curl",
+    "de": "Kurzhantel-Schrägbank-Curl"
+  },
+  "0317": {
+    "en": "Dumbbell Incline Curl V. 2",
+    "de": "Kurzhantel-Schrägbank-Curl (Variante 2)"
+  },
+  "0319": {
+    "en": "Dumbbell Incline Fly",
+    "de": "Schrägbank-Fliegende mit Kurzhanteln"
+  },
+  "1278": {
+    "en": "Dumbbell Incline Fly on Exercise Ball",
+    "de": "Schrägbank-Fliegende mit Kurzhanteln auf dem Gymnastikball"
+  },
+  "0320": {
+    "en": "Dumbbell Incline Hammer Curl",
+    "de": "Kurzhantel-Schrägbank-Hammercurl"
+  },
+  "0321": {
+    "en": "Dumbbell Incline Hammer Press",
+    "de": "Kurzhantel-Schrägbank-Hammerdrücken"
+  },
+  "1618": {
+    "en": "Dumbbell Incline Hammer Press on Exercise Ball",
+    "de": "Kurzhantel-Schrägbank-Hammerdrücken auf dem Gymnastikball"
+  },
+  "0322": {
+    "en": "Dumbbell Incline Inner Biceps Curl",
+    "de": "Kurzhantel-Schrägbank-Bizepscurl, innen"
+  },
+  "1279": {
+    "en": "Dumbbell Incline One Arm Fly",
+    "de": "Schrägbank-Fliegende mit Kurzhanteln, einarmig"
+  },
+  "1280": {
+    "en": "Dumbbell Incline One Arm Fly on Exercise Ball",
+    "de": "Schrägbank-Fliegende mit Kurzhanteln auf dem Gymnastikball, einarmig"
+  },
+  "1619": {
+    "en": "Dumbbell Incline One Arm Hammer Press",
+    "de": "Kurzhantel-Schrägbank-Hammerdrücken, einarmig"
+  },
+  "1620": {
+    "en": "Dumbbell Incline One Arm Hammer Press on Exercise Ball",
+    "de": "Kurzhantel-Schrägbank-Hammerdrücken auf dem Gymnastikball, einarmig"
+  },
+  "0323": {
+    "en": "Dumbbell Incline One Arm Lateral Raise",
+    "de": "Kurzhantel-Schrägbank-Seitheben, einarmig"
+  },
+  "1281": {
+    "en": "Dumbbell Incline One Arm Press",
+    "de": "Kurzhantel-Schrägbank-Drücken, einarmig"
+  },
+  "1282": {
+    "en": "Dumbbell Incline One Arm Press on Exercise Ball",
+    "de": "Kurzhantel-Schrägbank-Drücken auf dem Gymnastikball, einarmig"
+  },
+  "0324": {
+    "en": "Dumbbell Incline Palm-In Press",
+    "de": "Kurzhantel-Schrägbank-Drücken im Neutralgriff"
+  },
+  "1283": {
+    "en": "Dumbbell Incline Press on Exercise Ball",
+    "de": "Kurzhantel-Schrägbank-Drücken auf dem Gymnastikball"
+  },
+  "0325": {
+    "en": "Dumbbell Incline Raise",
+    "de": "Kurzhantel-Schrägbank-Armheben"
+  },
+  "0326": {
+    "en": "Dumbbell Incline Rear Lateral Raise",
+    "de": "Kurzhantel-Schrägbank-Reverses Seitheben"
+  },
+  "0327": {
+    "en": "Dumbbell Incline Row",
+    "de": "Kurzhantel-Schrägbank-Rudern"
+  },
+  "0328": {
+    "en": "Dumbbell Incline Shoulder Raise",
+    "de": "Kurzhantel-Schrägbank-Scapula-Push (Serratus anterior)"
+  },
+  "0329": {
+    "en": "Dumbbell Incline Shrug",
+    "de": "Kurzhantel-Schrägbank-Schulterheben"
+  },
+  "3542": {
+    "en": "Dumbbell Incline T-Raise",
+    "de": "Kurzhantel-Schrägbank-T-Raise"
+  },
+  "0330": {
+    "en": "Dumbbell Incline Triceps Extension",
+    "de": "Kurzhantel-Schrägbank-Trizeps-Extension"
+  },
+  "0331": {
+    "en": "Dumbbell Incline Twisted Flyes",
+    "de": "Schrägbank-Drehfliegende mit Kurzhanteln"
+  },
+  "1733": {
+    "en": "Dumbbell Incline Two Arm Extension",
+    "de": "Kurzhantel-Schrägbank-Trizeps-Extension, beidarmig"
+  },
+  "3541": {
+    "en": "Dumbbell Incline Y-Raise",
+    "de": "Kurzhantel-Schrägbank-Y-Raise"
+  },
+  "0332": {
+    "en": "Dumbbell Iron Cross",
+    "de": "Kurzhantel-Iron-Cross"
+  },
+  "0333": {
+    "en": "Dumbbell Kickback",
+    "de": "Kurzhantel-Trizeps-Kickback"
+  },
+  "1734": {
+    "en": "Dumbbell Kickbacks on Exercise Ball",
+    "de": "Kurzhantel-Trizeps-Kickback auf dem Gymnastikball"
+  },
+  "1660": {
+    "en": "Dumbbell Kneeling Bicep Curl Exercise Ball",
+    "de": "Kurzhantel-Bizepscurl im Knien auf dem Gymnastikball"
+  },
+  "0334": {
+    "en": "Dumbbell Lateral Raise",
+    "de": "Kurzhantel-Seitheben"
+  },
+  "0335": {
+    "en": "Dumbbell Lateral to Front Raise",
+    "de": "Kurzhantel-Seitheben zu Frontheben"
+  },
+  "0336": {
+    "en": "Dumbbell Lunge",
+    "de": "Kurzhantel-Ausfallschritt"
+  },
+  "1658": {
+    "en": "Dumbbell Lunge with Bicep Curl",
+    "de": "Kurzhantel-Ausfallschritt mit Bizepscurl"
+  },
+  "0337": {
+    "en": "Dumbbell Lying Extension (Across Face)",
+    "de": "Kurzhantel-Trizeps-Extension im Liegen (über das Gesicht)"
+  },
+  "1729": {
+    "en": "Dumbbell Lying Alternate Extension",
+    "de": "Kurzhantel-Trizeps-Extension im Liegen, wechselseitig"
+  },
+  "0338": {
+    "en": "Dumbbell Lying Elbow Press",
+    "de": "Kurzhantel-Ellbogendrücken im Liegen"
+  },
+  "0863": {
+    "en": "Dumbbell Lying External Shoulder Rotation",
+    "de": "Kurzhantel-Aussenrotation der Schulter im Liegen"
+  },
+  "0339": {
+    "en": "Dumbbell Lying Femoral",
+    "de": "Kurzhantel-Beincurl im Liegen"
+  },
+  "0340": {
+    "en": "Dumbbell Lying Hammer Press",
+    "de": "Kurzhantel-Hammerdrücken im Liegen"
+  },
+  "2470": {
+    "en": "Dumbbell Lying on Floor Rear Delt Raise",
+    "de": "Kurzhantel-Reverses Seitheben auf dem Boden"
+  },
+  "0341": {
+    "en": "Dumbbell Lying One Arm Deltoid Rear",
+    "de": "Kurzhantel-Reverses Seitheben im Liegen, einarmig"
+  },
+  "0343": {
+    "en": "Dumbbell Lying One Arm Press",
+    "de": "Kurzhantel-Drücken im Liegen, einarmig"
+  },
+  "0342": {
+    "en": "Dumbbell Lying One Arm Press V. 2",
+    "de": "Kurzhantel-Drücken im Liegen, einarmig (Variante 2)"
+  },
+  "0344": {
+    "en": "Dumbbell Lying One Arm Pronated Triceps Extension",
+    "de": "Kurzhantel-Trizeps-Extension im Liegen (proniert), einarmig"
+  },
+  "0345": {
+    "en": "Dumbbell Lying One Arm Rear Lateral Raise",
+    "de": "Kurzhantel-Reverses Seitheben im Liegen, einarmig"
+  },
+  "0346": {
+    "en": "Dumbbell Lying One Arm Supinated Triceps Extension",
+    "de": "Kurzhantel-Trizeps-Extension im Liegen (supiniert), einarmig"
+  },
+  "0347": {
+    "en": "Dumbbell Lying Pronation",
+    "de": "Kurzhantel-Pronation im Liegen"
+  },
+  "2705": {
+    "en": "Dumbbell Lying Pronation on Floor",
+    "de": "Kurzhantel-Pronation auf dem Boden"
+  },
+  "1284": {
+    "en": "Dumbbell Lying Pullover on Exercise Ball",
+    "de": "Kurzhantel-Überzüge im Liegen auf dem Gymnastikball"
+  },
+  "1328": {
+    "en": "Dumbbell Lying Rear Delt Row",
+    "de": "Kurzhantel-Rudern für die hintere Schulter im Liegen"
+  },
+  "0348": {
+    "en": "Dumbbell Lying Rear Lateral Raise",
+    "de": "Kurzhantel-Reverses Seitheben im Liegen"
+  },
+  "1735": {
+    "en": "Dumbbell Lying Single Extension",
+    "de": "Kurzhantel-Trizeps-Extension im Liegen, einarmig"
+  },
+  "0349": {
+    "en": "Dumbbell Lying Supination",
+    "de": "Kurzhantel-Supination im Liegen"
+  },
+  "2706": {
+    "en": "Dumbbell Lying Supination on Floor",
+    "de": "Kurzhantel-Supination auf dem Boden"
+  },
+  "1661": {
+    "en": "Dumbbell Lying Supine Biceps Curl",
+    "de": "Kurzhantel-Bizepscurl im Liegen (Rückenlage)"
+  },
+  "0350": {
+    "en": "Dumbbell Lying Supine Curl",
+    "de": "Kurzhantel-Curl im Liegen (Rückenlage)"
+  },
+  "0351": {
+    "en": "Dumbbell Lying Triceps Extension",
+    "de": "Kurzhantel-Trizeps-Extension im Liegen"
+  },
+  "1662": {
+    "en": "Dumbbell Lying Wide Curl",
+    "de": "Kurzhantel-Curl im Liegen (weiter Griff)"
+  },
+  "0352": {
+    "en": "Dumbbell Neutral Grip Bench Press",
+    "de": "Kurzhantel-Bankdrücken im Neutralgriff"
+  },
+  "1285": {
+    "en": "Dumbbell One Arm Bench Fly",
+    "de": "Bank-Fliegende mit Kurzhanteln, einarmig"
+  },
+  "0292": {
+    "en": "Dumbbell One Arm Bent-Over Row",
+    "de": "Kurzhantel-Rudern vorgebeugt, einarmig"
+  },
+  "1286": {
+    "en": "Dumbbell One Arm Chest Fly on Exercise Ball",
+    "de": "Fliegende mit Kurzhanteln auf dem Gymnastikball, einarmig"
+  },
+  "0353": {
+    "en": "Dumbbell One Arm Concentration Curl (On Stability Ball)",
+    "de": "Kurzhantel-Konzentrationscurl auf dem Gymnastikball, einarmig"
+  },
+  "1287": {
+    "en": "Dumbbell One Arm Decline Chest Press",
+    "de": "Kurzhantel-Negativbank-Drücken, einarmig"
+  },
+  "1288": {
+    "en": "Dumbbell One Arm Fly on Exercise Ball",
+    "de": "Fliegende mit Kurzhanteln auf dem Gymnastikball, einarmig"
+  },
+  "1736": {
+    "en": "Dumbbell One Arm French Press on Exercise Ball",
+    "de": "Kurzhantel-French-Press auf dem Gymnastikball, einarmig"
+  },
+  "1663": {
+    "en": "Dumbbell One Arm Hammer Preacher Curl",
+    "de": "Kurzhantel-Hammer-Scott-Curl, einarmig"
+  },
+  "1621": {
+    "en": "Dumbbell One Arm Hammer Press on Exercise Ball",
+    "de": "Kurzhantel-Hammerdrücken auf dem Gymnastikball, einarmig"
+  },
+  "1289": {
+    "en": "Dumbbell One Arm Incline Chest Press",
+    "de": "Kurzhantel-Schrägbank-Drücken, einarmig"
+  },
+  "0354": {
+    "en": "Dumbbell One Arm Kickback",
+    "de": "Kurzhantel-Trizeps-Kickback, einarmig"
+  },
+  "0355": {
+    "en": "Dumbbell One Arm Lateral Raise",
+    "de": "Kurzhantel-Seitheben, einarmig"
+  },
+  "0356": {
+    "en": "Dumbbell One Arm Lateral Raise with Support",
+    "de": "Kurzhantel-Seitheben mit Unterstützung, einarmig"
+  },
+  "1290": {
+    "en": "Dumbbell One Arm Press on Exercise Ball",
+    "de": "Kurzhantel-Drücken auf dem Gymnastikball, einarmig"
+  },
+  "1665": {
+    "en": "Dumbbell One Arm Prone Curl",
+    "de": "Kurzhantel-Bizepscurl in Bauchlage, einarmig"
+  },
+  "1666": {
+    "en": "Dumbbell One Arm Prone Hammer Curl",
+    "de": "Kurzhantel-Hammercurl in Bauchlage, einarmig"
+  },
+  "1291": {
+    "en": "Dumbbell One Arm Pullover on Exercise Ball",
+    "de": "Kurzhantel-Überzüge auf dem Gymnastikball, einarmig"
+  },
+  "0358": {
+    "en": "Dumbbell One Arm Reverse Wrist Curl",
+    "de": "Kurzhantel-Reverse Handgelenk-Curl, einarmig"
+  },
+  "0359": {
+    "en": "Dumbbell One Arm Reverse Fly (With Support)",
+    "de": "Kurzhantel-Reverse Fly mit Unterstützung, einarmig"
+  },
+  "1622": {
+    "en": "Dumbbell One Arm Reverse Grip Press",
+    "de": "Kurzhantel-Drücken im Untergriff, einarmig"
+  },
+  "1414": {
+    "en": "Dumbbell One Arm Reverse Preacher Curl",
+    "de": "Kurzhantel-Reverse-Scott-Curl, einarmig"
+  },
+  "1667": {
+    "en": "Dumbbell One Arm Reverse Spider Curl",
+    "de": "Kurzhantel-Reverse-Spider-Curl, einarmig"
+  },
+  "1668": {
+    "en": "Dumbbell One Arm Seated Bicep Curl on Exercise Ball",
+    "de": "Kurzhantel-Bizepscurl im Sitzen auf dem Gymnastikball, einarmig"
+  },
+  "1669": {
+    "en": "Dumbbell One Arm Seated Hammer Curl",
+    "de": "Kurzhantel-Hammercurl im Sitzen, einarmig"
+  },
+  "1415": {
+    "en": "Dumbbell One Arm Seated Neutral Wrist Curl",
+    "de": "Kurzhantel-Handgelenk-Curl im Neutralgriff im Sitzen, einarmig"
+  },
+  "0361": {
+    "en": "Dumbbell One Arm Shoulder Press",
+    "de": "Kurzhantel-Schulterdrücken, einarmig"
+  },
+  "0360": {
+    "en": "Dumbbell One Arm Shoulder Press V. 2",
+    "de": "Kurzhantel-Schulterdrücken, einarmig (Variante 2)"
+  },
+  "3888": {
+    "en": "Dumbbell One Arm Snatch",
+    "de": "Kurzhantel-Snatch, einarmig"
+  },
+  "1670": {
+    "en": "Dumbbell One Arm Standing Curl",
+    "de": "Kurzhantel-Bizepscurl im Stehen, einarmig"
+  },
+  "1671": {
+    "en": "Dumbbell One Arm Standing Hammer Curl",
+    "de": "Kurzhantel-Hammercurl im Stehen, einarmig"
+  },
+  "0362": {
+    "en": "Dumbbell One Arm Triceps Extension (On Bench)",
+    "de": "Kurzhantel-Trizeps-Extension auf der Bank, einarmig"
+  },
+  "0363": {
+    "en": "Dumbbell One Arm Upright Row",
+    "de": "Kurzhantel-Aufrechtes Rudern, einarmig"
+  },
+  "0364": {
+    "en": "Dumbbell One Arm Wrist Curl",
+    "de": "Kurzhantel-Handgelenk-Curl, einarmig"
+  },
+  "1672": {
+    "en": "Dumbbell One Arm Zottman Preacher Curl",
+    "de": "Kurzhantel-Zottman-Scott-Curl, einarmig"
+  },
+  "1292": {
+    "en": "Dumbbell One Leg Fly on Exercise Ball",
+    "de": "Fliegende mit Kurzhanteln auf dem Gymnastikball, einbeinig"
+  },
+  "0365": {
+    "en": "Dumbbell Over Bench Neutral Wrist Curl",
+    "de": "Kurzhantel-Handgelenk-Curl im Neutralgriff auf der Bank"
+  },
+  "0366": {
+    "en": "Dumbbell Over Bench One Arm Neutral Wrist Curl",
+    "de": "Kurzhantel-Handgelenk-Curl im Neutralgriff auf der Bank, einarmig"
+  },
+  "1441": {
+    "en": "Dumbbell Over Bench One Arm Reverse Wrist Curl",
+    "de": "Kurzhantel-Reverse Handgelenk-Curl auf der Bank, einarmig"
+  },
+  "0367": {
+    "en": "Dumbbell Over Bench One Arm Wrist Curl",
+    "de": "Kurzhantel-Handgelenk-Curl auf der Bank, einarmig"
+  },
+  "0368": {
+    "en": "Dumbbell Over Bench Reverse Wrist Curl",
+    "de": "Kurzhantel-Reverse Handgelenk-Curl auf der Bank"
+  },
+  "0369": {
+    "en": "Dumbbell Over Bench Wrist Curl",
+    "de": "Kurzhantel-Handgelenk-Curl auf der Bank"
+  },
+  "1329": {
+    "en": "Dumbbell Palm Rotational Bent Over Row",
+    "de": "Kurzhantel-Rudern vorgebeugt mit Rotation"
+  },
+  "1623": {
+    "en": "Dumbbell Palms in Incline Bench Press",
+    "de": "Kurzhantel-Schrägbank-Bankdrücken im Neutralgriff"
+  },
+  "0370": {
+    "en": "Dumbbell Preacher Hammer Curl",
+    "de": "Kurzhantel-Hammer-Scott-Curl"
+  },
+  "0371": {
+    "en": "Dumbbell Plyo Squat",
+    "de": "Kurzhantel-Sprungkniebeuge"
+  },
+  "0372": {
+    "en": "Dumbbell Preacher Curl",
+    "de": "Kurzhantel-Scott-Curl"
+  },
+  "1673": {
+    "en": "Dumbbell Preacher Curl Over Exercise Ball",
+    "de": "Kurzhantel-Scott-Curl über dem Gymnastikball"
+  },
+  "1293": {
+    "en": "Dumbbell Press on Exercise Ball",
+    "de": "Kurzhantel-Drücken auf dem Gymnastikball"
+  },
+  "0373": {
+    "en": "Dumbbell Pronate-Grip Triceps Extension",
+    "de": "Kurzhantel-Trizeps-Extension im Pronationsgriff"
+  },
+  "0374": {
+    "en": "Dumbbell Prone Incline Curl",
+    "de": "Kurzhantel-Schrägbank-Bizepscurl in Bauchlage"
+  },
+  "1674": {
+    "en": "Dumbbell Prone Incline Hammer Curl",
+    "de": "Kurzhantel-Schrägbank-Hammercurl in Bauchlage"
+  },
+  "0375": {
+    "en": "Dumbbell Pullover",
+    "de": "Kurzhantel-Überzüge"
+  },
+  "1294": {
+    "en": "Dumbbell Pullover Hip Extension on Exercise Ball",
+    "de": "Kurzhantel-Überzüge mit Hüftstreckung auf dem Gymnastikball"
+  },
+  "1295": {
+    "en": "Dumbbell Pullover on Exercise Ball",
+    "de": "Kurzhantel-Überzüge auf dem Gymnastikball"
+  },
+  "1700": {
+    "en": "Dumbbell Push Press",
+    "de": "Kurzhantel-Stossdrücken"
+  },
+  "0376": {
+    "en": "Dumbbell Raise",
+    "de": "Kurzhantel-Armheben"
+  },
+  "2292": {
+    "en": "Dumbbell Rear Delt Raise",
+    "de": "Kurzhantel-Reverses Seitheben"
+  },
+  "0377": {
+    "en": "Dumbbell Rear Delt Row",
+    "de": "Kurzhantel-Rudern für die hintere Schulter"
+  },
+  "0378": {
+    "en": "Dumbbell Rear Fly",
+    "de": "Kurzhantel-Reverses Fliegende"
+  },
+  "0380": {
+    "en": "Dumbbell Rear Lateral Raise",
+    "de": "Kurzhantel-Reverses Seitheben"
+  },
+  "0379": {
+    "en": "Dumbbell Rear Lateral Raise (Support Head)",
+    "de": "Kurzhantel-Reverses Seitheben mit Kopfstütze"
+  },
+  "0381": {
+    "en": "Dumbbell Rear Lunge",
+    "de": "Kurzhantel-Ausfallschritt rückwärts"
+  },
+  "0382": {
+    "en": "Dumbbell Reverse Grip Biceps Curl",
+    "de": "Kurzhantel-Reverse Curl"
+  },
+  "1624": {
+    "en": "Dumbbell Reverse Bench Press",
+    "de": "Kurzhantel-Bankdrücken im Untergriff"
+  },
+  "0383": {
+    "en": "Dumbbell Reverse Fly",
+    "de": "Kurzhantel-Reverse Fly"
+  },
+  "1330": {
+    "en": "Dumbbell Reverse Grip Incline Bench One Arm Row",
+    "de": "Kurzhantel-Rudern im Untergriff auf der Schrägbank, einarmig"
+  },
+  "1331": {
+    "en": "Dumbbell Reverse Grip Incline Bench Two Arm Row",
+    "de": "Kurzhantel-Rudern im Untergriff auf der Schrägbank, beidarmig"
+  },
+  "2327": {
+    "en": "Dumbbell Reverse Grip Row (Female)",
+    "de": "Kurzhantel-Rudern im Untergriff (Frauen)"
+  },
+  "0384": {
+    "en": "Dumbbell Reverse Preacher Curl",
+    "de": "Kurzhantel-Reverse-Scott-Curl"
+  },
+  "1675": {
+    "en": "Dumbbell Reverse Spider Curl",
+    "de": "Kurzhantel-Reverse-Spider-Curl"
+  },
+  "0385": {
+    "en": "Dumbbell Reverse Wrist Curl",
+    "de": "Kurzhantel-Reverse Handgelenk-Curl"
+  },
+  "1459": {
+    "en": "Dumbbell Romanian Deadlift",
+    "de": "Kurzhantel-Rumänisches Kreuzheben"
+  },
+  "0386": {
+    "en": "Dumbbell Rotation Reverse Fly",
+    "de": "Kurzhantel-Reverse Fly mit Rotation"
+  },
+  "2397": {
+    "en": "Dumbbell Scott Press",
+    "de": "Kurzhantel-Scott-Drücken"
+  },
+  "0387": {
+    "en": "Dumbbell Seated Alternate Front Raise",
+    "de": "Kurzhantel-Frontheben im Sitzen, wechselseitig"
+  },
+  "1676": {
+    "en": "Dumbbell Seated Alternate Hammer Curl on Exercise Ball",
+    "de": "Kurzhantel-Hammercurl im Sitzen auf dem Gymnastikball, wechselseitig"
+  },
+  "0388": {
+    "en": "Dumbbell Seated Alternate Press",
+    "de": "Kurzhantel-Schulterdrücken im Sitzen, wechselseitig"
+  },
+  "3546": {
+    "en": "Dumbbell Seated Alternate Shoulder",
+    "de": "Kurzhantel-Schulterdrücken im Sitzen, wechselseitig"
+  },
+  "0389": {
+    "en": "Dumbbell Seated Bench Extension",
+    "de": "Kurzhantel-Trizeps-Extension im Sitzen"
+  },
+  "2317": {
+    "en": "Dumbbell Seated Bent Arm Lateral Raise",
+    "de": "Kurzhantel-Seitheben mit gebeugten Armen im Sitzen"
+  },
+  "1730": {
+    "en": "Dumbbell Seated Bent Over Alternate Kickback",
+    "de": "Kurzhantel-Trizeps-Kickback vorgebeugt im Sitzen, wechselseitig"
+  },
+  "1737": {
+    "en": "Dumbbell Seated Bent Over Triceps Extension",
+    "de": "Kurzhantel-Trizepsstrecken vorgebeugt im Sitzen"
+  },
+  "1677": {
+    "en": "Dumbbell Seated Biceps Curl",
+    "de": "Kurzhantel-Bizepscurl im Sitzen"
+  },
+  "0390": {
+    "en": "Dumbbell Seated Biceps Curl (on Stability Ball)",
+    "de": "Kurzhantel-Bizepscurl im Sitzen (auf dem Gymnastikball)"
+  },
+  "3547": {
+    "en": "Dumbbell Seated Biceps Curl to Shoulder Press",
+    "de": "Kurzhantel-Bizepscurl mit Schulterdrücken im Sitzen"
+  },
+  "1379": {
+    "en": "Dumbbell Seated Calf Raise",
+    "de": "Kurzhantel-Wadenheben im Sitzen"
+  },
+  "0391": {
+    "en": "Dumbbell Seated Curl",
+    "de": "Kurzhantel-Curl im Sitzen"
+  },
+  "0392": {
+    "en": "Dumbbell Seated Front Raise",
+    "de": "Kurzhantel-Frontheben im Sitzen"
+  },
+  "1678": {
+    "en": "Dumbbell Seated Hammer Curl",
+    "de": "Kurzhantel-Hammercurl im Sitzen"
+  },
+  "0393": {
+    "en": "Dumbbell Seated Inner Biceps Curl",
+    "de": "Kurzhantel-Innen-Bizepscurl im Sitzen"
+  },
+  "0394": {
+    "en": "Dumbbell Seated Kickback",
+    "de": "Kurzhantel-Kickback im Sitzen"
+  },
+  "0396": {
+    "en": "Dumbbell Seated Lateral Raise",
+    "de": "Kurzhantel-Seitheben im Sitzen"
+  },
+  "0395": {
+    "en": "Dumbbell Seated Lateral Raise V. 2",
+    "de": "Kurzhantel-Seitheben im Sitzen (Variante 2)"
+  },
+  "0397": {
+    "en": "Dumbbell Seated Neutral Wrist Curl",
+    "de": "Kurzhantel-Handgelenkscurl im Sitzen (neutraler Griff)"
+  },
+  "1679": {
+    "en": "Dumbbell Seated One Arm Biceps Curl on Exercise Ball with Leg Raised",
+    "de": "Kurzhantel-Bizepscurl einarmig im Sitzen auf dem Gymnastikball mit angehobenem Bein"
+  },
+  "0398": {
+    "en": "Dumbbell Seated One Arm Kickback",
+    "de": "Kurzhantel-Kickback einarmig im Sitzen"
+  },
+  "0399": {
+    "en": "Dumbbell Seated One Arm Rotate",
+    "de": "Kurzhantel-Unterarmrotation einarmig im Sitzen"
+  },
+  "0400": {
+    "en": "Dumbbell Seated One Leg Calf Raise",
+    "de": "Kurzhantel-Wadenheben einbeinig im Sitzen"
+  },
+  "1380": {
+    "en": "Dumbbell Seated One Leg Calf Raise - Hammer Grip",
+    "de": "Kurzhantel-Wadenheben einbeinig im Sitzen (Hammergriff)"
+  },
+  "1381": {
+    "en": "Dumbbell Seated One Leg Calf Raise - Palm Up",
+    "de": "Kurzhantel-Wadenheben einbeinig im Sitzen (Handfläche oben)"
+  },
+  "0401": {
+    "en": "Dumbbell Seated Palms Up Wrist Curl",
+    "de": "Kurzhantel-Handgelenkscurl im Sitzen (Handflächen oben)"
+  },
+  "0402": {
+    "en": "Dumbbell Seated Preacher Curl",
+    "de": "Kurzhantel-Scott-Curl im Sitzen"
+  },
+  "0403": {
+    "en": "Dumbbell Seated Reverse Grip Concentration Curl",
+    "de": "Kurzhantel-Konzentrationscurl im Sitzen (Obergriff)"
+  },
+  "1738": {
+    "en": "Dumbbell Seated Reverse Grip One Arm Overhead Triceps Extension",
+    "de": "Kurzhantel-Überkopf-Trizepsstrecken einarmig im Sitzen (Obergriff)"
+  },
+  "0405": {
+    "en": "Dumbbell Seated Shoulder Press",
+    "de": "Kurzhantel-Schulterdrücken im Sitzen"
+  },
+  "0404": {
+    "en": "Dumbbell Seated Shoulder Press (Parallel Grip)",
+    "de": "Kurzhantel-Schulterdrücken im Sitzen (paralleler Griff)"
+  },
+  "2188": {
+    "en": "Dumbbell Seated Triceps Extension",
+    "de": "Kurzhantel-Trizepsstrecken im Sitzen"
+  },
+  "0406": {
+    "en": "Dumbbell Shrug",
+    "de": "Kurzhantel-Schulterheben"
+  },
+  "0407": {
+    "en": "Dumbbell Side Bend",
+    "de": "Kurzhantel-Seitbeuge"
+  },
+  "0408": {
+    "en": "Dumbbell Side Lying One Hand Raise",
+    "de": "Kurzhantel-Seitheben im Seitliegen (einarmig)"
+  },
+  "3664": {
+    "en": "Dumbbell Side Plank with Rear Fly",
+    "de": "Kurzhantel-Seitplank mit rückwärtigen Fliegenden"
+  },
+  "3548": {
+    "en": "Dumbbell Single Arm Overhead Carry",
+    "de": "Kurzhantel-Überkopftragen einarmig"
+  },
+  "0409": {
+    "en": "Dumbbell Single Leg Calf Raise",
+    "de": "Kurzhantel-Wadenheben einbeinig"
+  },
+  "1757": {
+    "en": "Dumbbell Single Leg Deadlift",
+    "de": "Kurzhantel-Kreuzheben einbeinig"
+  },
+  "2805": {
+    "en": "Dumbbell Single Leg Deadlift with Stepbox Support",
+    "de": "Kurzhantel-Kreuzheben einbeinig mit Stepbox-Unterstützung"
+  },
+  "0410": {
+    "en": "Dumbbell Single Leg Split Squat",
+    "de": "Kurzhantel-Split-Kniebeuge einbeinig"
+  },
+  "0411": {
+    "en": "Dumbbell Single Leg Squat",
+    "de": "Kurzhantel-Kniebeuge einbeinig"
+  },
+  "0413": {
+    "en": "Dumbbell Squat",
+    "de": "Kurzhantel-Kniebeuge"
+  },
+  "3560": {
+    "en": "Dumbbell Standing Alternate Hammer Curl and Press",
+    "de": "Kurzhantel-Hammercurl mit Drücken im Wechsel stehend"
+  },
+  "0414": {
+    "en": "Dumbbell Standing Alternate Overhead Press",
+    "de": "Kurzhantel-Überkopfdrücken im Wechsel stehend"
+  },
+  "0415": {
+    "en": "Dumbbell Standing Alternate Raise",
+    "de": "Kurzhantel-Heben im Wechsel stehend"
+  },
+  "1739": {
+    "en": "Dumbbell Standing Alternating Triceps Kickback",
+    "de": "Kurzhantel-Trizeps-Kickback im Wechsel stehend"
+  },
+  "2143": {
+    "en": "Dumbbell Standing Around the World",
+    "de": "Kurzhantel-Around the World stehend"
+  },
+  "1740": {
+    "en": "Dumbbell Standing Bent Over One Arm Triceps Extension",
+    "de": "Kurzhantel-Trizepsstrecken vorgebeugt einarmig stehend"
+  },
+  "1741": {
+    "en": "Dumbbell Standing Bent Over Two Arm Triceps Extension",
+    "de": "Kurzhantel-Trizepsstrecken vorgebeugt beidarmig stehend"
+  },
+  "0416": {
+    "en": "Dumbbell Standing Biceps Curl",
+    "de": "Kurzhantel-Bizepscurl stehend"
+  },
+  "0417": {
+    "en": "Dumbbell Standing Calf Raise",
+    "de": "Kurzhantel-Wadenheben stehend"
+  },
+  "0418": {
+    "en": "Dumbbell Standing Concentration Curl",
+    "de": "Kurzhantel-Konzentrationscurl stehend"
+  },
+  "0419": {
+    "en": "Dumbbell Standing Front Raise Above Head",
+    "de": "Kurzhantel-Frontheben über Kopf stehend"
+  },
+  "2321": {
+    "en": "Dumbbell Standing Inner Biceps Curl V. 2",
+    "de": "Kurzhantel-Innen-Bizepscurl stehend (Variante 2)"
+  },
+  "0420": {
+    "en": "Dumbbell Standing Kickback",
+    "de": "Kurzhantel-Kickback stehend"
+  },
+  "0421": {
+    "en": "Dumbbell Standing One Arm Concentration Curl",
+    "de": "Kurzhantel-Konzentrationscurl einarmig stehend"
+  },
+  "0422": {
+    "en": "Dumbbell Standing One Arm Curl (Over Incline Bench)",
+    "de": "Kurzhantel-Curl einarmig stehend (über Schrägbank)"
+  },
+  "1680": {
+    "en": "Dumbbell Standing One Arm Curl Over Incline Bench",
+    "de": "Kurzhantel-Curl einarmig stehend über Schrägbank"
+  },
+  "0423": {
+    "en": "Dumbbell Standing One Arm Extension",
+    "de": "Kurzhantel-Trizepsstrecken einarmig stehend"
+  },
+  "0424": {
+    "en": "Dumbbell Standing One Arm Palm In Press",
+    "de": "Kurzhantel-Drücken einarmig stehend (Handfläche innen)"
+  },
+  "0425": {
+    "en": "Dumbbell Standing One Arm Reverse Curl",
+    "de": "Kurzhantel-Reverscurl einarmig stehend"
+  },
+  "0426": {
+    "en": "Dumbbell Standing Overhead Press",
+    "de": "Kurzhantel-Überkopfdrücken stehend"
+  },
+  "0427": {
+    "en": "Dumbbell Standing Palms In Press",
+    "de": "Kurzhantel-Drücken stehend (Handflächen innen)"
+  },
+  "0428": {
+    "en": "Dumbbell Standing Preacher Curl",
+    "de": "Kurzhantel-Scott-Curl stehend"
+  },
+  "0429": {
+    "en": "Dumbbell Standing Reverse Curl",
+    "de": "Kurzhantel-Reverscurl stehend"
+  },
+  "0430": {
+    "en": "Dumbbell Standing Triceps Extension",
+    "de": "Kurzhantel-Trizepsstrecken stehend"
+  },
+  "2293": {
+    "en": "Dumbbell Standing Zottman Preacher Curl",
+    "de": "Kurzhantel-Zottman-Scott-Curl stehend"
+  },
+  "1684": {
+    "en": "Dumbbell Step-Up Single Leg Balance with Biceps Curl",
+    "de": "Kurzhantel-Step-up mit Balance einbeinig und Bizepscurl"
+  },
+  "0431": {
+    "en": "Dumbbell Step-Up",
+    "de": "Kurzhantel-Step-up"
+  },
+  "2796": {
+    "en": "Dumbbell Step-Up Lunge",
+    "de": "Kurzhantel-Step-up-Ausfallschritt"
+  },
+  "2812": {
+    "en": "Dumbbell Step-Up Split Squat",
+    "de": "Kurzhantel-Step-up-Split-Kniebeuge"
+  },
+  "0432": {
+    "en": "Dumbbell Stiff Leg Deadlift",
+    "de": "Kurzhantel-Kreuzheben mit gestreckten Beinen"
+  },
+  "0433": {
+    "en": "Dumbbell Straight Arm Pullover",
+    "de": "Kurzhantel-Überzug mit gestreckten Armen"
+  },
+  "0434": {
+    "en": "Dumbbell Straight Leg Deadlift",
+    "de": "Kurzhantel-Kreuzheben mit gestreckten Beinen"
+  },
+  "2808": {
+    "en": "Dumbbell Sumo Pull Through",
+    "de": "Kurzhantel-Sumo-Pull-Through"
+  },
+  "2803": {
+    "en": "Dumbbell Supported Squat",
+    "de": "Kurzhantel-Kniebeuge mit Abstützung"
+  },
+  "0436": {
+    "en": "Dumbbell Tate Press",
+    "de": "Kurzhantel-Tate-Press"
+  },
+  "1742": {
+    "en": "Dumbbell Triceps Kickback with Stork Stance",
+    "de": "Kurzhantel-Trizeps-Kickback im Storchenstand"
+  },
+  "1743": {
+    "en": "Dumbbell Twisting Bench Press",
+    "de": "Kurzhantel-Bankdrücken mit Drehung"
+  },
+  "0437": {
+    "en": "Dumbbell Upright Row",
+    "de": "Kurzhantel-Aufrechtes Rudern"
+  },
+  "1765": {
+    "en": "Dumbbell Upright Row (Back POV)",
+    "de": "Kurzhantel-Aufrechtes Rudern (Rückenansicht)"
+  },
+  "0864": {
+    "en": "Dumbbell Upright Shoulder External Rotation",
+    "de": "Kurzhantel-Aussenrotation der Schulter im Stehen"
+  },
+  "5201": {
+    "en": "Dumbbell Waiter Biceps Curl",
+    "de": "Kurzhantel-Kellner-Bizepscurl"
+  },
+  "0438": {
+    "en": "Dumbbell W-Press",
+    "de": "Kurzhantel-W-Press"
+  },
+  "0439": {
+    "en": "Dumbbell Zottman Curl",
+    "de": "Kurzhantel-Zottman-Curl"
+  },
+  "2294": {
+    "en": "Dumbbell Zottman Preacher Curl",
+    "de": "Kurzhantel-Zottman-Scott-Curl"
+  },
+  "2189": {
+    "en": "Dumbbells Seated Triceps Extension",
+    "de": "Kurzhantel-Trizepsstrecken im Sitzen"
+  },
+  "1167": {
+    "en": "Dynamic Chest Stretch (Male)",
+    "de": "Dynamische Brustdehnung (Mann)"
+  },
+  "3287": {
+    "en": "Elbow Dips",
+    "de": "Ellbogen-Dips"
+  },
+  "1772": {
+    "en": "Elbow Lift - Reverse Push-Up",
+    "de": "Ellbogenheben - Liegestütz rückwärts"
+  },
+  "0443": {
+    "en": "Elbow-to-Knee",
+    "de": "Ellbogen-zu-Knie"
+  },
+  "3292": {
+    "en": "Elevator",
+    "de": "Elevator"
+  },
+  "1332": {
+    "en": "Exercise Ball Alternating Arm Ups",
+    "de": "Gymnastikball-Armheben im Wechsel"
+  },
+  "1333": {
+    "en": "Exercise Ball Back Extension with Arms Extended",
+    "de": "Rückenstrecken auf dem Gymnastikball mit gestreckten Armen"
+  },
+  "1334": {
+    "en": "Exercise Ball Back Extension with Hands Behind Head",
+    "de": "Rückenstrecken auf dem Gymnastikball mit Händen hinter dem Kopf"
+  },
+  "1335": {
+    "en": "Exercise Ball Back Extension with Knees off Ground",
+    "de": "Rückenstrecken auf dem Gymnastikball mit angehobenen Knien"
+  },
+  "1336": {
+    "en": "Exercise Ball Back Extension with Rotation",
+    "de": "Rückenstrecken auf dem Gymnastikball mit Rotation"
+  },
+  "1744": {
+    "en": "Exercise Ball Dip",
+    "de": "Dip auf dem Gymnastikball"
+  },
+  "1559": {
+    "en": "Exercise Ball Hip Flexor Stretch",
+    "de": "Hüftbeuger-Dehnung auf dem Gymnastikball"
+  },
+  "1338": {
+    "en": "Exercise Ball Hug",
+    "de": "Gymnastikball-Umarmung (Rückendehnung)"
+  },
+  "1339": {
+    "en": "Exercise Ball Lat Stretch",
+    "de": "Latissimus-Dehnung auf dem Gymnastikball"
+  },
+  "1341": {
+    "en": "Exercise Ball Lower Back Stretch (Pyramid)",
+    "de": "Dehnung des unteren Rückens auf dem Gymnastikball (Pyramide)"
+  },
+  "1342": {
+    "en": "Exercise Ball Lying Side Lat Stretch",
+    "de": "Latissimus-Dehnung seitlich liegend auf dem Gymnastikball"
+  },
+  "1382": {
+    "en": "Exercise Ball on the Wall Calf Raise",
+    "de": "Wadenheben mit Gymnastikball an der Wand"
+  },
+  "3241": {
+    "en": "Exercise Ball on the Wall Calf Raise (Tennis Ball Between Ankles)",
+    "de": "Wadenheben mit Gymnastikball an der Wand (Tennisball zwischen den Knöcheln)"
+  },
+  "3240": {
+    "en": "Exercise Ball on the Wall Calf Raise (Tennis Ball Between Knees)",
+    "de": "Wadenheben mit Gymnastikball an der Wand (Tennisball zwischen den Knien)"
+  },
+  "1416": {
+    "en": "Exercise Ball One Leg Prone Lower Body Rotation",
+    "de": "Unterkörperrotation einbeinig in Bauchlage auf dem Gymnastikball"
+  },
+  "1417": {
+    "en": "Exercise Ball One Legged Diagonal Kick Hamstring Curl",
+    "de": "Beincurl mit diagonalem Kick einbeinig auf dem Gymnastikball"
+  },
+  "1296": {
+    "en": "Exercise Ball Pike Push-Up",
+    "de": "Pike-Liegestütz auf dem Gymnastikball"
+  },
+  "1343": {
+    "en": "Exercise Ball Prone Leg Raise",
+    "de": "Beinheben in Bauchlage auf dem Gymnastikball"
+  },
+  "1560": {
+    "en": "Exercise Ball Seated Hamstring Stretch",
+    "de": "Beinbeuger-Dehnung im Sitzen auf dem Gymnastikball"
+  },
+  "1745": {
+    "en": "Exercise Ball Seated Triceps Stretch",
+    "de": "Trizeps-Dehnung im Sitzen auf dem Gymnastikball"
+  },
+  "1746": {
+    "en": "Exercise Ball Supine Triceps Extension",
+    "de": "Trizepsstrecken in Rückenlage auf dem Gymnastikball"
+  },
+  "1747": {
+    "en": "EZ Bar French Press on Exercise Ball",
+    "de": "SZ-Stange-French-Press auf dem Gymnastikball"
+  },
+  "3010": {
+    "en": "EZ Bar Lying Bent Arms Pullover",
+    "de": "SZ-Stange-Überzug im Liegen mit gebeugten Armen"
+  },
+  "1748": {
+    "en": "EZ Bar Lying Close Grip Triceps Extension Behind Head",
+    "de": "SZ-Stange-Trizepsstrecken im Liegen eng gegriffen hinter dem Kopf"
+  },
+  "1344": {
+    "en": "EZ Bar Reverse Grip Bent Over Row",
+    "de": "SZ-Stange-Rudern vorgebeugt im Obergriff"
+  },
+  "1682": {
+    "en": "EZ Bar Seated Close Grip Concentration Curl",
+    "de": "SZ-Stange-Konzentrationscurl eng gegriffen im Sitzen"
+  },
+  "1749": {
+    "en": "EZ Bar Standing French Press",
+    "de": "SZ-Stange-French-Press stehend"
+  },
+  "0445": {
+    "en": "EZ Barbell Anti Gravity Press",
+    "de": "SZ-Stange-Schulterdrücken (Anti-Gravity-Press)"
+  },
+  "1627": {
+    "en": "EZ Barbell Close Grip Preacher Curl",
+    "de": "SZ-Stange-Scott-Curl eng gegriffen"
+  },
+  "0446": {
+    "en": "EZ Barbell Close-Grip Curl",
+    "de": "SZ-Stange-Curl eng gegriffen"
+  },
+  "0447": {
+    "en": "EZ Barbell Curl",
+    "de": "SZ-Stange-Curl"
+  },
+  "0448": {
+    "en": "EZ Barbell Decline Close Grip Face Press",
+    "de": "SZ-Stange-Face-Press eng gegriffen auf der Negativbank"
+  },
+  "2186": {
+    "en": "EZ Barbell Decline Triceps Extension",
+    "de": "SZ-Stange-Trizepsstrecken auf der Negativbank"
+  },
+  "0449": {
+    "en": "EZ Barbell Incline Triceps Extension",
+    "de": "SZ-Stange-Trizepsstrecken auf der Schrägbank"
+  },
+  "0450": {
+    "en": "EZ Barbell JM Bench Press",
+    "de": "SZ-Stange-JM-Bankdrücken"
+  },
+  "0451": {
+    "en": "EZ Barbell Reverse Grip Curl",
+    "de": "SZ-Stange-Curl im Obergriff"
+  },
+  "0452": {
+    "en": "EZ Barbell Reverse Grip Preacher Curl",
+    "de": "SZ-Stange-Scott-Curl im Obergriff"
+  },
+  "1458": {
+    "en": "EZ Barbell Seated Curls",
+    "de": "SZ-Stange-Curl im Sitzen"
+  },
+  "0453": {
+    "en": "EZ Barbell Seated Triceps Extension",
+    "de": "SZ-Stange-Trizepsstrecken im Sitzen"
+  },
+  "0454": {
+    "en": "EZ Barbell Spider Curl",
+    "de": "SZ-Stange-Spider-Curl"
+  },
+  "1628": {
+    "en": "EZ Barbell Spider Curl",
+    "de": "SZ-Stange-Spider-Curl"
+  },
+  "2404": {
+    "en": "EZ-Bar Biceps Curl (with Arm Blaster)",
+    "de": "SZ-Stange-Bizepscurl (mit Arm Blaster)"
+  },
+  "2432": {
+    "en": "EZ-Bar Close-Grip Bench Press",
+    "de": "SZ-Stange-Bankdrücken eng gegriffen"
+  },
+  "2741": {
+    "en": "EZ-Barbell Standing Wide Grip Biceps Curl",
+    "de": "SZ-Stange-Bizepscurl breit gegriffen stehend"
+  },
+  "2133": {
+    "en": "Farmer's Walk",
+    "de": "Kurzhantel-Farmer's Walk"
+  },
+  "0455": {
+    "en": "Finger Curls",
+    "de": "Langhantel-Fingercurl"
+  },
+  "3303": {
+    "en": "Flag",
+    "de": "Human Flag"
+  },
+  "0456": {
+    "en": "Flexion Leg Sit-Up (Bent Knee)",
+    "de": "Sit-up mit Beinbeugung (Knie gebeugt)"
+  },
+  "0457": {
+    "en": "Flexion Leg Sit-Up (Straight Arm)",
+    "de": "Sit-up mit Beinbeugung (gestreckter Arm)"
+  },
+  "0458": {
+    "en": "Floor Fly (with Barbell)",
+    "de": "Langhantel-Fliegende am Boden"
+  },
+  "0459": {
+    "en": "Flutter Kicks",
+    "de": "Flutter Kicks"
+  },
+  "1472": {
+    "en": "Forward Jump",
+    "de": "Sprung vorwärts"
+  },
+  "3470": {
+    "en": "Forward Lunge (Male)",
+    "de": "Ausfallschritt vorwärts (Mann)"
+  },
+  "3194": {
+    "en": "Frankenstein Squat",
+    "de": "Langhantel-Frankenstein-Kniebeuge"
+  },
+  "2429": {
+    "en": "Frog Crunch",
+    "de": "Frosch-Crunch"
+  },
+  "3301": {
+    "en": "Frog Planche",
+    "de": "Frosch-Planche"
+  },
+  "3296": {
+    "en": "Front Lever",
+    "de": "Front Lever"
+  },
+  "3295": {
+    "en": "Front Lever Reps",
+    "de": "Front Lever (Wiederholungen)"
+  },
+  "0464": {
+    "en": "Front Plank with Twist",
+    "de": "Plank mit Drehung"
+  },
+  "3315": {
+    "en": "Full Maltese",
+    "de": "Full Maltese"
+  },
+  "3299": {
+    "en": "Full Planche",
+    "de": "Full Planche"
+  },
+  "3327": {
+    "en": "Full Planche Push-Up",
+    "de": "Full-Planche-Liegestütz"
+  },
+  "0466": {
+    "en": "Gironda Sternum Chin",
+    "de": "Gironda-Sternum-Klimmzug (Untergriff)"
+  },
+  "3561": {
+    "en": "Glute Bridge March",
+    "de": "Hüftheben marschierend"
+  },
+  "3523": {
+    "en": "Glute Bridge Two Legs on Bench (Male)",
+    "de": "Hüftheben beidbeinig mit Bank (Mann)"
+  },
+  "3193": {
+    "en": "Glute-Ham Raise",
+    "de": "Glute-Ham-Raise"
+  },
+  "0467": {
+    "en": "Gorilla Chin",
+    "de": "Gorilla-Klimmzug (Untergriff)"
+  },
+  "0469": {
+    "en": "Groin Crunch",
+    "de": "Leisten-Crunch"
+  },
+  "1383": {
+    "en": "Hack Calf Raise",
+    "de": "Wadenheben an der Hackenschmidt-Maschine"
+  },
+  "1384": {
+    "en": "Hack One Leg Calf Raise",
+    "de": "Wadenheben einbeinig an der Hackenschmidt-Maschine"
+  },
+  "3221": {
+    "en": "Half Knee Bends (Male)",
+    "de": "Halbe Kniebeugen (Mann)"
+  },
+  "3202": {
+    "en": "Half Sit-Up (Male)",
+    "de": "Halber Sit-up (Mann)"
+  },
+  "1511": {
+    "en": "Hamstring Stretch",
+    "de": "Beinbeuger-Dehnung"
+  },
+  "2139": {
+    "en": "Hands Bike",
+    "de": "Handbike (Armergometer)"
+  },
+  "3218": {
+    "en": "Hands Clasped Circular Toe Touch (Male)",
+    "de": "Kreisende Zehenberührung mit gefalteten Händen (Mann)"
+  },
+  "3215": {
+    "en": "Hands Reversed Clasped Circular Toe Touch (Male)",
+    "de": "Kreisende Zehenberührung mit umgekehrt gefalteten Händen (Mann)"
+  },
+  "3302": {
+    "en": "Handstand",
+    "de": "Handstand"
+  },
+  "0471": {
+    "en": "Handstand Push-Up",
+    "de": "Handstand-Liegestütz"
+  },
+  "1764": {
+    "en": "Hanging Leg Hip Raise",
+    "de": "Hängendes Bein- und Hüftheben"
+  },
+  "0472": {
+    "en": "Hanging Leg Raise",
+    "de": "Hängendes Beinheben"
+  },
+  "1761": {
+    "en": "Hanging Oblique Knee Raise",
+    "de": "Hängendes seitliches Knieheben"
+  },
+  "0473": {
+    "en": "Hanging Pike",
+    "de": "Hängender Pike"
+  },
+  "0474": {
+    "en": "Hanging Straight Leg Hip Raise",
+    "de": "Hängendes Beckenheben mit gestreckten Beinen"
+  },
+  "0475": {
+    "en": "Hanging Straight Leg Raise",
+    "de": "Hängendes Beinheben mit gestreckten Beinen"
+  },
+  "0476": {
+    "en": "Hanging Straight Twisting Leg Hip Raise",
+    "de": "Hängendes Beckenheben mit gestreckten Beinen und Drehung"
+  },
+  "3636": {
+    "en": "High Knee Against Wall",
+    "de": "Kniehebelauf an der Wand"
+  },
+  "0484": {
+    "en": "Hip Raise (Bent Knee)",
+    "de": "Hüftheben (Beine gebeugt)"
+  },
+  "1418": {
+    "en": "Hug Knees to Chest",
+    "de": "Knie zur Brust ziehen"
+  },
+  "3234": {
+    "en": "Hyght Dumbbell Fly",
+    "de": "Hyght-Fliegende mit Kurzhanteln"
+  },
+  "0489": {
+    "en": "Hyperextension",
+    "de": "Hyperextension"
+  },
+  "0488": {
+    "en": "Hyperextension (on Bench)",
+    "de": "Hyperextension auf der Bank"
+  },
+  "3289": {
+    "en": "Impossible Dips",
+    "de": "Impossible Dips"
+  },
+  "1471": {
+    "en": "Inchworm",
+    "de": "Inchworm"
+  },
+  "3698": {
+    "en": "Inchworm V. 2",
+    "de": "Inchworm V. 2"
+  },
+  "0490": {
+    "en": "Incline Close-Grip Push-Up",
+    "de": "Schrägbank-Liegestütz mit engem Griff"
+  },
+  "0491": {
+    "en": "Incline Leg Hip Raise (Leg Straight)",
+    "de": "Schrägbank-Beinheben mit gestrecktem Bein"
+  },
+  "0492": {
+    "en": "Incline Push-Up Depth Jump",
+    "de": "Schrägbank-Liegestütz mit Tiefensprung"
+  },
+  "0493": {
+    "en": "Incline Push-Up",
+    "de": "Schrägbank-Liegestütz"
+  },
+  "3785": {
+    "en": "Incline Push-Up (on Box)",
+    "de": "Schrägbank-Liegestütz auf der Box"
+  },
+  "0494": {
+    "en": "Incline Reverse Grip Push-Up",
+    "de": "Schrägbank-Liegestütz mit Untergriff"
+  },
+  "3011": {
+    "en": "Incline Scapula Push-Up",
+    "de": "Schrägbank-Schulterblatt-Liegestütz"
+  },
+  "0495": {
+    "en": "Incline Twisting Sit-Up",
+    "de": "Schrägbank-Sit-up mit Drehung"
+  },
+  "1564": {
+    "en": "Intermediate Hip Flexor and Quad Stretch",
+    "de": "Hüftbeuger- und Quadrizepsdehnung (mittlere Stufe)"
+  },
+  "0496": {
+    "en": "Inverse Leg Curl (Bench Support)",
+    "de": "Inverser Beincurl (Bankstütze)"
+  },
+  "2400": {
+    "en": "Inverse Leg Curl (on Pull-Up Cable Machine)",
+    "de": "Inverser Beincurl am Klimmzug-Kabelzug"
+  },
+  "0499": {
+    "en": "Inverted Row",
+    "de": "Invertiertes Rudern"
+  },
+  "2300": {
+    "en": "Inverted Row (Bent Knees)",
+    "de": "Invertiertes Rudern mit gebeugten Knien"
+  },
+  "2298": {
+    "en": "Inverted Row (on Bench)",
+    "de": "Invertiertes Rudern auf der Bank"
+  },
+  "0497": {
+    "en": "Inverted Row V. 2",
+    "de": "Invertiertes Rudern V. 2"
+  },
+  "0498": {
+    "en": "Inverted Row with Straps",
+    "de": "Invertiertes Rudern mit Schlaufen"
+  },
+  "1419": {
+    "en": "Iron Cross Stretch",
+    "de": "Iron-Cross-Dehnung"
+  },
+  "1297": {
+    "en": "Isometric Chest Squeeze",
+    "de": "Isometrisches Brustpressen"
+  },
+  "0500": {
+    "en": "Isometric Wipers",
+    "de": "Isometrische Wischer"
+  },
+  "0501": {
+    "en": "Jack Burpee",
+    "de": "Jack-Burpee"
+  },
+  "3224": {
+    "en": "Jack Jump (Male)",
+    "de": "Hampelmann-Sprung (männlich)"
+  },
+  "0507": {
+    "en": "Jackknife Sit-Up",
+    "de": "Klappmesser-Sit-up"
+  },
+  "0508": {
+    "en": "Janda Sit-Up",
+    "de": "Janda-Sit-up"
+  },
+  "2612": {
+    "en": "Jump Rope",
+    "de": "Seilspringen"
+  },
+  "0514": {
+    "en": "Jump Squat",
+    "de": "Sprungkniebeuge"
+  },
+  "0513": {
+    "en": "Jump Squat V. 2",
+    "de": "Sprungkniebeuge V. 2"
+  },
+  "0517": {
+    "en": "Kettlebell Advanced Windmill",
+    "de": "Fortgeschrittenes Kettlebell-Windmill"
+  },
+  "0518": {
+    "en": "Kettlebell Alternating Hang Clean",
+    "de": "Wechselseitiges Kettlebell-Hang-Clean"
+  },
+  "0520": {
+    "en": "Kettlebell Alternating Press",
+    "de": "Wechselseitiges Kettlebell-Drücken"
+  },
+  "0519": {
+    "en": "Kettlebell Alternating Press on Floor",
+    "de": "Wechselseitiges Kettlebell-Bodendrücken"
+  },
+  "0521": {
+    "en": "Kettlebell Alternating Renegade Row",
+    "de": "Wechselseitiges Kettlebell-Renegade-Rudern"
+  },
+  "0522": {
+    "en": "Kettlebell Alternating Row",
+    "de": "Wechselseitiges Kettlebell-Rudern"
+  },
+  "0523": {
+    "en": "Kettlebell Arnold Press",
+    "de": "Kettlebell-Arnold-Press"
+  },
+  "0524": {
+    "en": "Kettlebell Bent Press",
+    "de": "Kettlebell-Bent-Press"
+  },
+  "0525": {
+    "en": "Kettlebell Bottoms-Up Clean from the Hang Position",
+    "de": "Kettlebell-Bottoms-up-Clean aus der Hängeposition"
+  },
+  "0526": {
+    "en": "Kettlebell Double Alternating Hang Clean",
+    "de": "Wechselseitiges Doppel-Kettlebell-Hang-Clean"
+  },
+  "0527": {
+    "en": "Kettlebell Double Jerk",
+    "de": "Doppel-Kettlebell-Stossen"
+  },
+  "0528": {
+    "en": "Kettlebell Double Push Press",
+    "de": "Doppel-Kettlebell-Push-Press"
+  },
+  "0529": {
+    "en": "Kettlebell Double Snatch",
+    "de": "Doppel-Kettlebell-Snatch"
+  },
+  "0530": {
+    "en": "Kettlebell Double Windmill",
+    "de": "Doppel-Kettlebell-Windmill"
+  },
+  "0531": {
+    "en": "Kettlebell Extended Range One Arm Press on Floor",
+    "de": "Einarmiges Kettlebell-Bodendrücken mit erweitertem Bewegungsradius"
+  },
+  "0532": {
+    "en": "Kettlebell Figure 8",
+    "de": "Kettlebell-Achterbewegung"
+  },
+  "0533": {
+    "en": "Kettlebell Front Squat",
+    "de": "Kettlebell-Frontkniebeuge"
+  },
+  "0534": {
+    "en": "Kettlebell Goblet Squat",
+    "de": "Kettlebell-Goblet-Kniebeuge"
+  },
+  "0535": {
+    "en": "Kettlebell Hang Clean",
+    "de": "Kettlebell-Hang-Clean"
+  },
+  "0536": {
+    "en": "Kettlebell Lunge Pass Through",
+    "de": "Ausfallschritt mit Kettlebell-Durchreichen"
+  },
+  "0537": {
+    "en": "Kettlebell One Arm Clean and Jerk",
+    "de": "Einarmiges Kettlebell-Clean-and-Jerk"
+  },
+  "1298": {
+    "en": "Kettlebell One Arm Floor Press",
+    "de": "Einarmiges Kettlebell-Bodendrücken"
+  },
+  "0538": {
+    "en": "Kettlebell One Arm Jerk",
+    "de": "Einarmiges Kettlebell-Stossen"
+  },
+  "0539": {
+    "en": "Kettlebell One Arm Military Press to the Side",
+    "de": "Einarmiges Kettlebell-Military-Press zur Seite"
+  },
+  "0540": {
+    "en": "Kettlebell One Arm Push Press",
+    "de": "Einarmiges Kettlebell-Push-Press"
+  },
+  "0541": {
+    "en": "Kettlebell One Arm Row",
+    "de": "Einarmiges Kettlebell-Rudern"
+  },
+  "0542": {
+    "en": "Kettlebell One Arm Snatch",
+    "de": "Einarmiges Kettlebell-Snatch"
+  },
+  "0543": {
+    "en": "Kettlebell Pirate Ships",
+    "de": "Kettlebell-Pirate-Ships"
+  },
+  "0544": {
+    "en": "Kettlebell Pistol Squat",
+    "de": "Kettlebell-Pistolenkniebeuge"
+  },
+  "0545": {
+    "en": "Kettlebell Plyo Push-Up",
+    "de": "Plyo-Liegestütz mit Kettlebells"
+  },
+  "0546": {
+    "en": "Kettlebell Seated Press",
+    "de": "Kettlebell-Schulterdrücken im Sitzen"
+  },
+  "1438": {
+    "en": "Kettlebell Seated Two Arm Military Press",
+    "de": "Beidarmiges Kettlebell-Military-Press im Sitzen"
+  },
+  "0547": {
+    "en": "Kettlebell Seesaw Press",
+    "de": "Kettlebell-Seesaw-Press"
+  },
+  "0548": {
+    "en": "Kettlebell Sumo High Pull",
+    "de": "Kettlebell-Sumo-Hochzug"
+  },
+  "0549": {
+    "en": "Kettlebell Swing",
+    "de": "Kettlebell-Swing"
+  },
+  "0550": {
+    "en": "Kettlebell Thruster",
+    "de": "Kettlebell-Thruster"
+  },
+  "0551": {
+    "en": "Kettlebell Turkish Get-Up (Squat Style)",
+    "de": "Kettlebell-Turkish-Get-up (Kniebeugen-Stil)"
+  },
+  "0552": {
+    "en": "Kettlebell Two Arm Clean",
+    "de": "Beidarmiges Kettlebell-Clean"
+  },
+  "0553": {
+    "en": "Kettlebell Two Arm Military Press",
+    "de": "Beidarmiges Kettlebell-Military-Press"
+  },
+  "1345": {
+    "en": "Kettlebell Two Arm Row",
+    "de": "Beidarmiges Kettlebell-Rudern"
+  },
+  "0554": {
+    "en": "Kettlebell Windmill",
+    "de": "Kettlebell-Windmill"
+  },
+  "0555": {
+    "en": "Kick Out Sit",
+    "de": "Kick-out im Sitzen"
+  },
+  "0558": {
+    "en": "Kipping Muscle-Up",
+    "de": "Kipping-Muscle-up"
+  },
+  "3640": {
+    "en": "Knee Touch Crunch",
+    "de": "Crunch mit Knieberührung"
+  },
+  "1420": {
+    "en": "Kneeling Jump Squat",
+    "de": "Sprungkniebeuge aus dem Kniestand"
+  },
+  "1346": {
+    "en": "Kneeling Lat Stretch",
+    "de": "Latissimus-Dehnung im Kniestand"
+  },
+  "3239": {
+    "en": "Kneeling Plank Tap Shoulder (Male)",
+    "de": "Plank im Kniestand mit Schulterberührung (männlich)"
+  },
+  "3211": {
+    "en": "Kneeling Push-Up (Male)",
+    "de": "Liegestütz im Kniestand (männlich)"
+  },
+  "3288": {
+    "en": "Korean Dips",
+    "de": "Koreanische Dips"
+  },
+  "3418": {
+    "en": "L-Pull-Up",
+    "de": "L-Klimmzug"
+  },
+  "3419": {
+    "en": "L-Sit on Floor",
+    "de": "L-Sit am Boden"
+  },
+  "0562": {
+    "en": "Landmine 180",
+    "de": "Landmine 180"
+  },
+  "3237": {
+    "en": "Landmine Lateral Raise",
+    "de": "Landmine-Seitheben"
+  },
+  "3300": {
+    "en": "Lean Planche",
+    "de": "Geneigte Planche"
+  },
+  "2271": {
+    "en": "Left Hook (Boxing)",
+    "de": "Linker Haken (Boxen)"
+  },
+  "0570": {
+    "en": "Leg Pull in Flat Bench",
+    "de": "Beinanzug auf der Flachbank"
+  },
+  "1576": {
+    "en": "Leg-Up Hamstring Stretch",
+    "de": "Hamstring-Dehnung mit erhobenem Bein"
+  },
+  "2287": {
+    "en": "Lever Alternate Leg Press",
+    "de": "Wechselseitige Beinpresse an der Maschine"
+  },
+  "0571": {
+    "en": "Lever Alternating Narrow Grip Seated Row",
+    "de": "Wechselseitiges Rudern an der Maschine im Sitzen (enger Griff)"
+  },
+  "0572": {
+    "en": "Lever Assisted Chin-Up",
+    "de": "Klimmzug (Untergriff) unterstützt an der Maschine"
+  },
+  "0573": {
+    "en": "Lever Back Extension",
+    "de": "Rückenstrecker an der Maschine"
+  },
+  "0574": {
+    "en": "Lever Bent-Over Row",
+    "de": "Vorgebeugtes Rudern an der Maschine"
+  },
+  "3200": {
+    "en": "Lever Bent-Over Row with V-Bar",
+    "de": "Vorgebeugtes Rudern an der Maschine mit V-Griff"
+  },
+  "0575": {
+    "en": "Lever Biceps Curl",
+    "de": "Bizepscurl an der Maschine"
+  },
+  "2289": {
+    "en": "Lever Calf Press",
+    "de": "Wadenpresse an der Maschine"
+  },
+  "0577": {
+    "en": "Lever Chest Press",
+    "de": "Brustpresse an der Maschine"
+  },
+  "0576": {
+    "en": "Lever Chest Press",
+    "de": "Brustpresse an der Maschine"
+  },
+  "0578": {
+    "en": "Lever Deadlift",
+    "de": "Kreuzheben an der Maschine"
+  },
+  "1300": {
+    "en": "Lever Decline Chest Press",
+    "de": "Negativbank-Brustpresse an der Maschine"
+  },
+  "1253": {
+    "en": "Lever Donkey Calf Raise",
+    "de": "Donkey-Wadenheben an der Maschine"
+  },
+  "0579": {
+    "en": "Lever Front Pulldown",
+    "de": "Latzug zur Brust an der Maschine"
+  },
+  "0580": {
+    "en": "Lever Gripless Shrug",
+    "de": "Schulterheben an der Maschine ohne Griff"
+  },
+  "1439": {
+    "en": "Lever Gripless Shrug V. 2",
+    "de": "Schulterheben an der Maschine ohne Griff V. 2"
+  },
+  "2288": {
+    "en": "Lever Gripper Hands",
+    "de": "Handgreifer-Training an der Maschine"
+  },
+  "1615": {
+    "en": "Lever Hammer Grip Preacher Curl",
+    "de": "Hammergriff-Scott-Curl an der Maschine"
+  },
+  "0581": {
+    "en": "Lever High Row",
+    "de": "Hohes Rudern an der Maschine"
+  },
+  "2286": {
+    "en": "Lever Hip Extension V. 2",
+    "de": "Hüftstrecken an der Maschine V. 2"
+  },
+  "2611": {
+    "en": "Lever Horizontal One Leg Press",
+    "de": "Einbeinige horizontale Beinpresse an der Maschine"
+  },
+  "1299": {
+    "en": "Lever Incline Chest Press",
+    "de": "Schrägbank-Brustpresse an der Maschine"
+  },
+  "1479": {
+    "en": "Lever Incline Chest Press V. 2",
+    "de": "Schrägbank-Brustpresse an der Maschine V. 2"
+  },
+  "0582": {
+    "en": "Lever Kneeling Leg Curl",
+    "de": "Beincurl im Kniestand an der Maschine"
+  },
+  "0583": {
+    "en": "Lever Kneeling Twist",
+    "de": "Rumpfdrehen im Kniestand an der Maschine"
+  },
+  "0584": {
+    "en": "Lever Lateral Raise",
+    "de": "Seitheben an der Maschine"
+  },
+  "0585": {
+    "en": "Lever Leg Extension",
+    "de": "Beinstrecken an der Maschine"
+  },
+  "0586": {
+    "en": "Lever Lying Leg Curl",
+    "de": "Liegender Beincurl an der Maschine"
+  },
+  "3195": {
+    "en": "Lever Lying Two-One Leg Curl",
+    "de": "Liegender Beincurl an der Maschine (2-1-Technik)"
+  },
+  "0587": {
+    "en": "Lever Military Press",
+    "de": "Military-Press an der Maschine"
+  },
+  "0588": {
+    "en": "Lever Narrow Grip Seated Row",
+    "de": "Rudern an der Maschine im Sitzen mit engem Griff"
+  },
+  "0589": {
+    "en": "Lever One Arm Bent-Over Row",
+    "de": "Einarmiges vorgebeugtes Rudern an der Maschine"
+  },
+  "1356": {
+    "en": "Lever One Arm Lateral High Row",
+    "de": "Einarmiges hohes Rudern an der Maschine (seitlich)"
+  },
+  "1347": {
+    "en": "Lever One Arm Lateral Wide Pulldown",
+    "de": "Einarmiger breiter Latzug an der Maschine"
+  },
+  "0590": {
+    "en": "Lever One Arm Shoulder Press",
+    "de": "Einarmiges Schulterdrücken an der Maschine"
+  },
+  "0591": {
+    "en": "Lever Overhand Triceps Dip",
+    "de": "Trizeps-Dip an der Maschine im Obergriff"
+  },
+  "0592": {
+    "en": "Lever Preacher Curl",
+    "de": "Scott-Curl an der Maschine"
+  },
+  "1614": {
+    "en": "Lever Preacher Curl V. 2",
+    "de": "Scott-Curl an der Maschine V. 2"
+  },
+  "2285": {
+    "en": "Lever Pullover",
+    "de": "Pullover an der Maschine"
+  },
+  "2736": {
+    "en": "Lever Reverse Grip Lateral Pulldown",
+    "de": "Breiter Latzug an der Maschine im Untergriff"
+  },
+  "1616": {
+    "en": "Lever Reverse Grip Preacher Curl",
+    "de": "Scott-Curl an der Maschine im Untergriff"
+  },
+  "1348": {
+    "en": "Lever Reverse Grip Vertical Row",
+    "de": "Vertikales Rudern an der Maschine im Untergriff"
+  },
+  "0593": {
+    "en": "Lever Reverse Hyperextension",
+    "de": "Reverse Hyperextension an der Maschine"
+  },
+  "1349": {
+    "en": "Lever Reverse T-Bar Row",
+    "de": "T-Bar-Rudern an der Maschine im Untergriff"
+  },
+  "2315": {
+    "en": "Lever Rotary Calf",
+    "de": "Rotations-Wadenheben an der Maschine"
+  },
+  "2335": {
+    "en": "Lever Seated Calf Press",
+    "de": "Wadenpresse an der Maschine im Sitzen"
+  },
+  "0594": {
+    "en": "Lever Seated Calf Raise",
+    "de": "Wadenheben an der Maschine im Sitzen"
+  },
+  "1452": {
+    "en": "Lever Seated Crunch",
+    "de": "Crunch an der Maschine im Sitzen"
+  },
+  "0595": {
+    "en": "Lever Seated Crunch (Chest Pad)",
+    "de": "Crunch an der Maschine im Sitzen (Brustpolster)"
+  },
+  "3760": {
+    "en": "Lever Seated Crunch V. 2",
+    "de": "Crunch an der Maschine im Sitzen V. 2"
+  },
+  "1451": {
+    "en": "Lever Seated Dip",
+    "de": "Dip an der Maschine im Sitzen"
+  },
+  "0596": {
+    "en": "Lever Seated Fly",
+    "de": "Fliegende an der Maschine im Sitzen"
+  },
+  "3759": {
+    "en": "Lever Seated Good Morning",
+    "de": "Good Morning an der Maschine im Sitzen"
+  },
+  "0597": {
+    "en": "Lever Seated Hip Abduction",
+    "de": "Hüftabduktion an der Maschine im Sitzen"
+  },
+  "0598": {
+    "en": "Lever Seated Hip Adduction",
+    "de": "Hüftadduktion an der Maschine im Sitzen"
+  },
+  "0599": {
+    "en": "Lever Seated Leg Curl",
+    "de": "Beincurl an der Maschine im Sitzen"
+  },
+  "0600": {
+    "en": "Lever Seated Leg Raise Crunch",
+    "de": "Crunch mit Beinheben an der Maschine im Sitzen"
+  },
+  "0602": {
+    "en": "Lever Seated Reverse Fly",
+    "de": "Reverse Fliegende an der Maschine im Sitzen"
+  },
+  "0601": {
+    "en": "Lever Seated Reverse Fly (Parallel Grip)",
+    "de": "Reverse Fliegende an der Maschine im Sitzen (paralleler Griff)"
+  },
+  "1350": {
+    "en": "Lever Seated Row",
+    "de": "Rudern an der Maschine im Sitzen"
+  },
+  "1385": {
+    "en": "Lever Seated Squat Calf Raise on Leg Press Machine",
+    "de": "Wadenheben im Sitzen an der Beinpresse-Maschine"
+  },
+  "0603": {
+    "en": "Lever Shoulder Press",
+    "de": "Schulterdrücken an der Maschine"
+  },
+  "0869": {
+    "en": "Lever Shoulder Press V. 2",
+    "de": "Schulterdrücken an der Maschine V. 2"
+  },
+  "2318": {
+    "en": "Lever Shoulder Press V. 3",
+    "de": "Schulterdrücken an der Maschine V. 3"
+  },
+  "0604": {
+    "en": "Lever Shrug",
+    "de": "Schulterheben an der Maschine"
+  },
+  "0605": {
+    "en": "Lever Standing Calf Raise",
+    "de": "Wadenheben an der Maschine im Stehen"
+  },
+  "3758": {
+    "en": "Lever Standing Chest Press",
+    "de": "Brustpresse an der Maschine im Stehen"
+  },
+  "0606": {
+    "en": "Lever T-Bar Row",
+    "de": "T-Bar-Rudern an der Maschine"
+  },
+  "1351": {
+    "en": "Lever T-Bar Reverse Grip Row",
+    "de": "T-Bar-Rudern an der Maschine (Untergriff)"
+  },
+  "0607": {
+    "en": "Lever Triceps Extension",
+    "de": "Trizepsstrecken an der Maschine"
+  },
+  "1313": {
+    "en": "Lever Unilateral Row",
+    "de": "Einarmiges Rudern an der Maschine"
+  },
+  "0609": {
+    "en": "London Bridge",
+    "de": "London Bridge"
+  },
+  "3013": {
+    "en": "Low Glute Bridge on Floor",
+    "de": "Flache Gesässbrücke am Boden"
+  },
+  "1352": {
+    "en": "Lower Back Curl",
+    "de": "Unterrücken-Curl"
+  },
+  "3582": {
+    "en": "Lunge with Jump",
+    "de": "Ausfallschritt mit Sprung"
+  },
+  "1688": {
+    "en": "Lunge with Twist",
+    "de": "Ausfallschritt mit Drehung"
+  },
+  "0613": {
+    "en": "Lying (Side) Quads Stretch",
+    "de": "Quadrizeps-Dehnung im Liegen (seitlich)"
+  },
+  "2312": {
+    "en": "Lying Elbow to Knee",
+    "de": "Ellbogen-zu-Knie im Liegen"
+  },
+  "0620": {
+    "en": "Lying Leg Raise Flat Bench",
+    "de": "Beinheben im Liegen auf der Flachbank"
+  },
+  "0865": {
+    "en": "Lying Leg-Hip Raise",
+    "de": "Bein-Hüft-Heben im Liegen"
+  },
+  "1301": {
+    "en": "Machine Inner Chest Press",
+    "de": "Innere Brustpresse an der Maschine"
+  },
+  "0624": {
+    "en": "March Sit (Wall)",
+    "de": "Marschieren im Wandsitz"
+  },
+  "1353": {
+    "en": "Medicine Ball Catch and Overhead Throw",
+    "de": "Medizinball fangen und über Kopf werfen"
+  },
+  "1302": {
+    "en": "Medicine Ball Chest Pass",
+    "de": "Medizinball-Brustpass"
+  },
+  "1303": {
+    "en": "Medicine Ball Chest Push from 3-Point Stance",
+    "de": "Medizinball-Brustdrücken aus dem 3-Punkte-Stand"
+  },
+  "1304": {
+    "en": "Medicine Ball Chest Push Multiple Response",
+    "de": "Medizinball-Brustdrücken (mehrfache Reaktion)"
+  },
+  "1305": {
+    "en": "Medicine Ball Chest Push Single Response",
+    "de": "Medizinball-Brustdrücken (einfache Reaktion)"
+  },
+  "1312": {
+    "en": "Medicine Ball Chest Push with Run Release",
+    "de": "Medizinball-Brustdrücken mit Lauf-Abwurf"
+  },
+  "1701": {
+    "en": "Medicine Ball Close Grip Push-up",
+    "de": "Enger Liegestütz auf dem Medizinball"
+  },
+  "1354": {
+    "en": "Medicine Ball Overhead Slam",
+    "de": "Medizinball-Überkopfslam"
+  },
+  "1750": {
+    "en": "Medicine Ball Supine Chest Throw",
+    "de": "Medizinball-Brustwurf im Liegen (Rückenlage)"
+  },
+  "0627": {
+    "en": "Mixed Grip Chin-up",
+    "de": "Klimmzug im gemischten Griff"
+  },
+  "3217": {
+    "en": "Modified Hindu Push-up (Male)",
+    "de": "Modifizierter Hindu-Liegestütz (Mann)"
+  },
+  "1421": {
+    "en": "Modified Push-up to Lower Arms",
+    "de": "Modifizierter Liegestütz zum Unterarmstütz"
+  },
+  "0628": {
+    "en": "Monster Walk",
+    "de": "Monster Walk"
+  },
+  "0630": {
+    "en": "Mountain Climber",
+    "de": "Mountain Climber"
+  },
+  "0631": {
+    "en": "Muscle-up",
+    "de": "Muscle-up"
+  },
+  "1401": {
+    "en": "Muscle-up (on Vertical Bar)",
+    "de": "Muscle-up (an der senkrechten Stange)"
+  },
+  "2328": {
+    "en": "Narrow Push-up on Exercise Ball",
+    "de": "Enger Liegestütz auf dem Gymnastikball"
+  },
+  "1403": {
+    "en": "Neck Side Stretch",
+    "de": "Seitliche Nackendehnung"
+  },
+  "0634": {
+    "en": "Negative Crunch",
+    "de": "Negativer Crunch"
+  },
+  "1495": {
+    "en": "Oblique Crunch V. 2",
+    "de": "Seitlicher Crunch V. 2"
+  },
+  "0635": {
+    "en": "Oblique Crunches Floor",
+    "de": "Seitliche Crunches am Boden"
+  },
+  "0636": {
+    "en": "Olympic Barbell Hammer Curl",
+    "de": "Hammercurl mit Olympia-Langhantel"
+  },
+  "0637": {
+    "en": "Olympic Barbell Triceps Extension",
+    "de": "Trizepsstrecken mit der Olympia-Langhantel"
+  },
+  "1355": {
+    "en": "One Arm Against Wall",
+    "de": "Ein Arm gegen die Wand (Latissimus-Dehnung)"
+  },
+  "0638": {
+    "en": "One Arm Chin-up",
+    "de": "Einarmiger Klimmzug (Untergriff)"
+  },
+  "0639": {
+    "en": "One Arm Dip",
+    "de": "Einarmiger Dip"
+  },
+  "0640": {
+    "en": "One Arm Slam (with Medicine Ball)",
+    "de": "Einarmiger Medizinball-Slam"
+  },
+  "1773": {
+    "en": "One Arm Towel Row",
+    "de": "Einarmiges Rudern mit Handtuch"
+  },
+  "1386": {
+    "en": "One Leg Donkey Calf Raise",
+    "de": "Einbeiniges Donkey-Wadenheben"
+  },
+  "1387": {
+    "en": "One Leg Floor Calf Raise",
+    "de": "Einbeiniges Wadenheben am Boden"
+  },
+  "1476": {
+    "en": "One Leg Squat",
+    "de": "Einbeinige Kniebeuge"
+  },
+  "0641": {
+    "en": "Otis Up",
+    "de": "Otis Up"
+  },
+  "0642": {
+    "en": "Outside Leg Kick Push-up",
+    "de": "Liegestütz mit Beinkick nach aussen"
+  },
+  "0643": {
+    "en": "Overhead Triceps Stretch",
+    "de": "Trizepsdehnung über Kopf"
+  },
+  "3147": {
+    "en": "Pelvic Tilt",
+    "de": "Beckenkippung"
+  },
+  "1422": {
+    "en": "Pelvic Tilt into Bridge",
+    "de": "Beckenkippung in die Brücke"
+  },
+  "1388": {
+    "en": "Peroneals Stretch",
+    "de": "Dehnung der Peronealmuskulatur"
+  },
+  "3662": {
+    "en": "Pike-to-Cobra Push-up",
+    "de": "Pike-zu-Cobra-Liegestütz"
+  },
+  "1306": {
+    "en": "Plyo Push-up",
+    "de": "Plyo-Liegestütz"
+  },
+  "1687": {
+    "en": "Posterior Step to Overhead Reach",
+    "de": "Rückwärtsschritt mit Überkopf-Reichen"
+  },
+  "1389": {
+    "en": "Posterior Tibialis Stretch",
+    "de": "Dehnung des hinteren Schienbeinmuskels"
+  },
+  "3119": {
+    "en": "Potty Squat",
+    "de": "Potty Squat"
+  },
+  "3132": {
+    "en": "Potty Squat with Support",
+    "de": "Potty Squat mit Unterstützung"
+  },
+  "0648": {
+    "en": "Power Clean",
+    "de": "Power Clean"
+  },
+  "3665": {
+    "en": "Power Point Plank",
+    "de": "Power Point Plank"
+  },
+  "3203": {
+    "en": "Prisoner Half Sit-up (Male)",
+    "de": "Halber Sit-up mit Händen im Nacken (Mann)"
+  },
+  "1707": {
+    "en": "Prone Twist on Stability Ball",
+    "de": "Rumpfdrehung in Bauchlage auf dem Gymnastikball"
+  },
+  "0651": {
+    "en": "Pull-up (Neutral Grip)",
+    "de": "Klimmzug (neutraler Griff)"
+  },
+  "0650": {
+    "en": "Pull-in (on Stability Ball)",
+    "de": "Beine einziehen auf dem Gymnastikball"
+  },
+  "0652": {
+    "en": "Pull-up",
+    "de": "Klimmzug"
+  },
+  "1689": {
+    "en": "Push and Pull Bodyweight",
+    "de": "Drücken und Ziehen"
+  },
+  "3638": {
+    "en": "Push to Run",
+    "de": "Schieben in den Lauf"
+  },
+  "1307": {
+    "en": "Push-up on Bosu Ball",
+    "de": "Liegestütz auf dem Bosu-Ball"
+  },
+  "0662": {
+    "en": "Push-up",
+    "de": "Liegestütz"
+  },
+  "0653": {
+    "en": "Push-up (Bosu Ball)",
+    "de": "Liegestütz (Bosu-Ball)"
+  },
+  "0655": {
+    "en": "Push-up (on Stability Ball)",
+    "de": "Liegestütz auf dem Gymnastikball"
+  },
+  "0656": {
+    "en": "Push-up (on Stability Ball)",
+    "de": "Liegestütz auf dem Gymnastikball"
+  },
+  "0659": {
+    "en": "Push-up (Wall)",
+    "de": "Liegestütz (an der Wand)"
+  },
+  "0658": {
+    "en": "Push-up (Wall) V. 2",
+    "de": "Liegestütz (an der Wand) V. 2"
+  },
+  "0660": {
+    "en": "Push-up Close-Grip off Dumbbell",
+    "de": "Enger Liegestütz auf der Kurzhantel"
+  },
+  "0661": {
+    "en": "Push-up Inside Leg Kick",
+    "de": "Liegestütz mit Beinkick nach innen"
+  },
+  "0663": {
+    "en": "Push-up Medicine Ball",
+    "de": "Liegestütz auf dem Medizinball"
+  },
+  "1467": {
+    "en": "Push-up on Lower Arms",
+    "de": "Liegestütz auf den Unterarmen"
+  },
+  "3145": {
+    "en": "Push-up Plus",
+    "de": "Push-up Plus"
+  },
+  "0664": {
+    "en": "Push-up to Side Plank",
+    "de": "Liegestütz in den Seitstütz"
+  },
+  "3533": {
+    "en": "Quads",
+    "de": "Quadrizeps"
+  },
+  "3201": {
+    "en": "Quarter Sit-up",
+    "de": "Viertel-Sit-up"
+  },
+  "3552": {
+    "en": "Quick Feet V. 2",
+    "de": "Quick Feet V. 2"
+  },
+  "0666": {
+    "en": "Raise Single Arm Push-up",
+    "de": "Liegestütz mit angehobenem Arm"
+  },
+  "0668": {
+    "en": "Rear Decline Bridge",
+    "de": "Rückwärts-Brücke (Negativposition)"
+  },
+  "0669": {
+    "en": "Rear Deltoid Stretch",
+    "de": "Hintere-Schulter-Dehnung"
+  },
+  "0670": {
+    "en": "Rear Pull-up",
+    "de": "Klimmzug zum Nacken"
+  },
+  "1582": {
+    "en": "Reclining Big Toe Pose with Rope",
+    "de": "Liegende Grosszehenhaltung mit Seil"
+  },
+  "3236": {
+    "en": "Resistance Band Hip Thrusts on Knees (Female)",
+    "de": "Hip Thrust auf den Knien mit Band (Frau)"
+  },
+  "3007": {
+    "en": "Resistance Band Leg Extension",
+    "de": "Beinstrecken mit Band"
+  },
+  "3123": {
+    "en": "Resistance Band Seated Biceps Curl",
+    "de": "Bizepscurl im Sitzen mit Band"
+  },
+  "3124": {
+    "en": "Resistance Band Seated Chest Press",
+    "de": "Brustdrücken im Sitzen mit Band"
+  },
+  "3006": {
+    "en": "Resistance Band Seated Hip Abduction",
+    "de": "Hüftabduktion im Sitzen mit Band"
+  },
+  "3122": {
+    "en": "Resistance Band Seated Shoulder Press",
+    "de": "Schulterdrücken im Sitzen mit Band"
+  },
+  "3144": {
+    "en": "Resistance Band Seated Straight Back Row",
+    "de": "Rudern im Sitzen mit geradem Rücken (Band)"
+  },
+  "0872": {
+    "en": "Reverse Crunch",
+    "de": "Reverse Crunch"
+  },
+  "0672": {
+    "en": "Reverse Dip",
+    "de": "Reverse Dip"
+  },
+  "0673": {
+    "en": "Reverse Grip Machine Lat Pulldown",
+    "de": "Latzug an der Maschine im Untergriff"
+  },
+  "0674": {
+    "en": "Reverse Grip Pull-up",
+    "de": "Klimmzug im Untergriff"
+  },
+  "0675": {
+    "en": "Reverse Hyperextension (on Stability Ball)",
+    "de": "Reverse Hyperextension auf dem Gymnastikball"
+  },
+  "1423": {
+    "en": "Reverse Hyper on Flat Bench",
+    "de": "Reverse Hyper auf der Flachbank"
+  },
+  "3663": {
+    "en": "Reverse Plank with Leg Lift",
+    "de": "Reverse Plank mit Beinheben"
+  },
+  "0677": {
+    "en": "Ring Dips",
+    "de": "Dips an Ringen"
+  },
+  "2571": {
+    "en": "Rocking Frog Stretch",
+    "de": "Frosch-Dehnung mit Wippen"
+  },
+  "0678": {
+    "en": "Rocky Pull-up Pulldown",
+    "de": "Rocky-Klimmzug zum Latzug"
+  },
+  "2208": {
+    "en": "Roller Back Stretch",
+    "de": "Rückendehnung mit der Faszienrolle"
+  },
+  "2204": {
+    "en": "Roller Body Saw",
+    "de": "Body Saw mit der Faszienrolle"
+  },
+  "2205": {
+    "en": "Roller Hip Lat Stretch",
+    "de": "Hüft- und Latissimus-Dehnung mit der Rolle"
+  },
+  "2202": {
+    "en": "Roller Hip Stretch",
+    "de": "Hüftdehnung mit der Faszienrolle"
+  },
+  "2206": {
+    "en": "Roller Reverse Crunch",
+    "de": "Reverse Crunch mit der Faszienrolle"
+  },
+  "2203": {
+    "en": "Roller Seated Shoulder Flexor Depressor Retractor",
+    "de": "Schultermobilisation im Sitzen mit der Rolle"
+  },
+  "2209": {
+    "en": "Roller Seated Single Leg Shoulder Flexor Depressor Retractor",
+    "de": "Schultermobilisation im Sitzen (einbeinig) mit der Rolle"
+  },
+  "2207": {
+    "en": "Roller Side Lat Stretch",
+    "de": "Seitliche Latissimus-Dehnung mit der Rolle"
+  },
+  "0680": {
+    "en": "Rope Climb",
+    "de": "Seilklettern"
+  },
+  "0685": {
+    "en": "Run",
+    "de": "Laufen"
+  },
+  "0684": {
+    "en": "Run (Equipment)",
+    "de": "Laufen (Gerät)"
+  },
+  "1585": {
+    "en": "Runner's Stretch",
+    "de": "Läufer-Dehnung"
+  },
+  "0687": {
+    "en": "Russian Twist",
+    "de": "Russian Twist"
+  },
+  "3012": {
+    "en": "Scapula Dips",
+    "de": "Scapula-Dips"
+  },
+  "3021": {
+    "en": "Scapula Push-up",
+    "de": "Scapula-Liegestütz"
+  },
+  "0688": {
+    "en": "Scapular Pull-up",
+    "de": "Scapula-Klimmzug"
+  },
+  "3219": {
+    "en": "Scissor Jumps (Male)",
+    "de": "Scherensprünge (Mann)"
+  },
+  "1390": {
+    "en": "Seated Calf Stretch (Male)",
+    "de": "Wadendehnung im Sitzen (Mann)"
+  },
+  "1424": {
+    "en": "Seated Glute Stretch",
+    "de": "Gesässdehnung im Sitzen"
+  },
+  "0689": {
+    "en": "Seated Leg Raise",
+    "de": "Beinheben im Sitzen"
+  },
+  "0690": {
+    "en": "Seated Lower Back Stretch",
+    "de": "Unterrücken-Dehnung im Sitzen"
+  },
+  "2567": {
+    "en": "Seated Piriformis Stretch",
+    "de": "Piriformis-Dehnung im Sitzen"
+  },
+  "0691": {
+    "en": "Seated Side Crunch (Wall)",
+    "de": "Seitlicher Crunch im Sitzen (an der Wand)"
+  },
+  "1587": {
+    "en": "Seated Wide Angle Pose Sequence",
+    "de": "Sitzende Grätschhaltung – Dehnsequenz"
+  },
+  "0697": {
+    "en": "Self-Assisted Inverse Leg Curl",
+    "de": "Selbst unterstützter inverser Beincurl"
+  },
+  "1766": {
+    "en": "Self-Assisted Inverse Leg Curl",
+    "de": "Selbst unterstützter inverser Beincurl"
+  },
+  "0696": {
+    "en": "Self-Assisted Inverse Leg Curl (on Floor)",
+    "de": "Selbst unterstützter inverser Beincurl am Boden"
+  },
+  "3222": {
+    "en": "Semi Squat Jump (Male)",
+    "de": "Halbe Kniebeuge mit Sprung (Mann)"
+  },
+  "3656": {
+    "en": "Short Stride Run",
+    "de": "Laufen mit kurzen Schritten"
+  },
+  "1763": {
+    "en": "Shoulder Grip Pull-up",
+    "de": "Klimmzug mit Schultergriff"
+  },
+  "3699": {
+    "en": "Shoulder Tap",
+    "de": "Shoulder Tap"
+  },
+  "0699": {
+    "en": "Shoulder Tap Push-up",
+    "de": "Liegestütz mit Shoulder Tap"
+  },
+  "1774": {
+    "en": "Side Bridge Hip Abduction",
+    "de": "Hüftabduktion im Seitstütz"
+  },
+  "0705": {
+    "en": "Side Bridge V. 2",
+    "de": "Seitstütz V. 2"
+  },
+  "0709": {
+    "en": "Side Hip (on Parallel Bars)",
+    "de": "Seitliches Hüftheben am Barren"
+  },
+  "0710": {
+    "en": "Side Hip Abduction",
+    "de": "Seitliche Hüftabduktion"
+  },
+  "1358": {
+    "en": "Side Lying Floor Stretch",
+    "de": "Seitliche Dehnung am Boden (Seitenlage)"
+  },
+  "3667": {
+    "en": "Side Lying Hip Adduction (Male)",
+    "de": "Hüftadduktion in Seitenlage (Mann)"
+  },
+  "1775": {
+    "en": "Side Plank Hip Adduction",
+    "de": "Hüftadduktion im Seitstütz"
+  },
+  "0716": {
+    "en": "Side Push Neck Stretch",
+    "de": "Nackendehnung seitlich mit Handdruck"
+  },
+  "0717": {
+    "en": "Side Push-up",
+    "de": "Seitlicher Liegestütz"
+  },
+  "0721": {
+    "en": "Side Wrist Pull Stretch",
+    "de": "Seitliche Handgelenk-Dehnung"
+  },
+  "0720": {
+    "en": "Side-to-Side Chin",
+    "de": "Klimmzug von Seite zu Seite"
+  },
+  "3213": {
+    "en": "Side-to-Side Toe Touch (Male)",
+    "de": "Zehenspitzen-Berühren seitlich wechselnd (Mann)"
+  },
+  "0725": {
+    "en": "Single Arm Push-up",
+    "de": "Einarmiger Liegestütz"
+  },
+  "3645": {
+    "en": "Single Leg Bridge with Outstretched Leg",
+    "de": "Einbeinige Gesässbrücke mit ausgestrecktem Bein"
+  },
+  "0727": {
+    "en": "Single Leg Calf Raise (on a Dumbbell)",
+    "de": "Einbeiniges Wadenheben auf einer Kurzhantel"
+  },
+  "0730": {
+    "en": "Single Leg Platform Slide",
+    "de": "Einbeiniges Sliden auf der Plattform"
+  },
+  "1759": {
+    "en": "Single Leg Squat (Pistol) (Male)",
+    "de": "Einbeinige Kniebeuge (Pistol Squat) (Mann)"
+  },
+  "1489": {
+    "en": "Sissy Squat",
+    "de": "Sissy Squat"
+  },
+  "0735": {
+    "en": "Sit-up V. 2",
+    "de": "Sit-up V. 2"
+  },
+  "3679": {
+    "en": "Sit-up with Arms on Chest",
+    "de": "Sit-up mit Armen auf der Brust"
+  },
+  "3361": {
+    "en": "Skater Hops",
+    "de": "Skater Hops"
+  },
+  "2142": {
+    "en": "Ski Ergometer",
+    "de": "Ski-Ergometer"
+  },
+  "3671": {
+    "en": "Ski Step",
+    "de": "Ski-Step"
+  },
+  "3304": {
+    "en": "Skin the Cat",
+    "de": "Skin the Cat"
+  },
+  "1425": {
+    "en": "Sled 45° One Leg Press",
+    "de": "Schlitten-Beinpresse 45° (einbeinig)"
+  },
+  "0738": {
+    "en": "Sled 45° Calf Press",
+    "de": "Schlitten-Wadenpresse 45°"
+  },
+  "0739": {
+    "en": "Sled 45° Leg Press",
+    "de": "Schlitten-Beinpresse 45°"
+  },
+  "1464": {
+    "en": "Sled 45° Leg Press (Back POV)",
+    "de": "Schlitten-Beinpresse 45° (Rückenansicht)"
+  },
+  "1463": {
+    "en": "Sled 45° Leg Press (Side POV)",
+    "de": "Schlitten-Beinpresse 45° (Seitenansicht)"
+  },
+  "0740": {
+    "en": "Sled 45° Leg Wide Press",
+    "de": "Schlitten-Beinpresse 45° breit"
+  },
+  "1391": {
+    "en": "Sled Calf Press on Leg Press",
+    "de": "Wadenpress an der Beinpresse"
+  },
+  "0741": {
+    "en": "Sled Closer Hack Squat",
+    "de": "Enge Hackenschmidt-Kniebeuge"
+  },
+  "0742": {
+    "en": "Sled Forward Angled Calf Raise",
+    "de": "Wadenheben vorwärts geneigt am Schlitten"
+  },
+  "0743": {
+    "en": "Sled Hack Squat",
+    "de": "Hackenschmidt-Kniebeuge"
+  },
+  "2334": {
+    "en": "Sled Lying Calf Press",
+    "de": "Wadenpress im Liegen am Schlitten"
+  },
+  "0744": {
+    "en": "Sled Lying Squat",
+    "de": "Kniebeuge im Liegen am Schlitten"
+  },
+  "1392": {
+    "en": "Sled One Leg Calf Press on Leg Press",
+    "de": "Einbeiniges Wadenpress an der Beinpresse"
+  },
+  "1496": {
+    "en": "Sledgehammer",
+    "de": "Vorschlaghammer-Schlag"
+  },
+  "0746": {
+    "en": "Smith Back Shrug",
+    "de": "Schulterheben an der Multipresse"
+  },
+  "0747": {
+    "en": "Smith Behind Neck Press",
+    "de": "Nackendrücken an der Multipresse"
+  },
+  "0748": {
+    "en": "Smith Bench Press",
+    "de": "Bankdrücken an der Multipresse"
+  },
+  "0749": {
+    "en": "Smith Bent Knee Good Morning",
+    "de": "Good Morning mit gebeugten Knien an der Multipresse"
+  },
+  "1359": {
+    "en": "Smith Bent Over Row",
+    "de": "Vorgebeugtes Rudern an der Multipresse"
+  },
+  "0750": {
+    "en": "Smith Chair Squat",
+    "de": "Kniebeuge zum Stuhl an der Multipresse"
+  },
+  "0751": {
+    "en": "Smith Close-Grip Bench Press",
+    "de": "Enges Bankdrücken an der Multipresse"
+  },
+  "0752": {
+    "en": "Smith Deadlift",
+    "de": "Kreuzheben an der Multipresse"
+  },
+  "0753": {
+    "en": "Smith Decline Bench Press",
+    "de": "Negativbankdrücken an der Multipresse"
+  },
+  "0754": {
+    "en": "Smith Decline Reverse-Grip Press",
+    "de": "Negativbankdrücken im Untergriff an der Multipresse"
+  },
+  "1433": {
+    "en": "Smith Front Squat (Clean Grip)",
+    "de": "Frontkniebeuge im Umsetzgriff an der Multipresse"
+  },
+  "3281": {
+    "en": "Smith Full Squat",
+    "de": "Tiefe Kniebeuge an der Multipresse"
+  },
+  "0755": {
+    "en": "Smith Hack Squat",
+    "de": "Hackenschmidt-Kniebeuge an der Multipresse"
+  },
+  "0756": {
+    "en": "Smith Hip Raise",
+    "de": "Hüftheben an der Multipresse"
+  },
+  "0757": {
+    "en": "Smith Incline Bench Press",
+    "de": "Schrägbankdrücken an der Multipresse"
+  },
+  "0758": {
+    "en": "Smith Incline Reverse-Grip Press",
+    "de": "Schrägbankdrücken im Untergriff an der Multipresse"
+  },
+  "0759": {
+    "en": "Smith Incline Shoulder Raises",
+    "de": "Schulterheben auf der Schrägbank an der Multipresse"
+  },
+  "0760": {
+    "en": "Smith Leg Press",
+    "de": "Beinpresse an der Multipresse"
+  },
+  "1434": {
+    "en": "Smith Low Bar Squat",
+    "de": "Low-Bar-Kniebeuge an der Multipresse"
+  },
+  "1683": {
+    "en": "Smith Machine Bicep Curl",
+    "de": "Bizepscurl an der Multipresse"
+  },
+  "1625": {
+    "en": "Smith Machine Decline Close-Grip Bench Press",
+    "de": "Enges Negativbankdrücken an der Multipresse"
+  },
+  "1752": {
+    "en": "Smith Machine Incline Triceps Extension",
+    "de": "Schrägbank-Trizepsstrecken an der Multipresse"
+  },
+  "1626": {
+    "en": "Smith Machine Reverse Decline Close-Grip Bench Press",
+    "de": "Enges Negativbankdrücken im Untergriff an der Multipresse"
+  },
+  "0761": {
+    "en": "Smith Narrow Row",
+    "de": "Enges Rudern an der Multipresse"
+  },
+  "1360": {
+    "en": "Smith One Arm Row",
+    "de": "Einarmiges Rudern an der Multipresse"
+  },
+  "1393": {
+    "en": "Smith One Leg Floor Calf Raise",
+    "de": "Einbeiniges Wadenheben am Boden an der Multipresse"
+  },
+  "0762": {
+    "en": "Smith Rear Delt Row",
+    "de": "Rudern für die hintere Schulter an der Multipresse"
+  },
+  "0763": {
+    "en": "Smith Reverse Calf Raises",
+    "de": "Umgekehrtes Wadenheben an der Multipresse"
+  },
+  "1394": {
+    "en": "Smith Reverse Calf Raises",
+    "de": "Umgekehrtes Wadenheben an der Multipresse"
+  },
+  "1361": {
+    "en": "Smith Reverse-Grip Bent Over Row",
+    "de": "Vorgebeugtes Rudern im Untergriff an der Multipresse"
+  },
+  "0764": {
+    "en": "Smith Reverse-Grip Press",
+    "de": "Drücken im Untergriff an der Multipresse"
+  },
+  "1395": {
+    "en": "Smith Seated One Leg Calf Raise",
+    "de": "Einbeiniges Wadenheben im Sitzen an der Multipresse"
+  },
+  "0765": {
+    "en": "Smith Seated Shoulder Press",
+    "de": "Schulterdrücken im Sitzen an der Multipresse"
+  },
+  "1426": {
+    "en": "Smith Seated Wrist Curl",
+    "de": "Handgelenkscurl im Sitzen an der Multipresse"
+  },
+  "0766": {
+    "en": "Smith Shoulder Press",
+    "de": "Schulterdrücken an der Multipresse"
+  },
+  "0767": {
+    "en": "Smith Shrug",
+    "de": "Schulterheben an der Multipresse"
+  },
+  "0768": {
+    "en": "Smith Single Leg Split Squat",
+    "de": "Einbeiniger Split Squat an der Multipresse"
+  },
+  "0769": {
+    "en": "Smith Sprint Lunge",
+    "de": "Sprint-Ausfallschritt an der Multipresse"
+  },
+  "0770": {
+    "en": "Smith Squat",
+    "de": "Kniebeuge an der Multipresse"
+  },
+  "0771": {
+    "en": "Smith Standing Back Wrist Curl",
+    "de": "Umgekehrter Handgelenkscurl im Stehen an der Multipresse"
+  },
+  "0772": {
+    "en": "Smith Standing Behind Head Military Press",
+    "de": "Nackendrücken im Stehen an der Multipresse"
+  },
+  "0773": {
+    "en": "Smith Standing Leg Calf Raise",
+    "de": "Wadenheben im Stehen an der Multipresse"
+  },
+  "0774": {
+    "en": "Smith Standing Military Press",
+    "de": "Schulterdrücken im Stehen an der Multipresse"
+  },
+  "3142": {
+    "en": "Smith Sumo Squat",
+    "de": "Sumo-Kniebeuge an der Multipresse"
+  },
+  "1396": {
+    "en": "Smith Toe Raise",
+    "de": "Zehenheben an der Multipresse"
+  },
+  "0775": {
+    "en": "Smith Upright Row",
+    "de": "Aufrechtes Rudern an der Multipresse"
+  },
+  "1308": {
+    "en": "Smith Wide-Grip Bench Press",
+    "de": "Weites Bankdrücken an der Multipresse"
+  },
+  "1309": {
+    "en": "Smith Wide-Grip Decline Bench Press",
+    "de": "Weites Negativbankdrücken an der Multipresse"
+  },
+  "0776": {
+    "en": "Snatch Pull",
+    "de": "Reisszug"
+  },
+  "0777": {
+    "en": "Spell Caster",
+    "de": "Kurzhantel-Rumpfdrehung (Spellcaster)"
+  },
+  "1362": {
+    "en": "Sphinx",
+    "de": "Sphinx-Dehnung"
+  },
+  "0778": {
+    "en": "Spider Crawl Push-up",
+    "de": "Spinnen-Liegestütz"
+  },
+  "1363": {
+    "en": "Spine Stretch",
+    "de": "Wirbelsäulendehnung"
+  },
+  "2329": {
+    "en": "Spine Twist",
+    "de": "Wirbelsäulendrehung"
+  },
+  "2368": {
+    "en": "Split Squats",
+    "de": "Split-Squats"
+  },
+  "0786": {
+    "en": "Squat Jerk",
+    "de": "Squat-Stoss"
+  },
+  "1705": {
+    "en": "Squat on Bosu Ball",
+    "de": "Kniebeuge auf dem Bosu-Ball"
+  },
+  "1685": {
+    "en": "Squat to Overhead Reach",
+    "de": "Kniebeuge mit Überkopf-Streckung"
+  },
+  "1686": {
+    "en": "Squat to Overhead Reach with Twist",
+    "de": "Kniebeuge mit Überkopf-Streckung und Drehung"
+  },
+  "2297": {
+    "en": "Stability Ball Crunch (Full Range Hands Behind Head)",
+    "de": "Crunch auf dem Gymnastikball (voller Bewegungsradius, Hände hinter dem Kopf)"
+  },
+  "3291": {
+    "en": "Stalder Press",
+    "de": "Stalder-Press"
+  },
+  "3669": {
+    "en": "Standing Archer",
+    "de": "Rudern im Stehen (Archer)"
+  },
+  "0788": {
+    "en": "Standing Behind Neck Press",
+    "de": "Nackendrücken im Stehen"
+  },
+  "1490": {
+    "en": "Standing Calf Raise (on a Staircase)",
+    "de": "Wadenheben im Stehen (auf der Treppe)"
+  },
+  "1397": {
+    "en": "Standing Calves",
+    "de": "Wadenheben im Stehen"
+  },
+  "1398": {
+    "en": "Standing Calves Calf Stretch",
+    "de": "Wadendehnung im Stehen"
+  },
+  "1599": {
+    "en": "Standing Hamstring and Calf Stretch with Strap",
+    "de": "Hamstring- und Wadendehnung im Stehen mit Band"
+  },
+  "0794": {
+    "en": "Standing Lateral Stretch",
+    "de": "Seitliche Dehnung im Stehen"
+  },
+  "1364": {
+    "en": "Standing Pelvic Tilt",
+    "de": "Beckenkippung im Stehen"
+  },
+  "0795": {
+    "en": "Standing Single Leg Curl",
+    "de": "Einbeiniger Beincurl im Stehen"
+  },
+  "0796": {
+    "en": "Standing Wheel Rollout",
+    "de": "Ab-Rollout im Stehen"
+  },
+  "3223": {
+    "en": "Star Jump (Male)",
+    "de": "Hampelmann (männlich)"
+  },
+  "2138": {
+    "en": "Stationary Bike Run v. 3",
+    "de": "Ergometer-Fahren Variante 3"
+  },
+  "0798": {
+    "en": "Stationary Bike Walk",
+    "de": "Lockeres Ergometer-Fahren"
+  },
+  "3314": {
+    "en": "Straddle Maltese",
+    "de": "Malteserkreuz gegrätscht"
+  },
+  "3298": {
+    "en": "Straddle Planche",
+    "de": "Planche gegrätscht"
+  },
+  "1427": {
+    "en": "Straight Leg Outer Hip Abductor",
+    "de": "Hüftabduktion mit gestrecktem Bein"
+  },
+  "0803": {
+    "en": "Superman Push-up",
+    "de": "Superman-Liegestütz"
+  },
+  "0805": {
+    "en": "Suspended Abdominal Fallout",
+    "de": "Bauch-Fallout am Schlingentrainer"
+  },
+  "0806": {
+    "en": "Suspended Push-up",
+    "de": "Liegestütz am Schlingentrainer"
+  },
+  "0807": {
+    "en": "Suspended Reverse Crunch",
+    "de": "Reverse Crunch am Schlingentrainer"
+  },
+  "0808": {
+    "en": "Suspended Row",
+    "de": "Rudern am Schlingentrainer"
+  },
+  "0809": {
+    "en": "Suspended Split Squat",
+    "de": "Split Squat am Schlingentrainer"
+  },
+  "3433": {
+    "en": "Swimmer Kicks v. 2 (Male)",
+    "de": "Schwimmer-Kicks Variante 2 (männlich)"
+  },
+  "3318": {
+    "en": "Swing 360",
+    "de": "360°-Swing"
+  },
+  "1753": {
+    "en": "Three Bench Dip",
+    "de": "Dip mit drei Bänken"
+  },
+  "2459": {
+    "en": "Tire Flip",
+    "de": "Reifen-Flip"
+  },
+  "0811": {
+    "en": "Trap Bar Deadlift",
+    "de": "Kreuzheben mit der Trap Bar"
+  },
+  "0814": {
+    "en": "Triceps Dip",
+    "de": "Trizeps-Dip"
+  },
+  "0812": {
+    "en": "Triceps Dip (Bench Leg)",
+    "de": "Trizeps-Dip (Beine auf der Bank)"
+  },
+  "0813": {
+    "en": "Triceps Dip (Between Benches)",
+    "de": "Trizeps-Dip zwischen zwei Bänken"
+  },
+  "0815": {
+    "en": "Triceps Dips Floor",
+    "de": "Trizeps-Dips am Boden"
+  },
+  "0816": {
+    "en": "Triceps Press",
+    "de": "Trizepsdrücken"
+  },
+  "0817": {
+    "en": "Triceps Stretch",
+    "de": "Trizepsdehnung"
+  },
+  "0871": {
+    "en": "Tuck Crunch",
+    "de": "Crunch mit angezogenen Beinen"
+  },
+  "0818": {
+    "en": "Twin Handle Parallel Grip Lat Pulldown",
+    "de": "Latzug mit Doppelgriff im Parallelgriff"
+  },
+  "1466": {
+    "en": "Twist Hip Lift",
+    "de": "Hüftheben mit Drehung"
+  },
+  "2802": {
+    "en": "Twisted Leg Raise",
+    "de": "Beinheben mit Drehung"
+  },
+  "2801": {
+    "en": "Twisted Leg Raise (Female)",
+    "de": "Beinheben mit Drehung (weiblich)"
+  },
+  "3231": {
+    "en": "Two Toe Touch (Male)",
+    "de": "Zehenberührung (männlich)"
+  },
+  "1365": {
+    "en": "Upper Back Stretch",
+    "de": "Dehnung des oberen Rückens"
+  },
+  "1366": {
+    "en": "Upward Facing Dog",
+    "de": "Nach oben schauender Hund"
+  },
+  "3420": {
+    "en": "V-Sit on Floor",
+    "de": "V-Sit am Boden"
+  },
+  "0826": {
+    "en": "Vertical Leg Raise (on Parallel Bars)",
+    "de": "Vertikales Beinheben am Barren"
+  },
+  "2141": {
+    "en": "Walk Elliptical Cross Trainer",
+    "de": "Crosstrainer im Gehtempo"
+  },
+  "3655": {
+    "en": "Walking High Knees Lunge",
+    "de": "Ausfallschritt mit hohen Knien im Gehen"
+  },
+  "1460": {
+    "en": "Walking Lunge",
+    "de": "Ausfallschritt im Gehen"
+  },
+  "3666": {
+    "en": "Walking on Incline Treadmill",
+    "de": "Gehen auf dem Laufband mit Steigung"
+  },
+  "2311": {
+    "en": "Walking on Stepmill",
+    "de": "Gehen auf dem Stepmill"
+  },
+  "0830": {
+    "en": "Weighted Bench Dip",
+    "de": "Bank-Dip mit Zusatzgewicht"
+  },
+  "2987": {
+    "en": "Weighted Close-Grip Chin-up on Dip Cage",
+    "de": "Enger Klimmzug im Untergriff mit Zusatzgewicht am Dip-Käfig"
+  },
+  "3643": {
+    "en": "Weighted Cossack Squats (Male)",
+    "de": "Kosaken-Kniebeuge mit Zusatzgewicht (männlich)"
+  },
+  "0832": {
+    "en": "Weighted Crunch",
+    "de": "Crunch mit Zusatzgewicht"
+  },
+  "3670": {
+    "en": "Weighted Decline Sit-up",
+    "de": "Negativbank-Sit-up mit Zusatzgewicht"
+  },
+  "0833": {
+    "en": "Weighted Donkey Calf Raise",
+    "de": "Donkey-Wadenheben mit Zusatzgewicht"
+  },
+  "1310": {
+    "en": "Weighted Drop Push-up",
+    "de": "Drop-Liegestütz mit Zusatzgewicht"
+  },
+  "2135": {
+    "en": "Weighted Front Plank",
+    "de": "Plank mit Zusatzgewicht"
+  },
+  "0834": {
+    "en": "Weighted Front Raise",
+    "de": "Frontheben mit Zusatzgewicht"
+  },
+  "0866": {
+    "en": "Weighted Hanging Leg-Hip Raise",
+    "de": "Hängendes Bein-Hüft-Heben mit Zusatzgewicht"
+  },
+  "0835": {
+    "en": "Weighted Hyperextension (on Stability Ball)",
+    "de": "Hyperextension auf dem Gymnastikball mit Zusatzgewicht"
+  },
+  "3641": {
+    "en": "Weighted Kneeling Step with Swing",
+    "de": "Kniender Ausfallschritt mit Schwung und Zusatzgewicht"
+  },
+  "3644": {
+    "en": "Weighted Lunge with Swing",
+    "de": "Ausfallschritt mit Schwung und Zusatzgewicht"
+  },
+  "3286": {
+    "en": "Weighted Muscle Up",
+    "de": "Muscle-up mit Zusatzgewicht"
+  },
+  "3312": {
+    "en": "Weighted Muscle Up (on Bar)",
+    "de": "Muscle-up an der Stange mit Zusatzgewicht"
+  },
+  "3290": {
+    "en": "Weighted One Hand Pull-up",
+    "de": "Einarmiger Klimmzug mit Zusatzgewicht"
+  },
+  "0840": {
+    "en": "Weighted Overhead Crunch (on Stability Ball)",
+    "de": "Crunch mit Überkopfstreckung auf dem Gymnastikball mit Zusatzgewicht"
+  },
+  "0841": {
+    "en": "Weighted Pull-up",
+    "de": "Klimmzug mit Zusatzgewicht"
+  },
+  "0844": {
+    "en": "Weighted Round Arm",
+    "de": "Rundarmheben mit Zusatzgewicht"
+  },
+  "0846": {
+    "en": "Weighted Russian Twist",
+    "de": "Russian Twist mit Zusatzgewicht"
+  },
+  "0845": {
+    "en": "Weighted Russian Twist (Legs Up)",
+    "de": "Russian Twist mit angehobenen Beinen und Zusatzgewicht"
+  },
+  "2371": {
+    "en": "Weighted Russian Twist v. 2",
+    "de": "Russian Twist mit Zusatzgewicht, Variante 2"
+  },
+  "0847": {
+    "en": "Weighted Seated Bicep Curl (on Stability Ball)",
+    "de": "Bizepscurl im Sitzen auf dem Gymnastikball mit Zusatzgewicht"
+  },
+  "0849": {
+    "en": "Weighted Seated Twist (on Stability Ball)",
+    "de": "Rumpfdrehung im Sitzen auf dem Gymnastikball mit Zusatzgewicht"
+  },
+  "0850": {
+    "en": "Weighted Side Bend (on Stability Ball)",
+    "de": "Seitbeuge auf dem Gymnastikball mit Zusatzgewicht"
+  },
+  "0851": {
+    "en": "Weighted Sissy Squat",
+    "de": "Sissy Squat mit Zusatzgewicht"
+  },
+  "0852": {
+    "en": "Weighted Squat",
+    "de": "Kniebeuge mit Zusatzgewicht"
+  },
+  "0853": {
+    "en": "Weighted Standing Curl",
+    "de": "Bizepscurl im Stehen mit Zusatzgewicht"
+  },
+  "0854": {
+    "en": "Weighted Standing Hand Squeeze",
+    "de": "Handdrücken im Stehen mit Zusatzgewicht"
+  },
+  "3313": {
+    "en": "Weighted Straight Bar Dip",
+    "de": "Dip an der geraden Stange mit Zusatzgewicht"
+  },
+  "3642": {
+    "en": "Weighted Stretch Lunge",
+    "de": "Ausfallschritt mit Dehnung und Zusatzgewicht"
+  },
+  "0856": {
+    "en": "Weighted Svend Press",
+    "de": "Svend Press mit Zusatzgewicht"
+  },
+  "1754": {
+    "en": "Weighted Three Bench Dips",
+    "de": "Dip mit drei Bänken und Zusatzgewicht"
+  },
+  "1755": {
+    "en": "Weighted Triceps Dips",
+    "de": "Trizeps-Dips mit Zusatzgewicht"
+  },
+  "1767": {
+    "en": "Weighted Triceps Dip on High Parallel Bars",
+    "de": "Trizeps-Dip am hohen Barren mit Zusatzgewicht"
+  },
+  "0857": {
+    "en": "Wheel Rollout",
+    "de": "Ab-Rollout mit dem Rad"
+  },
+  "3637": {
+    "en": "Wheel Run",
+    "de": "Laufen im Rad"
+  },
+  "1429": {
+    "en": "Wide-Grip Pull-up",
+    "de": "Klimmzug im weiten Griff"
+  },
+  "1367": {
+    "en": "Wide-Grip Rear Pull-up",
+    "de": "Klimmzug im weiten Griff zum Nacken"
+  },
+  "1311": {
+    "en": "Wide Hand Push-up",
+    "de": "Liegestütz mit weitem Handabstand"
+  },
+  "2363": {
+    "en": "Wide-Grip Chest Dip on High Parallel Bars",
+    "de": "Weiter Brust-Dip am hohen Barren"
+  },
+  "0858": {
+    "en": "Wind Sprints",
+    "de": "Sprintintervalle"
+  },
+  "1604": {
+    "en": "World's Greatest Stretch",
+    "de": "Ganzkörper-Dehnung (World's Greatest Stretch)"
+  },
+  "1428": {
+    "en": "Wrist Circles",
+    "de": "Handgelenkskreisen"
+  },
+  "0859": {
+    "en": "Wrist Roller",
+    "de": "Handgelenksroller"
+  }
+}

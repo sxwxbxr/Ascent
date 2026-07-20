@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ApiError, api } from "../lib/api";
+import { exerciseName } from "../lib/i18n";
 import type { ExerciseRow } from "../lib/snapshot";
 
 interface ExercisePickerModalProps {
@@ -118,7 +119,7 @@ export function ExercisePickerModal({ onClose, onSelect, submitError, submitting
                     )}
                     <span className="flex flex-col">
                       <span className="font-semibold text-on-surface">
-                        {exercise.nameDe ?? exercise.name}
+                        {exerciseName(exercise)}
                       </span>
                       {exercise.category && (
                         <span className="text-xs text-on-surface-muted">{exercise.category}</span>

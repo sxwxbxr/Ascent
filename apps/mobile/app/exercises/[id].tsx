@@ -1,8 +1,10 @@
-import { useState } from 'react';
-import { Alert, Image, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { useMemo, useState } from 'react';
+import { Alert, Image, Modal, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { epley1Rm } from '@ascent/shared';
 
 import {
   buildExerciseByIdQuery,
@@ -13,18 +15,106 @@ import {
   softDeleteOwnExercise,
   updateOwnExercise,
 } from '../../src/data/exercises';
+import { getRecentSessionsForExercise } from '../../src/data/workouts';
 
 // Ionicons-Farben als Literale — Icon-Komponenten unterstützen keine
 // className-Farbsteuerung, siehe tailwind.config.js für die Quelle der Tokens.
 const COLOR_ON_SURFACE = '#e5e2e1';
 const COLOR_ERROR = '#ffb4ab';
 
+const historyDateFormatter = new Intl.DateTimeFormat('de-CH', { day: '2-digit', month: '2-digit', year: 'numeric' });
+const oneDecimalFormatter = new Intl.NumberFormat('de-CH', { maximumFractionDigits: 1 });
+
+function formatWeight(kg: number): string {
+  return Number.isInteger(kg) ? String(kg) : oneDecimalFormatter.format(kg);
+}
+
+type MuscleChip = { key: string; label: string; isPrimary: boolean };
+
+/**
+ * Chips für die Sektion "Beteiligte Muskeln": Zielmuskel (primaryMuscle, immer
+ * zuerst und markiert) + Synergist (muscleGroup) + sekundäre Muskeln
+ * (secondaryMuscles, JSON-Array), dedupliziert über den kleingeschriebenen
+ * Rohwert. Bestandsdaten (vor der Migration importierte Übungen) können
+ * muscleGroup/secondaryMuscles = NULL haben oder — theoretisch — ungültiges
+ * JSON enthalten; das try/catch verhindert, dass ein defekter Datensatz die
+ * ganze Detailseite zum Absturz bringt (es fallen dann nur die zusätzlichen
+ * Chips weg, primaryMuscle bleibt erhalten).
+ */
+function buildMuscleChips(
+  exercise:
+    | { primaryMuscle: string | null; muscleGroup: string | null; secondaryMuscles: string | null }
+    | undefined,
+): MuscleChip[] {
+  if (!exercise) return [];
+  const seen = new Set<string>();
+  const chips: MuscleChip[] = [];
+
+  function addChip(raw: string | null | undefined, isPrimary: boolean) {
+    if (!raw) return;
+    const key = raw.trim().toLowerCase();
+    if (!key || seen.has(key)) return;
+    seen.add(key);
+    chips.push({ key, label: muscleLabelDe(raw) ?? raw, isPrimary });
+  }
+
+  addChip(exercise.primaryMuscle, true);
+  addChip(exercise.muscleGroup, false);
+
+  if (exercise.secondaryMuscles) {
+    try {
+      const parsed = JSON.parse(exercise.secondaryMuscles) as unknown;
+      if (Array.isArray(parsed)) {
+        for (const item of parsed) {
+          if (typeof item === 'string') addChip(item, false);
+        }
+      }
+    } catch {
+      // Ungültiges JSON in Bestandsdaten — Sektion bleibt robust, nur die
+      // sekundären Muskeln fallen weg.
+    }
+  }
+
+  return chips;
+}
+
+/**
+ * Nummerierte EN-Ausführungsschritte aus instructionStepsEn (JSON-Array), oder
+ * `null` falls das Feld fehlt, kein gültiges JSON enthält oder nach dem
+ * Filtern leer bleibt — der Aufrufer fällt dann auf instructionsEn zurück.
+ */
+function parseInstructionSteps(raw: string | null | undefined): string[] | null {
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    if (!Array.isArray(parsed)) return null;
+    const steps = parsed.filter((step): step is string => typeof step === 'string' && step.trim().length > 0);
+    return steps.length > 0 ? steps : null;
+  } catch {
+    return null;
+  }
+}
+
+type HistorySession = {
+  workoutId: string;
+  finishedAt: number;
+  setCount: number;
+  bestWeightKg: number;
+  bestReps: number;
+};
+
 export default function ExerciseDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
   const { data: rows } = useLiveQuery(buildExerciseByIdQuery(id), [id]);
   const exercise = rows[0];
+
+  // Basistabelle der Query ist workout_sets (siehe getRecentSessionsForExercise
+  // in src/data/workouts.ts) — reagiert also live auf jeden neu erfassten Satz
+  // dieser Übung. deps=[id] analog zur Übungs-Query oben.
+  const { data: historyRows } = useLiveQuery(getRecentSessionsForExercise(id, 5), [id]);
 
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState('');
@@ -33,6 +123,41 @@ export default function ExerciseDetailScreen() {
   const [equipment, setEquipment] = useState('');
   const [instructions, setInstructions] = useState('');
   const [saving, setSaving] = useState(false);
+  const [mediaModalVisible, setMediaModalVisible] = useState(false);
+
+  const muscleChips = useMemo(
+    () => buildMuscleChips(exercise),
+    [exercise?.primaryMuscle, exercise?.muscleGroup, exercise?.secondaryMuscles],
+  );
+
+  const instructionSteps = useMemo(
+    () => parseInstructionSteps(exercise?.instructionStepsEn),
+    [exercise?.instructionStepsEn],
+  );
+
+  const historySessions = useMemo<HistorySession[]>(() => {
+    const map = new Map<string, HistorySession>();
+    for (const row of historyRows) {
+      if (row.finishedAt == null) continue;
+      const existing = map.get(row.workoutId);
+      if (existing) {
+        existing.setCount += 1;
+        if (row.weightKg > existing.bestWeightKg) {
+          existing.bestWeightKg = row.weightKg;
+          existing.bestReps = row.reps;
+        }
+      } else {
+        map.set(row.workoutId, {
+          workoutId: row.workoutId,
+          finishedAt: row.finishedAt,
+          setCount: 1,
+          bestWeightKg: row.weightKg,
+          bestReps: row.reps,
+        });
+      }
+    }
+    return [...map.values()].sort((a, b) => b.finishedAt - a.finishedAt);
+  }, [historyRows]);
 
   function startEditing() {
     if (!exercise) return;
@@ -100,8 +225,12 @@ export default function ExerciseDetailScreen() {
 
   const displayName = exercise.nameDe ?? exercise.name;
   const isOwn = exercise.userId != null;
-  const instructionsText = exercise.instructionsDe ?? exercise.instructionsEn;
-  const isEnglishOnly = !exercise.instructionsDe && !!exercise.instructionsEn;
+  const hasDistinctEnName = !!exercise.nameDe && exercise.nameDe !== exercise.name;
+
+  // Übersetzung bevorzugen (immer bei eigenen Übungen, sonst sobald jemand die
+  // DE-Anleitung nachgetragen hat) — nummerierte Schritte/EN-Fallback nur ohne DE-Text.
+  const preferDeInstructions = !!exercise.instructionsDe;
+  const stepsToShow = !preferDeInstructions ? instructionSteps : null;
 
   return (
     <View className="flex-1 bg-surface">
@@ -109,11 +238,20 @@ export default function ExerciseDetailScreen() {
       <ScrollView contentContainerClassName="pb-8">
         <View className="px-4 pt-4">
           {exercise.gifUrl ? (
-            <Image
-              source={{ uri: exercise.gifUrl }}
-              className="aspect-square w-full rounded-xl border border-surface-container-high bg-surface-container"
-              resizeMode="cover"
-            />
+            <Pressable
+              onPress={() => setMediaModalVisible(true)}
+              android_ripple={{ color: '#ffffff1a' }}
+              className="active:opacity-90"
+            >
+              <Image
+                source={{ uri: exercise.gifUrl }}
+                className="aspect-square w-full rounded-xl border border-surface-container-high bg-surface-container"
+                resizeMode="cover"
+              />
+              <View className="absolute bottom-3 right-3 h-9 w-9 items-center justify-center rounded-full bg-black/50">
+                <Ionicons name="expand-outline" size={18} color={COLOR_ON_SURFACE} />
+              </View>
+            </Pressable>
           ) : (
             <View className="aspect-square w-full items-center justify-center rounded-xl border border-surface-container-high bg-surface-container">
               <Text className="font-sans text-6xl font-bold text-on-surface-muted">{displayName.charAt(0).toUpperCase() || '?'}</Text>
@@ -123,6 +261,9 @@ export default function ExerciseDetailScreen() {
 
         <View className="px-4 pt-4">
           <Text className="font-sans text-2xl font-extrabold text-on-surface">{displayName}</Text>
+          {hasDistinctEnName && (
+            <Text className="mt-0.5 font-sans text-sm text-on-surface-muted">{exercise.name}</Text>
+          )}
 
           <View className="mt-3 flex-row flex-wrap gap-2">
             {exercise.category && (
@@ -142,16 +283,72 @@ export default function ExerciseDetailScreen() {
             )}
           </View>
 
+          {muscleChips.length > 0 && (
+            <View className="mt-6">
+              <Text className="mb-2 font-sans text-sm font-bold uppercase tracking-wide text-primary">Beteiligte Muskeln</Text>
+              <View className="flex-row flex-wrap gap-2">
+                {muscleChips.map((chip) => (
+                  <View
+                    key={chip.key}
+                    className="flex-row items-center gap-1.5 rounded-full bg-surface-container-high px-3 py-1.5"
+                  >
+                    {chip.isPrimary && <View className="h-1.5 w-1.5 rounded-full bg-primary" />}
+                    <Text className="font-sans text-xs font-bold uppercase text-on-surface">{chip.label}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+          )}
+
           <Text className="mb-1 mt-6 font-sans text-sm font-bold uppercase tracking-wide text-primary">Ausführung</Text>
-          {instructionsText ? (
+          {preferDeInstructions ? (
+            <Text className="font-sans text-base leading-6 text-on-surface-muted">{exercise.instructionsDe}</Text>
+          ) : stepsToShow ? (
+            <View className="gap-3">
+              <Text className="font-sans text-xs italic text-on-surface-muted">Auf Englisch — Übersetzung folgt</Text>
+              {stepsToShow.map((step, index) => (
+                <View key={index} className="flex-row gap-3">
+                  <View className="h-6 w-6 items-center justify-center rounded-full bg-surface-container-high">
+                    <Text className="tabular-nums font-sans text-xs font-bold text-on-surface-muted">{index + 1}</Text>
+                  </View>
+                  <Text className="flex-1 font-sans text-base leading-7 text-on-surface-muted">{step}</Text>
+                </View>
+              ))}
+            </View>
+          ) : exercise.instructionsEn ? (
             <>
-              {isEnglishOnly && (
-                <Text className="mb-2 font-sans text-xs italic text-on-surface-muted">Auf Englisch — Übersetzung folgt</Text>
-              )}
-              <Text className="font-sans text-base leading-6 text-on-surface-muted">{instructionsText}</Text>
+              <Text className="mb-2 font-sans text-xs italic text-on-surface-muted">Auf Englisch — Übersetzung folgt</Text>
+              <Text className="font-sans text-base leading-6 text-on-surface-muted">{exercise.instructionsEn}</Text>
             </>
           ) : (
             <Text className="font-sans text-base text-on-surface-muted">Keine Anleitung vorhanden.</Text>
+          )}
+
+          <Text className="mb-1 mt-6 font-sans text-sm font-bold uppercase tracking-wide text-primary">Deine Historie</Text>
+          {historySessions.length === 0 ? (
+            <Text className="font-sans text-sm text-on-surface-muted">Noch keine Trainings mit dieser Übung.</Text>
+          ) : (
+            <View className="gap-2">
+              {historySessions.map((session) => (
+                <View
+                  key={session.workoutId}
+                  className="flex-row items-center justify-between rounded-lg bg-surface-container p-3"
+                >
+                  <View className="flex-1 pr-3">
+                    <Text className="font-sans text-xs text-on-surface-muted">
+                      {historyDateFormatter.format(new Date(session.finishedAt))}
+                    </Text>
+                    <Text className="tabular-nums mt-0.5 font-sans text-sm font-bold text-on-surface">
+                      {session.setCount} {session.setCount === 1 ? 'Satz' : 'Sätze'} · Bester:{' '}
+                      {formatWeight(session.bestWeightKg)} kg × {session.bestReps}
+                    </Text>
+                  </View>
+                  <Text className="tabular-nums font-sans text-sm font-bold text-on-surface">
+                    1RM ~{formatWeight(epley1Rm(session.bestWeightKg, session.bestReps))} kg
+                  </Text>
+                </View>
+              ))}
+            </View>
           )}
 
           {isOwn && !editing && (
@@ -253,6 +450,32 @@ export default function ExerciseDetailScreen() {
           )}
         </View>
       </ScrollView>
+
+      <Modal
+        visible={mediaModalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setMediaModalVisible(false)}
+      >
+        <Pressable className="flex-1 items-center justify-center bg-black" onPress={() => setMediaModalVisible(false)}>
+          <Pressable onPress={() => {}} className="w-full">
+            {exercise.gifUrl && (
+              <Image source={{ uri: exercise.gifUrl }} className="aspect-square w-full" resizeMode="contain" />
+            )}
+          </Pressable>
+
+          <Pressable
+            onPress={() => setMediaModalVisible(false)}
+            android_ripple={{ color: 'rgba(255,255,255,0.15)', borderless: true }}
+            className="absolute right-4 h-12 w-12 items-center justify-center rounded-full"
+            style={{ top: insets.top + 8 }}
+          >
+            <Ionicons name="close" size={28} color={COLOR_ON_SURFACE} />
+          </Pressable>
+
+          <Text className="absolute bottom-8 font-sans text-xs text-on-surface-muted">Animation © Gymvisual</Text>
+        </Pressable>
+      </Modal>
     </View>
   );
 }

@@ -249,6 +249,53 @@ export async function getLastSetsForExercise(
     .orderBy(asc(workoutSets.setNumber));
 }
 
+/**
+ * Die letzten `limit` abgeschlossenen Workouts mit dieser Übung, als rohe
+ * Satz-Zeilen (nicht aggregiert) — Grundlage für "Deine Historie" auf der
+ * Übungs-Detailseite (app/exercises/[id].tsx). Gruppierung pro Workout
+ * (Datum, Satzzahl, bester Satz nach max. weightKg) passiert client-seitig
+ * dort, analog zum exerciseGroups-Muster in app/workout/[id].tsx.
+ *
+ * Basistabelle bleibt bewusst `workout_sets` (FROM), obwohl die Vorauswahl
+ * der jüngsten Workouts über eine gejointe Subquery läuft: useLiveQuery
+ * registriert seinen Change-Listener ausschliesslich auf `query.config.table`
+ * (siehe Kommentar zu den Lese-Queries in src/data/plans.ts) — das bleibt
+ * hier exakt die `workout_sets`-Tabelle (nur `.from()` bestimmt `config.table`,
+ * `.innerJoin()`-Ziele nicht), die Sektion aktualisiert sich also live bei
+ * jedem neu erfassten Satz dieser Übung.
+ *
+ * Die Subquery gruppiert nach `workouts.id`, BEVOR `.limit(limit)` greift —
+ * ohne das `groupBy` würde die Subquery pro passendem Satz eine eigene Zeile
+ * liefern (mehrere Sätze/Workout) und `.limit(5)` so u. U. nur 1-2 Workouts
+ * statt der letzten 5 abdecken.
+ */
+export function getRecentSessionsForExercise(exerciseId: string, limit = 5) {
+  const recentWorkouts = db
+    .select({ workoutId: workouts.id, finishedAt: workouts.finishedAt })
+    .from(workouts)
+    .innerJoin(
+      workoutSets,
+      and(eq(workoutSets.workoutId, workouts.id), eq(workoutSets.exerciseId, exerciseId), eq(workoutSets.deleted, false)),
+    )
+    .where(and(eq(workouts.deleted, false), isNotNull(workouts.finishedAt)))
+    .groupBy(workouts.id)
+    .orderBy(desc(workouts.finishedAt))
+    .limit(limit)
+    .as('recent_workouts');
+
+  return db
+    .select({
+      workoutId: workoutSets.workoutId,
+      finishedAt: recentWorkouts.finishedAt,
+      weightKg: workoutSets.weightKg,
+      reps: workoutSets.reps,
+    })
+    .from(workoutSets)
+    .innerJoin(recentWorkouts, eq(workoutSets.workoutId, recentWorkouts.workoutId))
+    .where(and(eq(workoutSets.exerciseId, exerciseId), eq(workoutSets.deleted, false)))
+    .orderBy(desc(recentWorkouts.finishedAt), asc(workoutSets.setNumber));
+}
+
 /** Trainingsvolumen (Summe Gewicht × Wiederholungen) einer Satzliste. */
 export function sumVolume(sets: ReadonlyArray<{ weightKg: number; reps: number }>): number {
   return sets.reduce((total, set) => total + set.weightKg * set.reps, 0);

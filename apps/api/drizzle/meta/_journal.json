@@ -15,6 +15,13 @@
       "when": 1784103750565,
       "tag": "0001_burly_phantom_reporter",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1784525936809,
+      "tag": "0002_tan_sage",
+      "breakpoints": true
     }
   ]
 }

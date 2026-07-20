@@ -14,6 +14,7 @@ import {
 import { epley1Rm, strengthTrend } from "@ascent/shared";
 import { ApiError, api } from "../lib/api";
 import { useEntitlement } from "../lib/entitlements";
+import { exerciseName } from "../lib/i18n";
 import { useSnapshot } from "../lib/snapshot";
 import type { WorkoutRow, WorkoutSetRow } from "../lib/snapshot";
 
@@ -99,7 +100,7 @@ export function DashboardPage() {
     const options: ExerciseOption[] = [];
     for (const [exerciseId, setCount] of setCounts.entries()) {
       const exercise = exercisesById.get(exerciseId);
-      const label = exercise?.nameDe ?? exercise?.name ?? exerciseId;
+      const label = exercise ? exerciseName(exercise) : exerciseId;
       options.push({ id: exerciseId, label, setCount });
     }
     options.sort((a, b) => a.label.localeCompare(b.label, "de-CH"));
