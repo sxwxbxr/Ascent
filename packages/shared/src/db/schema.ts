@@ -58,6 +58,8 @@ export const exercises = sqliteTable('exercises', {
   secondaryMuscles: text('secondary_muscles'),
   /** JSON-Array nummerierter Ausführungs-Schritte (EN) */
   instructionStepsEn: text('instruction_steps_en'),
+  /** JSON-Array nummerierter Ausführungs-Schritte (DE) */
+  instructionStepsDe: text('instruction_steps_de'),
   thumbnailUrl: text('thumbnail_url'),
   gifUrl: text('gif_url'),
   /** Epoch ms */

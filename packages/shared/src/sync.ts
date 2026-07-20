@@ -42,6 +42,7 @@ const exerciseRowSchema = z.object({
   muscleGroup: z.string().nullable().optional(),
   secondaryMuscles: z.string().nullable().optional(),
   instructionStepsEn: z.string().nullable().optional(),
+  instructionStepsDe: z.string().nullable().optional(),
   thumbnailUrl: z.string().nullable().optional(),
   gifUrl: z.string().nullable().optional(),
   createdAt: epochMs,

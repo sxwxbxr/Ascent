@@ -12,6 +12,9 @@ import { authClient, toSessionUser } from '../src/auth/client';
 import { upsertLocalUser } from '../src/db/hydrate';
 import { runSync, runSyncThrottled } from '../src/db/sync';
 import { resumeActiveWorkout } from '../src/lib/active-workout';
+import { ErrorBoundary } from '../src/ui/ErrorBoundary';
+import { RecoveryScreen } from '../src/ui/RecoveryScreen';
+import { UpdateBanner } from '../src/ui/UpdateBanner';
 
 /**
  * Dunkler Vollbild-Zustand für Migration/Session-Ermittlung (Wortmarke +
@@ -44,7 +47,7 @@ function FullScreenStatus({ message, isError = false }: { message: string; isErr
  * unabhängig davon, ob der Hintergrund-Refetch noch läuft oder offline
  * scheitert. Ein eigener zusätzlicher SecureStore-Fallback ist NICHT nötig.
  */
-export default function RootLayout() {
+function RootLayoutInner() {
   const { success: migrationsDone, error: migrationsError } = useMigrations(db, migrations);
   const { data: session, isPending } = authClient.useSession();
 
@@ -78,13 +81,11 @@ export default function RootLayout() {
     return () => subscription.remove();
   }, []);
 
+  // Scheitert die Migration (z. B. inkompatible Altdaten nach einem Update —
+  // genau der beim Beta-Test beobachtete Absturz), zeigen wir statt eines
+  // harten Crashs den Recovery-Screen mit "Lokale Daten zurücksetzen".
   if (migrationsError) {
-    return (
-      <FullScreenStatus
-        isError
-        message={`Datenbank-Migration fehlgeschlagen: ${migrationsError.message}`}
-      />
-    );
+    return <RecoveryScreen detail={`Migration: ${migrationsError.message}`} />;
   }
 
   if (!migrationsDone || (isPending && !session)) {
@@ -92,27 +93,42 @@ export default function RootLayout() {
   }
 
   return (
-    <>
+    <View className="flex-1 bg-surface">
       <StatusBar style="light" />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: '#131313' },
-        }}
-      >
-        {/* Ohne Session nur (auth) erreichbar, mit Session nur (tabs) — siehe
-            node_modules/expo-router/build/views/Protected.d.ts (guard: boolean). */}
-        <Stack.Protected guard={!session}>
-          <Stack.Screen name="(auth)" />
-        </Stack.Protected>
-        <Stack.Protected guard={!!session}>
-          <Stack.Screen name="(tabs)" />
-          <Stack.Screen name="plans" />
-          <Stack.Screen name="exercises" />
-          <Stack.Screen name="workout/active" />
-          <Stack.Screen name="workout/[id]" />
-        </Stack.Protected>
-      </Stack>
-    </>
+      {session ? <UpdateBanner /> : null}
+      <View className="flex-1">
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: '#131313' },
+          }}
+        >
+          {/* Ohne Session nur (auth) erreichbar, mit Session nur (tabs) — siehe
+              node_modules/expo-router/build/views/Protected.d.ts (guard: boolean). */}
+          <Stack.Protected guard={!session}>
+            <Stack.Screen name="(auth)" />
+          </Stack.Protected>
+          <Stack.Protected guard={!!session}>
+            <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="plans" />
+            <Stack.Screen name="exercises" />
+            <Stack.Screen name="workout/active" />
+            <Stack.Screen name="workout/[id]" />
+          </Stack.Protected>
+        </Stack>
+      </View>
+    </View>
+  );
+}
+
+/**
+ * Boot-Guard: fängt Render-/Startfehler im gesamten Baum ab und zeigt statt
+ * eines harten Absturzes den Recovery-Screen (siehe src/ui/ErrorBoundary).
+ */
+export default function RootLayout() {
+  return (
+    <ErrorBoundary>
+      <RootLayoutInner />
+    </ErrorBoundary>
   );
 }

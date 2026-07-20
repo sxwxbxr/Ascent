@@ -60,6 +60,23 @@ function writeCursors(key: string, cursors: SyncCursors): void {
 }
 
 /**
+ * Setzt alle Sync-Cursor zurück (Boot-Guard-Recovery, siehe app/_layout.tsx).
+ * NACH einem Reset der lokalen DB zwingend nötig: sonst zeigten die
+ * Pull-Cursor noch auf einen jüngeren serverTime und der nächste Pull würde
+ * nichts nachladen — die frisch angelegte, leere DB bliebe leer. Nach dem
+ * Zurücksetzen holt der erste Sync den kompletten Serverbestand erneut.
+ */
+export async function resetSyncCursors(): Promise<void> {
+  for (const key of [PUSH_CURSORS_KEY, PULL_CURSORS_KEY, LAST_SYNC_AT_KEY]) {
+    try {
+      await SecureStore.deleteItemAsync(key);
+    } catch (err) {
+      console.log(`[sync] Cursor "${key}" konnte nicht gelöscht werden:`, err);
+    }
+  }
+}
+
+/**
  * Einmalige Migration: existiert der alte, exercises-only Pull-Cursor aus der
  * Vor-M4-`hydrateExercises` noch, wird sein Wert (falls noch kein neuer
  * Pull-Cursor für exercises gesetzt ist) übernommen und der alte Schlüssel
