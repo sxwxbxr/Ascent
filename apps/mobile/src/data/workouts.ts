@@ -1,8 +1,8 @@
-import { and, asc, desc, eq, isNotNull, isNull, ne, sql } from 'drizzle-orm';
+import { and, asc, desc, eq, gte, isNotNull, isNull, ne, sql } from 'drizzle-orm';
 import { exercises, planExercises, plans, workoutSets, workouts } from '@ascent/shared';
 
 import { db } from '../db/client';
-import { runSync } from '../db/sync';
+import { queueSyncPush, runSync } from '../db/sync';
 import { newId } from '../lib/ids';
 import { getOwnerUserId } from '../lib/owner';
 import { setCachedActiveWorkoutId } from '../lib/active-workout';
@@ -45,6 +45,7 @@ export async function startWorkout(planId?: string): Promise<string> {
   });
 
   setCachedActiveWorkoutId(id);
+  queueSyncPush();
   return id;
 }
 
@@ -93,6 +94,7 @@ export async function finishWorkout(id: string): Promise<void> {
   // Fire-and-forget: runSync toleriert Offline/Fehler selbst (siehe src/db/sync.ts)
   // und darf den Trainingsabschluss nie blockieren.
   runSync().catch((err) => console.log('[finishWorkout] runSync fehlgeschlagen:', err));
+  queueSyncPush();
 }
 
 /** Soft-Delete eines Workouts — für "Training verwerfen" (aktiv, 0 Sätze) und "Training löschen" (Verlauf). */
@@ -100,12 +102,14 @@ export async function cancelWorkout(id: string): Promise<void> {
   const now = Date.now();
   await db.update(workouts).set({ deleted: true, updatedAt: now }).where(eq(workouts.id, id));
   setCachedActiveWorkoutId(null);
+  queueSyncPush();
 }
 
 /** Speichert/aktualisiert die Notiz eines Workouts (Verlauf-Detail). */
 export async function updateWorkoutNotes(id: string, notes: string | null): Promise<void> {
   const now = Date.now();
   await db.update(workouts).set({ notes, updatedAt: now }).where(eq(workouts.id, id));
+  queueSyncPush();
 }
 
 /** Erfasst einen Satz (completedAt=now) und gibt seine ID zurück. */
@@ -132,6 +136,7 @@ export async function addSet(input: {
     deleted: false,
   });
 
+  queueSyncPush();
   return id;
 }
 
@@ -144,11 +149,13 @@ export async function updateSet(
     .update(workoutSets)
     .set({ ...patch, updatedAt: Date.now() })
     .where(eq(workoutSets.id, id));
+  queueSyncPush();
 }
 
 /** Soft-Delete eines einzelnen Satzes. */
 export async function deleteSet(id: string): Promise<void> {
   await db.update(workoutSets).set({ deleted: true, updatedAt: Date.now() }).where(eq(workoutSets.id, id));
+  queueSyncPush();
 }
 
 /**
@@ -274,4 +281,46 @@ export function getFinishedWorkoutSummaries(limit?: number) {
     .orderBy(desc(workouts.finishedAt));
 
   return limit === undefined ? query : query.limit(limit);
+}
+
+/** Montag 00:00 Uhr (Lokalzeit) der Woche, die `referenceMs` enthält (de-CH: Woche beginnt Montag). */
+function startOfWeek(referenceMs: number): number {
+  const date = new Date(referenceMs);
+  date.setHours(0, 0, 0, 0);
+  const day = date.getDay(); // 0=Sonntag..6=Samstag
+  const diffToMonday = (day + 6) % 7; // Montag=0, Sonntag=6
+  date.setDate(date.getDate() - diffToMonday);
+  return date.getTime();
+}
+
+/**
+ * Anzahl abgeschlossener Trainings seit Wochenbeginn (Home, Stat-Kachel
+ * "Trainings"). Basistabelle `workouts` — reaktiv auf Start/Abschluss/
+ * Löschung, s. Kommentar bei getActiveWorkout (useLiveQuery reagiert nur auf
+ * die FROM-Basistabelle).
+ */
+export function getWeeklyWorkoutCount(referenceMs: number = Date.now()) {
+  const weekStart = startOfWeek(referenceMs);
+  return db
+    .select({ count: sql<number>`count(*)`.as('count') })
+    .from(workouts)
+    .where(and(isNotNull(workouts.finishedAt), eq(workouts.deleted, false), gte(workouts.finishedAt, weekStart)));
+}
+
+/**
+ * Sätze + Volumen seit Wochenbeginn (Home, Stat-Kacheln "Sätze"/"Volumen").
+ * Basistabelle `workout_sets` — bewusst NICHT `workouts` als FROM (siehe
+ * getWeeklyWorkoutCount): jede Satz-Erfassung soll die Kachel sofort
+ * aktualisieren, ein Join auf `workouts` würde die useLiveQuery-Reaktivität
+ * an die falsche Tabelle binden.
+ */
+export function getWeeklySetStats(referenceMs: number = Date.now()) {
+  const weekStart = startOfWeek(referenceMs);
+  return db
+    .select({
+      setCount: sql<number>`count(*)`.as('set_count'),
+      volumeKg: sql<number>`coalesce(sum(${workoutSets.weightKg} * ${workoutSets.reps}), 0)`.as('volume_kg'),
+    })
+    .from(workoutSets)
+    .where(and(eq(workoutSets.deleted, false), gte(workoutSets.completedAt, weekStart)));
 }

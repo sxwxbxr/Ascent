@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Alert, FlatList, Image, Pressable, Text, TextInput, View } from 'react-native';
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 import {
   addExerciseToPlan,
@@ -16,6 +17,13 @@ import type { PlanExerciseRow } from '../../src/data/plans';
 import { setExercisePickHandler } from '../../src/lib/exercise-picker';
 
 const REST_PRESETS = [30, 60, 90, 120, 180];
+
+// Ionicons-Farben als Literale — Icon-Komponenten unterstützen keine
+// className-Farbsteuerung, siehe tailwind.config.js für die Quelle der Tokens.
+const COLOR_ON_SURFACE = '#e5e2e1';
+const COLOR_ON_SURFACE_MUTED = '#a0a0a0';
+const COLOR_ON_SURFACE_MUTED_DIM = '#4d4d4d';
+const COLOR_ERROR = '#ffb4ab';
 
 function formatPlanExerciseSummary(row: Pick<PlanExerciseRow, 'targetSets' | 'targetRepsMin' | 'targetRepsMax' | 'restSeconds'>): string {
   const parts = [`${row.targetSets} Sätze`];
@@ -32,11 +40,16 @@ function formatPlanExerciseSummary(row: Pick<PlanExerciseRow, 'targetSets' | 'ta
 
 function ExerciseThumbnail({ uri, label }: { uri: string | null; label: string }) {
   if (uri) {
-    return <Image source={{ uri }} className="h-12 w-12 rounded-lg bg-surface-container-high" />;
+    return (
+      <Image
+        source={{ uri }}
+        className="h-14 w-14 rounded-lg border border-surface-container-high bg-surface-container-high"
+      />
+    );
   }
   return (
-    <View className="h-12 w-12 items-center justify-center rounded-lg bg-surface-container-high">
-      <Text className="text-lg font-bold text-on-surface-muted">{label.charAt(0).toUpperCase() || '?'}</Text>
+    <View className="h-14 w-14 items-center justify-center rounded-lg border border-surface-container-high bg-surface-container-high">
+      <Text className="font-sans text-lg font-bold text-on-surface-muted">{label.charAt(0).toUpperCase() || '?'}</Text>
     </View>
   );
 }
@@ -50,6 +63,7 @@ function PlanExerciseRowCard({ row, isFirst, isLast }: { row: PlanExerciseRow; i
   const [restError, setRestError] = useState<string | null>(null);
 
   const displayName = row.exerciseNameDe ?? row.exerciseName ?? 'Unbekannte Übung';
+  const isCustomRest = row.restSeconds != null && !REST_PRESETS.includes(row.restSeconds);
 
   function reportError(message: string) {
     return (error: unknown) => {
@@ -108,109 +122,151 @@ function PlanExerciseRowCard({ row, isFirst, isLast }: { row: PlanExerciseRow; i
 
   return (
     <View className="mb-3 rounded-lg border border-surface-container-high bg-surface-container">
-      <Pressable onPress={() => setExpanded((value) => !value)} className="flex-row items-center p-3">
+      <Pressable
+        onPress={() => setExpanded((value) => !value)}
+        android_ripple={{ color: '#ffffff0f' }}
+        className="flex-row items-center p-3 active:opacity-90"
+      >
         <ExerciseThumbnail uri={row.exerciseThumbnailUrl} label={displayName} />
         <View className="ml-3 flex-1">
-          <Text numberOfLines={1} className="text-base font-bold text-primary">
+          <Text numberOfLines={1} className="font-sans text-base font-bold text-on-surface">
             {displayName}
           </Text>
-          <Text className="mt-0.5 text-xs uppercase tracking-wide text-on-surface-muted">
+          <Text className="mt-0.5 font-sans text-sm text-on-surface-muted" style={{ fontVariant: ['tabular-nums'] }}>
             {formatPlanExerciseSummary(row)}
           </Text>
         </View>
         <Pressable
           disabled={isFirst}
+          hitSlop={6}
           onPress={() => movePlanExercise(row.id, 'hoch').catch(reportError('Reihenfolge konnte nicht geändert werden.'))}
-          className="h-12 w-12 items-center justify-center"
+          className="h-11 w-11 items-center justify-center active:opacity-70"
         >
-          <Text className={`text-lg ${isFirst ? 'text-on-surface-muted/30' : 'text-on-surface-muted'}`}>↑</Text>
+          <Ionicons name="chevron-up" size={20} color={isFirst ? COLOR_ON_SURFACE_MUTED_DIM : COLOR_ON_SURFACE_MUTED} />
         </Pressable>
         <Pressable
           disabled={isLast}
+          hitSlop={6}
           onPress={() => movePlanExercise(row.id, 'runter').catch(reportError('Reihenfolge konnte nicht geändert werden.'))}
-          className="h-12 w-12 items-center justify-center"
+          className="h-11 w-11 items-center justify-center active:opacity-70"
         >
-          <Text className={`text-lg ${isLast ? 'text-on-surface-muted/30' : 'text-on-surface-muted'}`}>↓</Text>
+          <Ionicons name="chevron-down" size={20} color={isLast ? COLOR_ON_SURFACE_MUTED_DIM : COLOR_ON_SURFACE_MUTED} />
         </Pressable>
         <Pressable
+          hitSlop={6}
           onPress={() => removePlanExercise(row.id).catch(reportError('Übung konnte nicht entfernt werden.'))}
-          className="h-12 w-12 items-center justify-center"
+          className="h-11 w-11 items-center justify-center active:opacity-70"
         >
-          <Text className="text-lg text-error">✕</Text>
+          <Ionicons name="trash-outline" size={20} color={COLOR_ERROR} />
         </Pressable>
       </Pressable>
 
       {expanded && (
         <View className="border-t border-surface-container-high p-3">
           <View className="mb-4 flex-row items-center justify-between">
-            <Text className="text-sm text-on-surface-muted">Sätze</Text>
+            <Text className="font-sans text-sm text-on-surface-muted">Sätze</Text>
             <View className="flex-row items-center">
               <Pressable
                 onPress={() => adjustSets(-1)}
                 disabled={row.targetSets <= 1}
-                className="h-10 w-10 items-center justify-center rounded-lg bg-surface-container-high"
+                android_ripple={{ color: '#ffffff1a' }}
+                className="h-12 w-12 items-center justify-center rounded-lg bg-surface-container-high active:opacity-80"
               >
-                <Text className="text-lg text-on-surface">–</Text>
+                <Ionicons name="remove" size={20} color={row.targetSets <= 1 ? COLOR_ON_SURFACE_MUTED_DIM : COLOR_ON_SURFACE} />
               </Pressable>
-              <Text className="mx-4 min-w-[24px] text-center text-lg font-bold text-on-surface">{row.targetSets}</Text>
+              <Text
+                className="mx-4 min-w-[32px] text-center font-sans text-2xl font-extrabold text-on-surface"
+                style={{ fontVariant: ['tabular-nums'] }}
+              >
+                {row.targetSets}
+              </Text>
               <Pressable
                 onPress={() => adjustSets(1)}
                 disabled={row.targetSets >= 20}
-                className="h-10 w-10 items-center justify-center rounded-lg bg-surface-container-high"
+                android_ripple={{ color: '#ffffff1a' }}
+                className="h-12 w-12 items-center justify-center rounded-lg bg-surface-container-high active:opacity-80"
               >
-                <Text className="text-lg text-on-surface">+</Text>
+                <Ionicons name="add" size={20} color={row.targetSets >= 20 ? COLOR_ON_SURFACE_MUTED_DIM : COLOR_ON_SURFACE} />
               </Pressable>
             </View>
           </View>
 
           <View className="flex-row gap-3">
             <View className="flex-1">
-              <Text className="mb-1 text-xs text-on-surface-muted">Wdh. Min</Text>
+              <Text className="mb-1 font-sans text-xs text-on-surface-muted">Wdh. Min</Text>
               <TextInput
                 value={minText}
                 onChangeText={setMinText}
                 onBlur={commitReps}
                 keyboardType="number-pad"
-                className="h-11 rounded-lg bg-surface px-3 text-on-surface"
+                placeholder="8"
+                placeholderClassName="text-on-surface-muted"
+                className="h-11 rounded-lg bg-surface px-3 font-sans text-on-surface"
+                style={{ fontVariant: ['tabular-nums'] }}
               />
             </View>
             <View className="flex-1">
-              <Text className="mb-1 text-xs text-on-surface-muted">Wdh. Max</Text>
+              <Text className="mb-1 font-sans text-xs text-on-surface-muted">Wdh. Max</Text>
               <TextInput
                 value={maxText}
                 onChangeText={setMaxText}
                 onBlur={commitReps}
                 keyboardType="number-pad"
-                className="h-11 rounded-lg bg-surface px-3 text-on-surface"
+                placeholder="12"
+                placeholderClassName="text-on-surface-muted"
+                className="h-11 rounded-lg bg-surface px-3 font-sans text-on-surface"
+                style={{ fontVariant: ['tabular-nums'] }}
               />
             </View>
           </View>
-          {repsError && <Text className="mt-1 text-xs text-error">{repsError}</Text>}
+          {repsError && <Text className="mt-1 font-sans text-xs text-error">{repsError}</Text>}
 
-          <Text className="mb-1 mt-4 text-xs text-on-surface-muted">Pause</Text>
-          <View className="flex-row flex-wrap gap-2">
+          <Text className="mb-1 mt-4 font-sans text-xs text-on-surface-muted">Pause</Text>
+          <View className="flex-row flex-wrap items-center gap-2">
             {REST_PRESETS.map((seconds) => (
               <Pressable
                 key={seconds}
                 onPress={() => selectRestPreset(seconds)}
-                className={`h-10 items-center justify-center rounded-full px-4 ${
+                android_ripple={{ color: '#21360033' }}
+                className={`h-10 items-center justify-center rounded-full px-4 active:opacity-90 ${
                   row.restSeconds === seconds ? 'bg-primary' : 'bg-surface-container-high'
                 }`}
               >
-                <Text className={row.restSeconds === seconds ? 'font-bold text-on-primary' : 'text-on-surface'}>{seconds}s</Text>
+                <Text
+                  className={`font-sans ${row.restSeconds === seconds ? 'font-bold text-on-primary' : 'text-on-surface'}`}
+                  style={{ fontVariant: ['tabular-nums'] }}
+                >
+                  {seconds}s
+                </Text>
               </Pressable>
             ))}
-            <TextInput
-              value={restText}
-              onChangeText={setRestText}
-              onBlur={commitRestFromText}
-              keyboardType="number-pad"
-              placeholder="frei"
-              placeholderClassName="text-on-surface-muted"
-              className="h-10 w-20 rounded-full bg-surface-container-high px-3 text-center text-on-surface"
-            />
+            {/* "Frei"-Chip: eigenes, permanent sichtbares Label statt eines
+                Placeholder-Texts als Beschriftung (siehe Abschlussbericht —
+                der Gerätetest zeigte "frei" als "trei" gerendert, vermutlich
+                Cursor/Placeholder-Überlappung bei zentriertem Text in einem
+                sehr schmalen Feld). Das Label ist jetzt ein eigenes <Text>,
+                die Zahl bekommt ein eigenes, breiteres Eingabefeld. */}
+            <View
+              className={`h-10 flex-row items-center gap-1.5 rounded-full px-3 ${
+                isCustomRest ? 'bg-primary' : 'bg-surface-container-high'
+              }`}
+            >
+              <Text className={`font-sans text-sm ${isCustomRest ? 'font-bold text-on-primary' : 'text-on-surface-muted'}`}>
+                Frei
+              </Text>
+              <TextInput
+                value={restText}
+                onChangeText={setRestText}
+                onBlur={commitRestFromText}
+                keyboardType="number-pad"
+                placeholder="Sek."
+                placeholderClassName="text-on-surface-muted"
+                className={`h-10 w-14 font-sans text-center ${isCustomRest ? 'font-bold text-on-primary' : 'text-on-surface'}`}
+                style={{ fontVariant: ['tabular-nums'] }}
+              />
+            </View>
           </View>
-          {restError && <Text className="mt-1 text-xs text-error">{restError}</Text>}
+          {restError && <Text className="mt-1 font-sans text-xs text-error">{restError}</Text>}
         </View>
       )}
     </View>
@@ -228,6 +284,7 @@ export default function PlanEditorScreen() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [loadedPlanId, setLoadedPlanId] = useState<string | null>(null);
+  const [nameFocused, setNameFocused] = useState(false);
 
   useEffect(() => {
     if (plan && loadedPlanId !== plan.id) {
@@ -238,6 +295,7 @@ export default function PlanEditorScreen() {
   }, [plan, loadedPlanId]);
 
   function commitName() {
+    setNameFocused(false);
     if (!plan) return;
     const trimmed = name.trim();
     if (!trimmed) {
@@ -277,7 +335,7 @@ export default function PlanEditorScreen() {
       <Stack.Screen options={{ title: 'Plan bearbeiten' }} />
       {!plan ? (
         <View className="flex-1 items-center justify-center bg-surface">
-          <Text className="text-on-surface-muted">Plan wird geladen…</Text>
+          <Text className="font-sans text-on-surface-muted">Plan wird geladen…</Text>
         </View>
       ) : (
         <View className="flex-1 bg-surface">
@@ -287,13 +345,17 @@ export default function PlanEditorScreen() {
             contentContainerClassName="px-4 pb-8 pt-4"
             ListHeaderComponent={
               <View className="mb-4">
+                <Text className="mb-1 font-sans text-xs text-on-surface-muted">Name</Text>
                 <TextInput
                   value={name}
                   onChangeText={setName}
+                  onFocus={() => setNameFocused(true)}
                   onBlur={commitName}
                   onSubmitEditing={commitName}
                   returnKeyType="done"
-                  className="h-12 rounded-lg border-b-2 border-primary bg-surface-container px-3 text-xl font-bold text-on-surface"
+                  className={`h-12 rounded-lg border bg-surface px-3 font-sans text-xl font-bold text-on-surface ${
+                    nameFocused ? 'border-primary' : 'border-outline'
+                  }`}
                   placeholder="Planname"
                   placeholderClassName="text-on-surface-muted"
                 />
@@ -302,21 +364,26 @@ export default function PlanEditorScreen() {
                   onChangeText={setDescription}
                   onBlur={commitDescription}
                   multiline
-                  className="mt-2 min-h-[44px] rounded-lg bg-surface-container px-3 py-2 text-sm text-on-surface"
+                  className="mt-2 min-h-[44px] rounded-lg bg-surface-container px-3 py-2 font-sans text-sm text-on-surface"
                   placeholder="Beschreibung (optional)"
                   placeholderClassName="text-on-surface-muted"
                 />
               </View>
             }
             ListEmptyComponent={
-              <Text className="mb-4 text-center text-sm text-on-surface-muted">Noch keine Übungen in diesem Plan.</Text>
+              <Text className="mb-4 text-center font-sans text-sm text-on-surface-muted">Noch keine Übungen in diesem Plan.</Text>
             }
             renderItem={({ item, index }) => (
               <PlanExerciseRowCard row={item} isFirst={index === 0} isLast={index === exerciseRows.length - 1} />
             )}
             ListFooterComponent={
-              <Pressable onPress={handleAddExercise} className="mt-2 h-14 items-center justify-center rounded-lg border border-primary">
-                <Text className="text-base font-bold text-primary">+ Übung hinzufügen</Text>
+              <Pressable
+                onPress={handleAddExercise}
+                android_ripple={{ color: '#ffffff1a' }}
+                className="mt-2 h-14 flex-row items-center justify-center gap-2 rounded-lg border border-outline active:opacity-80"
+              >
+                <Ionicons name="add" size={20} color={COLOR_ON_SURFACE} />
+                <Text className="font-sans text-base font-bold text-on-surface">Übung hinzufügen</Text>
               </Pressable>
             }
           />

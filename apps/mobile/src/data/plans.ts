@@ -12,6 +12,7 @@ import type { Plan, PlanExercise } from '@ascent/shared';
 import { db } from '../db/client';
 import { newId } from '../lib/ids';
 import { getOwnerUserId } from '../lib/owner';
+import { queueSyncPush } from '../db/sync';
 
 /**
  * Alle Schreiboperationen brauchen den lokalen Besitzer (FK-Grundlage,
@@ -131,6 +132,7 @@ export async function createPlan(name: string): Promise<Plan> {
     })
     .returning();
 
+  queueSyncPush();
   return row;
 }
 
@@ -149,6 +151,7 @@ export async function updatePlan(id: string, patch: PlanPatch): Promise<Plan | u
     .set({ name: parsed.name, description: parsed.description, updatedAt: Date.now() })
     .where(and(eq(plans.id, id), eq(plans.deleted, false)))
     .returning();
+  queueSyncPush();
   return row;
 }
 
@@ -160,6 +163,7 @@ export async function softDeletePlan(id: string): Promise<void> {
     .update(planExercises)
     .set({ deleted: true, updatedAt: now })
     .where(and(eq(planExercises.planId, id), eq(planExercises.deleted, false)));
+  queueSyncPush();
 }
 
 /** Übung an einen Plan anhängen: Position = aktuelles Maximum + 1, Defaults 3 Sätze / 90 s Pause. */
@@ -187,6 +191,7 @@ export async function addExerciseToPlan(planId: string, exerciseId: string): Pro
     })
     .returning();
 
+  queueSyncPush();
   return row;
 }
 
@@ -218,12 +223,14 @@ export async function updatePlanExercise(id: string, patch: PlanExercisePatch): 
     })
     .where(eq(planExercises.id, id))
     .returning();
+  queueSyncPush();
   return row;
 }
 
 /** Plan-Übung entfernen (Soft-Delete, keine Bestätigung — analog zum Design). */
 export async function removePlanExercise(id: string): Promise<void> {
   await db.update(planExercises).set({ deleted: true, updatedAt: Date.now() }).where(eq(planExercises.id, id));
+  queueSyncPush();
 }
 
 export type MoveDirection = 'hoch' | 'runter';
@@ -254,4 +261,5 @@ export async function movePlanExercise(id: string, richtung: MoveDirection): Pro
   const now = Date.now();
   await db.update(planExercises).set({ position: neighbor.position, updatedAt: now }).where(eq(planExercises.id, current.id));
   await db.update(planExercises).set({ position: current.position, updatedAt: now }).where(eq(planExercises.id, neighbor.id));
+  queueSyncPush();
 }

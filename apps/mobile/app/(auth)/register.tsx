@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import { ActivityIndicator, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { Link } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 import { authClient } from '../../src/auth/client';
+
+type FocusableField = 'name' | 'email' | 'password' | 'invite';
+
+const RIPPLE_ON_PRIMARY = { color: 'rgba(33,54,0,0.2)' };
 
 /** Deutsche Fehlermeldung je HTTP-Status von POST /auth/sign-up/email. */
 function registerErrorMessage(status: number | undefined, message: string | undefined): string {
@@ -24,13 +29,22 @@ function validate(name: string, email: string, password: string): string | null 
 
 // Kein eigenes Stitch-Design vorhanden — bewusst im selben Karten-Stil wie
 // design/login_mobile gehalten (konsistente "Dark Performance"-Optik).
+// "ASCENT" bleibt die einzige lime Markenausnahme; der Anmelden-Link ist
+// weiss+unterstrichen statt lime (Akzent-Diät).
 export default function RegisterScreen() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [inviteCode, setInviteCode] = useState('');
+  const [focusedField, setFocusedField] = useState<FocusableField | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  function borderClassName(field: FocusableField): string {
+    return `h-12 rounded-lg border-2 bg-surface px-4 text-on-surface ${
+      focusedField === field ? 'border-primary' : 'border-transparent'
+    }`;
+  }
 
   async function handleRegister() {
     setErrorMsg(null);
@@ -74,37 +88,39 @@ export default function RegisterScreen() {
       contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', padding: 16 }}
       keyboardShouldPersistTaps="handled"
     >
-      <Text className="text-primary text-4xl font-extrabold italic tracking-tighter text-center mb-8">
+      <Text className="mb-8 text-center font-sans text-4xl font-extrabold italic tracking-tighter text-primary">
         ASCENT
       </Text>
 
-      <View className="bg-surface-container rounded-xl p-6 gap-4 border border-surface-container-high">
-        <View className="items-center mb-2">
-          <Text className="text-on-surface text-2xl font-bold text-center">Konto erstellen</Text>
-          <Text className="text-on-surface-muted text-center mt-1">
+      <View className="gap-4 rounded-xl border border-surface-container-high bg-surface-container p-6">
+        <View className="mb-2 items-center">
+          <Text className="text-center font-sans text-2xl font-bold text-on-surface">Konto erstellen</Text>
+          <Text className="mt-1 text-center font-sans text-on-surface-muted">
             Leg dein Ascent-Konto an und starte dein Training.
           </Text>
         </View>
 
         <View className="gap-1">
-          <Text className="text-on-surface text-xs font-semibold uppercase tracking-wide">Name</Text>
+          <Text className="font-sans text-xs font-semibold uppercase tracking-wide text-on-surface">Name</Text>
           <TextInput
-            className="h-12 rounded-lg bg-surface px-4 text-on-surface"
+            className={borderClassName('name')}
             placeholder="Dein Name"
             placeholderTextColor="#a0a0a0"
             autoCapitalize="words"
             autoComplete="name"
             value={name}
             onChangeText={setName}
+            onFocus={() => setFocusedField('name')}
+            onBlur={() => setFocusedField(null)}
           />
         </View>
 
         <View className="gap-1">
-          <Text className="text-on-surface text-xs font-semibold uppercase tracking-wide">
+          <Text className="font-sans text-xs font-semibold uppercase tracking-wide text-on-surface">
             E-Mail Adresse
           </Text>
           <TextInput
-            className="h-12 rounded-lg bg-surface px-4 text-on-surface"
+            className={borderClassName('email')}
             placeholder="name@domain.com"
             placeholderTextColor="#a0a0a0"
             autoCapitalize="none"
@@ -112,58 +128,73 @@ export default function RegisterScreen() {
             keyboardType="email-address"
             value={email}
             onChangeText={setEmail}
+            onFocus={() => setFocusedField('email')}
+            onBlur={() => setFocusedField(null)}
           />
         </View>
 
         <View className="gap-1">
-          <Text className="text-on-surface text-xs font-semibold uppercase tracking-wide">Passwort</Text>
+          <Text className="font-sans text-xs font-semibold uppercase tracking-wide text-on-surface">Passwort</Text>
           <TextInput
-            className="h-12 rounded-lg bg-surface px-4 text-on-surface"
+            className={borderClassName('password')}
             placeholder="Mind. 8 Zeichen"
             placeholderTextColor="#a0a0a0"
             secureTextEntry
             autoComplete="password-new"
             value={password}
             onChangeText={setPassword}
+            onFocus={() => setFocusedField('password')}
+            onBlur={() => setFocusedField(null)}
           />
         </View>
 
         <View className="gap-1">
-          <Text className="text-on-surface text-xs font-semibold uppercase tracking-wide">
+          <Text className="font-sans text-xs font-semibold uppercase tracking-wide text-on-surface">
             Einladungscode
           </Text>
           <TextInput
-            className="h-12 rounded-lg bg-surface px-4 text-on-surface tracking-widest"
+            className={`tracking-widest ${borderClassName('invite')}`}
             placeholder="XXXXXXXXXXXX"
             placeholderTextColor="#a0a0a0"
             autoCapitalize="characters"
             autoCorrect={false}
             value={inviteCode}
             onChangeText={setInviteCode}
+            onFocus={() => setFocusedField('invite')}
+            onBlur={() => setFocusedField(null)}
           />
-          <Text className="text-on-surface-muted text-xs mt-1">
-            Code von deinem Trainingspartner — nur das allererste Konto braucht keinen.
-          </Text>
+          <View className="mt-1 flex-row items-start gap-1.5">
+            <Ionicons name="information-circle-outline" size={14} color="#a0a0a0" style={{ marginTop: 1 }} />
+            <Text className="flex-1 font-sans text-xs text-on-surface-muted">
+              Code von deinem Trainingspartner — nur das allererste Konto braucht keinen.
+            </Text>
+          </View>
         </View>
 
-        {errorMsg && <Text className="text-error text-sm">{errorMsg}</Text>}
+        {errorMsg && (
+          <View className="flex-row items-center gap-2 rounded-lg bg-error/10 p-3">
+            <Ionicons name="alert-circle-outline" size={18} color="#ffb4ab" />
+            <Text className="flex-1 font-sans text-sm text-error">{errorMsg}</Text>
+          </View>
+        )}
 
         <Pressable
-          className="h-14 rounded-lg bg-primary items-center justify-center flex-row gap-2 mt-2"
+          className="mt-2 h-14 flex-row items-center justify-center gap-2 rounded-lg bg-primary"
+          android_ripple={RIPPLE_ON_PRIMARY}
           onPress={handleRegister}
           disabled={loading}
         >
           {loading ? (
             <ActivityIndicator color="#213600" />
           ) : (
-            <Text className="text-on-primary font-bold text-base">Konto erstellen</Text>
+            <Text className="font-sans text-base font-bold text-on-primary">Konto erstellen</Text>
           )}
         </Pressable>
 
-        <View className="items-center mt-2">
-          <Text className="text-on-surface-muted">
+        <View className="mt-2 items-center">
+          <Text className="font-sans text-on-surface-muted">
             Schon ein Konto?{' '}
-            <Link href="/login" className="text-primary font-bold">
+            <Link href="/login" className="font-sans font-bold text-on-surface underline">
               Anmelden
             </Link>
           </Text>

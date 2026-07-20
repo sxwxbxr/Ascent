@@ -2,14 +2,22 @@ import { useState } from 'react';
 import { Alert, Image, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 
 import {
   buildExerciseByIdQuery,
+  capitalizeWords,
   categoryLabelDe,
   EXERCISE_CATEGORIES,
+  muscleLabelDe,
   softDeleteOwnExercise,
   updateOwnExercise,
 } from '../../src/data/exercises';
+
+// Ionicons-Farben als Literale — Icon-Komponenten unterstützen keine
+// className-Farbsteuerung, siehe tailwind.config.js für die Quelle der Tokens.
+const COLOR_ON_SURFACE = '#e5e2e1';
+const COLOR_ERROR = '#ffb4ab';
 
 export default function ExerciseDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -85,7 +93,7 @@ export default function ExerciseDetailScreen() {
     return (
       <View className="flex-1 items-center justify-center bg-surface">
         <Stack.Screen options={{ title: 'Übung' }} />
-        <Text className="text-on-surface-muted">Übung wird geladen…</Text>
+        <Text className="font-sans text-on-surface-muted">Übung wird geladen…</Text>
       </View>
     );
   }
@@ -99,121 +107,146 @@ export default function ExerciseDetailScreen() {
     <View className="flex-1 bg-surface">
       <Stack.Screen options={{ title: displayName }} />
       <ScrollView contentContainerClassName="pb-8">
-        {exercise.gifUrl ? (
-          <Image source={{ uri: exercise.gifUrl }} className="aspect-square w-full bg-surface-container" resizeMode="cover" />
-        ) : (
-          <View className="aspect-square w-full items-center justify-center bg-surface-container">
-            <Text className="text-6xl font-bold text-on-surface-muted">{displayName.charAt(0).toUpperCase() || '?'}</Text>
-          </View>
-        )}
+        <View className="px-4 pt-4">
+          {exercise.gifUrl ? (
+            <Image
+              source={{ uri: exercise.gifUrl }}
+              className="aspect-square w-full rounded-xl border border-surface-container-high bg-surface-container"
+              resizeMode="cover"
+            />
+          ) : (
+            <View className="aspect-square w-full items-center justify-center rounded-xl border border-surface-container-high bg-surface-container">
+              <Text className="font-sans text-6xl font-bold text-on-surface-muted">{displayName.charAt(0).toUpperCase() || '?'}</Text>
+            </View>
+          )}
+        </View>
 
         <View className="px-4 pt-4">
-          <Text className="text-2xl font-bold text-on-surface">{displayName}</Text>
+          <Text className="font-sans text-2xl font-extrabold text-on-surface">{displayName}</Text>
 
           <View className="mt-3 flex-row flex-wrap gap-2">
             {exercise.category && (
               <View className="rounded-full bg-surface-container-high px-3 py-1.5">
-                <Text className="text-xs font-bold uppercase text-on-surface">{categoryLabelDe(exercise.category)}</Text>
+                <Text className="font-sans text-xs font-bold uppercase text-on-surface">{categoryLabelDe(exercise.category)}</Text>
               </View>
             )}
             {exercise.primaryMuscle && (
               <View className="rounded-full bg-surface-container-high px-3 py-1.5">
-                <Text className="text-xs font-bold uppercase text-on-surface">{exercise.primaryMuscle}</Text>
+                <Text className="font-sans text-xs font-bold uppercase text-on-surface">{muscleLabelDe(exercise.primaryMuscle)}</Text>
               </View>
             )}
             {exercise.equipment && (
               <View className="rounded-full bg-surface-container-high px-3 py-1.5">
-                <Text className="text-xs font-bold uppercase text-on-surface">{exercise.equipment}</Text>
+                <Text className="font-sans text-xs font-bold uppercase text-on-surface">{capitalizeWords(exercise.equipment)}</Text>
               </View>
             )}
           </View>
 
-          <Text className="mb-1 mt-6 text-sm font-bold uppercase tracking-wide text-primary">Ausführung</Text>
+          <Text className="mb-1 mt-6 font-sans text-sm font-bold uppercase tracking-wide text-primary">Ausführung</Text>
           {instructionsText ? (
             <>
-              {isEnglishOnly && <Text className="mb-2 text-xs italic text-on-surface-muted">Auf Englisch — Übersetzung folgt</Text>}
-              <Text className="text-base leading-6 text-on-surface-muted">{instructionsText}</Text>
+              {isEnglishOnly && (
+                <Text className="mb-2 font-sans text-xs italic text-on-surface-muted">Auf Englisch — Übersetzung folgt</Text>
+              )}
+              <Text className="font-sans text-base leading-6 text-on-surface-muted">{instructionsText}</Text>
             </>
           ) : (
-            <Text className="text-base text-on-surface-muted">Keine Anleitung vorhanden.</Text>
+            <Text className="font-sans text-base text-on-surface-muted">Keine Anleitung vorhanden.</Text>
           )}
 
           {isOwn && !editing && (
             <View className="mt-6 flex-row gap-3">
-              <Pressable onPress={startEditing} className="h-12 flex-1 items-center justify-center rounded-lg border border-primary">
-                <Text className="font-bold text-primary">Bearbeiten</Text>
+              <Pressable
+                onPress={startEditing}
+                android_ripple={{ color: '#ffffff1a' }}
+                className="h-12 flex-1 flex-row items-center justify-center gap-2 rounded-lg border border-outline active:opacity-80"
+              >
+                <Ionicons name="pencil-outline" size={18} color={COLOR_ON_SURFACE} />
+                <Text className="font-sans font-bold text-on-surface">Bearbeiten</Text>
               </Pressable>
-              <Pressable onPress={handleDelete} className="h-12 flex-1 items-center justify-center rounded-lg border border-error">
-                <Text className="font-bold text-error">Löschen</Text>
+              <Pressable
+                onPress={handleDelete}
+                android_ripple={{ color: '#ffffff1a' }}
+                className="h-12 flex-1 flex-row items-center justify-center gap-2 rounded-lg border border-outline active:opacity-80"
+              >
+                <Ionicons name="trash-outline" size={18} color={COLOR_ERROR} />
+                <Text className="font-sans font-bold text-on-surface">Löschen</Text>
               </Pressable>
             </View>
           )}
 
           {isOwn && editing && (
             <View className="mt-6">
-              <Text className="mb-1 text-sm text-on-surface-muted">Name *</Text>
-              <TextInput value={name} onChangeText={setName} className="h-12 rounded-lg bg-surface-container px-3 text-base text-on-surface" />
+              <Text className="mb-1 font-sans text-sm text-on-surface-muted">Name *</Text>
+              <TextInput
+                value={name}
+                onChangeText={setName}
+                className="h-12 rounded-lg bg-surface-container px-3 font-sans text-base text-on-surface"
+              />
 
-              <Text className="mb-1 mt-4 text-sm text-on-surface-muted">Kategorie</Text>
+              <Text className="mb-1 mt-4 font-sans text-sm text-on-surface-muted">Kategorie</Text>
               <View className="flex-row flex-wrap gap-2">
                 <Pressable
                   onPress={() => setCategory(null)}
-                  className={`h-10 items-center justify-center rounded-full px-4 ${
+                  className={`h-10 items-center justify-center rounded-full px-4 active:opacity-90 ${
                     category === null ? 'bg-primary' : 'bg-surface-container-high'
                   }`}
                 >
-                  <Text className={category === null ? 'font-bold text-on-primary' : 'text-on-surface'}>Keine</Text>
+                  <Text className={`font-sans ${category === null ? 'font-bold text-on-primary' : 'text-on-surface'}`}>Keine</Text>
                 </Pressable>
                 {EXERCISE_CATEGORIES.map((item) => (
                   <Pressable
                     key={item.value}
                     onPress={() => setCategory(item.value)}
-                    className={`h-10 items-center justify-center rounded-full px-4 ${
+                    className={`h-10 items-center justify-center rounded-full px-4 active:opacity-90 ${
                       category === item.value ? 'bg-primary' : 'bg-surface-container-high'
                     }`}
                   >
-                    <Text className={category === item.value ? 'font-bold text-on-primary' : 'text-on-surface'}>{item.labelDe}</Text>
+                    <Text className={`font-sans ${category === item.value ? 'font-bold text-on-primary' : 'text-on-surface'}`}>
+                      {item.labelDe}
+                    </Text>
                   </Pressable>
                 ))}
               </View>
 
-              <Text className="mb-1 mt-4 text-sm text-on-surface-muted">Zielmuskel</Text>
+              <Text className="mb-1 mt-4 font-sans text-sm text-on-surface-muted">Zielmuskel</Text>
               <TextInput
                 value={primaryMuscle}
                 onChangeText={setPrimaryMuscle}
-                className="h-12 rounded-lg bg-surface-container px-3 text-base text-on-surface"
+                className="h-12 rounded-lg bg-surface-container px-3 font-sans text-base text-on-surface"
               />
 
-              <Text className="mb-1 mt-4 text-sm text-on-surface-muted">Equipment</Text>
+              <Text className="mb-1 mt-4 font-sans text-sm text-on-surface-muted">Equipment</Text>
               <TextInput
                 value={equipment}
                 onChangeText={setEquipment}
-                className="h-12 rounded-lg bg-surface-container px-3 text-base text-on-surface"
+                className="h-12 rounded-lg bg-surface-container px-3 font-sans text-base text-on-surface"
               />
 
-              <Text className="mb-1 mt-4 text-sm text-on-surface-muted">Anleitung</Text>
+              <Text className="mb-1 mt-4 font-sans text-sm text-on-surface-muted">Anleitung</Text>
               <TextInput
                 value={instructions}
                 onChangeText={setInstructions}
                 multiline
                 numberOfLines={5}
                 textAlignVertical="top"
-                className="min-h-[120px] rounded-lg bg-surface-container px-3 py-2 text-base text-on-surface"
+                className="min-h-[120px] rounded-lg bg-surface-container px-3 py-2 font-sans text-base text-on-surface"
               />
 
               <View className="mt-4 flex-row gap-3">
                 <Pressable
                   onPress={() => setEditing(false)}
-                  className="h-12 flex-1 items-center justify-center rounded-lg border border-outline"
+                  className="h-12 flex-1 items-center justify-center rounded-lg border border-outline active:opacity-80"
                 >
-                  <Text className="font-bold text-on-surface-muted">Abbrechen</Text>
+                  <Text className="font-sans font-bold text-on-surface-muted">Abbrechen</Text>
                 </Pressable>
                 <Pressable
                   onPress={handleSave}
                   disabled={saving}
-                  className={`h-12 flex-1 items-center justify-center rounded-lg ${saving ? 'bg-primary/50' : 'bg-primary'}`}
+                  android_ripple={{ color: '#21360033' }}
+                  className={`h-12 flex-1 items-center justify-center rounded-lg active:opacity-90 ${saving ? 'bg-primary/50' : 'bg-primary'}`}
                 >
-                  <Text className="font-bold text-on-primary">Speichern</Text>
+                  <Text className="font-sans font-bold text-on-primary">Speichern</Text>
                 </Pressable>
               </View>
             </View>

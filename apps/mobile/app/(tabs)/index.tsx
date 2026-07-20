@@ -1,15 +1,24 @@
-import { useState } from 'react';
-import { FlatList, Modal, Pressable, ScrollView, Text, View } from 'react-native';
+import { useEffect, useMemo, useState } from 'react';
+import { FlatList, Modal, Pressable, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
-import { and, asc, eq, sql } from 'drizzle-orm';
-import { planExercises, plans } from '@ascent/shared';
 
-import { db } from '../../src/db/client';
-import { getActiveWorkout, getFinishedWorkoutSummaries, startWorkout } from '../../src/data/workouts';
+import { Screen } from '../../src/ui/Screen';
+import { buildPlanExerciseCountsQuery, buildPlansQuery } from '../../src/data/plans';
+import {
+  getActiveWorkout,
+  getFinishedWorkoutSummaries,
+  getWeeklySetStats,
+  getWeeklyWorkoutCount,
+  startWorkout,
+} from '../../src/data/workouts';
+import { getOwnerUserId } from '../../src/lib/owner';
 
-// Home-Screen (Design: design/dashboard). Begrüssung + Datum, aktives Workout
-// (Banner) oder Start-CTA (Plan-Auswahl-Modal), zuletzt abgeschlossene Trainings.
+// Home-Screen (Design: design/dashboard). Begrüssung + Datum (jetzt über den
+// gemeinsamen Screen-Wrapper — der Gerätetest zeigte "Hallo!" unter der
+// Statusleiste), aktives Workout (Banner) oder Start-CTA (Plan-Auswahl-Modal),
+// Wochen-Kennzahlen, zuletzt abgeschlossene Trainings.
 
 const todayLabel = new Intl.DateTimeFormat('de-CH', {
   weekday: 'long',
@@ -21,29 +30,57 @@ const todayLabel = new Intl.DateTimeFormat('de-CH', {
 const dateFormatter = new Intl.DateTimeFormat('de-CH', { day: '2-digit', month: '2-digit', year: 'numeric' });
 const numberFormatter = new Intl.NumberFormat('de-CH', { maximumFractionDigits: 0 });
 
-function ownPlansQuery() {
-  return db
-    .select({
-      id: plans.id,
-      name: plans.name,
-      exerciseCount: sql<number>`count(${planExercises.id})`.as('exercise_count'),
-    })
-    .from(plans)
-    .leftJoin(planExercises, and(eq(planExercises.planId, plans.id), eq(planExercises.deleted, false)))
-    .where(eq(plans.deleted, false))
-    .groupBy(plans.id)
-    .orderBy(asc(plans.name));
+/**
+ * Anzahl (nicht gelöschter) Plan-Übungen je Plan für den Start-Picker.
+ * Basistabelle `plan_exercises` (analog zu (tabs)/plans.tsx) statt des
+ * vorherigen leftJoin-Counts mit `plans` als Basistabelle — das war der im
+ * Gerätetest gefundene Zähl-Bug: useLiveQuery reagiert NUR auf die
+ * FROM-Basistabelle, Änderungen an plan_exercises lösten also nie ein
+ * Update des Modals aus ("Pull — 0 Übungen" trotz 1 Übung im Pläne-Tab).
+ */
+function usePlanExerciseCounts(): Map<string, number> {
+  const { data } = useLiveQuery(buildPlanExerciseCountsQuery());
+  return useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const row of data) {
+      counts.set(row.planId, (counts.get(row.planId) ?? 0) + 1);
+    }
+    return counts;
+  }, [data]);
+}
+
+function formatExerciseCount(count: number): string {
+  return count === 1 ? '1 Übung' : `${count} Übungen`;
 }
 
 export default function HomeScreen() {
   const [pickerVisible, setPickerVisible] = useState(false);
   const [starting, setStarting] = useState(false);
+  const [ownerUserId, setOwnerUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    getOwnerUserId().then((id) => {
+      if (!cancelled) setOwnerUserId(id);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const { data: activeWorkouts } = useLiveQuery(getActiveWorkout());
-  const { data: ownPlans } = useLiveQuery(ownPlansQuery());
+  // Placeholder-Query ('' matcht nie eine echte userId) solange ownerUserId
+  // noch lädt — hält die Hook-Reihenfolge stabil (kein bedingter Hook-Aufruf).
+  const { data: ownPlans } = useLiveQuery(buildPlansQuery(ownerUserId ?? ''), [ownerUserId]);
+  const exerciseCounts = usePlanExerciseCounts();
   const { data: recentWorkouts } = useLiveQuery(getFinishedWorkoutSummaries(3));
+  const { data: weeklyWorkoutRows } = useLiveQuery(getWeeklyWorkoutCount());
+  const { data: weeklySetRows } = useLiveQuery(getWeeklySetStats());
 
   const activeWorkout = activeWorkouts?.[0];
+  const weeklyWorkoutCount = weeklyWorkoutRows?.[0]?.count ?? 0;
+  const weeklySetCount = weeklySetRows?.[0]?.setCount ?? 0;
+  const weeklyVolumeKg = weeklySetRows?.[0]?.volumeKg ?? 0;
 
   async function handleStart(planId?: string): Promise<void> {
     if (starting) return;
@@ -58,72 +95,92 @@ export default function HomeScreen() {
   }
 
   return (
-    <View className="flex-1 bg-surface">
-      <ScrollView className="flex-1" contentContainerClassName="p-4 gap-6" contentInsetAdjustmentBehavior="automatic">
-        <View className="gap-1 pt-2">
-          <Text className="text-3xl font-extrabold text-on-surface">Hallo!</Text>
-          <Text className="text-base text-on-surface-muted">{todayLabel}</Text>
-        </View>
-
-        {activeWorkout ? (
-          <Pressable
-            onPress={() => router.push('/workout/active')}
-            className="min-h-[48px] rounded-lg bg-primary p-4 active:opacity-90"
-          >
-            <Text className="text-xs font-semibold uppercase tracking-widest text-on-primary">
-              Training läuft
-            </Text>
-            <View className="mt-2 flex-row items-center justify-between">
-              <Text className="text-xl font-extrabold text-on-primary">
-                {activeWorkout.planName ?? 'Freies Training'} — fortsetzen
-              </Text>
-              <Text className="text-2xl font-extrabold text-on-primary">→</Text>
-            </View>
-          </Pressable>
-        ) : (
-          <Pressable
-            onPress={() => setPickerVisible(true)}
-            className="min-h-[56px] items-center justify-center rounded-lg bg-primary active:opacity-90"
-          >
-            <Text className="text-lg font-extrabold uppercase tracking-wide text-on-primary">
-              Training starten
-            </Text>
-          </Pressable>
-        )}
-
-        <View className="gap-3">
-          <Text className="text-xs font-semibold uppercase tracking-widest text-on-surface-muted">
-            Letzte Trainings
+    <Screen title="Hallo!" subtitle={todayLabel}>
+      {/* Einziger Lime-CTA des Screens: entweder Fortsetzen-Banner ODER Start-CTA. */}
+      {activeWorkout ? (
+        <Pressable
+          onPress={() => router.push('/workout/active')}
+          android_ripple={{ color: 'rgba(0,0,0,0.1)' }}
+          className="min-h-[56px] rounded-lg bg-primary p-4 active:opacity-90"
+        >
+          <Text className="font-sans text-xs font-semibold uppercase tracking-widest text-on-primary">
+            Training läuft
           </Text>
+          <View className="mt-2 flex-row items-center justify-between">
+            <Text className="flex-1 pr-2 font-sans text-xl font-extrabold text-on-primary" numberOfLines={1}>
+              {activeWorkout.planName ?? 'Freies Training'} — fortsetzen
+            </Text>
+            <Ionicons name="arrow-forward" size={24} color="#213600" />
+          </View>
+        </Pressable>
+      ) : (
+        <Pressable
+          onPress={() => setPickerVisible(true)}
+          android_ripple={{ color: 'rgba(0,0,0,0.1)' }}
+          className="h-14 flex-row items-center justify-center gap-2 rounded-lg bg-primary active:opacity-90"
+        >
+          <Ionicons name="play" size={22} color="#213600" />
+          <Text className="font-sans text-lg font-extrabold uppercase tracking-wide text-on-primary">
+            Training starten
+          </Text>
+        </Pressable>
+      )}
 
-          {recentWorkouts !== undefined && recentWorkouts.length === 0 ? (
-            <View className="rounded-lg bg-surface-container p-4">
-              <Text className="text-on-surface-muted">
-                Noch keine abgeschlossenen Trainings — leg los, sobald du bereit bist!
-              </Text>
+      <View className="gap-3">
+        <Text className="font-sans text-xs font-semibold uppercase tracking-widest text-on-surface-muted">
+          Diese Woche
+        </Text>
+        <View className="flex-row gap-3">
+          <StatTile label="Trainings" value={String(weeklyWorkoutCount)} />
+          <StatTile label="Sätze" value={String(weeklySetCount)} />
+          <StatTile label="Volumen" value={`${numberFormatter.format(weeklyVolumeKg)} kg`} />
+        </View>
+      </View>
+
+      <View className="gap-3">
+        <Text className="font-sans text-xs font-semibold uppercase tracking-widest text-on-surface-muted">
+          Letzte Trainings
+        </Text>
+
+        {recentWorkouts !== undefined && recentWorkouts.length === 0 ? (
+          <View className="items-center gap-2 rounded-lg bg-surface-container p-6">
+            <Ionicons name="barbell-outline" size={28} color="#a0a0a0" />
+            <Text className="text-center font-sans text-on-surface-muted">
+              Noch keine abgeschlossenen Trainings — leg los, sobald du bereit bist!
+            </Text>
+          </View>
+        ) : null}
+
+        {recentWorkouts?.map((workout) => (
+          <Pressable
+            key={workout.id}
+            onPress={() => router.push(`/workout/${workout.id}`)}
+            android_ripple={{ color: 'rgba(255,255,255,0.08)' }}
+            className="min-h-[48px] flex-row items-center gap-3 rounded-lg bg-surface-container p-4 active:opacity-80"
+          >
+            <View className="h-10 w-10 items-center justify-center rounded-full bg-surface-container-high">
+              <Ionicons name="barbell" size={18} color="#e5e2e1" />
             </View>
-          ) : null}
-
-          {recentWorkouts?.map((workout) => (
-            <Pressable
-              key={workout.id}
-              onPress={() => router.push(`/workout/${workout.id}`)}
-              className="min-h-[48px] rounded-lg bg-surface-container p-4 active:opacity-80"
-            >
+            <View className="flex-1">
               <View className="flex-row items-center justify-between">
-                <Text className="font-bold text-on-surface">{workout.planName ?? 'Freies Training'}</Text>
-                <Text className="text-sm text-on-surface-muted">
+                <Text className="flex-1 pr-2 font-sans font-bold text-on-surface" numberOfLines={1}>
+                  {workout.planName ?? 'Freies Training'}
+                </Text>
+                <Text className="font-sans text-sm text-on-surface-muted">
                   {workout.finishedAt ? dateFormatter.format(new Date(workout.finishedAt)) : ''}
                 </Text>
               </View>
-              <Text className="mt-1 text-sm text-on-surface-muted">
+              <Text
+                className="mt-1 font-sans text-sm text-on-surface-muted"
+                style={{ fontVariant: ['tabular-nums'] }}
+              >
                 {workout.setCount} {workout.setCount === 1 ? 'Satz' : 'Sätze'} ·{' '}
                 {numberFormatter.format(workout.volumeKg)} kg
               </Text>
-            </Pressable>
-          ))}
-        </View>
-      </ScrollView>
+            </View>
+          </Pressable>
+        ))}
+      </View>
 
       <Modal
         visible={pickerVisible}
@@ -133,7 +190,7 @@ export default function HomeScreen() {
       >
         <Pressable className="flex-1 justify-end bg-black/60" onPress={() => setPickerVisible(false)}>
           <Pressable className="rounded-t-xl bg-surface-container p-4 pb-8" onPress={() => {}}>
-            <Text className="mb-3 text-lg font-bold text-on-surface">Training starten</Text>
+            <Text className="mb-3 font-sans text-lg font-bold text-on-surface">Training starten</Text>
 
             <FlatList
               data={ownPlans ?? []}
@@ -143,29 +200,48 @@ export default function HomeScreen() {
                 <Pressable
                   disabled={starting}
                   onPress={() => handleStart(item.id)}
+                  android_ripple={{ color: 'rgba(255,255,255,0.08)' }}
                   className="min-h-[48px] flex-row items-center justify-between rounded-lg bg-surface-container-high px-4 py-3 active:opacity-80"
                 >
-                  <Text className="font-semibold text-on-surface">{item.name}</Text>
-                  <Text className="text-sm text-on-surface-muted">
-                    {item.exerciseCount} {item.exerciseCount === 1 ? 'Übung' : 'Übungen'}
+                  <Text className="font-sans font-semibold text-on-surface">{item.name}</Text>
+                  <Text className="font-sans text-sm text-on-surface-muted">
+                    {formatExerciseCount(exerciseCounts.get(item.id) ?? 0)}
                   </Text>
                 </Pressable>
               )}
               ListEmptyComponent={
-                <Text className="px-1 py-2 text-sm text-on-surface-muted">Noch keine eigenen Pläne.</Text>
+                <Text className="px-1 py-2 font-sans text-sm text-on-surface-muted">Noch keine eigenen Pläne.</Text>
               }
             />
 
             <Pressable
               disabled={starting}
               onPress={() => handleStart(undefined)}
+              android_ripple={{ color: 'rgba(255,255,255,0.08)' }}
               className="mt-2 min-h-[48px] items-center justify-center rounded-lg border border-outline px-4 py-3 active:opacity-80"
             >
-              <Text className="font-semibold text-on-surface">Freies Training</Text>
+              <Text className="font-sans font-semibold text-on-surface">Freies Training</Text>
             </Pressable>
           </Pressable>
         </Pressable>
       </Modal>
+    </Screen>
+  );
+}
+
+function StatTile({ label, value }: { label: string; value: string }) {
+  return (
+    <View className="flex-1 gap-1 rounded-lg bg-surface-container p-3">
+      <Text
+        className="font-sans text-xl font-extrabold text-on-surface"
+        style={{ fontVariant: ['tabular-nums'] }}
+        numberOfLines={1}
+      >
+        {value}
+      </Text>
+      <Text className="font-sans text-xs text-on-surface-muted" numberOfLines={1}>
+        {label}
+      </Text>
     </View>
   );
 }

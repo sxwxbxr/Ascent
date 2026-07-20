@@ -502,3 +502,21 @@ export function runSyncThrottled(): void {
   lastAppStateSyncAttemptAt = now;
   runSync().catch((err) => console.log('[sync] runSync (AppState) fehlgeschlagen:', err));
 }
+
+let queuedPushTimer: ReturnType<typeof setTimeout> | null = null;
+
+/**
+ * Live-Sync: Nach jeder lokalen Schreiboperation aufrufen (Ende der
+ * Mutations-Helpers in src/data/*). Debounced (4 s nach der letzten
+ * Änderung), damit Serien-Edits — z. B. mehrere Sätze nacheinander —
+ * in EINEM Sync landen. So erscheinen App-Änderungen ohne manuellen
+ * Sync innert Sekunden im Web-Dashboard (das seinerseits per
+ * Delta-Polling nachzieht).
+ */
+export function queueSyncPush(delayMs = 4000): void {
+  if (queuedPushTimer) clearTimeout(queuedPushTimer);
+  queuedPushTimer = setTimeout(() => {
+    queuedPushTimer = null;
+    runSync().catch((err) => console.log('[sync] runSync (queueSyncPush) fehlgeschlagen:', err));
+  }, delayMs);
+}

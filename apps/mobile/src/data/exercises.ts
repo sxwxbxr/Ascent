@@ -6,6 +6,7 @@ import type { Exercise } from '@ascent/shared';
 import { db } from '../db/client';
 import { newId } from '../lib/ids';
 import { getOwnerUserId } from '../lib/owner';
+import { queueSyncPush } from '../db/sync';
 
 async function requireOwnerUserId(): Promise<string> {
   const userId = await getOwnerUserId();
@@ -36,6 +37,49 @@ export const EXERCISE_CATEGORIES: ReadonlyArray<{ value: string; labelDe: string
 export function categoryLabelDe(category: string | null | undefined): string | null {
   if (!category) return null;
   return EXERCISE_CATEGORIES.find((c) => c.value === category)?.labelDe ?? category;
+}
+
+/**
+ * Deutsches Label je Zielmuskel (englisch in der DB, siehe Import-Datenlage —
+ * gleiche Konvention wie EXERCISE_CATEGORIES/categoryLabelDe). Werte gemäss
+ * der ExerciseDB-Taxonomie, die der `hasaneyldrm/exercises-dataset`-Import
+ * verwendet (siehe scripts/import-exercises.ts).
+ */
+export const MUSCLE_LABELS_DE: Readonly<Record<string, string>> = {
+  abs: 'Bauch',
+  lats: 'Latissimus',
+  quads: 'Quadrizeps',
+  calves: 'Waden',
+  pectorals: 'Brust',
+  delts: 'Schultern',
+  biceps: 'Bizeps',
+  triceps: 'Trizeps',
+  glutes: 'Gesäss',
+  hamstrings: 'Beinbeuger',
+  traps: 'Trapez',
+  forearms: 'Unterarme',
+  spine: 'unterer Rücken',
+  'cardiovascular system': 'Cardio',
+  'upper back': 'oberer Rücken',
+  adductors: 'Adduktoren',
+  abductors: 'Abduktoren',
+  'serratus anterior': 'Sägemuskel',
+  'levator scapulae': 'Nacken',
+  ankles: 'Fussgelenke',
+};
+
+/** Deutsches Label für einen Zielmuskel-Rohwert; unbekannte Werte fallen auf das Original zurück. */
+export function muscleLabelDe(muscle: string | null | undefined): string | null {
+  if (!muscle) return null;
+  return MUSCLE_LABELS_DE[muscle] ?? muscle;
+}
+
+/** Zeigt Equipment-Rohwerte (z. B. "body weight") kapitalisiert an ("Body Weight") — Anzeige-only, Rohwert bleibt Filterschlüssel. */
+export function capitalizeWords(value: string): string {
+  return value
+    .split(' ')
+    .map((word) => (word ? word.charAt(0).toUpperCase() + word.slice(1) : word))
+    .join(' ');
 }
 
 // ---------------------------------------------------------------------------
@@ -143,6 +187,7 @@ export async function createOwnExercise(input: OwnExerciseInput): Promise<Exerci
     })
     .returning();
 
+  queueSyncPush();
   return row;
 }
 
@@ -166,6 +211,7 @@ export async function updateOwnExercise(id: string, patch: OwnExercisePatch): Pr
     .where(and(eq(exercises.id, id), eq(exercises.userId, userId), eq(exercises.deleted, false)))
     .returning();
 
+  queueSyncPush();
   return row;
 }
 
@@ -176,4 +222,5 @@ export async function softDeleteOwnExercise(id: string): Promise<void> {
     .update(exercises)
     .set({ deleted: true, updatedAt: Date.now() })
     .where(and(eq(exercises.id, id), eq(exercises.userId, userId), eq(exercises.deleted, false)));
+  queueSyncPush();
 }

@@ -4,6 +4,13 @@ module.exports = {
   presets: [require('nativewind/preset')],
   theme: {
     extend: {
+      // Nativ eingebettete Familie (app.json expo-font-Plugin): fontWeight
+      // wählt auf Android automatisch die richtige Gewichts-Variante.
+      // RN kennt KEINE Textvererbung — font-sans muss pro <Text> gesetzt
+      // werden (Konvention: jede Text-Komponente trägt font-sans).
+      fontFamily: {
+        sans: ['Inter'],
+      },
       colors: {
         surface: '#131313',
         'surface-container': '#1e1e1e',

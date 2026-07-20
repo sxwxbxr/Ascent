@@ -2,10 +2,18 @@ import { useEffect, useMemo, useState } from 'react';
 import { Alert, FlatList, Modal, Pressable, Text, TextInput, View } from 'react-native';
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
 import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import type { Plan } from '@ascent/shared';
 
 import { buildPlanExerciseCountsQuery, buildPlansQuery, createPlan, softDeletePlan } from '../../src/data/plans';
 import { getOwnerUserId } from '../../src/lib/owner';
+import { Screen } from '../../src/ui/Screen';
+
+// Ionicons-Farben als Literale — Icon-Komponenten unterstützen keine
+// className-Farbsteuerung, siehe tailwind.config.js für die Quelle der Tokens.
+const COLOR_ON_SURFACE_MUTED = '#a0a0a0';
+const COLOR_ON_PRIMARY = '#213600';
+const COLOR_ERROR = '#ffb4ab';
 
 /** Anzahl (nicht gelöschter) Plan-Übungen je Plan, client-seitig aus der reaktiven Liste gezählt (siehe src/data/plans.ts). */
 function usePlanExerciseCounts(): Map<string, number> {
@@ -83,28 +91,28 @@ export default function PlansScreen() {
   }
 
   return (
-    <View className="flex-1 bg-surface">
+    <Screen title="Meine Pläne" subtitle="Deine Trainingspläne" scroll={false}>
       <FlatList
         data={planRows}
         keyExtractor={(item) => item.id}
-        contentContainerClassName="px-4 pb-28 pt-6"
-        ListHeaderComponent={
-          <View className="mb-4">
-            <Text className="text-3xl font-bold text-on-surface">Meine Pläne</Text>
-            <Text className="mt-1 text-base text-on-surface-muted">Deine Trainingspläne</Text>
-          </View>
-        }
+        className="flex-1"
+        contentContainerClassName="flex-grow px-4 pb-28 pt-2"
         ListEmptyComponent={
-          <View className="mt-10 items-center px-4">
-            <Text className="text-center text-base leading-6 text-on-surface-muted">
+          <View className="mt-16 items-center px-6">
+            <View className="mb-4 h-16 w-16 items-center justify-center rounded-full bg-surface-container">
+              <Ionicons name="barbell-outline" size={32} color={COLOR_ON_SURFACE_MUTED} />
+            </View>
+            <Text className="text-center font-sans text-base leading-6 text-on-surface-muted">
               Noch keine Trainingspläne. Leg los und erstelle deinen ersten Plan — so behältst du deine Übungen und
               Fortschritte im Blick.
             </Text>
             <Pressable
               onPress={openCreateModal}
-              className="mt-6 h-12 min-w-[200px] items-center justify-center rounded-lg bg-primary px-6"
+              android_ripple={{ color: '#21360033' }}
+              className="mt-6 h-12 min-w-[200px] flex-row items-center justify-center gap-2 rounded-lg bg-primary px-6 active:opacity-90"
             >
-              <Text className="text-base font-bold text-on-primary">+ Neuer Plan</Text>
+              <Ionicons name="add" size={20} color={COLOR_ON_PRIMARY} />
+              <Text className="font-sans text-base font-bold text-on-primary">Neuer Plan</Text>
             </Pressable>
           </View>
         }
@@ -112,66 +120,76 @@ export default function PlansScreen() {
           <Pressable
             onPress={() => router.push({ pathname: '/plans/[id]', params: { id: item.id } })}
             onLongPress={() => confirmDelete(item)}
-            className="mb-3 rounded-lg border border-surface-container-high bg-surface-container p-4"
+            android_ripple={{ color: '#ffffff0f' }}
+            className="mb-3 flex-row items-center rounded-lg border border-surface-container-high bg-surface-container p-4 active:opacity-90"
           >
-            <View className="flex-row items-center justify-between">
-              <View className="flex-1 pr-2">
-                <Text className="text-2xl font-bold text-on-surface" numberOfLines={1}>
-                  {item.name}
-                </Text>
-                <Text className="mt-1 text-sm text-on-surface-muted">
-                  {formatExerciseCount(exerciseCounts.get(item.id) ?? 0)}
-                </Text>
-              </View>
-              <View className="flex-row items-center">
-                <Pressable onPress={() => confirmDelete(item)} className="h-12 w-12 items-center justify-center">
-                  <Text className="text-xl text-on-surface-muted">×</Text>
-                </Pressable>
-                <Text className="text-2xl text-on-surface-muted">›</Text>
-              </View>
+            <View className="h-12 w-12 items-center justify-center rounded-lg bg-surface-container-high">
+              <Ionicons name="barbell-outline" size={22} color={COLOR_ON_SURFACE_MUTED} />
             </View>
+            <View className="ml-3 flex-1 pr-2">
+              <Text className="font-sans text-xl font-bold text-on-surface" numberOfLines={1}>
+                {item.name}
+              </Text>
+              <Text className="mt-1 font-sans text-sm text-on-surface-muted" style={{ fontVariant: ['tabular-nums'] }}>
+                {formatExerciseCount(exerciseCounts.get(item.id) ?? 0)}
+              </Text>
+            </View>
+            <Pressable
+              onPress={() => confirmDelete(item)}
+              hitSlop={8}
+              android_ripple={{ color: '#ffb4ab33', borderless: true }}
+              className="h-12 w-12 items-center justify-center rounded-full active:opacity-70"
+            >
+              <Ionicons name="trash-outline" size={20} color={COLOR_ERROR} />
+            </Pressable>
+            <Ionicons name="chevron-forward" size={20} color={COLOR_ON_SURFACE_MUTED} />
           </Pressable>
         )}
       />
 
       <Pressable
         onPress={openCreateModal}
-        className="absolute bottom-6 right-6 h-14 w-14 items-center justify-center rounded-full bg-primary shadow-lg"
+        android_ripple={{ color: '#21360033' }}
+        className="absolute bottom-6 right-6 h-14 w-14 items-center justify-center rounded-full bg-primary shadow-lg active:opacity-90"
       >
-        <Text className="text-3xl font-bold text-on-primary">+</Text>
+        <Ionicons name="add" size={28} color={COLOR_ON_PRIMARY} />
       </Pressable>
 
       <Modal visible={modalVisible} transparent animationType="fade" onRequestClose={() => setModalVisible(false)}>
         <View className="flex-1 items-center justify-center bg-black/60 px-6">
           <View className="w-full rounded-lg bg-surface-container p-5">
-            <Text className="mb-3 text-xl font-bold text-on-surface">Neuer Plan</Text>
+            <Text className="mb-3 font-sans text-xl font-bold text-on-surface">Neuer Plan</Text>
             <TextInput
               value={nameInput}
               onChangeText={setNameInput}
               placeholder="Planname"
               placeholderClassName="text-on-surface-muted"
               autoFocus
-              className="h-12 rounded-lg bg-surface px-3 text-base text-on-surface"
+              className="h-12 rounded-lg bg-surface px-3 font-sans text-base text-on-surface"
               onSubmitEditing={handleCreate}
               returnKeyType="done"
             />
             <View className="mt-4 flex-row justify-end">
-              <Pressable onPress={() => setModalVisible(false)} className="h-12 items-center justify-center px-4">
-                <Text className="text-base text-on-surface-muted">Abbrechen</Text>
+              <Pressable
+                onPress={() => setModalVisible(false)}
+                className="h-12 items-center justify-center px-4 active:opacity-70"
+              >
+                <Text className="font-sans text-base text-on-surface-muted">Abbrechen</Text>
               </Pressable>
               <Pressable
                 onPress={handleCreate}
                 disabled={saving || !nameInput.trim()}
-                className={`h-12 items-center justify-center rounded-lg px-5 ${
+                android_ripple={{ color: '#21360033' }}
+                className={`h-12 items-center justify-center rounded-lg px-5 active:opacity-90 ${
                   saving || !nameInput.trim() ? 'bg-primary/40' : 'bg-primary'
                 }`}
               >
-                <Text className="text-base font-bold text-on-primary">Erstellen</Text>
+                <Text className="font-sans text-base font-bold text-on-primary">Erstellen</Text>
               </Pressable>
             </View>
           </View>
         </View>
       </Modal>
-    </View>
+    </Screen>
   );
 }

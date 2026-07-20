@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, Share, Text, View } from 'react-native';
+import { ActivityIndicator, Pressable, Share, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import type { Tier } from '@ascent/shared';
 
+import { Screen } from '../../src/ui/Screen';
 import { API_URL } from '../../src/config';
 import { authClient, toSessionUser } from '../../src/auth/client';
 import { runSync, useSyncStatus } from '../../src/db/sync';
@@ -18,16 +20,22 @@ type Invite = {
   status: InviteStatus;
 };
 
+/** Ripple-Töne je Button-Stil (Android-only, iOS ignoriert android_ripple ohnehin). */
+const RIPPLE_ON_PRIMARY = { color: 'rgba(33,54,0,0.2)' };
+const RIPPLE_NEUTRAL = { color: 'rgba(255,255,255,0.08)' };
+const RIPPLE_ERROR = { color: 'rgba(255,180,171,0.15)' };
+
 function tierLabel(tier: Tier | undefined): string {
   if (tier === 'trial') return 'Trial';
   if (tier === 'pro') return 'Pro';
   return 'Free';
 }
 
-function statusClassName(status: InviteStatus): string {
-  if (status === 'offen') return 'text-primary text-sm font-semibold';
-  if (status === 'verwendet') return 'text-on-surface-muted text-sm';
-  return 'text-error text-sm';
+/** Nur der Status-Punkt ist farbig (Akzent-Diät) — der Statustext bleibt immer muted. */
+function statusDotClassName(status: InviteStatus): string {
+  if (status === 'offen') return 'bg-primary';
+  if (status === 'verwendet') return 'bg-on-surface-muted';
+  return 'bg-error';
 }
 
 function formatDate(ms: number): string {
@@ -55,7 +63,13 @@ function initialsOf(name: string): string {
 }
 
 // Design: design/profil/code.html — Kopf mit Avatar/Name/Tier, Invite-Karte,
-// App-Sektion mit Version + Abmelden. Icons entfallen (siehe (tabs)/_layout.tsx).
+// Sync-Karte, App-Sektion mit Version + Abmelden.
+//
+// AKZENT-DIÄT (Beta-Befund: "alles lime, nichts hat Priorität"): bg-primary
+// ist ab jetzt reserviert für GENAU einen CTA auf diesem Screen —
+// "Invite-Code erstellen". Alles andere (Avatar-Ring, Tier-Badge, Code-Karte,
+// "Teilen", Sync-Button, Status-Texte) ist neutral; nur der Status-Punkt
+// "offen" nutzt noch die Akzentfarbe als kleiner, bewusster Hinweis.
 export default function ProfilScreen() {
   const { data: session } = authClient.useSession();
   const user = session?.user ? toSessionUser(session.user) : null;
@@ -116,24 +130,23 @@ export default function ProfilScreen() {
   }
 
   return (
-    <ScrollView
-      className="flex-1 bg-surface"
-      contentContainerStyle={{ padding: 16, paddingBottom: 32, gap: 24 }}
-    >
+    <Screen title="Profil">
       {/* Kopf */}
-      <View className="flex-row items-center gap-4 mt-4">
-        <View className="w-20 h-20 rounded-full bg-surface-container-high items-center justify-center border-2 border-primary">
-          <Text className="text-primary text-2xl font-extrabold">{initialsOf(user?.name ?? '?')}</Text>
+      <View className="mt-4 flex-row items-center gap-4">
+        <View className="h-20 w-20 items-center justify-center rounded-full border-2 border-outline bg-surface-container-high">
+          <Text className="font-sans text-2xl font-extrabold text-on-surface">
+            {initialsOf(user?.name ?? '?')}
+          </Text>
         </View>
         <View className="flex-1">
-          <Text className="text-on-surface text-2xl font-extrabold" numberOfLines={1}>
+          <Text className="font-sans text-2xl font-extrabold text-on-surface" numberOfLines={1}>
             {user?.name ?? 'Unbekannt'}
           </Text>
-          <Text className="text-on-surface-muted" numberOfLines={1}>
+          <Text className="font-sans text-on-surface-muted" numberOfLines={1}>
             {user?.email ?? ''}
           </Text>
-          <View className="mt-2 self-start px-3 py-1 rounded-full bg-surface-container-high border border-primary">
-            <Text className="text-primary text-xs font-bold uppercase tracking-wide">
+          <View className="mt-2 self-start rounded-full bg-surface-container-high px-3 py-1">
+            <Text className="font-sans text-xs font-bold uppercase tracking-wide text-on-surface-muted">
               {tierLabel(user?.tier)}
             </Text>
           </View>
@@ -141,94 +154,113 @@ export default function ProfilScreen() {
       </View>
 
       {/* Trainingspartner einladen */}
-      <View className="bg-surface-container rounded-xl p-4 border border-surface-container-high gap-3">
-        <Text className="text-on-surface text-lg font-bold">Trainingspartner einladen</Text>
+      <View className="gap-3 rounded-xl border border-surface-container-high bg-surface-container p-4">
+        <Text className="font-sans text-lg font-bold text-on-surface">Trainingspartner einladen</Text>
+        <Text className="font-sans text-sm text-on-surface-muted">
+          Erstelle einen Code und teile ihn mit deinem Trainingspartner.
+        </Text>
 
         <Pressable
-          className="h-12 rounded-lg bg-primary items-center justify-center flex-row gap-2"
+          className="h-12 flex-row items-center justify-center gap-2 rounded-lg bg-primary"
+          android_ripple={RIPPLE_ON_PRIMARY}
           onPress={handleCreateInvite}
           disabled={creating}
         >
           {creating ? (
             <ActivityIndicator color="#213600" />
           ) : (
-            <Text className="text-on-primary font-bold">Invite-Code erstellen</Text>
+            <Text className="font-sans font-bold text-on-primary">Invite-Code erstellen</Text>
           )}
         </Pressable>
 
-        {createError && <Text className="text-error text-sm">{createError}</Text>}
+        {createError && <Text className="font-sans text-sm text-error">{createError}</Text>}
 
         {newInvite && (
-          <View className="bg-surface rounded-lg p-4 items-center gap-2 border border-primary">
-            <Text className="text-primary text-2xl font-extrabold tracking-widest">{newInvite.code}</Text>
-            <Text className="text-on-surface-muted text-xs">Gültig bis {formatDate(newInvite.expiresAt)}</Text>
+          <View className="items-center gap-2 rounded-lg bg-surface p-4">
+            <Text className="tabular-nums font-sans text-2xl font-extrabold tracking-widest text-on-surface">
+              {newInvite.code}
+            </Text>
+            <Text className="font-sans text-xs text-on-surface-muted">
+              Gültig bis {formatDate(newInvite.expiresAt)}
+            </Text>
             <Pressable
-              className="h-10 px-4 rounded-lg border border-primary items-center justify-center flex-row gap-2 mt-1"
+              className="mt-1 h-12 flex-row items-center justify-center gap-2 rounded-lg border border-outline px-4"
+              android_ripple={RIPPLE_NEUTRAL}
               onPress={() => handleShare(newInvite.code)}
             >
-              <Text className="text-primary font-bold text-sm">Teilen</Text>
+              <Ionicons name="share-social-outline" size={16} color="#e5e2e1" />
+              <Text className="font-sans text-sm font-bold text-on-surface">Teilen</Text>
             </Pressable>
           </View>
         )}
 
-        <View className="gap-2 mt-2">
-          <Text className="text-on-surface-muted text-xs font-semibold uppercase tracking-wide">
+        <View className="mt-2 gap-2">
+          <Text className="font-sans text-xs font-semibold uppercase tracking-wide text-on-surface-muted">
             Bisherige Codes
           </Text>
-          {invitesLoading && <ActivityIndicator color="#b4ff39" />}
-          {invitesError && <Text className="text-error text-sm">{invitesError}</Text>}
+          {invitesLoading && <ActivityIndicator color="#a0a0a0" />}
+          {invitesError && <Text className="font-sans text-sm text-error">{invitesError}</Text>}
           {!invitesLoading && !invitesError && invites.length === 0 && (
-            <Text className="text-on-surface-muted text-sm">Noch keine Codes erstellt.</Text>
+            <Text className="font-sans text-sm text-on-surface-muted">Noch keine Codes erstellt.</Text>
           )}
           {invites.map((invite) => (
             <View
               key={invite.code}
-              className="flex-row items-center justify-between py-2 border-b border-surface-container-high"
+              className="flex-row items-center justify-between border-b border-surface-container-high py-2"
             >
-              <Text className="text-on-surface tracking-widest">{invite.code}</Text>
-              <Text className={statusClassName(invite.status)}>{invite.status}</Text>
+              <Text className="tabular-nums font-sans tracking-widest text-on-surface">{invite.code}</Text>
+              <View className="flex-row items-center gap-2">
+                <View className={`h-2 w-2 rounded-full ${statusDotClassName(invite.status)}`} />
+                <Text className="font-sans text-sm text-on-surface-muted">{invite.status}</Text>
+              </View>
             </View>
           ))}
         </View>
       </View>
 
       {/* Synchronisation */}
-      <View className="bg-surface-container rounded-xl p-4 border border-surface-container-high gap-3">
-        <Text className="text-on-surface text-lg font-bold">Synchronisation</Text>
-        <View className="flex-row justify-between">
-          <Text className="text-on-surface-muted">Zuletzt synchronisiert</Text>
-          <Text className="text-on-surface">{formatSyncTime(syncStatus.lastSyncAt)}</Text>
+      <View className="gap-3 rounded-xl border border-surface-container-high bg-surface-container p-4">
+        <Text className="font-sans text-lg font-bold text-on-surface">Synchronisation</Text>
+        <View className="flex-row items-center justify-between">
+          <View className="flex-row items-center gap-2">
+            <Ionicons name="sync-outline" size={16} color="#a0a0a0" />
+            <Text className="font-sans text-on-surface-muted">Zuletzt synchronisiert</Text>
+          </View>
+          <Text className="font-sans text-on-surface">{formatSyncTime(syncStatus.lastSyncAt)}</Text>
         </View>
 
-        {syncStatus.lastError && <Text className="text-error text-sm">{syncStatus.lastError}</Text>}
+        {syncStatus.lastError && <Text className="font-sans text-sm text-error">{syncStatus.lastError}</Text>}
 
         <Pressable
-          className="h-12 rounded-lg border border-primary items-center justify-center flex-row gap-2"
+          className="h-12 flex-row items-center justify-center gap-2 rounded-lg border border-outline"
+          android_ripple={RIPPLE_NEUTRAL}
           onPress={() => runSync().catch((err) => console.log('[ProfilScreen] runSync fehlgeschlagen:', err))}
           disabled={syncStatus.isSyncing}
         >
           {syncStatus.isSyncing ? (
-            <ActivityIndicator color="#b4ff39" />
+            <ActivityIndicator color="#e5e2e1" />
           ) : (
-            <Text className="text-primary font-bold">Jetzt synchronisieren</Text>
+            <Text className="font-sans font-bold text-on-surface">Jetzt synchronisieren</Text>
           )}
         </Pressable>
       </View>
 
       {/* App */}
-      <View className="bg-surface-container rounded-xl p-4 border border-surface-container-high gap-3">
-        <Text className="text-on-surface text-lg font-bold">App</Text>
+      <View className="gap-3 rounded-xl border border-surface-container-high bg-surface-container p-4">
+        <Text className="font-sans text-lg font-bold text-on-surface">App</Text>
         <View className="flex-row justify-between">
-          <Text className="text-on-surface-muted">Version</Text>
-          <Text className="text-on-surface">{Constants.expoConfig?.version ?? '–'}</Text>
+          <Text className="font-sans text-on-surface-muted">Version</Text>
+          <Text className="tabular-nums font-sans text-on-surface">{Constants.expoConfig?.version ?? '–'}</Text>
         </View>
         <Pressable
-          className="h-12 rounded-lg border border-error items-center justify-center flex-row gap-2 mt-2"
+          className="mt-2 h-12 flex-row items-center justify-center gap-2 rounded-lg border border-error/40"
+          android_ripple={RIPPLE_ERROR}
           onPress={() => handleLogout().catch((err) => console.log('[ProfilScreen] signOut fehlgeschlagen:', err))}
         >
-          <Text className="text-error font-bold">Abmelden</Text>
+          <Ionicons name="log-out-outline" size={16} color="#ffb4ab" />
+          <Text className="font-sans font-bold text-error">Abmelden</Text>
         </Pressable>
       </View>
-    </ScrollView>
+    </Screen>
   );
 }

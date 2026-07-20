@@ -1,5 +1,7 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { Alert, Modal, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Alert, KeyboardAvoidingView, Modal, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
 import { eq } from 'drizzle-orm';
@@ -24,10 +26,19 @@ import { setExercisePickHandler } from '../../src/lib/exercise-picker';
 // Aktives Training (Design: design/aktives_training) — Herzstück der App.
 // Übungsblöcke aus dem Plan (falls vorhanden) + frei erfasste Übungen,
 // Satz-Erfassung mit Prefill vom letzten Mal, Pausentimer, Abschluss-Summary.
+//
+// M6-Überarbeitung nach Gerätetest ("sieht nach Alpha einer Alpha aus"):
+// - Eigener SafeArea-Header (kein Screen-Wrapper — brauchte einen speziellen
+//   Dreiteiler X/Titel+Uhr/Beenden statt Screen.tsx's title+subtitle-Zeile).
+//   "Beenden" fehlte vorher jedes Top-Inset und lag unter der Statusleiste.
+// - Performance ("Bildschirm reagiert kaum"): Ursache war der Sekunden-
+//   Ticker der Dauer als useState IM SCREEN — re-rendert vorher jede Sekunde
+//   die komplette Baumstruktur inkl. aller TextInputs. Jetzt tickt NUR die
+//   isolierte, memoisierte <WorkoutClock>; ExerciseBlock ist memo(); die
+//   kg/Wdh-Felder sind unkontrolliert (Refs statt Screen-State pro Tastendruck).
+export const numberFormatter = new Intl.NumberFormat('de-CH', { maximumFractionDigits: 0 });
 
 const DEFAULT_REST_SECONDS = 90;
-
-const numberFormatter = new Intl.NumberFormat('de-CH', { maximumFractionDigits: 0 });
 
 interface SetRow {
   id: string;
@@ -76,7 +87,33 @@ function parseNumberInput(text: string): number | undefined {
   return Number.isFinite(value) ? value : undefined;
 }
 
+/**
+ * Eigenständige Uhr: NUR diese Komponente tickt jede Sekunde (eigener
+ * useState/useEffect). memo() ohne Vergleichsfunktion reicht, weil `startedAt`
+ * über die Lebensdauer eines aktiven Trainings konstant bleibt — der Rest des
+ * Screens (Übungsblöcke, Eingabefelder) rendert dadurch nie wegen der Zeit neu.
+ */
+const WorkoutClock = memo(function WorkoutClock({ startedAt }: { startedAt: number }) {
+  const [now, setNow] = useState(() => Date.now());
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <Text
+      className="font-sans text-xl font-extrabold text-on-surface"
+      style={{ fontVariant: ['tabular-nums'] }}
+    >
+      {formatElapsed(now - startedAt)}
+    </Text>
+  );
+});
+
 export default function ActiveWorkoutScreen() {
+  const insets = useSafeAreaInsets();
+
   const { data: activeWorkouts, updatedAt } = useLiveQuery(getActiveWorkout());
   const activeWorkout = activeWorkouts[0];
 
@@ -97,14 +134,8 @@ export default function ActiveWorkoutScreen() {
     setCount: number;
     volumeKg: number;
   } | null>(null);
-  const [now, setNow] = useState(() => Date.now());
 
   const restTimer = useRestTimer();
-
-  useEffect(() => {
-    const id = setInterval(() => setNow(Date.now()), 1000);
-    return () => clearInterval(id);
-  }, []);
 
   // Kein aktives Workout (mehr) und kein Abschluss-Dialog offen → zurück zu Home.
   useEffect(() => {
@@ -191,6 +222,33 @@ export default function ActiveWorkoutScreen() {
     router.push('/exercises');
   }, []);
 
+  // X-Icon im Header: bricht das Training ab (verwirft es). Ohne erfasste
+  // Sätze gibt es nichts zu verlieren → kein Dialog nötig; sonst Bestätigung,
+  // weil das Verwerfen alle bisherigen Sätze löscht (anders als "Beenden").
+  const handleCancelPress = useCallback(() => {
+    if (!activeWorkout) return;
+
+    if (allSets.length === 0) {
+      void cancelWorkout(activeWorkout.id).then(() => router.replace('/'));
+      return;
+    }
+
+    Alert.alert(
+      'Training abbrechen?',
+      'Alle bisher in diesem Training erfassten Sätze gehen verloren.',
+      [
+        { text: 'Weiter trainieren', style: 'cancel' },
+        {
+          text: 'Verwerfen',
+          style: 'destructive',
+          onPress: () => {
+            void cancelWorkout(activeWorkout.id).then(() => router.replace('/'));
+          },
+        },
+      ],
+    );
+  }, [activeWorkout, allSets]);
+
   const handleFinishPress = useCallback(() => {
     if (!activeWorkout) return;
 
@@ -212,7 +270,7 @@ export default function ActiveWorkoutScreen() {
       return;
     }
 
-    const durationMin = Math.max(0, Math.round((now - activeWorkout.startedAt) / 60000));
+    const durationMin = Math.max(0, Math.round((Date.now() - activeWorkout.startedAt) / 60000));
     setSummary({
       durationMin,
       exerciseCount: setsByExercise.size,
@@ -220,7 +278,7 @@ export default function ActiveWorkoutScreen() {
       volumeKg: sumVolume(allSets),
     });
     setSummaryVisible(true);
-  }, [activeWorkout, allSets, now, setsByExercise]);
+  }, [activeWorkout, allSets, setsByExercise]);
 
   const handleConfirmFinish = useCallback(() => {
     if (!activeWorkout) return;
@@ -232,30 +290,49 @@ export default function ActiveWorkoutScreen() {
 
   if (!activeWorkout) {
     return (
-      <View className="flex-1 items-center justify-center bg-surface">
-        <Text className="text-on-surface-muted">Lade Training…</Text>
+      <View className="flex-1 items-center justify-center bg-surface" style={{ paddingTop: insets.top }}>
+        <Text className="font-sans text-on-surface-muted">Lade Training…</Text>
       </View>
     );
   }
 
-  const elapsedMs = now - activeWorkout.startedAt;
-
   return (
-    <View className="flex-1 bg-surface">
-      <View className="flex-row items-center justify-between bg-surface-container px-4 py-3">
-        <View>
-          <Text className="text-lg font-bold text-on-surface">{activeWorkout.planName ?? 'Freies Training'}</Text>
-          <Text className="text-2xl font-extrabold tabular-nums text-on-surface">{formatElapsed(elapsedMs)}</Text>
+    <KeyboardAvoidingView className="flex-1 bg-surface" behavior="padding">
+      {/* Eigener Header MIT SafeArea-Top-Inset — der Gerätetest zeigte den
+          "Beenden"-Button kaum treffbar unter der Statusleiste. Bewusst NICHT
+          der Screen-Wrapper (der hat kein Platz für den Dreiteiler X/Uhr/CTA). */}
+      <View
+        style={{ paddingTop: insets.top }}
+        className="flex-row items-center justify-between border-b border-outline bg-surface-container px-2 pb-2"
+      >
+        <Pressable
+          onPress={handleCancelPress}
+          hitSlop={8}
+          android_ripple={{ color: 'rgba(255,255,255,0.12)', radius: 24 }}
+          className="h-12 w-12 items-center justify-center rounded-full active:opacity-70"
+        >
+          <Ionicons name="close" size={26} color="#e5e2e1" />
+        </Pressable>
+
+        <View className="flex-1 items-center px-2">
+          <Text numberOfLines={1} className="font-sans text-base font-bold text-on-surface">
+            {activeWorkout.planName ?? 'Freies Training'}
+          </Text>
+          <WorkoutClock startedAt={activeWorkout.startedAt} />
         </View>
+
+        {/* DAS Kernproblem des Gerätetests: ein echter, satt grosser Primary-
+            Button statt eines kaum sichtbaren neutralen Chips. */}
         <Pressable
           onPress={handleFinishPress}
-          className="min-h-[48px] min-w-[48px] items-center justify-center rounded-lg bg-surface-container-high px-4"
+          android_ripple={{ color: 'rgba(0,0,0,0.15)' }}
+          className="h-12 items-center justify-center rounded-lg bg-primary px-5 active:opacity-90"
         >
-          <Text className="font-semibold text-on-surface">Beenden</Text>
+          <Text className="font-sans text-base font-extrabold text-on-primary">Beenden</Text>
         </Pressable>
       </View>
 
-      <ScrollView className="flex-1" contentContainerClassName="gap-4 p-4 pb-8">
+      <ScrollView className="flex-1" contentContainerClassName="gap-4 p-4 pb-8" keyboardShouldPersistTaps="handled">
         {blocks.map((block) => (
           <ExerciseBlock
             key={block.exerciseId}
@@ -272,21 +349,28 @@ export default function ActiveWorkoutScreen() {
 
         <Pressable
           onPress={handleAddExercise}
-          className="min-h-[48px] items-center justify-center rounded-lg border border-outline px-4 py-3 active:opacity-80"
+          android_ripple={{ color: 'rgba(255,255,255,0.08)' }}
+          className="min-h-[48px] flex-row items-center justify-center gap-2 rounded-lg border border-outline px-4 py-3 active:opacity-80"
         >
-          <Text className="font-semibold text-on-surface">+ Übung hinzufügen</Text>
+          <Ionicons name="add" size={20} color="#e5e2e1" />
+          <Text className="font-sans font-semibold text-on-surface">Übung hinzufügen</Text>
         </Pressable>
       </ScrollView>
 
       {restTimer.isRunning ? (
         <View className="gap-2 border-t border-outline bg-surface-container px-4 py-3">
           <View className="flex-row items-center justify-between">
-            <Text className="text-xs font-semibold uppercase tracking-widest text-on-surface-muted">Pause</Text>
-            <Text className="text-3xl font-extrabold tabular-nums text-primary">
+            <Text className="font-sans text-xs font-semibold uppercase tracking-widest text-on-surface-muted">
+              Pause
+            </Text>
+            <Text
+              className="font-sans text-4xl font-extrabold text-primary"
+              style={{ fontVariant: ['tabular-nums'] }}
+            >
               {formatElapsed(restTimer.remainingSeconds * 1000)}
             </Text>
           </View>
-          <View className="h-2 w-full overflow-hidden rounded-full bg-surface-container-high">
+          <View className="h-1.5 w-full overflow-hidden rounded-full bg-surface-container-high">
             <View
               className="h-full rounded-full bg-primary"
               style={{
@@ -299,9 +383,11 @@ export default function ActiveWorkoutScreen() {
           </View>
           <Pressable
             onPress={restTimer.skip}
-            className="min-h-[48px] items-center justify-center rounded-lg border border-outline"
+            android_ripple={{ color: 'rgba(255,255,255,0.08)' }}
+            className="min-h-[48px] flex-row items-center justify-center gap-2 rounded-lg border border-outline active:opacity-80"
           >
-            <Text className="font-semibold text-on-surface">Überspringen</Text>
+            <Ionicons name="play-skip-forward" size={18} color="#e5e2e1" />
+            <Text className="font-sans font-semibold text-on-surface">Überspringen</Text>
           </Pressable>
         </View>
       ) : null}
@@ -309,7 +395,12 @@ export default function ActiveWorkoutScreen() {
       <Modal visible={summaryVisible} transparent animationType="fade">
         <View className="flex-1 items-center justify-center bg-black/70 p-6">
           <View className="w-full gap-4 rounded-xl bg-surface-container p-6">
-            <Text className="text-center text-xl font-extrabold text-on-surface">Training beendet</Text>
+            <View className="items-center gap-2">
+              <View className="h-12 w-12 items-center justify-center rounded-full bg-primary">
+                <Ionicons name="checkmark" size={26} color="#213600" />
+              </View>
+              <Text className="font-sans text-xl font-extrabold text-on-surface">Training beendet</Text>
+            </View>
             {summary ? (
               <>
                 <View className="flex-row justify-between">
@@ -324,22 +415,29 @@ export default function ActiveWorkoutScreen() {
             ) : null}
             <Pressable
               onPress={handleConfirmFinish}
+              android_ripple={{ color: 'rgba(0,0,0,0.15)' }}
               className="mt-2 min-h-[56px] items-center justify-center rounded-lg bg-primary"
             >
-              <Text className="text-lg font-extrabold uppercase tracking-wide text-on-primary">Fertig</Text>
+              <Text className="font-sans text-lg font-extrabold uppercase tracking-wide text-on-primary">
+                Fertig
+              </Text>
             </Pressable>
           </View>
         </View>
       </Modal>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
 function SummaryStat({ label, value }: { label: string; value: string }) {
   return (
     <View className="flex-1 items-center gap-1">
-      <Text className="text-xs font-semibold uppercase tracking-widest text-on-surface-muted">{label}</Text>
-      <Text className="text-2xl font-extrabold tabular-nums text-primary">{value}</Text>
+      <Text className="font-sans text-xs font-semibold uppercase tracking-widest text-on-surface-muted">
+        {label}
+      </Text>
+      <Text className="font-sans text-2xl font-extrabold text-primary" style={{ fontVariant: ['tabular-nums'] }}>
+        {value}
+      </Text>
     </View>
   );
 }
@@ -355,7 +453,13 @@ interface ExerciseBlockProps {
   onSetLogged: (restSeconds: number) => void;
 }
 
-function ExerciseBlock({
+/**
+ * memo(): ohne das würde JEDE Sekunde (WorkoutClock-Tick weiter oben) und
+ * jeder Tastendruck in einem ANDEREN Block diesen Block trotzdem neu rendern.
+ * Die kg/Wdh-Felder selbst sind unkontrolliert (siehe draftsRef/editDraftRef
+ * unten) — Tippen schreibt in eine Ref, nie in Screen- oder Block-State.
+ */
+const ExerciseBlock = memo(function ExerciseBlock({
   workoutId,
   exerciseId,
   displayName,
@@ -367,9 +471,14 @@ function ExerciseBlock({
 }: ExerciseBlockProps) {
   const [lastSets, setLastSets] = useState<Array<{ setNumber: number; weightKg: number; reps: number }>>([]);
   const [extraRows, setExtraRows] = useState(0);
-  const [drafts, setDrafts] = useState<Record<number, { weight: string; reps: string }>>({});
   const [editingSetNumber, setEditingSetNumber] = useState<number | null>(null);
-  const [editDraft, setEditDraft] = useState({ weight: '', reps: '' });
+  // Reset-Generation je Zeile: nach commitRow hochgezählt, um das unkontrollierte
+  // TextInput (via key) wieder auf leer zu setzen — ohne dafür den Wert selbst
+  // in Screen-State zu halten (das wäre wieder ein Re-Render pro Tastendruck).
+  const [resetGen, setResetGen] = useState<Record<number, number>>({});
+
+  const draftsRef = useRef<Record<number, { weight: string; reps: string }>>({});
+  const editDraftRef = useRef<{ weight: string; reps: string }>({ weight: '', reps: '' });
 
   useEffect(() => {
     let cancelled = false;
@@ -385,13 +494,13 @@ function ExerciseBlock({
   const rowNumbers = Array.from({ length: rowCount }, (_, i) => i + 1);
 
   function beginEdit(n: number, committed: SetRow): void {
+    editDraftRef.current = { weight: formatWeight(committed.weightKg), reps: String(committed.reps) };
     setEditingSetNumber(n);
-    setEditDraft({ weight: formatWeight(committed.weightKg), reps: String(committed.reps) });
   }
 
   function commitEdit(committed: SetRow): void {
-    const weight = parseNumberInput(editDraft.weight);
-    const reps = parseNumberInput(editDraft.reps);
+    const weight = parseNumberInput(editDraftRef.current.weight);
+    const reps = parseNumberInput(editDraftRef.current.reps);
     if (weight !== undefined && weight > 0 && reps !== undefined && reps > 0) {
       void updateSet(committed.id, { weightKg: weight, reps: Math.round(reps) });
     }
@@ -409,7 +518,7 @@ function ExerciseBlock({
           style: 'destructive',
           onPress: () => {
             void deleteSet(committed.id);
-            if (editingSetNumber === committed.setNumber) setEditingSetNumber(null);
+            setEditingSetNumber((current) => (current === committed.setNumber ? null : current));
           },
         },
       ],
@@ -417,7 +526,7 @@ function ExerciseBlock({
   }
 
   function commitRow(n: number, placeholder?: { weightKg: number; reps: number }): void {
-    const draft = drafts[n] ?? { weight: '', reps: '' };
+    const draft = draftsRef.current[n] ?? { weight: '', reps: '' };
     const weight = parseNumberInput(draft.weight) ?? placeholder?.weightKg;
     const reps = parseNumberInput(draft.reps) ?? placeholder?.reps;
     if (weight === undefined || weight <= 0 || reps === undefined || reps <= 0) {
@@ -426,18 +535,15 @@ function ExerciseBlock({
     void addSet({ workoutId, exerciseId, setNumber: n, weightKg: weight, reps: Math.round(reps) }).then(() => {
       onSetLogged(restSeconds);
     });
-    setDrafts((prev) => {
-      const next = { ...prev };
-      delete next[n];
-      return next;
-    });
+    delete draftsRef.current[n];
+    setResetGen((prev) => ({ ...prev, [n]: (prev[n] ?? 0) + 1 }));
   }
 
   return (
     <View className="gap-3 rounded-xl bg-surface-container p-4">
       <View className="flex-row items-baseline justify-between">
-        <Text className="text-lg font-bold text-on-surface">{displayName}</Text>
-        {target ? <Text className="text-sm font-semibold text-primary">{target}</Text> : null}
+        <Text className="font-sans text-lg font-bold text-on-surface">{displayName}</Text>
+        {target ? <Text className="font-sans text-sm font-semibold text-on-surface-muted">{target}</Text> : null}
       </View>
 
       <View className="gap-2">
@@ -446,31 +552,53 @@ function ExerciseBlock({
 
           if (committed && editingSetNumber === n) {
             return (
-              <View key={n} className="flex-row items-center gap-1">
-                <Text className="w-6 text-center text-on-surface-muted">{n}</Text>
-                <TextInput
-                  value={editDraft.weight}
-                  onChangeText={(text) => setEditDraft((d) => ({ ...d, weight: text }))}
-                  keyboardType="decimal-pad"
-                  className="min-h-[48px] flex-1 rounded-lg bg-surface px-2 text-center text-lg font-bold tabular-nums text-on-surface"
-                />
-                <TextInput
-                  value={editDraft.reps}
-                  onChangeText={(text) => setEditDraft((d) => ({ ...d, reps: text }))}
-                  keyboardType="number-pad"
-                  className="min-h-[48px] w-14 rounded-lg bg-surface px-2 text-center text-lg font-bold tabular-nums text-on-surface"
-                />
+              <View key={n} className="flex-row items-center gap-2" style={{ minHeight: 56 }}>
+                <Text
+                  className="w-6 text-center font-sans text-sm text-on-surface-muted"
+                  style={{ fontVariant: ['tabular-nums'] }}
+                >
+                  {n}
+                </Text>
+                <View className="min-h-[48px] flex-1 flex-row items-center justify-center gap-1 rounded-lg bg-surface px-2">
+                  <TextInput
+                    defaultValue={editDraftRef.current.weight}
+                    onChangeText={(text) => {
+                      editDraftRef.current = { ...editDraftRef.current, weight: text };
+                    }}
+                    keyboardType="decimal-pad"
+                    autoFocus
+                    className="min-w-0 flex-1 py-0 text-right font-sans text-lg font-bold text-on-surface"
+                    style={{ fontVariant: ['tabular-nums'] }}
+                  />
+                  <Text className="font-sans text-xs text-on-surface-muted">kg</Text>
+                </View>
+                <View className="min-h-[48px] w-20 flex-row items-center justify-center gap-1 rounded-lg bg-surface px-2">
+                  <TextInput
+                    defaultValue={editDraftRef.current.reps}
+                    onChangeText={(text) => {
+                      editDraftRef.current = { ...editDraftRef.current, reps: text };
+                    }}
+                    keyboardType="number-pad"
+                    className="min-w-0 flex-1 py-0 text-right font-sans text-lg font-bold text-on-surface"
+                    style={{ fontVariant: ['tabular-nums'] }}
+                  />
+                  <Text className="font-sans text-xs text-on-surface-muted">Wdh</Text>
+                </View>
                 <Pressable
                   onPress={() => commitEdit(committed)}
-                  className="h-12 w-12 items-center justify-center rounded-lg bg-primary"
+                  android_ripple={{ color: 'rgba(0,0,0,0.15)' }}
+                  hitSlop={4}
+                  className="h-12 w-12 items-center justify-center rounded-full bg-primary"
                 >
-                  <Text className="text-lg font-extrabold text-on-primary">✓</Text>
+                  <Ionicons name="checkmark" size={22} color="#213600" />
                 </Pressable>
                 <Pressable
                   onPress={() => confirmDelete(committed)}
-                  className="h-12 w-12 items-center justify-center rounded-lg border border-error"
+                  android_ripple={{ color: 'rgba(255,180,171,0.15)' }}
+                  hitSlop={4}
+                  className="h-12 w-12 items-center justify-center rounded-full border-2 border-error"
                 >
-                  <Text className="text-lg font-extrabold text-error">✕</Text>
+                  <Ionicons name="trash" size={18} color="#ffb4ab" />
                 </Pressable>
               </View>
             );
@@ -482,46 +610,76 @@ function ExerciseBlock({
                 key={n}
                 onPress={() => beginEdit(n, committed)}
                 onLongPress={() => confirmDelete(committed)}
-                className="flex-row items-center gap-2 rounded-lg bg-surface-container-high px-3 py-2 active:opacity-80"
+                android_ripple={{ color: 'rgba(255,255,255,0.08)' }}
+                className="flex-row items-center gap-2 rounded-lg bg-surface-container-high px-3 active:opacity-80"
+                style={{ minHeight: 56 }}
               >
-                <Text className="w-6 text-center text-on-surface-muted">{n}</Text>
-                <Text className="flex-1 text-lg font-bold tabular-nums text-on-surface">
+                <Text
+                  className="w-6 text-center font-sans text-sm text-on-surface-muted"
+                  style={{ fontVariant: ['tabular-nums'] }}
+                >
+                  {n}
+                </Text>
+                <Text
+                  className="flex-1 font-sans text-lg font-bold text-on-surface"
+                  style={{ fontVariant: ['tabular-nums'] }}
+                >
                   {formatWeight(committed.weightKg)} kg × {committed.reps}
                 </Text>
-                <View className="h-12 w-12 items-center justify-center rounded-lg bg-primary">
-                  <Text className="text-lg font-extrabold text-on-primary">✓</Text>
+                <View className="h-12 w-12 items-center justify-center rounded-full bg-primary">
+                  <Ionicons name="checkmark" size={22} color="#213600" />
                 </View>
               </Pressable>
             );
           }
 
           const placeholder = lastSets.find((s) => s.setNumber === n);
-          const draft = drafts[n] ?? { weight: '', reps: '' };
+          const gen = resetGen[n] ?? 0;
 
           return (
-            <View key={n} className="flex-row items-center gap-2">
-              <Text className="w-6 text-center text-on-surface-muted">{n}</Text>
-              <TextInput
-                value={draft.weight}
-                onChangeText={(text) => setDrafts((d) => ({ ...d, [n]: { weight: text, reps: draft.reps } }))}
-                placeholder={placeholder ? formatWeight(placeholder.weightKg) : 'kg'}
-                placeholderTextColor="#a0a0a0"
-                keyboardType="decimal-pad"
-                className="min-h-[48px] flex-1 rounded-lg bg-surface px-2 text-center text-lg font-bold tabular-nums text-on-surface"
-              />
-              <TextInput
-                value={draft.reps}
-                onChangeText={(text) => setDrafts((d) => ({ ...d, [n]: { weight: draft.weight, reps: text } }))}
-                placeholder={placeholder ? String(placeholder.reps) : 'Wdh'}
-                placeholderTextColor="#a0a0a0"
-                keyboardType="number-pad"
-                className="min-h-[48px] w-16 rounded-lg bg-surface px-2 text-center text-lg font-bold tabular-nums text-on-surface"
-              />
+            <View key={n} className="flex-row items-center gap-2" style={{ minHeight: 56 }}>
+              <Text
+                className="w-6 text-center font-sans text-sm text-on-surface-muted"
+                style={{ fontVariant: ['tabular-nums'] }}
+              >
+                {n}
+              </Text>
+              <View className="min-h-[48px] flex-1 flex-row items-center justify-center gap-1 rounded-lg bg-surface px-2">
+                <TextInput
+                  key={`w-${n}-${gen}`}
+                  defaultValue=""
+                  onChangeText={(text) => {
+                    draftsRef.current[n] = { weight: text, reps: draftsRef.current[n]?.reps ?? '' };
+                  }}
+                  placeholder={placeholder ? formatWeight(placeholder.weightKg) : undefined}
+                  placeholderTextColor="#a0a0a0"
+                  keyboardType="decimal-pad"
+                  className="min-w-0 flex-1 py-0 text-right font-sans text-lg font-bold text-on-surface"
+                  style={{ fontVariant: ['tabular-nums'] }}
+                />
+                <Text className="font-sans text-xs text-on-surface-muted">kg</Text>
+              </View>
+              <View className="min-h-[48px] w-20 flex-row items-center justify-center gap-1 rounded-lg bg-surface px-2">
+                <TextInput
+                  key={`r-${n}-${gen}`}
+                  defaultValue=""
+                  onChangeText={(text) => {
+                    draftsRef.current[n] = { weight: draftsRef.current[n]?.weight ?? '', reps: text };
+                  }}
+                  placeholder={placeholder ? String(placeholder.reps) : undefined}
+                  placeholderTextColor="#a0a0a0"
+                  keyboardType="number-pad"
+                  className="min-w-0 flex-1 py-0 text-right font-sans text-lg font-bold text-on-surface"
+                  style={{ fontVariant: ['tabular-nums'] }}
+                />
+                <Text className="font-sans text-xs text-on-surface-muted">Wdh</Text>
+              </View>
               <Pressable
                 onPress={() => commitRow(n, placeholder)}
-                className="h-12 w-12 items-center justify-center rounded-lg border border-outline bg-surface-container-high active:opacity-80"
+                android_ripple={{ color: 'rgba(255,255,255,0.12)' }}
+                className="h-12 w-12 items-center justify-center rounded-full border-2 border-outline active:opacity-80"
               >
-                <Text className="text-lg font-extrabold text-on-surface-muted">✓</Text>
+                <Ionicons name="checkmark" size={22} color="#a0a0a0" />
               </Pressable>
             </View>
           );
@@ -530,10 +688,12 @@ function ExerciseBlock({
 
       <Pressable
         onPress={() => setExtraRows((prev) => prev + 1)}
-        className="min-h-[48px] items-center justify-center rounded-lg border border-outline"
+        android_ripple={{ color: 'rgba(255,255,255,0.08)' }}
+        className="min-h-[48px] flex-row items-center justify-center gap-2 rounded-lg border border-outline active:opacity-80"
       >
-        <Text className="font-semibold text-on-surface-muted">+ Satz</Text>
+        <Ionicons name="add" size={18} color="#a0a0a0" />
+        <Text className="font-sans font-semibold text-on-surface-muted">Satz</Text>
       </Pressable>
     </View>
   );
-}
+});

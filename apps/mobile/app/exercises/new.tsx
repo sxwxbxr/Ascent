@@ -52,7 +52,7 @@ export default function NewExerciseScreen() {
     <View className="flex-1 bg-surface">
       <Stack.Screen options={{ title: 'Neue Übung' }} />
       <ScrollView contentContainerClassName="px-4 pb-8 pt-4" keyboardShouldPersistTaps="handled">
-        <Text className="mb-1 text-sm text-on-surface-muted">Name *</Text>
+        <Text className="mb-1 font-sans text-sm text-on-surface-muted">Name *</Text>
         <TextInput
           value={name}
           onChangeText={(value) => {
@@ -61,52 +61,54 @@ export default function NewExerciseScreen() {
           }}
           placeholder="z. B. Bankdrücken"
           placeholderClassName="text-on-surface-muted"
-          className="h-12 rounded-lg bg-surface-container px-3 text-base text-on-surface"
+          className="h-12 rounded-lg bg-surface-container px-3 font-sans text-base text-on-surface"
         />
-        {nameError && <Text className="mt-1 text-xs text-error">{nameError}</Text>}
+        {nameError && <Text className="mt-1 font-sans text-xs text-error">{nameError}</Text>}
 
-        <Text className="mb-1 mt-4 text-sm text-on-surface-muted">Kategorie</Text>
+        <Text className="mb-1 mt-4 font-sans text-sm text-on-surface-muted">Kategorie</Text>
         <View className="flex-row flex-wrap gap-2">
           <Pressable
             onPress={() => setCategory(null)}
-            className={`h-10 items-center justify-center rounded-full px-4 ${
+            className={`h-10 items-center justify-center rounded-full px-4 active:opacity-90 ${
               category === null ? 'bg-primary' : 'bg-surface-container-high'
             }`}
           >
-            <Text className={category === null ? 'font-bold text-on-primary' : 'text-on-surface'}>Keine</Text>
+            <Text className={`font-sans ${category === null ? 'font-bold text-on-primary' : 'text-on-surface'}`}>Keine</Text>
           </Pressable>
           {EXERCISE_CATEGORIES.map((item) => (
             <Pressable
               key={item.value}
               onPress={() => setCategory(item.value)}
-              className={`h-10 items-center justify-center rounded-full px-4 ${
+              className={`h-10 items-center justify-center rounded-full px-4 active:opacity-90 ${
                 category === item.value ? 'bg-primary' : 'bg-surface-container-high'
               }`}
             >
-              <Text className={category === item.value ? 'font-bold text-on-primary' : 'text-on-surface'}>{item.labelDe}</Text>
+              <Text className={`font-sans ${category === item.value ? 'font-bold text-on-primary' : 'text-on-surface'}`}>
+                {item.labelDe}
+              </Text>
             </Pressable>
           ))}
         </View>
 
-        <Text className="mb-1 mt-4 text-sm text-on-surface-muted">Zielmuskel</Text>
+        <Text className="mb-1 mt-4 font-sans text-sm text-on-surface-muted">Zielmuskel</Text>
         <TextInput
           value={primaryMuscle}
           onChangeText={setPrimaryMuscle}
           placeholder="z. B. Brust"
           placeholderClassName="text-on-surface-muted"
-          className="h-12 rounded-lg bg-surface-container px-3 text-base text-on-surface"
+          className="h-12 rounded-lg bg-surface-container px-3 font-sans text-base text-on-surface"
         />
 
-        <Text className="mb-1 mt-4 text-sm text-on-surface-muted">Equipment</Text>
+        <Text className="mb-1 mt-4 font-sans text-sm text-on-surface-muted">Equipment</Text>
         <TextInput
           value={equipment}
           onChangeText={setEquipment}
           placeholder="z. B. Langhantel"
           placeholderClassName="text-on-surface-muted"
-          className="h-12 rounded-lg bg-surface-container px-3 text-base text-on-surface"
+          className="h-12 rounded-lg bg-surface-container px-3 font-sans text-base text-on-surface"
         />
 
-        <Text className="mb-1 mt-4 text-sm text-on-surface-muted">Anleitung</Text>
+        <Text className="mb-1 mt-4 font-sans text-sm text-on-surface-muted">Anleitung</Text>
         <TextInput
           value={instructions}
           onChangeText={setInstructions}
@@ -115,15 +117,16 @@ export default function NewExerciseScreen() {
           multiline
           numberOfLines={5}
           textAlignVertical="top"
-          className="min-h-[120px] rounded-lg bg-surface-container px-3 py-2 text-base text-on-surface"
+          className="min-h-[120px] rounded-lg bg-surface-container px-3 py-2 font-sans text-base text-on-surface"
         />
 
         <Pressable
           onPress={handleSave}
           disabled={saving}
-          className={`mt-6 h-14 items-center justify-center rounded-lg ${saving ? 'bg-primary/50' : 'bg-primary'}`}
+          android_ripple={{ color: '#21360033' }}
+          className={`mt-6 h-14 items-center justify-center rounded-lg active:opacity-90 ${saving ? 'bg-primary/50' : 'bg-primary'}`}
         >
-          <Text className="text-base font-bold text-on-primary">Speichern</Text>
+          <Text className="font-sans text-base font-bold text-on-primary">Speichern</Text>
         </Pressable>
       </ScrollView>
     </View>

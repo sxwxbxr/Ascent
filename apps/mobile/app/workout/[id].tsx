@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Alert, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { Alert, Pressable, Text, TextInput, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
 import { epley1Rm } from '@ascent/shared';
 
+import { Screen } from '../../src/ui/Screen';
 import {
   cancelWorkout,
   getWorkoutSetsWithExercise,
@@ -11,9 +13,11 @@ import {
   updateWorkoutNotes,
 } from '../../src/data/workouts';
 
-// Readonly-Detail eines abgeschlossenen Workouts (Aufruf aus Home/Verlauf):
-// Datum/Dauer, Sätze je Übung (bester Satz mit geschätztem 1RM), editierbare
-// Notiz, "Training löschen" (Soft-Delete mit Bestätigung).
+// Readonly-Detail eines abgeschlossenen Workouts (Aufruf aus Home/Verlauf).
+// M6-Überarbeitung: Screen-Wrapper (Titel = Datum, Untertitel = Plan + Dauer —
+// vorher gab es hier gar keinen SafeArea-Header), Akzent-Diät (bester Satz
+// jetzt dezent mit Primary-Punkt statt Lime-Text), Zahlen tabular, Notizen-Feld
+// mit sichtbarem Rahmen, Löschen als text-error-Ghost mit Icon.
 
 const dateFormatter = new Intl.DateTimeFormat('de-CH', {
   weekday: 'long',
@@ -91,77 +95,90 @@ export default function WorkoutDetailScreen() {
     ]);
   }
 
-  if (!workout) {
-    return (
-      <View className="flex-1 items-center justify-center bg-surface">
-        <Text className="text-on-surface-muted">Lade…</Text>
-      </View>
-    );
-  }
-
-  const durationMs = (workout.finishedAt ?? workout.startedAt) - workout.startedAt;
+  const durationMs = workout ? (workout.finishedAt ?? workout.startedAt) - workout.startedAt : 0;
 
   return (
-    <ScrollView className="flex-1 bg-surface" contentContainerClassName="gap-6 p-4 pb-12">
-      <View className="gap-1 pt-2">
-        <Text className="text-lg font-bold text-on-surface">{workout.planName ?? 'Freies Training'}</Text>
-        <Text className="text-on-surface-muted">{dateFormatter.format(new Date(workout.startedAt))}</Text>
-        <Text className="text-on-surface-muted">Dauer: {formatDuration(durationMs)}</Text>
-      </View>
-
-      <View className="gap-4">
-        {exerciseGroups.map((group) => {
-          const best = group.sets.reduce((a, b) =>
-            epley1Rm(b.weightKg, b.reps) > epley1Rm(a.weightKg, a.reps) ? b : a,
-          );
-          return (
-            <View key={group.exerciseId} className="gap-2 rounded-xl bg-surface-container p-4">
-              <Text className="text-lg font-bold text-on-surface">{group.name}</Text>
-              <View className="gap-1">
-                {group.sets.map((set) => (
-                  <View key={set.id} className="flex-row items-center justify-between">
-                    <Text className="text-on-surface-muted">Satz {set.setNumber}</Text>
-                    <Text className="font-bold tabular-nums text-on-surface">
-                      {formatWeight(set.weightKg)} kg × {set.reps}
+    <Screen
+      title={workout ? dateFormatter.format(new Date(workout.startedAt)) : 'Training'}
+      subtitle={workout ? `${workout.planName ?? 'Freies Training'} · ${formatDuration(durationMs)}` : undefined}
+    >
+      {!workout ? (
+        <Text className="font-sans text-on-surface-muted">Lade…</Text>
+      ) : (
+        <>
+          <View className="gap-4">
+            {exerciseGroups.map((group) => {
+              const best = group.sets.reduce((a, b) =>
+                epley1Rm(b.weightKg, b.reps) > epley1Rm(a.weightKg, a.reps) ? b : a,
+              );
+              return (
+                <View key={group.exerciseId} className="gap-2 rounded-xl bg-surface-container p-4">
+                  <Text className="font-sans text-lg font-bold text-on-surface">{group.name}</Text>
+                  <View className="gap-1">
+                    {group.sets.map((set) => (
+                      <View key={set.id} className="flex-row items-center justify-between">
+                        <Text
+                          className="font-sans text-on-surface-muted"
+                          style={{ fontVariant: ['tabular-nums'] }}
+                        >
+                          Satz {set.setNumber}
+                        </Text>
+                        <Text
+                          className="font-sans font-bold text-on-surface"
+                          style={{ fontVariant: ['tabular-nums'] }}
+                        >
+                          {formatWeight(set.weightKg)} kg × {set.reps}
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
+                  <View className="flex-row items-center gap-2">
+                    <View className="h-1.5 w-1.5 rounded-full bg-primary" />
+                    <Text className="flex-1 font-sans text-xs text-on-surface-muted">
+                      Bester Satz: {formatWeight(best.weightKg)} kg × {best.reps} · geschätztes 1RM ≈{' '}
+                      {formatWeight(epley1Rm(best.weightKg, best.reps))} kg
                     </Text>
                   </View>
-                ))}
-              </View>
-              <Text className="text-xs text-on-surface-muted">
-                Bester Satz: {formatWeight(best.weightKg)} kg × {best.reps} · geschätztes 1RM ≈{' '}
-                {formatWeight(epley1Rm(best.weightKg, best.reps))} kg
-              </Text>
-            </View>
-          );
-        })}
-      </View>
+                </View>
+              );
+            })}
+          </View>
 
-      <View className="gap-2">
-        <Text className="text-xs font-semibold uppercase tracking-widest text-on-surface-muted">Notizen</Text>
-        <TextInput
-          value={notes}
-          onChangeText={setNotes}
-          multiline
-          placeholder="Wie lief's? Was beim nächsten Mal ändern?"
-          placeholderTextColor="#a0a0a0"
-          textAlignVertical="top"
-          className="min-h-[96px] rounded-lg bg-surface-container p-3 text-on-surface"
-        />
-        <Pressable
-          onPress={handleSaveNotes}
-          disabled={savingNotes}
-          className="min-h-[48px] items-center justify-center rounded-lg bg-primary active:opacity-90"
-        >
-          <Text className="font-bold uppercase text-on-primary">Speichern</Text>
-        </Pressable>
-      </View>
+          <View className="gap-2">
+            <Text className="font-sans text-xs font-semibold uppercase tracking-widest text-on-surface-muted">
+              Notizen
+            </Text>
+            <TextInput
+              value={notes}
+              onChangeText={setNotes}
+              multiline
+              placeholder="Wie lief's? Was beim nächsten Mal ändern?"
+              placeholderTextColor="#a0a0a0"
+              textAlignVertical="top"
+              className="min-h-[96px] rounded-lg border border-outline bg-surface-container p-3 font-sans text-on-surface"
+            />
+            <Pressable
+              onPress={handleSaveNotes}
+              disabled={savingNotes}
+              android_ripple={{ color: 'rgba(0,0,0,0.15)' }}
+              className={`min-h-[48px] items-center justify-center rounded-lg bg-primary active:opacity-90 ${
+                savingNotes ? 'opacity-60' : ''
+              }`}
+            >
+              <Text className="font-sans font-bold uppercase text-on-primary">Speichern</Text>
+            </Pressable>
+          </View>
 
-      <Pressable
-        onPress={handleDelete}
-        className="min-h-[48px] items-center justify-center rounded-lg border border-error px-4 py-3 active:opacity-80"
-      >
-        <Text className="font-semibold text-error">Training löschen</Text>
-      </Pressable>
-    </ScrollView>
+          <Pressable
+            onPress={handleDelete}
+            android_ripple={{ color: 'rgba(255,180,171,0.12)' }}
+            className="min-h-[48px] flex-row items-center justify-center gap-2 rounded-lg border border-error px-4 py-3 active:opacity-80"
+          >
+            <Ionicons name="trash-outline" size={18} color="#ffb4ab" />
+            <Text className="font-sans font-semibold text-error">Training löschen</Text>
+          </Pressable>
+        </>
+      )}
+    </Screen>
   );
 }
