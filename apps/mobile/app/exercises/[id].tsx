@@ -130,9 +130,13 @@ export default function ExerciseDetailScreen() {
     [exercise?.primaryMuscle, exercise?.muscleGroup, exercise?.secondaryMuscles],
   );
 
-  const instructionSteps = useMemo(
+  const instructionStepsEn = useMemo(
     () => parseInstructionSteps(exercise?.instructionStepsEn),
     [exercise?.instructionStepsEn],
+  );
+  const instructionStepsDe = useMemo(
+    () => parseInstructionSteps(exercise?.instructionStepsDe),
+    [exercise?.instructionStepsDe],
   );
 
   const historySessions = useMemo<HistorySession[]>(() => {
@@ -227,10 +231,14 @@ export default function ExerciseDetailScreen() {
   const isOwn = exercise.userId != null;
   const hasDistinctEnName = !!exercise.nameDe && exercise.nameDe !== exercise.name;
 
-  // Übersetzung bevorzugen (immer bei eigenen Übungen, sonst sobald jemand die
-  // DE-Anleitung nachgetragen hat) — nummerierte Schritte/EN-Fallback nur ohne DE-Text.
-  const preferDeInstructions = !!exercise.instructionsDe;
-  const stepsToShow = !preferDeInstructions ? instructionSteps : null;
+  // Anleitungs-Priorität: nummerierte deutsche Schritte → deutscher Fliesstext
+  // (eigene Übungen) → nummerierte EN-Schritte → EN-Fliesstext. Der
+  // "Auf Englisch"-Hinweis erscheint nur in den EN-Zweigen.
+  const germanSteps = instructionStepsDe ?? [];
+  const germanProse = germanSteps.length === 0 ? exercise.instructionsDe : null;
+  const englishSteps = germanSteps.length === 0 && !germanProse ? (instructionStepsEn ?? []) : [];
+  const englishProse =
+    germanSteps.length === 0 && !germanProse && englishSteps.length === 0 ? exercise.instructionsEn : null;
 
   return (
     <View className="flex-1 bg-surface">
@@ -301,12 +309,9 @@ export default function ExerciseDetailScreen() {
           )}
 
           <Text className="mb-1 mt-6 font-sans text-sm font-bold uppercase tracking-wide text-primary">Ausführung</Text>
-          {preferDeInstructions ? (
-            <Text className="font-sans text-base leading-6 text-on-surface-muted">{exercise.instructionsDe}</Text>
-          ) : stepsToShow ? (
+          {germanSteps.length > 0 ? (
             <View className="gap-3">
-              <Text className="font-sans text-xs italic text-on-surface-muted">Auf Englisch — Übersetzung folgt</Text>
-              {stepsToShow.map((step, index) => (
+              {germanSteps.map((step, index) => (
                 <View key={index} className="flex-row gap-3">
                   <View className="h-6 w-6 items-center justify-center rounded-full bg-surface-container-high">
                     <Text className="tabular-nums font-sans text-xs font-bold text-on-surface-muted">{index + 1}</Text>
@@ -315,10 +320,24 @@ export default function ExerciseDetailScreen() {
                 </View>
               ))}
             </View>
-          ) : exercise.instructionsEn ? (
+          ) : germanProse ? (
+            <Text className="font-sans text-base leading-6 text-on-surface-muted">{germanProse}</Text>
+          ) : englishSteps.length > 0 ? (
+            <View className="gap-3">
+              <Text className="font-sans text-xs italic text-on-surface-muted">Auf Englisch — Übersetzung folgt</Text>
+              {englishSteps.map((step, index) => (
+                <View key={index} className="flex-row gap-3">
+                  <View className="h-6 w-6 items-center justify-center rounded-full bg-surface-container-high">
+                    <Text className="tabular-nums font-sans text-xs font-bold text-on-surface-muted">{index + 1}</Text>
+                  </View>
+                  <Text className="flex-1 font-sans text-base leading-7 text-on-surface-muted">{step}</Text>
+                </View>
+              ))}
+            </View>
+          ) : englishProse ? (
             <>
               <Text className="mb-2 font-sans text-xs italic text-on-surface-muted">Auf Englisch — Übersetzung folgt</Text>
-              <Text className="font-sans text-base leading-6 text-on-surface-muted">{exercise.instructionsEn}</Text>
+              <Text className="font-sans text-base leading-6 text-on-surface-muted">{englishProse}</Text>
             </>
           ) : (
             <Text className="font-sans text-base text-on-surface-muted">Keine Anleitung vorhanden.</Text>

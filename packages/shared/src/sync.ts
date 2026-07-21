@@ -91,7 +91,9 @@ const workoutSetRowSchema = z.object({
   workoutId: z.uuid(),
   exerciseId: z.uuid(),
   setNumber: z.number().int().positive(),
-  weightKg: z.number().positive(),
+  // 0 kg zulässig (Körpergewichts-Übungen); nur negativ wäre ungültig — sonst
+  // würden solche Sätze beim Sync-Push abgewiesen.
+  weightKg: z.number().min(0),
   reps: z.number().int().positive(),
   completedAt: epochMs,
   createdAt: epochMs,

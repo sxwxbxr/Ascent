@@ -31,7 +31,9 @@ export type ProfileInput = z.infer<typeof profileSchema>;
 
 /** Satz-Logging während eines Workouts: Gewicht (kg) und Wiederholungen. */
 export const workoutSetSchema = z.object({
-  weightKg: z.number().positive().max(1000),
+  // 0 kg ist zulässig: Körpergewichts-Übungen (Klimmzüge, Liegestütze) ohne
+  // Zusatzgewicht. Nur negatives Gewicht ist ungültig.
+  weightKg: z.number().min(0).max(1000),
   reps: z.number().int().min(1).max(100),
 });
 
@@ -123,7 +125,8 @@ export type WorkoutUpdateInput = z.infer<typeof workoutUpdateSchema>;
 const workoutSetFieldsSchema = z.object({
   exerciseId: z.string().min(1),
   setNumber: z.number().int().min(1).max(50),
-  weightKg: z.number().positive().max(1000),
+  // 0 kg zulässig (Körpergewichts-Übungen ohne Zusatzgewicht).
+  weightKg: z.number().min(0).max(1000),
   reps: z.number().int().min(1).max(100),
   completedAt: z.number().int().positive(),
 });

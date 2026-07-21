@@ -501,7 +501,8 @@ const ExerciseBlock = memo(function ExerciseBlock({
   function commitEdit(committed: SetRow): void {
     const weight = parseNumberInput(editDraftRef.current.weight);
     const reps = parseNumberInput(editDraftRef.current.reps);
-    if (weight !== undefined && weight > 0 && reps !== undefined && reps > 0) {
+    // 0 kg zulässig (Körpergewichts-Übungen); nur negativ/leer wird abgelehnt.
+    if (weight !== undefined && weight >= 0 && reps !== undefined && reps > 0) {
       void updateSet(committed.id, { weightKg: weight, reps: Math.round(reps) });
     }
     setEditingSetNumber(null);
@@ -529,7 +530,9 @@ const ExerciseBlock = memo(function ExerciseBlock({
     const draft = draftsRef.current[n] ?? { weight: '', reps: '' };
     const weight = parseNumberInput(draft.weight) ?? placeholder?.weightKg;
     const reps = parseNumberInput(draft.reps) ?? placeholder?.reps;
-    if (weight === undefined || weight <= 0 || reps === undefined || reps <= 0) {
+    // 0 kg zulässig (Körpergewichts-Übungen ohne Zusatzgewicht); nur negatives
+    // oder fehlendes Gewicht wird abgelehnt. Wiederholungen müssen > 0 sein.
+    if (weight === undefined || weight < 0 || reps === undefined || reps <= 0) {
       return;
     }
     void addSet({ workoutId, exerciseId, setNumber: n, weightKg: weight, reps: Math.round(reps) }).then(() => {

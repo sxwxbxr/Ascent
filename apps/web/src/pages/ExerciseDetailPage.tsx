@@ -235,16 +235,19 @@ export function ExerciseDetailPage() {
   const isOwn = exercise.userId != null;
   const name = exerciseName(exercise);
   const secondaryMuscles = parseJsonStringArray(exercise.secondaryMuscles);
-  const instructionSteps = parseJsonStringArray(exercise.instructionStepsEn);
+  const instructionStepsDe = parseJsonStringArray(exercise.instructionStepsDe);
+  const instructionStepsEn = parseJsonStringArray(exercise.instructionStepsEn);
   const hasMuscleSection = Boolean(exercise.muscleGroup) || secondaryMuscles.length > 0;
 
-  // Priorität: deutsche Ausführung (falls vorhanden — insb. bei eigenen
-  // Übungen) vor nummerierten EN-Schritten vor EN-Fliesstext; sonst keine Sektion.
+  // Priorität: nummerierte deutsche Schritte → deutscher Fliesstext (eigene
+  // Übungen) → nummerierte EN-Schritte → EN-Fliesstext; sonst keine Sektion.
   let instructionsBlock: InstructionsBlock | null = null;
-  if (exercise.instructionsDe) {
+  if (instructionStepsDe.length > 0) {
+    instructionsBlock = { kind: "steps", steps: instructionStepsDe, isEnglish: false };
+  } else if (exercise.instructionsDe) {
     instructionsBlock = { kind: "prose", text: exercise.instructionsDe, isEnglish: false };
-  } else if (instructionSteps.length > 0) {
-    instructionsBlock = { kind: "steps", steps: instructionSteps, isEnglish: true };
+  } else if (instructionStepsEn.length > 0) {
+    instructionsBlock = { kind: "steps", steps: instructionStepsEn, isEnglish: true };
   } else if (exercise.instructionsEn) {
     instructionsBlock = { kind: "prose", text: exercise.instructionsEn, isEnglish: true };
   }

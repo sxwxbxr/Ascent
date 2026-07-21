@@ -116,6 +116,22 @@ function loadNameI18n(): NameI18n {
   return JSON.parse(readFileSync(path, 'utf8')) as NameI18n;
 }
 
+/**
+ * Deutsche Anleitungs-Schritte je Dataset-id: { "<id>": ["Schritt 1", ...] }.
+ * Kuratiert via Uebersetzungs-Subagenten, gemergt nach
+ * scripts/data/exercise-instructions.i18n.json (im Repo versioniert).
+ */
+type InstructionStepsI18n = Record<string, string[]>;
+
+function loadInstructionStepsI18n(): InstructionStepsI18n {
+  const path = join(REPO_ROOT, 'scripts', 'data', 'exercise-instructions.i18n.json');
+  if (!existsSync(path)) {
+    console.warn('Hinweis: scripts/data/exercise-instructions.i18n.json fehlt — Anleitungen bleiben unuebersetzt.');
+    return {};
+  }
+  return JSON.parse(readFileSync(path, 'utf8')) as InstructionStepsI18n;
+}
+
 type Target = 'local' | 'remote';
 
 type Flags = Record<string, string | boolean>;
@@ -261,7 +277,9 @@ async function cmdSql(flags: Flags): Promise<void> {
   const now = Date.now();
 
   const nameI18n = loadNameI18n();
+  const instrI18n = loadInstructionStepsI18n();
   let translated = 0;
+  let instrTranslated = 0;
 
   const columns = [
     'id',
@@ -276,6 +294,7 @@ async function cmdSql(flags: Flags): Promise<void> {
     'muscle_group',
     'secondary_muscles',
     'instruction_steps_en',
+    'instruction_steps_de',
     'thumbnail_url',
     'gif_url',
     'created_at',
@@ -288,6 +307,9 @@ async function cmdSql(flags: Flags): Promise<void> {
     const i18n = nameI18n[ex.id];
     if (i18n) translated += 1;
     const steps = ex.instruction_steps?.en;
+    const deSteps = instrI18n[ex.id];
+    const hasDeSteps = Array.isArray(deSteps) && deSteps.length > 0;
+    if (hasDeSteps) instrTranslated += 1;
     const values = [
       sqlString(id),
       'NULL', // user_id: global (kein Owner)
@@ -297,12 +319,16 @@ async function cmdSql(flags: Flags): Promise<void> {
       sqlString(ex.target ?? ''),
       sqlString(ex.equipment ?? ''),
       sqlString(ex.instructions?.en ?? ''),
-      'NULL', // instructions_de: Uebersetzung folgt spaeter
+      // instructions_de: die deutschen Schritte werden als instruction_steps_de
+      // (Array) gepflegt; das Fliesstext-Feld bleibt NULL (Clients bevorzugen
+      // die nummerierten Schritte).
+      'NULL',
       ex.muscle_group ? sqlString(ex.muscle_group) : 'NULL',
       Array.isArray(ex.secondary_muscles) && ex.secondary_muscles.length > 0
         ? sqlString(JSON.stringify(ex.secondary_muscles))
         : 'NULL',
       Array.isArray(steps) && steps.length > 0 ? sqlString(JSON.stringify(steps)) : 'NULL',
+      hasDeSteps ? sqlString(JSON.stringify(deSteps)) : 'NULL',
       sqlString(`${MEDIA_BASE_URL}/${ex.id}.jpg`),
       sqlString(`${MEDIA_BASE_URL}/${ex.id}.gif`),
       String(now),
@@ -313,6 +339,7 @@ async function cmdSql(flags: Flags): Promise<void> {
   });
 
   console.log(`Namens-Uebersetzungen angewendet: ${translated}/${exercises.length}`);
+  console.log(`Anleitungs-Uebersetzungen angewendet: ${instrTranslated}/${exercises.length}`);
 
   const batches: string[] = [];
   for (let i = 0; i < rowTuples.length; i += SQL_BATCH_SIZE) {
