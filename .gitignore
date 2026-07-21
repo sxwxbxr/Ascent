@@ -29,3 +29,6 @@ coverage/
 # OS / Editor
 Thumbs.db
 .DS_Store
+
+# Persoenliche Notizdateien
+*_CONTINUE HERE.txt
