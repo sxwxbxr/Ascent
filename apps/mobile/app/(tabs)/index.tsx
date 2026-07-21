@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FlatList, Modal, Pressable, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
@@ -13,7 +13,7 @@ import {
   getWeeklyWorkoutCount,
   startWorkout,
 } from '../../src/data/workouts';
-import { getOwnerUserId } from '../../src/lib/owner';
+import { useOwnerUserId } from '../../src/lib/owner';
 
 // Home-Screen (Design: design/dashboard). Begrüssung + Datum (jetzt über den
 // gemeinsamen Screen-Wrapper — der Gerätetest zeigte "Hallo!" unter der
@@ -56,17 +56,9 @@ function formatExerciseCount(count: number): string {
 export default function HomeScreen() {
   const [pickerVisible, setPickerVisible] = useState(false);
   const [starting, setStarting] = useState(false);
-  const [ownerUserId, setOwnerUserId] = useState<string | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    getOwnerUserId().then((id) => {
-      if (!cancelled) setOwnerUserId(id);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  // Owner-Id reaktiv aus der Session — sofort verfügbar, keine Race Condition
+  // (frühere Ursache für "keine eigenen Pläne" direkt nach dem Login).
+  const ownerUserId = useOwnerUserId();
 
   const { data: activeWorkouts } = useLiveQuery(getActiveWorkout());
   // Placeholder-Query ('' matcht nie eine echte userId) solange ownerUserId

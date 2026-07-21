@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Alert, FlatList, Modal, Pressable, Text, TextInput, View } from 'react-native';
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
 import { useRouter } from 'expo-router';
@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import type { Plan } from '@ascent/shared';
 
 import { buildPlanExerciseCountsQuery, buildPlansQuery, createPlan, softDeletePlan } from '../../src/data/plans';
-import { getOwnerUserId } from '../../src/lib/owner';
+import { useOwnerUserId } from '../../src/lib/owner';
 import { Screen } from '../../src/ui/Screen';
 
 // Ionicons-Farben als Literale — Icon-Komponenten unterstützen keine
@@ -33,22 +33,13 @@ function formatExerciseCount(count: number): string {
 
 export default function PlansScreen() {
   const router = useRouter();
-  const [ownerUserId, setOwnerUserId] = useState<string | null>(null);
+  // Owner-Id reaktiv aus der Session (keine Race Condition, siehe owner.ts).
+  const ownerUserId = useOwnerUserId();
   const [modalVisible, setModalVisible] = useState(false);
   const [nameInput, setNameInput] = useState('');
   const [saving, setSaving] = useState(false);
 
-  useEffect(() => {
-    let cancelled = false;
-    getOwnerUserId().then((id) => {
-      if (!cancelled) setOwnerUserId(id);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-  // Placeholder-Query ('' matcht nie eine echte userId) solange ownerUserId
+  // Placeholder-Query ('' matcht nie eine echte userId) solange die Session
   // noch lädt — hält die Hook-Reihenfolge stabil (kein bedingter Hook-Aufruf).
   const { data: planRows } = useLiveQuery(buildPlansQuery(ownerUserId ?? ''), [ownerUserId]);
   const exerciseCounts = usePlanExerciseCounts();

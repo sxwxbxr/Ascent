@@ -12,6 +12,7 @@ import { authClient, toSessionUser } from '../src/auth/client';
 import { upsertLocalUser } from '../src/db/hydrate';
 import { runSync, runSyncThrottled } from '../src/db/sync';
 import { resumeActiveWorkout } from '../src/lib/active-workout';
+import { setOwnerUserId } from '../src/lib/owner';
 import { ErrorBoundary } from '../src/ui/ErrorBoundary';
 import { RecoveryScreen } from '../src/ui/RecoveryScreen';
 import { UpdateBanner } from '../src/ui/UpdateBanner';
@@ -54,6 +55,10 @@ function RootLayoutInner() {
   useEffect(() => {
     if (!migrationsDone || !session?.user) return;
     const user = toSessionUser(session.user);
+    // Owner-Id SOFORT (synchron) setzen — noch vor dem asynchronen
+    // upsertLocalUser. Das schliesst die Race Condition, wegen der der
+    // Home-Picker direkt nach dem Login "keine eigenen Pläne" zeigte.
+    setOwnerUserId(user.id);
     // Fire-and-forget: beide tolerieren Offline/Fehler selbst (console.log,
     // siehe src/db/hydrate.ts bzw. src/db/sync.ts) und dürfen den Render nie
     // blockieren. upsertLocalUser MUSS vor runSync abgeschlossen sein (runSync
