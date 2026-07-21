@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ascent/shared": "workspace:*",
+    "@mjcdev/react-body-highlighter": "^0.0.4",
     "better-auth": "^1.6.23",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",

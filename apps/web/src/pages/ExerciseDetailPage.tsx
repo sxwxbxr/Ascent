@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router";
 import { epley1Rm } from "@ascent/shared";
+import { AddToPlanMenu } from "../components/AddToPlanMenu";
 import { capitalizeWords, categoryLabelDe, exerciseName, muscleLabelDe } from "../lib/i18n";
 import { useSnapshot } from "../lib/snapshot";
 import type { ExerciseRow, WorkoutSetRow } from "../lib/snapshot";
@@ -261,9 +262,12 @@ export function ExerciseDetailPage() {
         <ExerciseMedia exercise={exercise} name={name} />
 
         <div className="flex flex-col gap-6">
-          <div>
-            <h1 className="text-3xl font-extrabold text-on-surface">{name}</h1>
-            {exercise.nameDe && <p className="mt-1 text-sm text-on-surface-muted">{exercise.name}</p>}
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <h1 className="text-3xl font-extrabold text-on-surface">{name}</h1>
+              {exercise.nameDe && <p className="mt-1 text-sm text-on-surface-muted">{exercise.name}</p>}
+            </div>
+            <AddToPlanMenu exerciseId={exercise.id} />
           </div>
 
           <div className="flex flex-wrap gap-2">

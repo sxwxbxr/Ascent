@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
+import { AddToPlanMenu } from "../components/AddToPlanMenu";
 import { CATEGORY_LABELS_DE, capitalizeWords, exerciseName, muscleLabelDe } from "../lib/i18n";
 import { useSnapshot } from "../lib/snapshot";
 import type { ExerciseRow } from "../lib/snapshot";
@@ -20,8 +21,14 @@ function ExerciseCard({ exercise }: ExerciseCardProps) {
   return (
     <Link
       to={`/uebungen/${exercise.id}`}
-      className="group flex flex-col gap-3 rounded-lg border border-surface-container-high bg-surface-container p-3 transition-colors hover:border-primary/60"
+      className="group relative flex flex-col gap-3 rounded-lg border border-surface-container-high bg-surface-container p-3 transition-colors hover:border-primary/60"
     >
+      {/* Positioniert relativ zur Karte (nicht zum Bildcontainer), damit das
+          Popover nicht vom `overflow-hidden` des Bildes abgeschnitten wird. */}
+      <div className="absolute right-3 top-3 z-10">
+        <AddToPlanMenu exerciseId={exercise.id} />
+      </div>
+
       <div className="relative aspect-square w-full overflow-hidden rounded-lg bg-white">
         {exercise.thumbnailUrl ? (
           <img src={exercise.thumbnailUrl} alt="" className="h-full w-full object-contain" />

@@ -1,11 +1,14 @@
 import { useMemo, useState } from 'react';
-import { FlatList, Modal, Pressable, Text, View } from 'react-native';
+import { FlatList, Modal, Pressable, ScrollView, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useLiveQuery } from 'drizzle-orm/expo-sqlite';
 
+import { PLAN_TEMPLATES } from '@ascent/shared';
+import type { PlanTemplate } from '@ascent/shared';
+
 import { Screen } from '../../src/ui/Screen';
-import { buildPlanExerciseCountsQuery, buildPlansQuery } from '../../src/data/plans';
+import { buildPlanExerciseCountsQuery, buildPlansQuery, instantiateTemplate } from '../../src/data/plans';
 import {
   getActiveWorkout,
   getFinishedWorkoutSummaries,
@@ -56,6 +59,7 @@ function formatExerciseCount(count: number): string {
 export default function HomeScreen() {
   const [pickerVisible, setPickerVisible] = useState(false);
   const [starting, setStarting] = useState(false);
+  const [templatesOpen, setTemplatesOpen] = useState(false);
   // Owner-Id reaktiv aus der Session — sofort verfügbar, keine Race Condition
   // (frühere Ursache für "keine eigenen Pläne" direkt nach dem Login).
   const ownerUserId = useOwnerUserId();
@@ -81,6 +85,22 @@ export default function HomeScreen() {
       await startWorkout(planId);
       setPickerVisible(false);
       router.push('/workout/active');
+    } finally {
+      setStarting(false);
+    }
+  }
+
+  // Vorlage: erst als eigenen (bearbeitbaren) Plan klonen, dann damit starten.
+  async function handleStartTemplate(template: PlanTemplate): Promise<void> {
+    if (starting) return;
+    setStarting(true);
+    try {
+      const plan = await instantiateTemplate(template);
+      await startWorkout(plan.id);
+      setPickerVisible(false);
+      router.push('/workout/active');
+    } catch (err) {
+      console.log('[Home] Vorlage starten fehlgeschlagen:', err);
     } finally {
       setStarting(false);
     }
@@ -214,6 +234,37 @@ export default function HomeScreen() {
             >
               <Text className="font-sans font-semibold text-on-surface">Freies Training</Text>
             </Pressable>
+
+            {/* Vorlagen bewusst eingeklappt, damit die eigenen Pläne oben im
+                Fokus bleiben. Auswahl klont die Vorlage in einen eigenen Plan
+                und startet damit direkt ein Training. */}
+            <Pressable
+              onPress={() => setTemplatesOpen((v) => !v)}
+              android_ripple={{ color: 'rgba(255,255,255,0.08)' }}
+              className="mt-3 min-h-[48px] flex-row items-center justify-between px-1 py-2"
+            >
+              <Text className="font-sans text-sm font-semibold uppercase tracking-widest text-on-surface-muted">
+                Vorlagen
+              </Text>
+              <Ionicons name={templatesOpen ? 'chevron-up' : 'chevron-down'} size={18} color="#a0a0a0" />
+            </Pressable>
+
+            {templatesOpen ? (
+              <ScrollView style={{ maxHeight: 260 }} keyboardShouldPersistTaps="handled">
+                {PLAN_TEMPLATES.map((template) => (
+                  <Pressable
+                    key={template.slug}
+                    disabled={starting}
+                    onPress={() => handleStartTemplate(template)}
+                    android_ripple={{ color: 'rgba(255,255,255,0.08)' }}
+                    className="mb-2 min-h-[48px] rounded-lg border border-surface-container-high bg-surface px-4 py-3 active:opacity-80"
+                  >
+                    <Text className="font-sans font-semibold text-on-surface">{template.name}</Text>
+                    <Text className="mt-0.5 font-sans text-xs text-on-surface-muted">{template.goal}</Text>
+                  </Pressable>
+                ))}
+              </ScrollView>
+            ) : null}
           </Pressable>
         </Pressable>
       </Modal>

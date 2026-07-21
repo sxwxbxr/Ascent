@@ -7,7 +7,7 @@ import {
   planUpdateSchema,
   plans,
 } from '@ascent/shared';
-import type { Plan, PlanExercise } from '@ascent/shared';
+import type { Plan, PlanExercise, PlanTemplate } from '@ascent/shared';
 
 import { db } from '../db/client';
 import { newId } from '../lib/ids';
@@ -134,6 +134,56 @@ export async function createPlan(name: string): Promise<Plan> {
 
   queueSyncPush();
   return row;
+}
+
+/**
+ * Erstellt aus einer Vorlage (PLAN_TEMPLATES aus @ascent/shared) einen
+ * eigenen, bearbeitbaren Plan samt Übungen. Der neue Plan gehört dem Nutzer
+ * und ist danach wie jeder andere editier- und synchronisierbar — die
+ * Vorlage selbst bleibt unverändert (reiner Katalog). Setzt voraus, dass die
+ * referenzierten globalen Übungen lokal vorhanden sind (Hydration beim Login,
+ * siehe src/db/sync.ts) — die lokale FK-Prüfung (PRAGMA foreign_keys) würde
+ * sonst greifen; in der Praxis ist die Hydration beim Öffnen des Pickers längst
+ * durch.
+ */
+export async function instantiateTemplate(template: PlanTemplate): Promise<Plan> {
+  const userId = await requireOwnerUserId();
+  const now = Date.now();
+  const planId = newId();
+
+  const [plan] = await db
+    .insert(plans)
+    .values({
+      id: planId,
+      userId,
+      name: template.name,
+      description: template.goal,
+      createdAt: now,
+      updatedAt: now,
+      deleted: false,
+    })
+    .returning();
+
+  if (template.exercises.length > 0) {
+    await db.insert(planExercises).values(
+      template.exercises.map((ex, index) => ({
+        id: newId(),
+        planId,
+        exerciseId: ex.exerciseId,
+        position: index,
+        targetSets: ex.targetSets,
+        targetRepsMin: ex.targetRepsMin,
+        targetRepsMax: ex.targetRepsMax,
+        restSeconds: ex.restSeconds,
+        createdAt: now,
+        updatedAt: now,
+        deleted: false,
+      })),
+    );
+  }
+
+  queueSyncPush();
+  return plan;
 }
 
 /**

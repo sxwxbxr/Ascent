@@ -149,7 +149,7 @@ function PlanExerciseItem({
 }
 
 /**
- * Plan-Editor (Route `/plaene/:planId`). Lädt das Plan-Detail direkt via
+ * Plan-Editor (Route `/plaene/:planId/bearbeiten`). Lädt das Plan-Detail direkt via
  * `GET /plans/:planId` (Server liefert bereits nach `position` sortierte
  * Plan-Übungen) in lokalen State und nach jeder Mutation neu. Ruft zusätzlich
  * `useSnapshot().reload()` auf, damit Dashboard/Verlauf konsistent bleiben.

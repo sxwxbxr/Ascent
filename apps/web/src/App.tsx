@@ -6,6 +6,7 @@ import { ExerciseDetailPage } from "./pages/ExerciseDetailPage";
 import { ExercisesPage } from "./pages/ExercisesPage";
 import { HistoryPage } from "./pages/HistoryPage";
 import { LoginPage } from "./pages/LoginPage";
+import { PlanDetailPage } from "./pages/PlanDetailPage";
 import { PlanEditorPage } from "./pages/PlanEditorPage";
 import { PlansPage } from "./pages/PlansPage";
 import { RegisterPage } from "./pages/RegisterPage";
@@ -20,7 +21,11 @@ function App() {
         <Route index element={<DashboardPage />} />
         <Route path="verlauf" element={<HistoryPage />} />
         <Route path="plaene" element={<PlansPage />} />
-        <Route path="plaene/:planId" element={<PlanEditorPage />} />
+        {/* /plaene/:planId ist jetzt die Übersicht (Muskel-Karte, siehe PlanDetailPage) —
+            der bisherige Übungs-Editor (Reihenfolge/Zielwerte/Hinzufügen/Entfernen) ist
+            dafür auf .../bearbeiten gewandert und bleibt über den Header-Link dort erreichbar. */}
+        <Route path="plaene/:planId" element={<PlanDetailPage />} />
+        <Route path="plaene/:planId/bearbeiten" element={<PlanEditorPage />} />
         <Route path="uebungen" element={<ExercisesPage />} />
         <Route path="uebungen/:id" element={<ExerciseDetailPage />} />
         <Route path="download" element={<DownloadPage />} />
