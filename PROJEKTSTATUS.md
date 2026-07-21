@@ -1,7 +1,16 @@
 # Projektstatus – Ascent
-### Stand: 17.07.2026 — MVP KOMPLETT: M0–M5 implementiert, App+Web live, Beta-APK gebaut
+### Stand: 21.07.2026 — MVP live (App+Web); laufend Feature-Ausbau & Gerätetest-Fixes
 
-**Nutzer-Ziel erreicht (vorbehaltlich Gerätetest):** Beta-APK liegt unter `beta/app-release.apk` (bzw. Actions-Artefakt "ascent-beta-apk"); Web-Dashboard live auf **https://ascent-api.sweber.workers.dev** (derselbe Worker serviert SPA + API same-origin). Es fehlt M6 (Release-Polish: eigener Keystore, APK-Download über die Web-App, version.json-Check).
+**App+Web live** auf **https://ascent-api.sweber.workers.dev** (derselbe Worker serviert SPA + API same-origin), Beta-APK unter `beta/app-release.apk` (bzw. Actions-Artefakt "ascent-beta-apk").
+
+**Seit dem 20./21.07. (nach Gerätetests) neu:**
+- **Übungsnamen + Anleitungen komplett Deutsch/Englisch** (alle 1'324): DE-Namen kuratiert, EN-Namen orthografisch korrigiert, DE-Ausführungsschritte nummeriert (`instruction_steps_de`); Detailseiten (App+Web) bevorzugen Deutsch. Kuratiert in `scripts/data/*.i18n.json`, vom Import-Script gemergt, lokal+remote angewendet. Kommt per Sync ohne neue APK.
+- **Web-Plandetailseite** (`/plaene/:planId`): Übungsliste, geschätzte Dauer, **Muskel-Karte vorne/hinten, männlich/weiblich (Profil)**, eingefärbt nach Intensität (`@mjcdev/react-body-highlighter`). Editor → `/plaene/:planId/bearbeiten`.
+- **Web: Übung → Plan** (Spotify-Stil, `AddToPlanMenu`).
+- **Standardplan-Vorlagen** (`packages/shared/templates.ts`, 8 bekannte Pläne): Mobile-Start-Picker hat ein „Vorlagen"-Dropdown (klont in eigenen Plan + startet).
+- **Gerätetest-Fixes:** Picker-Race (eigene Pläne fehlten) behoben; **0 kg** für Körpergewichts-Übungen erlaubt (Validierung+Sync+Client); **Kaltstart-Crash** — Ursache war `PRAGMA journal_mode=WAL` beim Modul-Import (uncatchbar durch die ErrorBoundary); Fix: `journal_mode=DELETE` + selbstheilendes DB-Öffnen (löscht korrupte lokale DB und legt frisch an, statt abzustürzen). **Noch am Gerät zu bestätigen — bei erneutem Crash `adb logcat` nötig.**
+
+**Noch offen:** M7-Release (eigener Signing-Keystore, APK-Download-Button + version.json-Check — Banner-UI existiert), Passwort-Reset-UI + Mail, Ernährungs-/Gamification-Konzepte (Agenten waren an früherem Session-Limit gestorben — neu zu starten).
 
 Einstiegsdokument für die Weiterarbeit. Grundlagen: `Lastenheft_Fitnessapp_Brainstorming.md` (Anforderungen), `Technisches_Konzept_MVP.md` (Architektur & Etappenplan M0–M6), `CLAUDE.md` (Arbeitskonventionen, Kommandos).
 
