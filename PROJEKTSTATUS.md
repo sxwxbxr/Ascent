@@ -1,4 +1,15 @@
 # Projektstatus – Ascent
+### Stand: 23.07.2026 — Ernährungs-Modul gebaut & committet; Prod-Rollout OFFEN (morgen weiter)
+
+**⚠️ MORGEN ZUERST — Ernährungs-Prod-Rollout abschliessen** (Code committet+gepusht bis `8935b5d`, aber NICHT deployed; Rollout wurde auf Nutzerwunsch pausiert):
+1. `pnpm --filter @ascent/api db:migrate:remote` → wendet Migration **0004** an (legt `foods`/`food_entries`/`nutrition_goals` in der Remote-D1 an). **Aktuell fehlen diese Tabellen remote** — remote sind nur 0000–0003 verbucht, 0004 ist echt ausstehend (kein „falsch-markiert"-Problem, sauber nachholbar). Danach verifizieren, dass die 3 Tabellen existieren.
+2. `pnpm --filter @ascent/web build` → dann `pnpm --filter @ascent/api run deploy` (Worker+SPA mit Ernährung live).
+3. `/ernaehrung` live prüfen; neueste Ernährungs-APK aus GitHub Actions herunterladen (nach `beta/`) für den Gerätetest.
+
+Resting State ist SICHER: der aktuell deployte Worker hat noch KEINE Ernährungs-Routen und läuft gesund; die 3 Ernährungs-Feature-Flags sind remote schon geseedet (harmlos); lokale D1 hat 0004 bereits. Nichts ist kaputt — nur der Rollout ist unvollständig.
+
+**Ernährungs-Modul (23.07., gebaut, lokal verifiziert — typecheck/Build/Bundle grün, 121 API-Tests):** Schema `foods`/`food_entries`/`nutrition_goals` + Sync + Validierung (N1); API inkl. Open-Food-Facts-Worker-Proxy (Text-Suche + Barcode-Lookup, Cache in D1, User-Agent aus `OFF_USER_AGENT_CONTACT`-Var = Repo-URL, austauschbar) + Feature-Flags (N2); Mobile-Tab „Ernährung" (Tagesansicht, Picker, Wasser, Ziele; Barcode-Kamera bewusst V1.1) (N3); Web `/ernaehrung` + „kcal heute"-Karte + kcal-Trend (N4). Konzept: `docs/KONZEPT_Ernaehrung.md`. Gamification-Konzept liegt bereit (`docs/KONZEPT_Gamification.md`), noch nicht gebaut.
+
 ### Stand: 21.07.2026 — MVP live (App+Web); laufend Feature-Ausbau & Gerätetest-Fixes
 
 **App+Web live** auf **https://ascent-api.sweber.workers.dev** (derselbe Worker serviert SPA + API same-origin), Beta-APK unter `beta/app-release.apk` (bzw. Actions-Artefakt "ascent-beta-apk").
