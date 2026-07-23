@@ -8,6 +8,7 @@ import { eq } from 'drizzle-orm';
 import { exercises } from '@ascent/shared';
 
 import { db } from '../../src/db/client';
+import { createBodyMetric, getLatestBodyMetricWeight } from '../../src/data/body-metrics';
 import {
   addSet,
   cancelWorkout,
@@ -134,6 +135,13 @@ export default function ActiveWorkoutScreen() {
     setCount: number;
     volumeKg: number;
   } | null>(null);
+
+  // Optionales Körpergewicht im Abschluss-Summary (Beenden-Flow). Uncontrolled
+  // wie die Satz-Felder in ExerciseBlock (Ref statt Screen-State pro
+  // Tastendruck) — unproblematisch hier, weil das Modal nur beim Abschluss
+  // kurz sichtbar ist, aber konsistent mit dem übrigen Datei-Muster.
+  const bodyWeightDraftRef = useRef<string>('');
+  const [bodyWeightPlaceholder, setBodyWeightPlaceholder] = useState<number | null>(null);
 
   const restTimer = useRestTimer();
 
@@ -277,12 +285,26 @@ export default function ActiveWorkoutScreen() {
       setCount: allSets.length,
       volumeKg: sumVolume(allSets),
     });
+    // Körpergewicht-Feld frisch aufsetzen: leerer Entwurf + jüngstes erfasstes
+    // Gewicht als Placeholder (Prefill-Vorschlag, kein vorausgefüllter Wert).
+    bodyWeightDraftRef.current = '';
+    setBodyWeightPlaceholder(null);
+    void getLatestBodyMetricWeight().then(setBodyWeightPlaceholder);
     setSummaryVisible(true);
   }, [activeWorkout, allSets, setsByExercise]);
 
   const handleConfirmFinish = useCallback(() => {
     if (!activeWorkout) return;
+    // Gültiges Gewicht (>0) trackt zusätzlich einen body_metric-Eintrag; ein
+    // Fehler dabei (z. B. > 500 kg) blockiert den Trainingsabschluss NICHT —
+    // nur loggen (siehe createBodyMetric-Validierung in src/data/body-metrics.ts).
+    const enteredWeight = parseNumberInput(bodyWeightDraftRef.current);
     void finishWorkout(activeWorkout.id).then(() => {
+      if (enteredWeight !== undefined && enteredWeight > 0) {
+        createBodyMetric({ weightKg: enteredWeight }).catch((err) => {
+          console.log('[active] createBodyMetric fehlgeschlagen:', err);
+        });
+      }
       setSummaryVisible(false);
       router.replace('/');
     });
@@ -413,6 +435,28 @@ export default function ActiveWorkoutScreen() {
                 </View>
               </>
             ) : null}
+
+            <View className="gap-2 border-t border-outline pt-4">
+              <Text className="font-sans text-sm font-bold text-on-surface">Körpergewicht heute</Text>
+              <View className="min-h-[48px] flex-row items-center gap-2 rounded-lg bg-surface px-3">
+                <TextInput
+                  defaultValue=""
+                  onChangeText={(text) => {
+                    bodyWeightDraftRef.current = text;
+                  }}
+                  placeholder={bodyWeightPlaceholder !== null ? formatWeight(bodyWeightPlaceholder) : undefined}
+                  placeholderTextColor="#a0a0a0"
+                  keyboardType="decimal-pad"
+                  className="min-w-0 flex-1 py-0 font-sans text-lg font-bold text-on-surface"
+                  style={{ fontVariant: ['tabular-nums'] }}
+                />
+                <Text className="font-sans text-xs text-on-surface-muted">kg</Text>
+              </View>
+              <Text className="font-sans text-xs text-on-surface-muted">
+                Optional — wird in deinem Verlauf getrackt
+              </Text>
+            </View>
+
             <Pressable
               onPress={handleConfirmFinish}
               android_ripple={{ color: 'rgba(0,0,0,0.15)' }}

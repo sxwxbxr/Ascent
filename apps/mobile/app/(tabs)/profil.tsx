@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Pressable, Share, Text, View } from 'react-native';
+import { ActivityIndicator, Modal, Pressable, ScrollView, Share, Text, TextInput, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import type { Tier } from '@ascent/shared';
@@ -8,6 +8,14 @@ import { Screen } from '../../src/ui/Screen';
 import { API_URL } from '../../src/config';
 import { authClient, toSessionUser } from '../../src/auth/client';
 import { runSync, useSyncStatus } from '../../src/db/sync';
+import {
+  fetchProfile,
+  updateDisplayName,
+  updateProfileFields,
+  type Gender,
+  type Profile,
+  type ProfileFieldsUpdate,
+} from '../../src/data/profile';
 
 type InviteStatus = 'offen' | 'verwendet' | 'abgelaufen';
 
@@ -60,6 +68,47 @@ function initialsOf(name: string): string {
   const parts = name.trim().split(/\s+/).filter(Boolean);
   const letters = parts.slice(0, 2).map((p) => p[0]?.toUpperCase() ?? '');
   return letters.join('') || '?';
+}
+
+type EditableField = 'displayName' | 'birthDate' | 'heightCm' | 'goal';
+
+const GENDER_OPTIONS: { value: Gender; label: string }[] = [
+  { value: 'm', label: 'Männlich' },
+  { value: 'w', label: 'Weiblich' },
+  { value: 'd', label: 'Divers' },
+];
+
+const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+/** JJJJ-MM-TT syntaktisch UND kalendarisch gültig (kein "2024-02-30"). */
+function isValidIsoDate(value: string): boolean {
+  if (!ISO_DATE_RE.test(value)) return false;
+  const [year, month, day] = value.split('-').map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  return date.getUTCFullYear() === year && date.getUTCMonth() === month - 1 && date.getUTCDate() === day;
+}
+
+/** Clientseitige Validierung des Bearbeiten-Formulars; deutsche Fehlermeldungen. */
+function validateProfileForm(input: {
+  displayName: string;
+  birthDate: string;
+  heightCm: string;
+}): string | null {
+  if (!input.displayName.trim()) return 'Bitte einen Namen eingeben.';
+
+  const birthDate = input.birthDate.trim();
+  if (birthDate !== '' && !isValidIsoDate(birthDate)) {
+    return 'Bitte ein gültiges Geburtsdatum im Format JJJJ-MM-TT eingeben.';
+  }
+
+  const heightCm = input.heightCm.trim();
+  if (heightCm !== '') {
+    if (!/^\d+$/.test(heightCm)) return 'Grösse muss eine Zahl in cm sein.';
+    const value = Number(heightCm);
+    if (value < 100 || value > 250) return 'Grösse muss zwischen 100 und 250 cm liegen.';
+  }
+
+  return null;
 }
 
 // Design: design/profil/code.html — Kopf mit Avatar/Name/Tier, Invite-Karte,
@@ -129,6 +178,123 @@ export default function ProfilScreen() {
     // die Session verschwindet — kein manueller Redirect nötig.
   }
 
+  // --- Profil bearbeiten (Modal) --------------------------------------------
+  const [editVisible, setEditVisible] = useState(false);
+  const [editLoading, setEditLoading] = useState(false);
+  const [editLoadError, setEditLoadError] = useState<string | null>(null);
+  // Frisch geladenes Profil beim Öffnen: Prefill-Quelle UND Baseline für den
+  // "nur geänderte Felder senden"-Vergleich beim Speichern.
+  const [baseline, setBaseline] = useState<Profile | null>(null);
+
+  const [displayNameInput, setDisplayNameInput] = useState('');
+  const [genderInput, setGenderInput] = useState<Gender | null>(null);
+  const [birthDateInput, setBirthDateInput] = useState('');
+  const [heightCmInput, setHeightCmInput] = useState('');
+  const [goalInput, setGoalInput] = useState('');
+  const [focusedField, setFocusedField] = useState<EditableField | null>(null);
+
+  const [formError, setFormError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [savedBanner, setSavedBanner] = useState(false);
+
+  function fieldBorderClassName(field: EditableField): string {
+    return `h-12 rounded-lg border-2 bg-surface px-4 font-sans text-on-surface ${
+      focusedField === field ? 'border-primary' : 'border-transparent'
+    }`;
+  }
+
+  async function loadEditForm() {
+    setEditLoading(true);
+    setEditLoadError(null);
+    try {
+      const profile = await fetchProfile();
+      setBaseline(profile);
+      setDisplayNameInput(profile.displayName);
+      setGenderInput(profile.gender);
+      setBirthDateInput(profile.birthDate ?? '');
+      setHeightCmInput(profile.heightCm !== null ? String(profile.heightCm) : '');
+      setGoalInput(profile.goal ?? '');
+    } catch (err) {
+      setEditLoadError(err instanceof Error ? err.message : 'Profil konnte nicht geladen werden.');
+    } finally {
+      setEditLoading(false);
+    }
+  }
+
+  function openEditModal() {
+    setFormError(null);
+    setEditVisible(true);
+    loadEditForm().catch((err) => console.log('[ProfilScreen] loadEditForm fehlgeschlagen:', err));
+  }
+
+  function closeEditModal() {
+    if (saving) return;
+    setEditVisible(false);
+  }
+
+  function toggleGender(value: Gender) {
+    setGenderInput((current) => (current === value ? null : value));
+  }
+
+  async function handleSaveProfile() {
+    if (!baseline) return;
+
+    const validationError = validateProfileForm({
+      displayName: displayNameInput,
+      birthDate: birthDateInput,
+      heightCm: heightCmInput,
+    });
+    if (validationError) {
+      setFormError(validationError);
+      return;
+    }
+
+    setFormError(null);
+    setSaving(true);
+    try {
+      const trimmedName = displayNameInput.trim();
+      if (trimmedName !== baseline.displayName) {
+        await updateDisplayName(trimmedName);
+      }
+
+      // Nur tatsächlich geänderte, nicht-leere optionale Felder senden — ein
+      // geleertes Feld wird bewusst NICHT als "löschen" ans partielle
+      // PUT-Schema geschickt (das unterstützt keine Null-Werte), sondern
+      // einfach ausgelassen.
+      const fields: ProfileFieldsUpdate = {};
+      if (genderInput !== null && genderInput !== baseline.gender) {
+        fields.gender = genderInput;
+      }
+      const birthDate = birthDateInput.trim();
+      if (birthDate !== '' && birthDate !== (baseline.birthDate ?? '')) {
+        fields.birthDate = birthDate;
+      }
+      const heightCmTrimmed = heightCmInput.trim();
+      if (heightCmTrimmed !== '') {
+        const heightCmValue = Number(heightCmTrimmed);
+        if (heightCmValue !== baseline.heightCm) {
+          fields.heightCm = heightCmValue;
+        }
+      }
+      const goal = goalInput.trim();
+      if (goal !== '' && goal !== (baseline.goal ?? '')) {
+        fields.goal = goal;
+      }
+
+      if (Object.keys(fields).length > 0) {
+        await updateProfileFields(fields);
+      }
+
+      setEditVisible(false);
+      setSavedBanner(true);
+      setTimeout(() => setSavedBanner(false), 3000);
+    } catch (err) {
+      setFormError(err instanceof Error ? err.message : 'Speichern fehlgeschlagen.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
     <Screen title="Profil">
       {/* Kopf */}
@@ -152,6 +318,22 @@ export default function ProfilScreen() {
           </View>
         </View>
       </View>
+
+      <Pressable
+        onPress={openEditModal}
+        android_ripple={RIPPLE_NEUTRAL}
+        className="h-12 flex-row items-center gap-2 self-start rounded-lg border border-outline px-4"
+      >
+        <Ionicons name="create-outline" size={16} color="#e5e2e1" />
+        <Text className="font-sans font-bold text-on-surface">Profil bearbeiten</Text>
+      </Pressable>
+
+      {savedBanner && (
+        <View className="flex-row items-center gap-2 self-start rounded-lg bg-surface-container-high px-3 py-2">
+          <Ionicons name="checkmark-circle-outline" size={16} color="#e5e2e1" />
+          <Text className="font-sans text-sm text-on-surface">Profil aktualisiert.</Text>
+        </View>
+      )}
 
       {/* Trainingspartner einladen */}
       <View className="gap-3 rounded-xl border border-surface-container-high bg-surface-container p-4">
@@ -261,6 +443,166 @@ export default function ProfilScreen() {
           <Text className="font-sans font-bold text-error">Abmelden</Text>
         </Pressable>
       </View>
+
+      {/* Profil bearbeiten (Modal) — Muster wie das Neuer-Plan-Modal in plans.tsx. */}
+      <Modal visible={editVisible} transparent animationType="fade" onRequestClose={closeEditModal}>
+        <View className="flex-1 items-center justify-center bg-black/60 px-6">
+          <View className="max-h-[85%] w-full rounded-xl bg-surface-container p-5">
+            <Text className="mb-4 font-sans text-xl font-bold text-on-surface">Profil bearbeiten</Text>
+
+            {editLoading && (
+              <View className="items-center py-8">
+                <ActivityIndicator color="#a0a0a0" />
+              </View>
+            )}
+
+            {!editLoading && editLoadError && (
+              <View className="gap-3">
+                <View className="flex-row items-center gap-2 rounded-lg bg-error/10 p-3">
+                  <Ionicons name="alert-circle-outline" size={18} color="#ffb4ab" />
+                  <Text className="flex-1 font-sans text-sm text-error">{editLoadError}</Text>
+                </View>
+                <Pressable
+                  onPress={() => loadEditForm().catch((err) => console.log('[ProfilScreen] loadEditForm fehlgeschlagen:', err))}
+                  android_ripple={RIPPLE_NEUTRAL}
+                  className="h-12 items-center justify-center rounded-lg border border-outline"
+                >
+                  <Text className="font-sans font-bold text-on-surface">Erneut versuchen</Text>
+                </Pressable>
+              </View>
+            )}
+
+            {!editLoading && !editLoadError && baseline && (
+              <ScrollView keyboardShouldPersistTaps="handled" contentContainerClassName="gap-4">
+                <View className="gap-1">
+                  <Text className="font-sans text-xs font-semibold uppercase tracking-wide text-on-surface-muted">
+                    Anzeigename
+                  </Text>
+                  <TextInput
+                    value={displayNameInput}
+                    onChangeText={setDisplayNameInput}
+                    placeholder="Dein Name"
+                    placeholderTextColor="#a0a0a0"
+                    autoCapitalize="words"
+                    onFocus={() => setFocusedField('displayName')}
+                    onBlur={() => setFocusedField(null)}
+                    className={fieldBorderClassName('displayName')}
+                  />
+                </View>
+
+                <View className="gap-1">
+                  <Text className="font-sans text-xs font-semibold uppercase tracking-wide text-on-surface-muted">
+                    Geschlecht
+                  </Text>
+                  <View className="flex-row gap-2">
+                    {GENDER_OPTIONS.map((option) => {
+                      const active = genderInput === option.value;
+                      return (
+                        <Pressable
+                          key={option.value}
+                          onPress={() => toggleGender(option.value)}
+                          android_ripple={active ? RIPPLE_ON_PRIMARY : RIPPLE_NEUTRAL}
+                          className={`h-12 flex-1 items-center justify-center rounded-lg ${
+                            active ? 'bg-primary' : 'bg-surface-container-high'
+                          }`}
+                        >
+                          <Text className={`font-sans font-bold ${active ? 'text-on-primary' : 'text-on-surface'}`}>
+                            {option.label}
+                          </Text>
+                        </Pressable>
+                      );
+                    })}
+                  </View>
+                </View>
+
+                <View className="gap-1">
+                  <Text className="font-sans text-xs font-semibold uppercase tracking-wide text-on-surface-muted">
+                    Geburtsdatum
+                  </Text>
+                  <TextInput
+                    value={birthDateInput}
+                    onChangeText={setBirthDateInput}
+                    placeholder="JJJJ-MM-TT"
+                    placeholderTextColor="#a0a0a0"
+                    // Kein number-pad: das Format braucht Bindestriche, die
+                    // die reine Ziffterntastatur nicht anbietet (Android-only
+                    // Scope — 'numbers-and-punctuation' ist iOS-exklusiv).
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    maxLength={10}
+                    onFocus={() => setFocusedField('birthDate')}
+                    onBlur={() => setFocusedField(null)}
+                    className={fieldBorderClassName('birthDate')}
+                  />
+                </View>
+
+                <View className="gap-1">
+                  <Text className="font-sans text-xs font-semibold uppercase tracking-wide text-on-surface-muted">
+                    Grösse (cm)
+                  </Text>
+                  <TextInput
+                    value={heightCmInput}
+                    onChangeText={setHeightCmInput}
+                    placeholder="z. B. 178"
+                    placeholderTextColor="#a0a0a0"
+                    keyboardType="number-pad"
+                    maxLength={3}
+                    onFocus={() => setFocusedField('heightCm')}
+                    onBlur={() => setFocusedField(null)}
+                    className={fieldBorderClassName('heightCm')}
+                  />
+                </View>
+
+                <View className="gap-1">
+                  <Text className="font-sans text-xs font-semibold uppercase tracking-wide text-on-surface-muted">
+                    Ziel
+                  </Text>
+                  <TextInput
+                    value={goalInput}
+                    onChangeText={setGoalInput}
+                    placeholder="z. B. Muskelaufbau"
+                    placeholderTextColor="#a0a0a0"
+                    onFocus={() => setFocusedField('goal')}
+                    onBlur={() => setFocusedField(null)}
+                    className={fieldBorderClassName('goal')}
+                  />
+                </View>
+
+                {formError && (
+                  <View className="flex-row items-center gap-2 rounded-lg bg-error/10 p-3">
+                    <Ionicons name="alert-circle-outline" size={18} color="#ffb4ab" />
+                    <Text className="flex-1 font-sans text-sm text-error">{formError}</Text>
+                  </View>
+                )}
+              </ScrollView>
+            )}
+
+            <View className="mt-4 flex-row justify-end gap-2">
+              <Pressable
+                onPress={closeEditModal}
+                disabled={saving}
+                className="h-12 items-center justify-center px-4 active:opacity-70"
+              >
+                <Text className="font-sans text-base text-on-surface-muted">Abbrechen</Text>
+              </Pressable>
+              <Pressable
+                onPress={() => handleSaveProfile().catch((err) => console.log('[ProfilScreen] handleSaveProfile fehlgeschlagen:', err))}
+                disabled={saving || editLoading || !!editLoadError || !baseline}
+                android_ripple={RIPPLE_ON_PRIMARY}
+                className={`h-12 items-center justify-center rounded-lg px-5 active:opacity-90 ${
+                  saving || editLoading || editLoadError || !baseline ? 'bg-primary/40' : 'bg-primary'
+                }`}
+              >
+                {saving ? (
+                  <ActivityIndicator color="#213600" />
+                ) : (
+                  <Text className="font-sans text-base font-bold text-on-primary">Speichern</Text>
+                )}
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </Screen>
   );
 }
