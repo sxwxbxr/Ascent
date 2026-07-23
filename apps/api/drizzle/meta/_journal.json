@@ -29,6 +29,13 @@
       "when": 1784536323147,
       "tag": "0003_daffy_mercury",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1784813061702,
+      "tag": "0004_strange_romulus",
+      "breakpoints": true
     }
   ]
 }

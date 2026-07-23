@@ -4,6 +4,9 @@ import { drizzle } from 'drizzle-orm/d1';
 import {
   bodyMetrics,
   exercises,
+  foodEntries,
+  foods,
+  nutritionGoals,
   planExercises,
   plans,
   syncPullRequestSchema,
@@ -151,6 +154,77 @@ async function applyBodyMetric(db: Db, userId: string, input: SyncRow<'body_metr
   }
 }
 
+/**
+ * `foods` (docs/KONZEPT_Ernaehrung.md, Abschnitt 2.4): folgt exakt dem
+ * `applyExercise`-Muster — global (`userId = null`) angelegte Zeilen kommen
+ * ausschliesslich aus dem OFF-Proxy (routes/foods.ts), nie über den Sync-
+ * Push. Ein Client kann daher nur EIGENE Zeilen pushen; userId wird
+ * serverseitig immer auf den authentifizierten Nutzer erzwungen, wodurch ein
+ * Push auf eine bestehende globale (oder fremde) Zeile IMMER rejected wird.
+ */
+async function applyFood(db: Db, userId: string, input: SyncRow<'foods'>): Promise<ApplyOutcome> {
+  const incoming = { ...input, userId };
+  const existing = (await db.select().from(foods).where(eq(foods.id, incoming.id)).all())[0];
+
+  if (existing) {
+    if (existing.userId !== userId) return 'rejected';
+    if (!isNewer(incoming.updatedAt, existing.updatedAt)) return 'skipped';
+  }
+
+  try {
+    if (existing) {
+      await db.update(foods).set(incoming).where(eq(foods.id, incoming.id));
+    } else {
+      await db.insert(foods).values(incoming);
+    }
+    return 'applied';
+  } catch {
+    return 'rejected';
+  }
+}
+
+async function applyFoodEntry(db: Db, userId: string, input: SyncRow<'food_entries'>): Promise<ApplyOutcome> {
+  const incoming = { ...input, userId };
+  const existing = (await db.select().from(foodEntries).where(eq(foodEntries.id, incoming.id)).all())[0];
+
+  if (existing) {
+    if (existing.userId !== userId) return 'rejected';
+    if (!isNewer(incoming.updatedAt, existing.updatedAt)) return 'skipped';
+  }
+
+  try {
+    if (existing) {
+      await db.update(foodEntries).set(incoming).where(eq(foodEntries.id, incoming.id));
+    } else {
+      await db.insert(foodEntries).values(incoming);
+    }
+    return 'applied';
+  } catch {
+    return 'rejected';
+  }
+}
+
+async function applyNutritionGoal(db: Db, userId: string, input: SyncRow<'nutrition_goals'>): Promise<ApplyOutcome> {
+  const incoming = { ...input, userId };
+  const existing = (await db.select().from(nutritionGoals).where(eq(nutritionGoals.id, incoming.id)).all())[0];
+
+  if (existing) {
+    if (existing.userId !== userId) return 'rejected';
+    if (!isNewer(incoming.updatedAt, existing.updatedAt)) return 'skipped';
+  }
+
+  try {
+    if (existing) {
+      await db.update(nutritionGoals).set(incoming).where(eq(nutritionGoals.id, incoming.id));
+    } else {
+      await db.insert(nutritionGoals).values(incoming);
+    }
+    return 'applied';
+  } catch {
+    return 'rejected';
+  }
+}
+
 async function applyPlanExercise(db: Db, userId: string, input: SyncRow<'plan_exercises'>): Promise<ApplyOutcome> {
   const existing = (await db.select().from(planExercises).where(eq(planExercises.id, input.id)).all())[0];
 
@@ -223,6 +297,9 @@ syncRouter.post('/push', async (c) => {
       workouts: emptyCounts(),
       workout_sets: emptyCounts(),
       body_metrics: emptyCounts(),
+      foods: emptyCounts(),
+      food_entries: emptyCounts(),
+      nutrition_goals: emptyCounts(),
     },
   };
 
@@ -248,6 +325,15 @@ syncRouter.post('/push', async (c) => {
   for (const row of tables.body_metrics ?? []) {
     result.tables.body_metrics[await applyBodyMetric(db, user.id, row)]++;
   }
+  for (const row of tables.foods ?? []) {
+    result.tables.foods[await applyFood(db, user.id, row)]++;
+  }
+  for (const row of tables.food_entries ?? []) {
+    result.tables.food_entries[await applyFoodEntry(db, user.id, row)]++;
+  }
+  for (const row of tables.nutrition_goals ?? []) {
+    result.tables.nutrition_goals[await applyNutritionGoal(db, user.id, row)]++;
+  }
 
   return c.json(result);
 });
@@ -268,7 +354,17 @@ syncRouter.post('/pull', async (c) => {
   const since = parsed.data.since ?? {};
   const db = drizzle(c.env.DB);
 
-  const [exerciseRows, planRows, planExerciseRows, workoutRows, workoutSetRows, bodyMetricRows] = await Promise.all([
+  const [
+    exerciseRows,
+    planRows,
+    planExerciseRows,
+    workoutRows,
+    workoutSetRows,
+    bodyMetricRows,
+    foodRows,
+    foodEntryRows,
+    nutritionGoalRows,
+  ] = await Promise.all([
     db
       .select()
       .from(exercises)
@@ -329,6 +425,21 @@ syncRouter.post('/pull', async (c) => {
       .from(bodyMetrics)
       .where(and(gt(bodyMetrics.updatedAt, since.body_metrics ?? 0), eq(bodyMetrics.userId, user.id)))
       .all(),
+    db
+      .select()
+      .from(foods)
+      .where(and(gt(foods.updatedAt, since.foods ?? 0), or(eq(foods.userId, user.id), isNull(foods.userId))))
+      .all(),
+    db
+      .select()
+      .from(foodEntries)
+      .where(and(gt(foodEntries.updatedAt, since.food_entries ?? 0), eq(foodEntries.userId, user.id)))
+      .all(),
+    db
+      .select()
+      .from(nutritionGoals)
+      .where(and(gt(nutritionGoals.updatedAt, since.nutrition_goals ?? 0), eq(nutritionGoals.userId, user.id)))
+      .all(),
   ]);
 
   const result: SyncPullResult = {
@@ -340,6 +451,9 @@ syncRouter.post('/pull', async (c) => {
       workouts: workoutRows,
       workout_sets: workoutSetRows,
       body_metrics: bodyMetricRows,
+      foods: foodRows,
+      food_entries: foodEntryRows,
+      nutrition_goals: nutritionGoalRows,
     },
   };
 

@@ -12,6 +12,9 @@ import { plansRouter } from "./routes/plans";
 import { workoutsRouter } from "./routes/workouts";
 import { exercisesRouter } from "./routes/exercises";
 import { bodyMetricsRouter } from "./routes/body-metrics";
+import { foodsRouter } from "./routes/foods";
+import { foodEntriesRouter } from "./routes/food-entries";
+import { nutritionGoalsRouter } from "./routes/nutrition-goals";
 import { mediaRouter } from "./routes/media";
 import { profileRouter } from "./routes/profile";
 import { syncRouter } from "./routes/sync";
@@ -80,6 +83,9 @@ const PROTECTED = [
   "/workouts",
   "/exercises",
   "/body-metrics",
+  "/foods",
+  "/food-entries",
+  "/nutrition-goals",
   "/profile",
   "/sync",
 ] as const;
@@ -94,6 +100,9 @@ app.route("/plans", plansRouter);
 app.route("/workouts", workoutsRouter);
 app.route("/exercises", exercisesRouter);
 app.route("/body-metrics", bodyMetricsRouter);
+app.route("/foods", foodsRouter);
+app.route("/food-entries", foodEntriesRouter);
+app.route("/nutrition-goals", nutritionGoalsRouter);
 app.route("/profile", profileRouter);
 app.route("/sync", syncRouter);
 

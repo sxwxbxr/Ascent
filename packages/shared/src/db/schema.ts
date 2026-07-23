@@ -170,6 +170,94 @@ export type BodyMetric = typeof bodyMetrics.$inferSelect;
 export type NewBodyMetric = typeof bodyMetrics.$inferInsert;
 
 /**
+ * Ernährungs-Modul (docs/KONZEPT_Ernaehrung.md, Abschnitt 2.1): Cache von
+ * Lebensmitteln. Analog zu `exercises` teilen sich globale, geteilte Zeilen
+ * (`userId = null`, aus Open Food Facts importiert/gecacht) und eigene Zeilen
+ * (`userId` gesetzt, z. B. selbst gekochte Gerichte ohne Barcode) dieselbe
+ * Tabelle. `foods` ist bewusst KEIN vollständiger OFF-Spiegel, sondern rein
+ * bedarfsgesteuert befüllt (siehe Konzept).
+ */
+export const foods = sqliteTable('foods', {
+  id: text('id').primaryKey(),
+  userId: text('user_id').references(() => users.id), // null = globaler OFF-Cache-Eintrag
+  barcode: text('barcode'), // EAN/GTIN; null bei eigenen Lebensmitteln ohne Barcode
+  name: text('name').notNull(),
+  brand: text('brand'),
+  // Nährwerte je 100 g/ml (OFF-Konvention) — Basis für die Snapshot-Berechnung in food_entries
+  kcalPer100: real('kcal_per_100').notNull(),
+  proteinPer100: real('protein_per_100'),
+  carbsPer100: real('carbs_per_100'),
+  fatPer100: real('fat_per_100'),
+  servingSizeG: real('serving_size_g'), // optionale Portionsgrösse laut OFF ("serving_size")
+  source: text('source', { enum: ['off', 'custom'] }).notNull().default('custom'),
+  offLastFetchedAt: integer('off_last_fetched_at'), // Epoch ms; für spätere Refresh-Strategie
+  createdAt: integer('created_at').notNull(),
+  updatedAt: integer('updated_at').notNull(),
+  deleted: integer('deleted', { mode: 'boolean' }).notNull().default(false),
+});
+
+export type Food = typeof foods.$inferSelect;
+export type NewFood = typeof foods.$inferInsert;
+
+/**
+ * Ernährungs-Modul (Konzept Abschnitt 2.2): Tagebuch (Mahlzeiten + Wasser).
+ * Wasser ist bewusst kein eigener Tabellentyp, sondern ein `entryType` auf
+ * derselben Zeile (siehe Konzept-Diskussion) — CRUD/Sync/lokale Ablage werden
+ * so nur einmal statt zweimal gebaut.
+ */
+export const foodEntries = sqliteTable('food_entries', {
+  id: text('id').primaryKey(),
+  userId: text('user_id').notNull().references(() => users.id),
+  entryType: text('entry_type', { enum: ['food', 'water'] }).notNull().default('food'),
+  foodId: text('food_id').references(() => foods.id), // null bei Wasser ODER manuellem Schnelleintrag ohne Katalog-Zeile
+  /** ISO-Datum (YYYY-MM-DD) — der Tag, dem der Eintrag im Tagebuch zugerechnet wird. */
+  loggedDate: text('logged_date').notNull(),
+  mealSlot: text('meal_slot', { enum: ['breakfast', 'lunch', 'dinner', 'snack'] }), // null bei entryType 'water'
+  amountG: real('amount_g'), // Menge in Gramm; nur bei entryType 'food'
+  amountMl: real('amount_ml'), // Menge in ml; nur bei entryType 'water'
+  // Snapshot der Nährwerte ZUM ERFASSUNGSZEITPUNKT (kcal/Makros bleiben stabil,
+  // auch wenn sich der zugehörige foods-Cache-Eintrag später ändert — analog
+  // dazu, dass workout_sets bereits geloggte weightKg/reps nie neu berechnet).
+  kcal: real('kcal'),
+  proteinG: real('protein_g'),
+  carbsG: real('carbs_g'),
+  fatG: real('fat_g'),
+  /** Epoch ms — Erfassungszeitpunkt (Reihenfolge/Audit; für die Tagesgruppierung zählt loggedDate). */
+  loggedAt: integer('logged_at').notNull(),
+  createdAt: integer('created_at').notNull(),
+  updatedAt: integer('updated_at').notNull(),
+  deleted: integer('deleted', { mode: 'boolean' }).notNull().default(false),
+});
+
+export type FoodEntry = typeof foodEntries.$inferSelect;
+export type NewFoodEntry = typeof foodEntries.$inferInsert;
+
+/**
+ * Ernährungs-Modul (Konzept Abschnitt 2.3): Ernährungsziele als eigene,
+ * anfügende History-Tabelle (Muster wie `body_metrics`) statt Profil-Spalten
+ * auf `users` — Begründung: Historisierung (Ziele ändern sich über Zeit) und
+ * Offline-Verfügbarkeit (anders als `GET /profile`, das laut
+ * apps/mobile/src/data/profile.ts nur online verfügbar ist).
+ */
+export const nutritionGoals = sqliteTable('nutrition_goals', {
+  id: text('id').primaryKey(),
+  userId: text('user_id').notNull().references(() => users.id),
+  /** ISO-Datum (YYYY-MM-DD) — ab wann dieses Ziel gilt. */
+  effectiveFrom: text('effective_from').notNull(),
+  kcalTarget: integer('kcal_target').notNull(),
+  proteinTargetG: real('protein_target_g'),
+  carbsTargetG: real('carbs_target_g'),
+  fatTargetG: real('fat_target_g'),
+  waterTargetMl: integer('water_target_ml'),
+  createdAt: integer('created_at').notNull(),
+  updatedAt: integer('updated_at').notNull(),
+  deleted: integer('deleted', { mode: 'boolean' }).notNull().default(false),
+});
+
+export type NutritionGoal = typeof nutritionGoals.$inferSelect;
+export type NewNutritionGoal = typeof nutritionGoals.$inferInsert;
+
+/**
  * Zentrale Entitlement-Konfiguration (Technisches Konzept, Abschnitt 5). Reine
  * Server-Konfiguration ohne Gerätesynchronisation — daher keine Sync-Spalten
  * (kein `createdAt`, kein `deleted`), nur `updatedAt` zur Nachvollziehbarkeit.

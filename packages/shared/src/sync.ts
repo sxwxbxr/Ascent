@@ -15,6 +15,9 @@ export const SYNC_TABLES = [
   'workouts',
   'workout_sets',
   'body_metrics',
+  'foods', // neu — Eltern von food_entries (globaler OFF-Cache + eigene Lebensmittel)
+  'food_entries', // neu — referenziert foods.id (nullable)
+  'nutrition_goals', // neu — eigene userId-Spalte, keine Eltern-Auflösung nötig
 ] as const;
 
 export type SyncTableName = (typeof SYNC_TABLES)[number];
@@ -112,6 +115,64 @@ const bodyMetricRowSchema = z.object({
   deleted: z.boolean(),
 });
 
+/**
+ * Ernährungs-Modul (docs/KONZEPT_Ernaehrung.md, Abschnitt 2.4): `foods` folgt
+ * dem `exercises`-Muster (global `userId = null` + eigene Zeilen teilen sich
+ * die Tabelle).
+ */
+const foodRowSchema = z.object({
+  id: z.uuid(),
+  userId: z.uuid().nullable().optional(),
+  barcode: z.string().nullable().optional(),
+  name: z.string().min(1),
+  brand: z.string().nullable().optional(),
+  kcalPer100: z.number().min(0),
+  proteinPer100: z.number().nullable().optional(),
+  carbsPer100: z.number().nullable().optional(),
+  fatPer100: z.number().nullable().optional(),
+  servingSizeG: z.number().nullable().optional(),
+  source: z.enum(['off', 'custom']),
+  offLastFetchedAt: epochMs.nullable().optional(),
+  createdAt: epochMs,
+  updatedAt: epochMs,
+  deleted: z.boolean(),
+});
+
+/** `food_entries` — eigene userId-Spalte, wie `body_metrics`; loggedDate ist ein ISO-Datum. */
+const foodEntryRowSchema = z.object({
+  id: z.uuid(),
+  userId: z.uuid().optional(),
+  entryType: z.enum(['food', 'water']),
+  foodId: z.uuid().nullable().optional(),
+  loggedDate: z.iso.date(),
+  mealSlot: z.enum(['breakfast', 'lunch', 'dinner', 'snack']).nullable().optional(),
+  amountG: z.number().nullable().optional(),
+  amountMl: z.number().nullable().optional(),
+  kcal: z.number().nullable().optional(),
+  proteinG: z.number().nullable().optional(),
+  carbsG: z.number().nullable().optional(),
+  fatG: z.number().nullable().optional(),
+  loggedAt: epochMs,
+  createdAt: epochMs,
+  updatedAt: epochMs,
+  deleted: z.boolean(),
+});
+
+/** `nutrition_goals` — eigene userId-Spalte, wie `body_metrics`; effectiveFrom ist ein ISO-Datum. */
+const nutritionGoalRowSchema = z.object({
+  id: z.uuid(),
+  userId: z.uuid().optional(),
+  effectiveFrom: z.iso.date(),
+  kcalTarget: z.number().int(),
+  proteinTargetG: z.number().nullable().optional(),
+  carbsTargetG: z.number().nullable().optional(),
+  fatTargetG: z.number().nullable().optional(),
+  waterTargetMl: z.number().int().nullable().optional(),
+  createdAt: epochMs,
+  updatedAt: epochMs,
+  deleted: z.boolean(),
+});
+
 /** Zod-Zeilenschema je Sync-Tabelle. */
 export const syncRowSchemas = {
   exercises: exerciseRowSchema,
@@ -120,6 +181,9 @@ export const syncRowSchemas = {
   workouts: workoutRowSchema,
   workout_sets: workoutSetRowSchema,
   body_metrics: bodyMetricRowSchema,
+  foods: foodRowSchema,
+  food_entries: foodEntryRowSchema,
+  nutrition_goals: nutritionGoalRowSchema,
 } as const satisfies Record<SyncTableName, z.ZodTypeAny>;
 
 /** Validierter Zeilentyp einer Sync-Tabelle (Push-Eingabe bzw. Pull-Ausgabe). */
@@ -137,6 +201,9 @@ export const syncPushRequestSchema = z.object({
     workouts: z.array(workoutRowSchema).max(MAX_SYNC_ROWS_PER_TABLE).optional(),
     workout_sets: z.array(workoutSetRowSchema).max(MAX_SYNC_ROWS_PER_TABLE).optional(),
     body_metrics: z.array(bodyMetricRowSchema).max(MAX_SYNC_ROWS_PER_TABLE).optional(),
+    foods: z.array(foodRowSchema).max(MAX_SYNC_ROWS_PER_TABLE).optional(),
+    food_entries: z.array(foodEntryRowSchema).max(MAX_SYNC_ROWS_PER_TABLE).optional(),
+    nutrition_goals: z.array(nutritionGoalRowSchema).max(MAX_SYNC_ROWS_PER_TABLE).optional(),
   }),
 });
 
@@ -152,6 +219,9 @@ export const syncPullRequestSchema = z.object({
       workouts: z.number().int().nonnegative().optional(),
       workout_sets: z.number().int().nonnegative().optional(),
       body_metrics: z.number().int().nonnegative().optional(),
+      foods: z.number().int().nonnegative().optional(),
+      food_entries: z.number().int().nonnegative().optional(),
+      nutrition_goals: z.number().int().nonnegative().optional(),
     })
     .optional(),
 });

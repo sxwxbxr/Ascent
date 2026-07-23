@@ -9,4 +9,10 @@ export type Bindings = {
   BETTER_AUTH_SECRET: string;
   /** Öffentliche Basis-URL des Workers, von Better Auth für Callback-/Reset-Links genutzt. */
   BETTER_AUTH_URL: string;
+  /**
+   * Kontaktangabe für den bei Open-Food-Facts-Aufrufen zwingend vorgeschriebenen
+   * User-Agent-Header (docs/KONZEPT_Ernaehrung.md, Abschnitt 3.1: Format
+   * "AppName/Version (Kontakt-E-Mail)"). Siehe apps/api/src/routes/foods.ts.
+   */
+  OFF_USER_AGENT_CONTACT: string;
 };

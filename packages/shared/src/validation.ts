@@ -168,3 +168,87 @@ export type ExerciseCreateInput = z.infer<typeof exerciseCreateSchema>;
 
 export const exerciseUpdateSchema = exerciseFieldsSchema.partial();
 export type ExerciseUpdateInput = z.infer<typeof exerciseUpdateSchema>;
+
+// ---------------------------------------------------------------------------
+// Ernährungs-Modul (docs/KONZEPT_Ernaehrung.md): Lebensmittel-Cache (OFF +
+// eigene), Tagebuch (Mahlzeiten + Wasser), Ernährungsziele.
+// ---------------------------------------------------------------------------
+
+/** Lebensmittel (global aus OFF gecacht oder eigen): Name + kcal/100 sind Pflicht. */
+const foodFieldsSchema = z.object({
+  barcode: z.string().min(1).max(64).optional(),
+  name: z.string().min(1).max(200),
+  brand: z.string().max(120).optional(),
+  // Nährwerte je 100 g/ml (OFF-Konvention). Obergrenze grosszügig, weil reine
+  // Fette/Öle (z. B. Ghee) nahe an 900-1000 kcal/100g liegen können.
+  kcalPer100: z.number().min(0).max(1000),
+  proteinPer100: z.number().min(0).max(100).optional(),
+  carbsPer100: z.number().min(0).max(100).optional(),
+  fatPer100: z.number().min(0).max(100).optional(),
+  servingSizeG: z.number().positive().max(5000).optional(),
+});
+
+export const foodCreateSchema = foodFieldsSchema.extend({ id: z.uuid().optional() });
+export type FoodCreateInput = z.infer<typeof foodCreateSchema>;
+
+export const foodUpdateSchema = foodFieldsSchema.partial();
+export type FoodUpdateInput = z.infer<typeof foodUpdateSchema>;
+
+/** Tagebuch-Eintrag: Mahlzeit ODER Wasser (entryType), loggedDate als ISO-Datum. */
+const foodEntryFieldsSchema = z.object({
+  entryType: z.enum(['food', 'water']).default('food'),
+  foodId: z.uuid().optional(),
+  /** ISO-Datum (YYYY-MM-DD) — der Tag, dem der Eintrag zugerechnet wird. */
+  loggedDate: z.iso.date(),
+  mealSlot: z.enum(['breakfast', 'lunch', 'dinner', 'snack']).optional(),
+  amountG: z.number().positive().max(5000).optional(),
+  amountMl: z.number().positive().max(10000).optional(),
+  kcal: z.number().min(0).max(20000).optional(),
+  proteinG: z.number().min(0).max(2000).optional(),
+  carbsG: z.number().min(0).max(2000).optional(),
+  fatG: z.number().min(0).max(2000).optional(),
+  loggedAt: z.number().int().positive(),
+});
+
+/**
+ * Formprüfung: Wasser-Einträge tragen keine Mahlzeit-spezifischen Felder
+ * (mealSlot/amountG). Bei partiellen Updates ohne mitgeliefertes entryType
+ * ist keine Aussage möglich — dann wird die Prüfung übersprungen.
+ */
+function foodEntryShapeIsValid(data: { entryType?: 'food' | 'water'; amountG?: number; mealSlot?: string }): boolean {
+  if (data.entryType === undefined) return true;
+  if (data.entryType === 'water') return data.amountG === undefined && data.mealSlot === undefined;
+  return true;
+}
+
+const foodEntryShapeIssue: { message: string; path: PropertyKey[] } = {
+  message: 'Wasser-Einträge dürfen kein mealSlot/amountG tragen',
+  path: ['entryType'],
+};
+
+export const foodEntryCreateSchema = foodEntryFieldsSchema
+  .extend({ id: z.uuid().optional() })
+  .refine(foodEntryShapeIsValid, foodEntryShapeIssue);
+export type FoodEntryCreateInput = z.infer<typeof foodEntryCreateSchema>;
+
+export const foodEntryUpdateSchema = foodEntryFieldsSchema
+  .partial()
+  .refine(foodEntryShapeIsValid, foodEntryShapeIssue);
+export type FoodEntryUpdateInput = z.infer<typeof foodEntryUpdateSchema>;
+
+/** Ernährungsziel: kcal-Ziel ist Pflicht, Makro-/Wasser-Ziele optional. */
+const nutritionGoalFieldsSchema = z.object({
+  /** ISO-Datum (YYYY-MM-DD) — ab wann dieses Ziel gilt. */
+  effectiveFrom: z.iso.date(),
+  kcalTarget: z.number().int().min(0).max(20000),
+  proteinTargetG: z.number().min(0).max(2000).optional(),
+  carbsTargetG: z.number().min(0).max(2000).optional(),
+  fatTargetG: z.number().min(0).max(2000).optional(),
+  waterTargetMl: z.number().int().min(0).max(20000).optional(),
+});
+
+export const nutritionGoalCreateSchema = nutritionGoalFieldsSchema.extend({ id: z.uuid().optional() });
+export type NutritionGoalCreateInput = z.infer<typeof nutritionGoalCreateSchema>;
+
+export const nutritionGoalUpdateSchema = nutritionGoalFieldsSchema.partial();
+export type NutritionGoalUpdateInput = z.infer<typeof nutritionGoalUpdateSchema>;
