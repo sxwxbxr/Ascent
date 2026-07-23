@@ -4,6 +4,9 @@ import * as SecureStore from 'expo-secure-store';
 import {
   bodyMetrics,
   exercises,
+  foodEntries,
+  foods,
+  nutritionGoals,
   planExercises,
   plans,
   workoutSets,
@@ -251,6 +254,22 @@ async function pushChanges(ownerUserId: string): Promise<void> {
   await pushTable('body_metrics', cursors, (cursor) =>
     db.select().from(bodyMetrics).where(gt(bodyMetrics.updatedAt, cursor)),
   );
+
+  // Ernährungs-Modul (docs/KONZEPT_Ernaehrung.md, Abschnitt 2.4): foods folgt
+  // dem exercises-Muster — NUR eigene (userId = ownerUserId) werden gepusht,
+  // globale OFF-Cache-Zeilen (userId = null) legt ausschliesslich der Server an.
+  await pushTable('foods', cursors, (cursor) =>
+    db
+      .select()
+      .from(foods)
+      .where(and(gt(foods.updatedAt, cursor), eq(foods.userId, ownerUserId))),
+  );
+  await pushTable('food_entries', cursors, (cursor) =>
+    db.select().from(foodEntries).where(gt(foodEntries.updatedAt, cursor)),
+  );
+  await pushTable('nutrition_goals', cursors, (cursor) =>
+    db.select().from(nutritionGoals).where(gt(nutritionGoals.updatedAt, cursor)),
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -425,6 +444,102 @@ async function upsertBodyMetric(row: SyncRow<'body_metrics'>, ownerUserId: strin
   }
 }
 
+/**
+ * Ernährungs-Modul (docs/KONZEPT_Ernaehrung.md, Abschnitt 2.4): `foods` folgt
+ * dem exercises-Muster (global userId=null + eigene Zeilen teilen sich die
+ * Tabelle) — analog zu upsertExercise oben.
+ */
+async function upsertFood(row: SyncRow<'foods'>): Promise<void> {
+  const existing = (await db.select({ updatedAt: foods.updatedAt }).from(foods).where(eq(foods.id, row.id)).limit(1))[0];
+
+  const values: typeof foods.$inferInsert = {
+    id: row.id,
+    userId: row.userId ?? null,
+    barcode: row.barcode ?? null,
+    name: row.name,
+    brand: row.brand ?? null,
+    kcalPer100: row.kcalPer100,
+    proteinPer100: row.proteinPer100 ?? null,
+    carbsPer100: row.carbsPer100 ?? null,
+    fatPer100: row.fatPer100 ?? null,
+    servingSizeG: row.servingSizeG ?? null,
+    source: row.source,
+    offLastFetchedAt: row.offLastFetchedAt ?? null,
+    createdAt: row.createdAt,
+    updatedAt: row.updatedAt,
+    deleted: row.deleted,
+  };
+
+  if (!existing) {
+    await db.insert(foods).values(values);
+  } else if (row.updatedAt > existing.updatedAt) {
+    await db.update(foods).set(values).where(eq(foods.id, row.id));
+  }
+}
+
+/** `food_entries` — eigene userId-Spalte, wie body_metrics (analog zu upsertBodyMetric). */
+async function upsertFoodEntry(row: SyncRow<'food_entries'>, ownerUserId: string): Promise<void> {
+  const existing = (
+    await db.select({ updatedAt: foodEntries.updatedAt }).from(foodEntries).where(eq(foodEntries.id, row.id)).limit(1)
+  )[0];
+
+  const values: typeof foodEntries.$inferInsert = {
+    id: row.id,
+    userId: row.userId ?? ownerUserId,
+    entryType: row.entryType,
+    foodId: row.foodId ?? null,
+    loggedDate: row.loggedDate,
+    mealSlot: row.mealSlot ?? null,
+    amountG: row.amountG ?? null,
+    amountMl: row.amountMl ?? null,
+    kcal: row.kcal ?? null,
+    proteinG: row.proteinG ?? null,
+    carbsG: row.carbsG ?? null,
+    fatG: row.fatG ?? null,
+    loggedAt: row.loggedAt,
+    createdAt: row.createdAt,
+    updatedAt: row.updatedAt,
+    deleted: row.deleted,
+  };
+
+  if (!existing) {
+    await db.insert(foodEntries).values(values);
+  } else if (row.updatedAt > existing.updatedAt) {
+    await db.update(foodEntries).set(values).where(eq(foodEntries.id, row.id));
+  }
+}
+
+/** `nutrition_goals` — eigene userId-Spalte, wie body_metrics (analog zu upsertBodyMetric). */
+async function upsertNutritionGoal(row: SyncRow<'nutrition_goals'>, ownerUserId: string): Promise<void> {
+  const existing = (
+    await db
+      .select({ updatedAt: nutritionGoals.updatedAt })
+      .from(nutritionGoals)
+      .where(eq(nutritionGoals.id, row.id))
+      .limit(1)
+  )[0];
+
+  const values: typeof nutritionGoals.$inferInsert = {
+    id: row.id,
+    userId: row.userId ?? ownerUserId,
+    effectiveFrom: row.effectiveFrom,
+    kcalTarget: row.kcalTarget,
+    proteinTargetG: row.proteinTargetG ?? null,
+    carbsTargetG: row.carbsTargetG ?? null,
+    fatTargetG: row.fatTargetG ?? null,
+    waterTargetMl: row.waterTargetMl ?? null,
+    createdAt: row.createdAt,
+    updatedAt: row.updatedAt,
+    deleted: row.deleted,
+  };
+
+  if (!existing) {
+    await db.insert(nutritionGoals).values(values);
+  } else if (row.updatedAt > existing.updatedAt) {
+    await db.update(nutritionGoals).set(values).where(eq(nutritionGoals.id, row.id));
+  }
+}
+
 async function pullChanges(ownerUserId: string): Promise<void> {
   const pullCursors = await migrateLegacyExercisesCursor(readCursors(PULL_CURSORS_KEY));
 
@@ -451,6 +566,9 @@ async function pullChanges(ownerUserId: string): Promise<void> {
   await applyInChunks(tables.workouts, (row) => upsertWorkout(row, ownerUserId));
   await applyInChunks(tables.workout_sets, (row) => upsertWorkoutSet(row));
   await applyInChunks(tables.body_metrics, (row) => upsertBodyMetric(row, ownerUserId));
+  await applyInChunks(tables.foods, (row) => upsertFood(row));
+  await applyInChunks(tables.food_entries, (row) => upsertFoodEntry(row, ownerUserId));
+  await applyInChunks(tables.nutrition_goals, (row) => upsertNutritionGoal(row, ownerUserId));
 
   const newPullCursors: SyncCursors = {};
   for (const table of SYNC_TABLES) newPullCursors[table] = serverTime;

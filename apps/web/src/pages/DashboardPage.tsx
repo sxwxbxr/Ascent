@@ -15,19 +15,27 @@ import { epley1Rm, strengthTrend } from "@ascent/shared";
 import { ApiError, api } from "../lib/api";
 import { useEntitlement } from "../lib/entitlements";
 import { exerciseName } from "../lib/i18n";
+import { latestGoal, todayIso } from "../lib/nutrition";
 import { useSnapshot } from "../lib/snapshot";
 import type { WorkoutRow, WorkoutSetRow } from "../lib/snapshot";
 
 /** Feature-Key für die "Erweiterte Statistik"-Karte (siehe apps/api/seed/feature_flags.sql). */
 const ADVANCED_STATS_FEATURE = "stats.web.advanced";
+/** Feature-Key für das Ernährungs-Kernmodul (Tagebuch/Ziele) – gated die "kcal heute"-Karte (docs/KONZEPT_Ernaehrung.md Abschnitt 5). */
+const NUTRITION_TRACKING_FEATURE = "nutrition.tracking";
 
-/** Literale Hex-Werte für recharts-SVG-Elemente – Tailwind-Klassen wirken dort nicht. */
-const CHART_PRIMARY_COLOR = "#B4FF39";
-const CHART_TREND_COLOR = "#93DB00";
-const CHART_GRID_COLOR = "#2C2C2C";
-const CHART_AXIS_COLOR = "#A0A0A0";
-const CHART_TOOLTIP_BG = "#1E1E1E";
-const CHART_TOOLTIP_BORDER = "#2C2C2C";
+/**
+ * Literale Hex-Werte für recharts-SVG-Elemente – Tailwind-Klassen wirken dort
+ * nicht. Exportiert, damit andere Chart-Seiten (z. B. NutritionPage) dieselbe
+ * Palette wiederverwenden statt sie neu zu erfinden (visuelle Konsistenz,
+ * siehe docs/KONZEPT_Ernaehrung.md Abschnitt 7).
+ */
+export const CHART_PRIMARY_COLOR = "#B4FF39";
+export const CHART_TREND_COLOR = "#93DB00";
+export const CHART_GRID_COLOR = "#2C2C2C";
+export const CHART_AXIS_COLOR = "#A0A0A0";
+export const CHART_TOOLTIP_BG = "#1E1E1E";
+export const CHART_TOOLTIP_BORDER = "#2C2C2C";
 
 /** Montag 00:00 (lokale Zeit) der Woche, in der `date` liegt. */
 function startOfWeek(date: Date): number {
@@ -81,6 +89,7 @@ interface RecentWorkoutRow {
 export function DashboardPage() {
   const { snapshot, loading, error, reload } = useSnapshot();
   const hasAdvancedStats = useEntitlement(ADVANCED_STATS_FEATURE);
+  const hasNutritionTracking = useEntitlement(NUTRITION_TRACKING_FEATURE);
 
   const [selectedExerciseIdOverride, setSelectedExerciseIdOverride] = useState<string | null>(null);
   const [weightInput, setWeightInput] = useState("");
@@ -169,6 +178,21 @@ export function DashboardPage() {
         .map((metric) => ({ date: metric.measuredAt, weightKg: metric.weightKg })),
     [snapshot.bodyMetrics],
   );
+
+  // "kcal heute"-Karte (docs/KONZEPT_Ernaehrung.md Abschnitt 6): Summe der
+  // heutigen Mahlzeiten-Einträge (kein Wasser) vs. aktuellstes Ernährungsziel.
+  const kcalToday = useMemo(() => {
+    const today = todayIso();
+    let total = 0;
+    for (const entry of snapshot.foodEntries) {
+      if (entry.entryType === "food" && entry.loggedDate === today) {
+        total += entry.kcal ?? 0;
+      }
+    }
+    return total;
+  }, [snapshot.foodEntries]);
+
+  const nutritionGoal = useMemo(() => latestGoal(snapshot.nutritionGoals), [snapshot.nutritionGoals]);
 
   const stats = useMemo(() => {
     const weekStartMs = startOfWeek(new Date());
@@ -539,6 +563,31 @@ export function DashboardPage() {
               </Link>
             </div>
           </div>
+
+          {/* kcal heute (Ernährungs-Modul, docs/KONZEPT_Ernaehrung.md Abschnitt 6) – nur additiv, kein Ersatz für /ernaehrung. */}
+          {hasNutritionTracking && (
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+              <div className="rounded-lg border border-surface-container-high bg-surface-container p-6">
+                <h2 className="text-xs font-semibold uppercase tracking-widest text-on-surface-muted">
+                  kcal heute
+                </h2>
+                <p className="mt-4 text-4xl font-extrabold tabular-nums text-primary">
+                  {formatNumber(Math.round(kcalToday))}
+                  {nutritionGoal && (
+                    <span className="ml-1 text-lg font-semibold text-on-surface-muted">
+                      / {formatNumber(nutritionGoal.kcalTarget)} kcal
+                    </span>
+                  )}
+                </p>
+                <Link
+                  to="/ernaehrung"
+                  className="mt-4 inline-block text-sm font-semibold text-primary hover:underline"
+                >
+                  Zum Ernährungstagebuch →
+                </Link>
+              </div>
+            </div>
+          )}
         </>
       )}
     </div>

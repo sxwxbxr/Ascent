@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 
 /**
- * Tab-Layout: Home, Pläne, Verlauf, Profil — mit echten Ionicons
+ * Tab-Layout: Home, Pläne, Verlauf, Ernährung, Profil — mit echten Ionicons
  * (der Beta-Test zeigte kaputte Platzhalter-Glyphen ohne Icon-Font).
  */
 export default function TabsLayout() {
@@ -35,6 +35,13 @@ export default function TabsLayout() {
         options={{
           title: 'Verlauf',
           tabBarIcon: ({ color, size }) => <Ionicons name="stats-chart" size={size} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="ernaehrung"
+        options={{
+          title: 'Ernährung',
+          tabBarIcon: ({ color, size }) => <Ionicons name="restaurant" size={size} color={color} />,
         }}
       />
       <Tabs.Screen

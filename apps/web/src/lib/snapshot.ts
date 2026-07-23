@@ -16,6 +16,12 @@ export type PlanExerciseRow = SyncRow<"plan_exercises">;
 export type WorkoutRow = SyncRow<"workouts">;
 export type WorkoutSetRow = SyncRow<"workout_sets">;
 export type BodyMetricRow = SyncRow<"body_metrics">;
+/** Ernährungs-Modul (docs/KONZEPT_Ernaehrung.md, Abschnitt 2): globaler OFF-Cache + eigene Lebensmittel. */
+export type FoodRow = SyncRow<"foods">;
+/** Tagebuch-Eintrag (Mahlzeit ODER Wasser, siehe `entryType`). */
+export type FoodEntryRow = SyncRow<"food_entries">;
+/** Ernährungsziel (anfügende History-Tabelle, wie `body_metrics`). */
+export type NutritionGoalRow = SyncRow<"nutrition_goals">;
 
 /** Der komplette, bereits um `deleted`-Zeilen bereinigte Nutzer-Datenbestand. */
 export interface Snapshot {
@@ -25,6 +31,9 @@ export interface Snapshot {
   workouts: WorkoutRow[];
   workoutSets: WorkoutSetRow[];
   bodyMetrics: BodyMetricRow[];
+  foods: FoodRow[];
+  foodEntries: FoodEntryRow[];
+  nutritionGoals: NutritionGoalRow[];
 }
 
 const EMPTY_SNAPSHOT: Snapshot = {
@@ -34,6 +43,9 @@ const EMPTY_SNAPSHOT: Snapshot = {
   workouts: [],
   workoutSets: [],
   bodyMetrics: [],
+  foods: [],
+  foodEntries: [],
+  nutritionGoals: [],
 };
 
 export interface SnapshotContextValue {
@@ -59,6 +71,9 @@ function toSnapshot(result: SyncPullResult): Snapshot {
     workouts: withoutDeleted(result.tables.workouts),
     workoutSets: withoutDeleted(result.tables.workout_sets),
     bodyMetrics: withoutDeleted(result.tables.body_metrics),
+    foods: withoutDeleted(result.tables.foods),
+    foodEntries: withoutDeleted(result.tables.food_entries),
+    nutritionGoals: withoutDeleted(result.tables.nutrition_goals),
   };
 }
 
@@ -99,7 +114,7 @@ function mergeRows<T extends { id: string; deleted: boolean }>(existing: T[], de
 
 /**
  * Merged einen Delta-Pull in den bestehenden Snapshot. Gibt `null` zurück,
- * wenn KEINE der sechs Tabellen tatsächlich Zeilen im Delta hatte – der
+ * wenn KEINE der neun Tabellen tatsächlich Zeilen im Delta hatte – der
  * Aufrufer lässt den State dann unangetastet (keine unnötigen Re-Renders
  * sämtlicher Dashboard-Charts bei einem "leeren" Poll).
  */
@@ -110,6 +125,9 @@ function mergeSnapshot(previous: Snapshot, delta: SyncPullResult): Snapshot | nu
   const workouts = mergeRows(previous.workouts, delta.tables.workouts);
   const workoutSets = mergeRows(previous.workoutSets, delta.tables.workout_sets);
   const bodyMetrics = mergeRows(previous.bodyMetrics, delta.tables.body_metrics);
+  const foods = mergeRows(previous.foods, delta.tables.foods);
+  const foodEntries = mergeRows(previous.foodEntries, delta.tables.food_entries);
+  const nutritionGoals = mergeRows(previous.nutritionGoals, delta.tables.nutrition_goals);
 
   const unchanged =
     exercises === previous.exercises &&
@@ -117,13 +135,26 @@ function mergeSnapshot(previous: Snapshot, delta: SyncPullResult): Snapshot | nu
     planExercises === previous.planExercises &&
     workouts === previous.workouts &&
     workoutSets === previous.workoutSets &&
-    bodyMetrics === previous.bodyMetrics;
+    bodyMetrics === previous.bodyMetrics &&
+    foods === previous.foods &&
+    foodEntries === previous.foodEntries &&
+    nutritionGoals === previous.nutritionGoals;
 
   if (unchanged) {
     return null;
   }
 
-  return { exercises, plans, planExercises, workouts, workoutSets, bodyMetrics };
+  return {
+    exercises,
+    plans,
+    planExercises,
+    workouts,
+    workoutSets,
+    bodyMetrics,
+    foods,
+    foodEntries,
+    nutritionGoals,
+  };
 }
 
 /** Delta-Poll-Intervall: alle 10s, nur solange der Tab sichtbar ist. */

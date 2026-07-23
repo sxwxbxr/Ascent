@@ -6,6 +6,7 @@ import { ExerciseDetailPage } from "./pages/ExerciseDetailPage";
 import { ExercisesPage } from "./pages/ExercisesPage";
 import { HistoryPage } from "./pages/HistoryPage";
 import { LoginPage } from "./pages/LoginPage";
+import { NutritionPage } from "./pages/NutritionPage";
 import { PlanDetailPage } from "./pages/PlanDetailPage";
 import { PlanEditorPage } from "./pages/PlanEditorPage";
 import { PlansPage } from "./pages/PlansPage";
@@ -28,6 +29,7 @@ function App() {
         <Route path="plaene/:planId/bearbeiten" element={<PlanEditorPage />} />
         <Route path="uebungen" element={<ExercisesPage />} />
         <Route path="uebungen/:id" element={<ExerciseDetailPage />} />
+        <Route path="ernaehrung" element={<NutritionPage />} />
         <Route path="download" element={<DownloadPage />} />
         <Route path="einstellungen" element={<SettingsPage />} />
       </Route>

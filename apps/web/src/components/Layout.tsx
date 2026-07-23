@@ -58,6 +58,9 @@ export function Layout() {
                 <NavLink to="/uebungen" className={getNavLinkClassName}>
                   Übungen
                 </NavLink>
+                <NavLink to="/ernaehrung" className={getNavLinkClassName}>
+                  Ernährung
+                </NavLink>
                 <NavLink to="/download" className={getNavLinkClassName}>
                   Download
                 </NavLink>
@@ -85,6 +88,9 @@ export function Layout() {
               </NavLink>
               <NavLink to="/uebungen" className={getNavLinkClassName}>
                 Übungen
+              </NavLink>
+              <NavLink to="/ernaehrung" className={getNavLinkClassName}>
+                Ernährung
               </NavLink>
               <NavLink to="/download" className={getNavLinkClassName}>
                 Download
